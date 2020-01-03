@@ -14,6 +14,8 @@ from create_dataset import load
 
 if __name__ == "__main__":
 
+    test_ids=pd.read_csv(os.path.join(DATA_DIR,RAW_DIR,TEST_CSV))
+
     imgs, labels, ids, classes = load(os.path.join(DATA_DIR,TEST_DATASET_PKL))
     gen=ImageDataGenerator.load(os.path.join(DATA_DIR,IMAGE_GEN_PKL))
 
@@ -29,6 +31,13 @@ if __name__ == "__main__":
             row_ids.append(row_id)
             targets.append(pred[target_idx])
 
+
+    idxs=[row_ids.index(i) for i in test_ids['row_id']]
+
+    row_ids=np.array(row_ids)
+    targets=np.array(targets)
+    targets=targets[idxs]
+    row_ids=row_ids[idxs]
     submission=pd.DataFrame(data={'row_id':row_ids,'target':targets})
     submission.to_csv(os.path.join(DATA_DIR,SUBMISSION_DIR,SUBMISSION_CSV),index=False)
 

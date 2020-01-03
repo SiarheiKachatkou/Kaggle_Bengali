@@ -40,9 +40,9 @@ class Model():
             self._models.append(model)
 
 
-    def fit_generator(self,gen,train_images,train_labels, val_images, val_labels, batch_size,epochs):
+    def fit_generator(self,gen,train_images,train_labels, val_images, val_labels, batch_size,epochs, **kwargs):
         for m in range(len(self._models)):
-            self._models[m].fit_generator(gen.flow(train_images,train_labels[:,m]),validation_data=gen.flow(val_images,val_labels[:,m]),steps_per_epoch=len(train_images)/(batch_size),epochs=epochs)
+            self._models[m].fit_generator(gen.flow(train_images,train_labels[:,m]),validation_data=gen.flow(val_images,val_labels[:,m]),steps_per_epoch=len(train_images)/(batch_size),epochs=epochs, **kwargs)
 
     def _get_model_filename(self,path_to_file,index):
         return path_to_file+'_{}'.format(index)
