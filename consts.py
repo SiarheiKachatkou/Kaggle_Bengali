@@ -1,5 +1,6 @@
 
 DATA_DIR='data'
+RAW_DIR='raw'
 MODELS_DIR='models'
 TRAIN_IMAGE_DATA_PATTERN='train_image_data_*.parquet'
 TEST_IMAGE_DATA_PATTERN='test_image_data_*.parquet'
