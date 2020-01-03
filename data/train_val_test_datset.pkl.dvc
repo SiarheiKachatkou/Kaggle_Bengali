@@ -1,0 +1,26 @@
+md5: 7531401b28a5a7d7cad6e892abed9978
+cmd: /home/sergey/anaconda3/envs/tensorflow/bin/python create_dataset.py
+wdir: ..
+deps:
+- md5: b89cc819e4c4cee5d938448f1e9828b9
+  path: consts.py
+- md5: d159c5e9696192ede34f771060791864
+  path: create_dataset.py
+- md5: 05c66aece18d092b9d09502fb9a4561b
+  path: image_data_generator.py
+outs:
+- md5: 2a8398ad832c384966f1b43d3c088b8e
+  path: data/test_datset.pkl
+  cache: true
+  metric: false
+  persist: false
+- md5: da1af1d9f6fc6a799a081bfecee3943a
+  path: data/train_datset.pkl
+  cache: true
+  metric: false
+  persist: false
+- md5: 13ed31bf03381c4ba88245f60f67e334
+  path: data/val_datset.pkl
+  cache: true
+  metric: false
+  persist: false
