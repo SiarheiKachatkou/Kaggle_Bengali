@@ -1,13 +1,12 @@
 import pandas as pd
 import os
 import glob
-import tensorflow as tf
-import tensorflow.keras as keras
 import cv2
 import pickle
 import numpy as np
 import sklearn.model_selection
 import matplotlib.pyplot as plt
+
 from consts import DATA_DIR,TRAIN_IMAGE_DATA_PATTERN, IMG_HEIGHT,IMG_WIDTH,N_CHANNELS,TRAIN_CSV,CLASS_MAP_CSV, IMG_H,IMG_W,BATCH_SIZE,EPOCHS,LR, TRAIN_DATASET_PKL, VAL_DATASET_PKL,SEED
 
 
