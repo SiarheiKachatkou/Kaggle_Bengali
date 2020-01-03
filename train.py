@@ -9,8 +9,6 @@ import numpy as np
 import matplotlib.pyplot as plt
 from consts import DATA_DIR,TRAIN_IMAGE_DATA_PATTERN, IMG_HEIGHT,IMG_WIDTH,N_CHANNELS,TRAIN_CSV,CLASS_MAP_CSV, IMG_H,IMG_W,BATCH_SIZE,EPOCHS,LR, DATASET_PKL,MODELS_DIR
 
-do_resave_dataset=False
-
 for MODEL_TARGET in ['grapheme_root','vowel_diacritic','consonant_diacritic']:
 
     class_map=pd.read_csv(os.path.join(DATA_DIR,CLASS_MAP_CSV))
@@ -46,7 +44,7 @@ for MODEL_TARGET in ['grapheme_root','vowel_diacritic','consonant_diacritic']:
 
     print('{} train images loaded'.format(len(imgs)))
 
-    image_data_generator=keras.preprocessing.image.ImageDataGenerator(samplewise_center=True,samplewise_std_normalization=True)
+
 
     ''''
     model=tf.keras.applications.ResNet50(
