@@ -1,25 +1,18 @@
-import pandas as pd
 import os
-import glob
 import tensorflow as tf
 import tensorflow.keras as keras
-import cv2
-import pickle
 import numpy as np
-import matplotlib.pyplot as plt
 from model import Model
+from create_dataset import load
 from image_data_generator import ImageDataGenerator
-from consts import DATA_DIR,MODEL_NAME,BATCH_SIZE,EPOCHS,LR, TRAIN_DATASET_PKL, VAL_DATASET_PKL, MODELS_DIR
+from consts import DATA_DIR,MODEL_NAME,BATCH_SIZE,EPOCHS,LR, TRAIN_DATASET_PKL, VAL_DATASET_PKL, IMAGE_GEN_PKL, MODELS_DIR
 
 debug_regime=False
 
 if __name__ == "__main__":
 
-    with open(os.path.join(DATA_DIR,TRAIN_DATASET_PKL),'rb') as file:
-        train_images, train_labels, classes = pickle.load(file)
-
-    with open(os.path.join(DATA_DIR,VAL_DATASET_PKL),'rb') as file:
-        val_images, val_labels, _ = pickle.load(file)
+    train_images, train_labels, _, classes = load(os.path.join(DATA_DIR,TRAIN_DATASET_PKL))
+    val_images, val_labels, _, _  = load(os.path.join(DATA_DIR,VAL_DATASET_PKL))
 
     if debug_regime:
         max_samples=100
@@ -31,8 +24,7 @@ if __name__ == "__main__":
     print('{} train images loaded'.format(len(train_images)))
     print('{} val images loaded'.format(len(val_images)))
 
-    gen=ImageDataGenerator()
-    gen.fit(train_images)
+    gen=ImageDataGenerator.load(os.path.join(DATA_DIR,IMAGE_GEN_PKL))
 
     model=Model()
 
@@ -46,7 +38,7 @@ if __name__ == "__main__":
     model_loaded.load(model_filepath, classes)
 
     val_preds=model_loaded.predict(gen, val_images)
-    acc=[float(all(val_pred==val_label)) for val_pred,val_label in zip(val_preds,val_labels)]
+    acc=[float(all(np.equal(val_pred,val_label))) for val_pred,val_label in zip(val_preds,val_labels)]
     print('validation accuracy of loaded model = {}'.format(np.mean(acc)))
 
 

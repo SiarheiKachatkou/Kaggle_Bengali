@@ -5,9 +5,9 @@ import cv2
 import pickle
 import numpy as np
 import sklearn.model_selection
-import matplotlib.pyplot as plt
+from image_data_generator import ImageDataGenerator
 
-from consts import DATA_DIR,RAW_DIR,TRAIN_IMAGE_DATA_PATTERN, TEST_IMAGE_DATA_PATTERN, IMG_HEIGHT,IMG_WIDTH,N_CHANNELS,TRAIN_CSV,CLASS_MAP_CSV, IMG_H,IMG_W, TRAIN_DATASET_PKL, VAL_DATASET_PKL, TEST_DATASET_PKL, SEED
+from consts import DATA_DIR,RAW_DIR,TRAIN_IMAGE_DATA_PATTERN, TEST_IMAGE_DATA_PATTERN, IMG_HEIGHT,IMG_WIDTH,N_CHANNELS,TRAIN_CSV,CLASS_MAP_CSV, IMG_H,IMG_W, TRAIN_DATASET_PKL, VAL_DATASET_PKL, TEST_DATASET_PKL, IMAGE_GEN_PKL, SEED, TARGETS
 
 debug_mode=False
 
@@ -48,6 +48,12 @@ def dump(path_to_file, imgs,labels, ids, classes):
     with open(path_to_file,'wb') as file:
         pickle.dump([imgs,labels,ids, classes],file)
 
+def load(path_to_file):
+    with open(path_to_file,'rb') as file:
+        imgs,labels,ids, classes = pickle.load(file)
+    return imgs,labels,ids, classes
+
+
 
 if __name__=="__main__":
 
@@ -55,7 +61,6 @@ if __name__=="__main__":
     train_csv=pd.read_csv(os.path.join(DATA_DIR,RAW_DIR, TRAIN_CSV))
     train_csv.set_index('image_id', inplace=True)
 
-    TARGETS=['grapheme_root','vowel_diacritic','consonant_diacritic']
     classes = [sum(class_map['component_type']==target) for target in TARGETS]
 
     imgs,image_ids,labels = load_parquet(os.path.join(DATA_DIR,RAW_DIR, TRAIN_IMAGE_DATA_PATTERN),train_csv)
@@ -65,7 +70,12 @@ if __name__=="__main__":
     labels_0=labels[:,0]
     train_index, test_index = next(skf.split(imgs, labels_0))
 
-    imgs_train, labels_train,ids_train =imgs[train_index], labels[train_index], image_ids[train_index]
+    imgs_train, labels_train,ids_train = imgs[train_index], labels[train_index], image_ids[train_index]
+
+    gen=ImageDataGenerator()
+    gen.fit(imgs_train)
+    gen.save(os.path.join(DATA_DIR,IMAGE_GEN_PKL))
+
     imgs_val, labels_val, ids_val =imgs[test_index], labels[test_index], image_ids[test_index]
 
     dump(os.path.join(DATA_DIR,TRAIN_DATASET_PKL),imgs_train,labels_train,ids_train, classes)
