@@ -44,7 +44,7 @@ if __name__ == "__main__":
     acc=np.mean(acc)
     print('validation accuracy of loaded model = {}'.format(acc))
     with open('metric.txt','wt') as file:
-        file.write(acc)
+        file.write(str(acc))
 
 
 
