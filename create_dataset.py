@@ -7,28 +7,19 @@ import numpy as np
 import sklearn.model_selection
 import matplotlib.pyplot as plt
 
-from consts import DATA_DIR,TRAIN_IMAGE_DATA_PATTERN, IMG_HEIGHT,IMG_WIDTH,N_CHANNELS,TRAIN_CSV,CLASS_MAP_CSV, IMG_H,IMG_W,BATCH_SIZE,EPOCHS,LR, TRAIN_DATASET_PKL, VAL_DATASET_PKL,SEED
-
+from consts import DATA_DIR,TRAIN_IMAGE_DATA_PATTERN, TEST_IMAGE_DATA_PATTERN, IMG_HEIGHT,IMG_WIDTH,N_CHANNELS,TRAIN_CSV,CLASS_MAP_CSV, IMG_H,IMG_W, TRAIN_DATASET_PKL, VAL_DATASET_PKL, TEST_DATASET_PKL, SEED
 
 def preproc(x):
     x=cv2.resize(np.reshape(x,[IMG_HEIGHT,IMG_WIDTH,N_CHANNELS]),(IMG_W,IMG_H))
     return np.expand_dims(x,axis=-1)
 
 
-if __name__=="__main__":
-
-    class_map=pd.read_csv(os.path.join(DATA_DIR,CLASS_MAP_CSV))
-    train_csv=pd.read_csv(os.path.join(DATA_DIR,TRAIN_CSV))
-    train_csv.set_index('image_id', inplace=True)
-    img_data_files=glob.glob(os.path.join(DATA_DIR,TRAIN_IMAGE_DATA_PATTERN))
-
-
-    TARGETS=['grapheme_root','vowel_diacritic','consonant_diacritic']
-    classes = [sum(class_map['component_type']==target) for target in TARGETS]
+def load_parquet(path_pattern, labels_csv):
 
     image_ids=[]
     imgs=[]
     labels=[]
+    img_data_files=glob.glob(path_pattern)
     #img_data_files=img_data_files[:1] #TODO test
     for filename in img_data_files:
         df_imgs = pd.read_parquet(filename,engine='pyarrow')
@@ -37,22 +28,45 @@ if __name__=="__main__":
 
         images=[preproc(x) for x in list(df_imgs.values)]
         imgs.extend(images)
-        labels.extend(list(np.array(train_csv.loc[df_imgs.index])[:,:-1]))
+        if labels_csv is not None:
+            labels.extend(list(np.array(labels_csv.loc[df_imgs.index])[:,:-1]))
+        else:
+            labels=None
 
     imgs=np.array(imgs)
     labels=np.array(labels).astype(np.int)
+    return imgs,image_ids,labels
+
+
+def dump(imgs,labels, ids, classes, path_to_file):
+    with open(path_to_file,'wb') as file:
+        pickle.dump([imgs,labels,ids, classes],file)
+
+
+if __name__=="__main__":
+
+    class_map=pd.read_csv(os.path.join(DATA_DIR,CLASS_MAP_CSV))
+    train_csv=pd.read_csv(os.path.join(DATA_DIR,TRAIN_CSV))
+    train_csv.set_index('image_id', inplace=True)
+
+    TARGETS=['grapheme_root','vowel_diacritic','consonant_diacritic']
+    classes = [sum(class_map['component_type']==target) for target in TARGETS]
+
+    imgs,image_ids,labels = load_parquet(os.path.join(DATA_DIR,TRAIN_IMAGE_DATA_PATTERN),train_csv)
 
     skf = sklearn.model_selection.StratifiedKFold(n_splits=5, shuffle=True, random_state=SEED)
     #TODO place for improvements
     labels_0=labels[:,0]
     train_index, test_index = next(skf.split(imgs, labels_0))
 
-    imgs_train, labels_train =imgs[train_index], labels[train_index]
-    imgs_val, labels_val =imgs[test_index], labels[test_index]
+    imgs_train, labels_train,ids_train =imgs[train_index], labels[train_index], image_ids[train_index]
+    imgs_val, labels_val, ids_val =imgs[test_index], labels[test_index], image_ids[test_index]
 
-    with open(os.path.join(DATA_DIR,TRAIN_DATASET_PKL),'wb') as file:
-        pickle.dump([imgs_train,labels_train,classes],file)
+    dump(os.path.join(DATA_DIR,TRAIN_DATASET_PKL),imgs_train,labels_train,ids_train, classes)
 
-    with open(os.path.join(DATA_DIR,VAL_DATASET_PKL),'wb') as file:
-        pickle.dump([imgs_val,labels_val,classes],file)
+    dump(os.path.join(DATA_DIR,VAL_DATASET_PKL), imgs_val,labels_val,ids_val, classes)
+
+    test_imgs,test_image_ids,test_labels = load_parquet(os.path.join(DATA_DIR,TEST_IMAGE_DATA_PATTERN),labels_csv=None)
+    dump(os.path.join(DATA_DIR,TEST_DATASET_PKL), test_imgs,test_labels,test_image_ids, classes)
+
 
