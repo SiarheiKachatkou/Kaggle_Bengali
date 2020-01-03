@@ -41,7 +41,11 @@ if __name__ == "__main__":
 
     val_preds=model_loaded.predict(gen, val_images)
     acc=[float(all(np.equal(val_pred,val_label))) for val_pred,val_label in zip(val_preds,val_labels)]
-    print('validation accuracy of loaded model = {}'.format(np.mean(acc)))
+    acc=np.mean(acc)
+    print('validation accuracy of loaded model = {}'.format(acc))
+    with open('metric.txt','wt') as file:
+        file.write(acc)
+
 
 
 
