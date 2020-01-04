@@ -24,7 +24,7 @@ def get_augmentations():
                       A.RandomSnow(p=0.2),
                       A.RandomRain(p=0.2),
                       A.RandomFog(p=0.2),
-                      A.ElasticTransform(alpha=3,sigma=5,alpha_affine=2)],p=0.6)
+                      A.ElasticTransform(alpha=3,sigma=5,alpha_affine=2)],p=0.3)
 
 class Model(ModelBase, torch.nn.Module):
 
@@ -81,8 +81,8 @@ class Model(ModelBase, torch.nn.Module):
 
         aug=get_augmentations()
         def aug_fn(img):
-            return img
-            #return aug(image=img)['image']
+            #return img
+            return aug(image=img)['image']
 
         train_dataset_aug=BengaliDataset(train_images,labels=train_labels,transform_fn=aug_fn)
         train_dataset=BengaliDataset(train_images,labels=train_labels)
