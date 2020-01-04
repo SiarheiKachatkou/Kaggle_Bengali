@@ -1,17 +1,7 @@
-import torch
-import torchvision
-import numpy as np
-from model_base import ModelBase
-from consts import IMG_W,IMG_H,N_CHANNELS, BATCH_SIZE, LR
 
-
-class Model(ModelBase, torch.nn.Module):
-
+class ModelBase():
     def __init__(self):
-        super(Model, self).__init__()
-        self.backbone=torchvision.models.resnet18(pretrained=False)
-        dbg=1
-
+        pass
 
     def compile(self,classes_list,**kwargs):
         raise NotImplementedError
@@ -28,4 +18,3 @@ class Model(ModelBase, torch.nn.Module):
 
     def predict(self, gen, images):
         raise NotImplementedError
-

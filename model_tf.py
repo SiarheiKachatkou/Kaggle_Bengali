@@ -1,10 +1,12 @@
 import tensorflow as tf
 import tensorflow.keras as keras
 import numpy as np
+from model_base import ModelBase
 from consts import IMG_W,IMG_H,N_CHANNELS, BATCH_SIZE, LR
 
-class Model():
+class Model(ModelBase):
     def __init__(self):
+        super(Model, self).__init__()
         self._models=[]
 
 

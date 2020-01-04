@@ -1,6 +1,4 @@
 import os
-import tensorflow as tf
-import tensorflow.keras as keras
 import numpy as np
 from model import Model
 from create_dataset import load
