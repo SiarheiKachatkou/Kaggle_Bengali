@@ -8,10 +8,10 @@ from create_dataset_utils import dump,load
 
 from consts import DATA_DIR,RAW_DIR,TRAIN_IMAGE_DATA_PATTERN, TEST_IMAGE_DATA_PATTERN, IMG_HEIGHT,IMG_WIDTH,N_CHANNELS,TRAIN_CSV,CLASS_MAP_CSV, IMG_H,IMG_W, TRAIN_DATASET_PKL, VAL_DATASET_PKL, TEST_DATASET_PKL, IMAGE_GEN_PKL, SEED, TARGETS
 
-debug_mode=True
+debug_mode=False
 
 def preproc(x):
-    x=cv2.resize(np.reshape(x,[IMG_HEIGHT,IMG_WIDTH,N_CHANNELS]),(IMG_W,IMG_H))
+    x=cv2.resize(x,(IMG_W,IMG_H))
     return np.expand_dims(x,axis=-1)
 
 
@@ -29,7 +29,7 @@ def load_parquet(path_pattern, labels_csv):
         df_imgs.set_index('image_id', inplace=True)
         image_ids.extend(list(df_imgs.index))
 
-        images=[preproc(x) for x in list(df_imgs.values)]
+        images=[preproc(np.reshape(x,[IMG_HEIGHT,IMG_WIDTH,N_CHANNELS])) for x in list(df_imgs.values)]
         imgs.extend(images)
         if labels_csv is not None:
             labels.extend(list(np.array(labels_csv.loc[df_imgs.index])[:,:-1]))
