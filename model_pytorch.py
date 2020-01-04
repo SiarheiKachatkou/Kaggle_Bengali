@@ -2,6 +2,7 @@ import torch
 import torchvision
 import numpy as np
 from model_base import ModelBase
+from score import calc_score
 from dataset_pytorch import BengaliDataset
 from torch.utils.data import DataLoader
 import torch.nn as nn
@@ -17,7 +18,11 @@ class Model(ModelBase, torch.nn.Module):
         torch.nn.Module.__init__(self)
         ModelBase.__init__(self)
 
-        self._print_every_iter=100
+        self._device = torch.device("cuda:0")
+
+        self._print_every_iter=1000
+        self._eval_batches=10
+
         self._classes_list=[]
         self.backbone=torchvision.models.resnet18(pretrained=False)
 
@@ -61,13 +66,17 @@ class Model(ModelBase, torch.nn.Module):
         train_images_channel_first=np.transpose(train_images,[0,3,1,2])
         val_images_channel_first=np.transpose(val_images,[0,3,1,2])
 
-        device = torch.device("cuda:0")
-        self.to(device)
+        self.to(self._device)
 
         train_dataset=BengaliDataset(train_images_channel_first,labels=train_labels)
         val_dataset=BengaliDataset(val_images_channel_first,labels=val_labels)
 
         train_dataloader=DataLoader(train_dataset, batch_size=BATCH_SIZE, shuffle=True, sampler=None,
+           batch_sampler=None, num_workers=0, collate_fn=None,
+           pin_memory=False, drop_last=False, timeout=0,
+           worker_init_fn=None)
+
+        train_val_dataloader=DataLoader(train_dataset, batch_size=BATCH_SIZE, shuffle=True, sampler=None,
            batch_sampler=None, num_workers=0, collate_fn=None,
            pin_memory=False, drop_last=False, timeout=0,
            worker_init_fn=None)
@@ -86,22 +95,43 @@ class Model(ModelBase, torch.nn.Module):
 
                 images,labels=data['image'],data['label']
 
-                images=images.to(device,dtype=torch.float)
-                labels=labels.to(device)
+                images=images.to(self._device,dtype=torch.float)
+                labels=labels.to(self._device)
 
                 optimizer.zero_grad()
 
                 fc_graph, fc_vowel, fc_conso = self.__call__(images)
 
-                loss=loss_fn(fc_graph,labels[:,0])+loss_fn(fc_vowel,labels[:,1])+loss_fn(fc_conso,labels[:,2])
+                loss=2*loss_fn(fc_graph,labels[:,0])+loss_fn(fc_vowel,labels[:,1])+loss_fn(fc_conso,labels[:,2])
 
                 loss.backward()
 
                 optimizer.step()
 
                 if i%self._print_every_iter==0:
-                    print('loss={}'.format(loss.item()))
 
+                    train_score=self._eval(train_val_dataloader)
+                    val_score=self._eval(val_dataloader)
+                    print('loss={} train_score={} val_score={}'.format(loss.item(),train_score,val_score))
+
+
+    def _eval(self,dataloader):
+
+        labels_batches=[]
+        pred_batches=[]
+        for i,data in enumerate(dataloader):
+            images,labels=data['image'],data['label']
+
+            preds=self._predict_on_tensor(images)
+            labels_batches.append(labels)
+            pred_batches.append(preds)
+
+            if i>self._eval_batches:
+                break
+
+        preds=np.concatenate(pred_batches,axis=0)
+        labels=np.concatenate(labels_batches,axis=0)
+        return calc_score(solution=labels,submission=preds)
 
 
     def save(self,path_to_file):
@@ -112,10 +142,13 @@ class Model(ModelBase, torch.nn.Module):
         self.load_state_dict(torch.load(path_to_file))
 
     def predict(self, images):
+
+        assert isinstance(images,np.array), print('images must be np.array in channel last format')
+
         images_channel_first=np.transpose(images,[0,3,1,2])
 
-        device = torch.device("cuda:0")
-        self.to(device)
+
+        self.to(self._device)
 
         dataset=BengaliDataset(images_channel_first,labels=None)
 
@@ -124,22 +157,28 @@ class Model(ModelBase, torch.nn.Module):
            pin_memory=False, drop_last=False, timeout=0,
            worker_init_fn=None)
 
-        def _argmax(tensor):
-            return tensor.data.cpu().numpy().argmax(axis=1).reshape([-1,1])
-
         predicted_labels=[]
         for batch in dataloader:
             inputs=batch['image']
-            inputs=inputs.to(device)
-            graph,vowel,conso = self.__call__(inputs)
+            labels=self._predict_on_tensor(inputs)
 
-            graph_labels=_argmax(graph)
-            vowel_labels=_argmax(vowel)
-            conso_labels=_argmax(conso)
-
-            predicted_labels.append(np.hstack([graph_labels,vowel_labels,conso_labels]))
+            predicted_labels.append(labels)
 
         return np.concatenate(predicted_labels,axis=0)
+
+    def _predict_on_tensor(self,inputs):
+
+        def _argmax(tensor):
+            return tensor.data.cpu().numpy().argmax(axis=1).reshape([-1,1])
+
+        inputs=inputs.to(self._device)
+        graph,vowel,conso = self.__call__(inputs)
+
+        graph_labels=_argmax(graph)
+        vowel_labels=_argmax(vowel)
+        conso_labels=_argmax(conso)
+        labels = np.hstack([graph_labels,vowel_labels,conso_labels])
+        return labels
 
 
 

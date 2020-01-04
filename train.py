@@ -1,8 +1,10 @@
 import os
 import numpy as np
+import pandas as pd
 from model import Model
 from create_dataset_utils import load
-from consts import DATA_DIR,MODEL_NAME,BATCH_SIZE,EPOCHS, TRAIN_DATASET_PKL, VAL_DATASET_PKL, MODELS_DIR
+from score import calc_score
+from consts import DATA_DIR,MODEL_NAME,BATCH_SIZE,EPOCHS, TRAIN_DATASET_PKL, VAL_DATASET_PKL, MODELS_DIR, TARGETS
 
 debug_regime=False
 
@@ -37,8 +39,11 @@ if __name__ == "__main__":
     acc=[float(all(np.equal(val_pred,val_label))) for val_pred,val_label in zip(val_preds,val_labels)]
     acc=np.mean(acc)
     print('validation accuracy of loaded model = {}'.format(acc))
+
+    score=calc_score(solution=val_preds,submission=val_labels)
+    print('score={}'.format(score))
     with open('metric.txt','wt') as file:
-        file.write(str(acc))
+        file.write(str(score))
 
 
 
