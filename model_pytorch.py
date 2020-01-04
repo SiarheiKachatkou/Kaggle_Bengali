@@ -1,6 +1,7 @@
 import torch
 import torchvision
 import numpy as np
+from tqdm import tqdm
 from model_base import ModelBase
 from score import calc_score
 from dataset_pytorch import BengaliDataset
@@ -90,7 +91,7 @@ class Model(ModelBase, torch.nn.Module):
         loss_fn=nn.CrossEntropyLoss()
         optimizer=optim.SGD(self.parameters(),lr=LR,momentum=0.9)
 
-        for epoch in range(EPOCHS):
+        for epoch in tqdm(range(EPOCHS)):
             for i, data in enumerate(train_dataloader):
 
                 images,labels=data['image'],data['label']
@@ -143,10 +144,9 @@ class Model(ModelBase, torch.nn.Module):
 
     def predict(self, images):
 
-        assert isinstance(images,np.array), print('images must be np.array in channel last format')
+        assert isinstance(images,np.ndarray), print('images must be np.array in channel last format')
 
         images_channel_first=np.transpose(images,[0,3,1,2])
-
 
         self.to(self._device)
 
