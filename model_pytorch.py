@@ -8,9 +8,10 @@ from consts import IMG_W,IMG_H,N_CHANNELS, BATCH_SIZE, LR
 class Model(ModelBase, torch.nn.Module):
 
     def __init__(self):
-        super(Model, self).__init__()
+        torch.nn.Module.__init__(self)
+        ModelBase.__init__(self)
+
         self.backbone=torchvision.models.resnet18(pretrained=False)
-        dbg=1
 
 
     def compile(self,classes_list,**kwargs):

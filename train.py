@@ -4,7 +4,7 @@ from model import Model
 from create_dataset_utils import load
 from consts import DATA_DIR,MODEL_NAME,BATCH_SIZE,EPOCHS, TRAIN_DATASET_PKL, VAL_DATASET_PKL, MODELS_DIR
 
-debug_regime=False
+debug_regime=True
 
 if __name__ == "__main__":
 
