@@ -1,13 +1,16 @@
+import os
 import tensorflow as tf
 import tensorflow.keras as keras
 import numpy as np
+from image_data_generator import ImageDataGenerator
 from model_base import ModelBase
-from consts import IMG_W,IMG_H,N_CHANNELS, BATCH_SIZE, LR
+from consts import IMG_W,IMG_H,N_CHANNELS, BATCH_SIZE, LR, DATA_DIR,IMAGE_GEN_PKL
 
 class Model(ModelBase):
     def __init__(self):
         super(Model, self).__init__()
         self._models=[]
+        self._gen=ImageDataGenerator.load(os.path.join(DATA_DIR,IMAGE_GEN_PKL))
 
 
     def _get_single_model(self, classes):
@@ -43,10 +46,10 @@ class Model(ModelBase):
             self._models.append(model)
 
 
-    def fit_generator(self,gen,train_images,train_labels, val_images, val_labels, batch_size,epochs, **kwargs):
+    def fit(self,train_images,train_labels, val_images, val_labels, batch_size,epochs, **kwargs):
         reduce_lr = keras.callbacks.ReduceLROnPlateau(monitor='val_loss', factor=0.2, patience=0, min_lr=0.0001)
         for m in range(len(self._models)):
-            self._models[m].fit_generator(gen.flow(train_images,train_labels[:,m]),validation_data=gen.flow(val_images,val_labels[:,m]),steps_per_epoch=len(train_images)/(batch_size),epochs=epochs, **kwargs, callbacks=[reduce_lr])
+            self._models[m].fit_generator(self._gen.flow(train_images,train_labels[:,m]),validation_data=gen.flow(val_images,val_labels[:,m]),steps_per_epoch=len(train_images)/(batch_size),epochs=epochs, **kwargs, callbacks=[reduce_lr])
 
     def _get_model_filename(self,path_to_file,index):
         return path_to_file+'_{}'.format(index)
@@ -64,10 +67,10 @@ class Model(ModelBase):
             model.load_weights(model_file_path)
             self._models.append(model)
 
-    def predict(self, gen, images):
+    def predict(self, images):
 
         pred_labels=[]
-        flow=gen.flow(images,shuffle=False, batch_size=BATCH_SIZE)
+        flow=self._gen.flow(images,shuffle=False, batch_size=BATCH_SIZE)
         max_batch_idx=len(flow)
         for batch_idx, img_batch in enumerate(flow):
             predictions_batch=[m.predict(img_batch) for m in self._models]

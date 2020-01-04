@@ -2,9 +2,9 @@ import pandas as pd
 import os
 import glob
 import cv2
-import pickle
 import numpy as np
 import sklearn.model_selection
+from create_dataset_utils import dump,load
 from image_data_generator import ImageDataGenerator
 
 from consts import DATA_DIR,RAW_DIR,TRAIN_IMAGE_DATA_PATTERN, TEST_IMAGE_DATA_PATTERN, IMG_HEIGHT,IMG_WIDTH,N_CHANNELS,TRAIN_CSV,CLASS_MAP_CSV, IMG_H,IMG_W, TRAIN_DATASET_PKL, VAL_DATASET_PKL, TEST_DATASET_PKL, IMAGE_GEN_PKL, SEED, TARGETS
@@ -42,16 +42,6 @@ def load_parquet(path_pattern, labels_csv):
         labels=np.array(labels).astype(np.int)
     image_ids=np.array(image_ids)
     return imgs,image_ids,labels
-
-
-def dump(path_to_file, imgs,labels, ids, classes):
-    with open(path_to_file,'wb') as file:
-        pickle.dump([imgs,labels,ids, classes],file)
-
-def load(path_to_file):
-    with open(path_to_file,'rb') as file:
-        imgs,labels,ids, classes = pickle.load(file)
-    return imgs,labels,ids, classes
 
 
 
