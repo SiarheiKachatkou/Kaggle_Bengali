@@ -17,6 +17,7 @@ class Model(ModelBase, torch.nn.Module):
         torch.nn.Module.__init__(self)
         ModelBase.__init__(self)
 
+        self._print_every_iter=100
         self._classes_list=[]
         self.backbone=torchvision.models.resnet18(pretrained=False)
 
@@ -98,20 +99,17 @@ class Model(ModelBase, torch.nn.Module):
 
                 optimizer.step()
 
-                if i%100==0:
+                if i%self._print_every_iter==0:
                     print('loss={}'.format(loss.item()))
 
 
 
-
-
-
-
     def save(self,path_to_file):
-        raise NotImplementedError
+        torch.save(self.state_dict(), path_to_file)
 
-    def load(self,path_fo_file,classes_list):
-        raise NotImplementedError
+    def load(self,path_to_file,classes_list):
+        self.compile(classes_list)
+        self.load_state_dict(torch.load(path_to_file))
 
     def predict(self, images):
         raise NotImplementedError
