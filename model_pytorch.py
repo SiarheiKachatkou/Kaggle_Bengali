@@ -9,9 +9,22 @@ from torch.utils.data import DataLoader
 import torch.nn as nn
 import torch.optim as optim
 import torch.nn.functional as F
+import albumentations as A
 
 from consts import IMG_W,IMG_H,N_CHANNELS, BATCH_SIZE, LR, EPOCHS
 
+
+def get_augmentations():
+    return A.Compose([A.RandomBrightness(p=0.2),
+                      A.RandomContrast(p=0.2),
+                      A.MotionBlur(p=0.2),
+                      A.CLAHE(clip_limit=1,p=0.1),
+                      A.CLAHE(clip_limit=4,p=0.1),
+                      A.Cutout(),
+                      A.RandomSnow(p=0.2),
+                      A.RandomRain(p=0.2),
+                      A.RandomFog(p=0.2),
+                      A.ElasticTransform(alpha=3,sigma=5,alpha_affine=2)],p=0.6)
 
 class Model(ModelBase, torch.nn.Module):
 
@@ -64,15 +77,17 @@ class Model(ModelBase, torch.nn.Module):
 
     def fit(self,train_images,train_labels, val_images, val_labels, batch_size,epochs, **kwargs):
 
-        train_images_channel_first=np.transpose(train_images,[0,3,1,2])
-        val_images_channel_first=np.transpose(val_images,[0,3,1,2])
-
         self.to(self._device)
 
-        train_dataset=BengaliDataset(train_images_channel_first,labels=train_labels)
-        val_dataset=BengaliDataset(val_images_channel_first,labels=val_labels)
+        aug=get_augmentations()
+        def aug_fn(img):
+            return aug(image=img)['image']
 
-        train_dataloader=DataLoader(train_dataset, batch_size=BATCH_SIZE, shuffle=True, sampler=None,
+        train_dataset_aug=BengaliDataset(train_images,labels=train_labels,transform_fn=aug_fn)
+        train_dataset=BengaliDataset(train_images,labels=train_labels)
+        val_dataset=BengaliDataset(val_images,labels=val_labels)
+
+        train_dataloader=DataLoader(train_dataset_aug, batch_size=BATCH_SIZE, shuffle=True, sampler=None,
            batch_sampler=None, num_workers=0, collate_fn=None,
            pin_memory=False, drop_last=False, timeout=0,
            worker_init_fn=None)
@@ -146,11 +161,9 @@ class Model(ModelBase, torch.nn.Module):
 
         assert isinstance(images,np.ndarray), print('images must be np.array in channel last format')
 
-        images_channel_first=np.transpose(images,[0,3,1,2])
-
         self.to(self._device)
 
-        dataset=BengaliDataset(images_channel_first,labels=None)
+        dataset=BengaliDataset(images,labels=None)
 
         dataloader=DataLoader(dataset, batch_size=BATCH_SIZE, shuffle=False, sampler=None,
            batch_sampler=None, num_workers=0, collate_fn=None,

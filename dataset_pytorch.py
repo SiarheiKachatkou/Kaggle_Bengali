@@ -8,7 +8,7 @@ def _normalize_img(img):
 
 class BengaliDataset(Dataset):
     def __init__(self, images, labels=None, transform_fn=None):
-        self._images=[_normalize_img(img) for img in images]
+        self._images=images
         self._labels=labels
         self._transform_fn=transform_fn
 
@@ -19,11 +19,16 @@ class BengaliDataset(Dataset):
         img=self._images[idx]
         label= -1 if self._labels is None else self._labels[idx]
 
-        img=np.concatenate([img,img,img],axis=0)
+        img=np.concatenate([img,img,img],axis=-1)
+
         if self._transform_fn:
             img=self._transform_fn(img)
 
-        return {'image':img,'label':label}
+        img=_normalize_img(img)
+
+        img_channel_first=np.transpose(img,[2,0,1])
+
+        return {'image':img_channel_first,'label':label}
 
 
 

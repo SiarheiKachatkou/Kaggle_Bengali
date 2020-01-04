@@ -4,6 +4,7 @@ RAW_DIR='raw'
 MODELS_DIR='models'
 SUBMISSION_DIR = 'submissions'
 SUBMISSION_CSV = 'submission.csv'
+SAMPLE_SUBMISSION_CSV = 'sample_submission.csv'
 
 TRAIN_IMAGE_DATA_PATTERN='train_image_data_*.parquet'
 TEST_IMAGE_DATA_PATTERN='test_image_data_*.parquet'
@@ -23,9 +24,9 @@ IMG_HEIGHT = 137
 IMG_W=64
 IMG_H=64
 N_CHANNELS = 1
-BATCH_SIZE=16
+BATCH_SIZE=32
 EPOCHS=10
-LR=0.001
+LR=0.01
 
 SEED=0
 
