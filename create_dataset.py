@@ -5,7 +5,6 @@ import cv2
 import numpy as np
 import sklearn.model_selection
 from create_dataset_utils import dump,load
-from image_data_generator import ImageDataGenerator
 
 from consts import DATA_DIR,RAW_DIR,TRAIN_IMAGE_DATA_PATTERN, TEST_IMAGE_DATA_PATTERN, IMG_HEIGHT,IMG_WIDTH,N_CHANNELS,TRAIN_CSV,CLASS_MAP_CSV, IMG_H,IMG_W, TRAIN_DATASET_PKL, VAL_DATASET_PKL, TEST_DATASET_PKL, IMAGE_GEN_PKL, SEED, TARGETS
 
@@ -61,10 +60,6 @@ if __name__=="__main__":
     train_index, test_index = next(skf.split(imgs, labels_0))
 
     imgs_train, labels_train,ids_train = imgs[train_index], labels[train_index], image_ids[train_index]
-
-    gen=ImageDataGenerator()
-    gen.fit(imgs_train)
-    gen.save(os.path.join(DATA_DIR,IMAGE_GEN_PKL))
 
     imgs_val, labels_val, ids_val =imgs[test_index], labels[test_index], image_ids[test_index]
 

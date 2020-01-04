@@ -4,6 +4,13 @@ git_cmt_message=$1
 
 set -x
 
+
+if [[ $git_cmt_message -eq "" ]]
+then
+echo ERROR specify git commit message argument
+exit 1
+fi
+
 PY=/home/sergey/anaconda3/envs/pytorch/bin/python
 
 deps_code=""
