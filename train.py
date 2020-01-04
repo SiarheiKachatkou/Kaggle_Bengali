@@ -4,7 +4,7 @@ from model import Model
 from create_dataset_utils import load
 from consts import DATA_DIR,MODEL_NAME,BATCH_SIZE,EPOCHS, TRAIN_DATASET_PKL, VAL_DATASET_PKL, MODELS_DIR
 
-debug_regime=True
+debug_regime=False
 
 if __name__ == "__main__":
 
@@ -25,7 +25,7 @@ if __name__ == "__main__":
     model=Model()
 
     model.compile(classes_list=classes)
-    model.fit_generator(train_images,train_labels, val_images,val_labels,batch_size=BATCH_SIZE,epochs=EPOCHS)
+    model.fit(train_images,train_labels, val_images,val_labels,batch_size=BATCH_SIZE,epochs=EPOCHS)
 
     model_filepath=os.path.join(DATA_DIR,MODELS_DIR,MODEL_NAME)
     model.save(model_filepath)
