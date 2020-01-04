@@ -112,5 +112,38 @@ class Model(ModelBase, torch.nn.Module):
         self.load_state_dict(torch.load(path_to_file))
 
     def predict(self, images):
-        raise NotImplementedError
+        images_channel_first=np.transpose(images,[0,3,1,2])
+
+        device = torch.device("cuda:0")
+        self.to(device)
+
+        dataset=BengaliDataset(images_channel_first,labels=None)
+
+        dataloader=DataLoader(dataset, batch_size=BATCH_SIZE, shuffle=False, sampler=None,
+           batch_sampler=None, num_workers=0, collate_fn=None,
+           pin_memory=False, drop_last=False, timeout=0,
+           worker_init_fn=None)
+
+        def _argmax(tensor):
+            return tensor.data.cpu().numpy().argmax(axis=1).reshape([-1,1])
+
+        predicted_labels=[]
+        for batch in dataloader:
+            inputs=batch['image']
+            inputs=inputs.to(device)
+            graph,vowel,conso = self.__call__(inputs)
+
+            graph_labels=_argmax(graph)
+            vowel_labels=_argmax(vowel)
+            conso_labels=_argmax(conso)
+
+            predicted_labels.append(np.hstack([graph_labels,vowel_labels,conso_labels]))
+
+        return np.concatenate(predicted_labels,axis=0)
+
+
+
+
+
+
 

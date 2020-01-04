@@ -7,7 +7,7 @@ def _normalize_img(img):
     return (img-np.mean(img))/(np.std(img)+eps)
 
 class BengaliDataset(Dataset):
-    def __init__(self, images, labels, transform_fn=None):
+    def __init__(self, images, labels=None, transform_fn=None):
         self._images=[_normalize_img(img) for img in images]
         self._labels=labels
         self._transform_fn=transform_fn
@@ -16,7 +16,9 @@ class BengaliDataset(Dataset):
         return len(self._images)
 
     def __getitem__(self, idx):
-        img,label=self._images[idx],self._labels[idx]
+        img=self._images[idx]
+        label= -1 if self._labels is None else self._labels[idx]
+
         img=np.concatenate([img,img,img],axis=0)
         if self._transform_fn:
             img=self._transform_fn(img)
