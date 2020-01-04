@@ -5,7 +5,7 @@ git_cmt_message=$1
 set -x
 
 
-if [[ $git_cmt_message -eq "" ]]
+if [[ $git_cmt_message == "" ]]
 then
 echo ERROR specify git commit message argument
 exit 1
@@ -20,7 +20,7 @@ deps_code="$deps_code -d $p"
 done
 
 
-deps_data="-d data/test_datset.pkl -d data/train_datset.pkl -d data/val_datset.pkl -d data/image_gen.pkl"
+deps_data="-d data/test_datset.pkl -d data/train_datset.pkl -d data/val_datset.pkl"
 
 outputs="data/models"
 metric="metric.txt"

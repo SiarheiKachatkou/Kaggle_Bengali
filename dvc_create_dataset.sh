@@ -4,7 +4,7 @@ set -x
 
 git_commit_message=$1
 
-if [[ $git_commit_message -eq "" ]]
+if [[ $git_commit_message == "" ]]
 then
 echo ERROR specify git commit message argument
 exit 1
