@@ -6,7 +6,7 @@ from create_dataset_utils import load
 from score import calc_score
 from consts import DATA_DIR,MODEL_NAME,BATCH_SIZE,EPOCHS, TRAIN_DATASET_PKL, VAL_DATASET_PKL, MODELS_DIR, TARGETS
 
-debug_regime=True
+debug_regime=False
 
 if __name__ == "__main__":
 

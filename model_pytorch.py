@@ -34,8 +34,8 @@ class Model(ModelBase, torch.nn.Module):
 
         self._device = torch.device("cuda:0")
 
-        self._print_every_iter=1000
-        self._eval_batches=10
+        self._print_every_iter=2000
+        self._eval_batches=100
 
         self._classes_list=[]
         self.backbone=torchvision.models.resnet18(pretrained=False)
@@ -105,7 +105,7 @@ class Model(ModelBase, torch.nn.Module):
 
 
         loss_fn=nn.CrossEntropyLoss()
-        optimizer=optim.SGD(self.parameters(),lr=LR,momentum=0.9)
+        optimizer=optim.Adam(self.parameters(),lr=LR)
 
         for epoch in tqdm(range(EPOCHS)):
             for i, data in enumerate(train_dataloader):
