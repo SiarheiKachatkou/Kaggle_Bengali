@@ -28,10 +28,8 @@ if __name__ == "__main__":
 
     model=Model()
 
-    reduce_lr = keras.callbacks.ReduceLROnPlateau(monitor='val_loss', factor=0.2, patience=0, min_lr=0.0001)
-
-    model.compile(classes_list=classes, optimizer=keras.optimizers.Adam(lr=LR),loss='sparse_categorical_crossentropy', metrics=['accuracy'])
-    model.fit_generator(gen,train_images,train_labels, val_images,val_labels,batch_size=BATCH_SIZE,epochs=EPOCHS, callbacks=[reduce_lr])
+    model.compile(classes_list=classes)
+    model.fit_generator(gen,train_images,train_labels, val_images,val_labels,batch_size=BATCH_SIZE,epochs=EPOCHS)
 
     model_filepath=os.path.join(DATA_DIR,MODELS_DIR,MODEL_NAME)
     model.save(model_filepath)

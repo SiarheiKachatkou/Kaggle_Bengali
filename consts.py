@@ -30,3 +30,5 @@ LR=0.01
 SEED=0
 
 TARGETS=['grapheme_root','vowel_diacritic','consonant_diacritic']
+
+MODEL='model_pytorch.py'  #'model_tf.py'
