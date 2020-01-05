@@ -106,6 +106,7 @@ class Model(ModelBase, torch.nn.Module):
 
         loss_fn=nn.CrossEntropyLoss()
         optimizer=optim.Adam(self.parameters(),lr=LR)
+        scheduler=torch.optim.lr_scheduler.ReduceLROnPlateau(optimizer, mode='min', factor=0.5, patience=5, verbose=True, threshold=0.0001, threshold_mode='rel', cooldown=0, min_lr=1e-8, eps=1e-08)
 
         for epoch in tqdm(range(EPOCHS)):
             for i, data in enumerate(train_dataloader):
@@ -130,6 +131,7 @@ class Model(ModelBase, torch.nn.Module):
                     train_score=self._eval(train_val_dataloader)
                     val_score=self._eval(val_dataloader)
                     print('loss={} train_score={} val_score={}'.format(loss.item(),train_score,val_score))
+                    scheduler.step(1-val_score)
 
 
     def _eval(self,dataloader):
