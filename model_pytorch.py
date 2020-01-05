@@ -87,7 +87,7 @@ class ResNetBottleNeckBlock(torch.nn.Module):
 class SEResNetBottleNeckBlock(torch.nn.Module):
     def __init__(self, in_channels):
         super().__init__()
-
+        self._in_channels=in_channels
         bottleneck_depth=in_channels//4
         self._c1=nn.Conv2d(in_channels=in_channels,out_channels=bottleneck_depth,kernel_size=1,stride=1)
         self._r=nn.ReLU()
@@ -109,11 +109,13 @@ class SEResNetBottleNeckBlock(torch.nn.Module):
         x=self._c3(x)
         x=self._bn(x)
         #SE-block
-        global_pooled_x=torch.max(torch.max(x,dim=-1),dim=-1)
+        global_pooled_x=torch.max(x,dim=3).values
+        global_pooled_x=torch.max(global_pooled_x,dim=2).values
         squeezed_x=self._SE_linear_squeeze(global_pooled_x)
         squeezed_x=nn.ReLU()(squeezed_x)
         exitated_x=self._SE_linear_exitation(squeezed_x)
-        scale_x=nn.Sigmoid(exitated_x)
+        scale_x=nn.Sigmoid()(exitated_x)
+        scale_x=scale_x.reshape([-1,self._in_channels,1,1])
         x=x*scale_x
 
         x=x+skip
@@ -146,17 +148,17 @@ class Model(ModelBase, torch.nn.Module):
         ConvBnRelu(in_channels=64//d,out_channels=128//d,stride=2,kernel_size=3),
         ConvBnRelu(in_channels=128//d,out_channels=256//d,stride=2,kernel_size=3)]
         for _ in range(block_counts[0]):
-            self._blocks.append(ResNetBottleNeckBlock(in_channels=256//d))
+            self._blocks.append(SEResNetBottleNeckBlock(in_channels=256//d))
 
         self._blocks.append(ConvBnRelu(in_channels=256//d,out_channels=512//d,stride=2))
         for _ in range(block_counts[1]):
-            self._blocks.append(ResNetBottleNeckBlock(in_channels=512//d))
+            self._blocks.append(SEResNetBottleNeckBlock(in_channels=512//d))
         self._blocks.append(ConvBnRelu(in_channels=512//d,out_channels=1024//d,stride=2))
         for _ in range(block_counts[2]):
-            self._blocks.append(ResNetBottleNeckBlock(in_channels=1024//d))
+            self._blocks.append(SEResNetBottleNeckBlock(in_channels=1024//d))
         self._blocks.append(ConvBnRelu(in_channels=1024//d,out_channels=2048//d,stride=2))
         for _ in range(block_counts[3]):
-            self._blocks.append(ResNetBottleNeckBlock(in_channels=2048//d))
+            self._blocks.append(SEResNetBottleNeckBlock(in_channels=2048//d))
 
         for i,b in enumerate(self._blocks):
             setattr(self,'_block_{}'.format(i),b)
