@@ -148,7 +148,7 @@ class Model(ModelBase, torch.nn.Module):
         block_counts_resnet_101=[3,4,23,3]
         block_counts_resnet_50=[3,4,6,3]
         block_counts=block_counts_resnet_50
-        d=2
+        d=1
         self._d=d
 
         self._blocks=[ConvBnRelu(in_channels=3,out_channels=64//d,stride=2,kernel_size=7),
