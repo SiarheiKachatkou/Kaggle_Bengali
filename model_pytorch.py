@@ -90,10 +90,13 @@ class SEResNetBottleNeckBlock(torch.nn.Module):
         self._in_channels=in_channels
         bottleneck_depth=in_channels//4
         self._c1=nn.Conv2d(in_channels=in_channels,out_channels=bottleneck_depth,kernel_size=1,stride=1)
+        self._bn1=nn.BatchNorm2d(num_features=bottleneck_depth)
         self._r=nn.ReLU()
         self._c2=nn.Conv2d(in_channels=bottleneck_depth,out_channels=bottleneck_depth,kernel_size=3,stride=1,padding=1)
+        self._bn2=nn.BatchNorm2d(num_features=bottleneck_depth)
         self._c3=nn.Conv2d(in_channels=bottleneck_depth,out_channels=in_channels,kernel_size=1,stride=1)
-        self._bn=nn.BatchNorm2d(num_features=in_channels)
+        self._bn3=nn.BatchNorm2d(num_features=in_channels)
+
 
         self._reduce_rate=4
         self._SE_linear_squeeze=nn.Linear(in_channels,in_channels//self._reduce_rate)
@@ -104,15 +107,19 @@ class SEResNetBottleNeckBlock(torch.nn.Module):
         skip=x
         x=self._c1(x)
         x=self._r(x)
+        x=self._bn1(x)
         x=self._c2(x)
         x=self._r(x)
+        x=self._bn2(x)
         x=self._c3(x)
-        x=self._bn(x)
+        x=self._bn3(x)
         #SE-block
-        global_pooled_x=torch.max(x,dim=3).values
-        global_pooled_x=torch.max(global_pooled_x,dim=2).values
+        global_pooled_x=nn.AdaptiveAvgPool2d(1)(x)
+        global_pooled_x=torch.squeeze(global_pooled_x,dim=-1)
+        global_pooled_x=torch.squeeze(global_pooled_x,dim=-1)
         squeezed_x=self._SE_linear_squeeze(global_pooled_x)
         squeezed_x=nn.ReLU()(squeezed_x)
+
         exitated_x=self._SE_linear_exitation(squeezed_x)
         scale_x=nn.Sigmoid()(exitated_x)
         scale_x=scale_x.reshape([-1,self._in_channels,1,1])
@@ -141,7 +148,7 @@ class Model(ModelBase, torch.nn.Module):
         block_counts_resnet_101=[3,4,23,3]
         block_counts_resnet_50=[3,4,6,3]
         block_counts=block_counts_resnet_50
-        d=4
+        d=2
         self._d=d
 
         self._blocks=[ConvBnRelu(in_channels=3,out_channels=64//d,stride=2,kernel_size=7),
