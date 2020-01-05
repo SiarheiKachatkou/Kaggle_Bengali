@@ -63,23 +63,27 @@ class ResNetBasicBlock(torch.nn.Module):
 class ResNetBottleNeckBlock(torch.nn.Module):
     def __init__(self, in_channels):
         super().__init__()
-
+        self._in_channels=in_channels
         bottleneck_depth=in_channels//4
         self._c1=nn.Conv2d(in_channels=in_channels,out_channels=bottleneck_depth,kernel_size=1,stride=1)
+        self._bn1=nn.BatchNorm2d(num_features=bottleneck_depth)
         self._r=nn.ReLU()
         self._c2=nn.Conv2d(in_channels=bottleneck_depth,out_channels=bottleneck_depth,kernel_size=3,stride=1,padding=1)
+        self._bn2=nn.BatchNorm2d(num_features=bottleneck_depth)
         self._c3=nn.Conv2d(in_channels=bottleneck_depth,out_channels=in_channels,kernel_size=1,stride=1)
-        self._bn=nn.BatchNorm2d(num_features=in_channels)
+        self._bn3=nn.BatchNorm2d(num_features=in_channels)
 
     def forward(self,x):
-
         skip=x
         x=self._c1(x)
         x=self._r(x)
+        x=self._bn1(x)
         x=self._c2(x)
         x=self._r(x)
+        x=self._bn2(x)
         x=self._c3(x)
-        x=self._bn(x)
+        x=self._bn3(x)
+
         x=x+skip
         x=self._r(x)
         return x
@@ -159,13 +163,13 @@ class Model(ModelBase, torch.nn.Module):
 
         self._blocks.append(ConvBnRelu(in_channels=256//d,out_channels=512//d,stride=2))
         for _ in range(block_counts[1]):
-            self._blocks.append(SEResNetBottleNeckBlock(in_channels=512//d))
+            self._blocks.append(ResNetBottleNeckBlock(in_channels=512//d))
         self._blocks.append(ConvBnRelu(in_channels=512//d,out_channels=1024//d,stride=2))
         for _ in range(block_counts[2]):
-            self._blocks.append(SEResNetBottleNeckBlock(in_channels=1024//d))
+            self._blocks.append(ResNetBottleNeckBlock(in_channels=1024//d))
         self._blocks.append(ConvBnRelu(in_channels=1024//d,out_channels=2048//d,stride=2))
         for _ in range(block_counts[3]):
-            self._blocks.append(SEResNetBottleNeckBlock(in_channels=2048//d))
+            self._blocks.append(ResNetBottleNeckBlock(in_channels=2048//d))
 
         for i,b in enumerate(self._blocks):
             setattr(self,'_block_{}'.format(i),b)
