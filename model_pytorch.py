@@ -38,7 +38,9 @@ class Model(ModelBase, torch.nn.Module):
         self._eval_batches=100
 
         self._classes_list=[]
+        #self.backbone=torchvision.models.wide_resnet50_2(pretrained=False)
         self.backbone=torchvision.models.resnet18(pretrained=False)
+        dbg=1
 
 
 
@@ -54,7 +56,7 @@ class Model(ModelBase, torch.nn.Module):
         x=self.backbone.layer3(x)
         x=self.backbone.layer4(x)
 
-        x=self.backbone.avgpool(x)
+        #x=self.backbone.avgpool(x)
 
         x=torch.flatten(x,1)
 
@@ -69,7 +71,7 @@ class Model(ModelBase, torch.nn.Module):
     def compile(self,classes_list,**kwargs):
         self._classes_list=classes_list
 
-        in_features=self.backbone.fc.in_features
+        in_features=8192#self.backbone.fc.in_features
         self._fc_graph=torch.nn.Linear(in_features,self._classes_list[0])
         self._fc_vowel=torch.nn.Linear(in_features,self._classes_list[1])
         self._fc_conso=torch.nn.Linear(in_features,self._classes_list[2])
