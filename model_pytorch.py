@@ -98,21 +98,26 @@ class Model(ModelBase, torch.nn.Module):
         self._eval_batches=100
 
         self._classes_list=[]
-        #resnet 152
+        #resnet 152,resnet-101,resnet-50
+        block_counts_resnet_152=[3,8,36,3]
+        block_counts_resnet_101=[3,4,23,3]
+        block_counts_resnet_50=[3,4,6,3]
+        block_counts=block_counts_resnet_50
+
         self._blocks=[ConvBnRelu(in_channels=3,out_channels=64,stride=2,kernel_size=7),
         ConvBnRelu(in_channels=64,out_channels=128,stride=2,kernel_size=3),
         ConvBnRelu(in_channels=128,out_channels=256,stride=2,kernel_size=3)]
-        for _ in range(3):
+        for _ in range(block_counts[0]):
             self._blocks.append(ResNetBottleNeckBlock(in_channels=256))
 
         self._blocks.append(ConvBnRelu(in_channels=256,out_channels=512,stride=2))
-        for _ in range(8):
+        for _ in range(block_counts[1]):
             self._blocks.append(ResNetBottleNeckBlock(in_channels=512))
         self._blocks.append(ConvBnRelu(in_channels=512,out_channels=1024,stride=2))
-        for _ in range(36):
+        for _ in range(block_counts[2]):
             self._blocks.append(ResNetBottleNeckBlock(in_channels=1024))
         self._blocks.append(ConvBnRelu(in_channels=1024,out_channels=2048,stride=2))
-        for _ in range(3):
+        for _ in range(block_counts[3]):
             self._blocks.append(ResNetBottleNeckBlock(in_channels=2048))
 
         for i,b in enumerate(self._blocks):
