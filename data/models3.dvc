@@ -1,0 +1,7 @@
+md5: 05f1186f7dc0b2bc9bddd7a8071879b1
+outs:
+- md5: 51f282321e3806501652a13c33db572a.dir
+  path: models3
+  cache: true
+  metric: false
+  persist: false
