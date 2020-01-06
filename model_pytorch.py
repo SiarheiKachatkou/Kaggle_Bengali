@@ -10,6 +10,7 @@ import torch.nn as nn
 import torch.optim as optim
 import torch.nn.functional as F
 import albumentations as A
+from shake_shake import ShakeShake
 
 from consts import IMG_W,IMG_H,N_CHANNELS, BATCH_SIZE, LR, EPOCHS
 
@@ -135,8 +136,9 @@ class SEResNetBottleNeckBlock(torch.nn.Module):
 
 
 class SEResNeXtBottleNeckBlock(torch.nn.Module):
-    def __init__(self, in_channels):
+    def __init__(self, in_channels, use_shake_shake=True):
         super().__init__()
+        self._use_shake_shake=use_shake_shake
         self._cardinality=32
         self._in_channels=in_channels
         bottleneck_depth=in_channels//2
@@ -178,7 +180,11 @@ class SEResNeXtBottleNeckBlock(torch.nn.Module):
         scale_x=scale_x.reshape([-1,self._in_channels,1,1])
         x=x*scale_x
 
-        x=x+skip
+        if self._use_shake_shake:
+            x=ShakeShake.apply(x,skip,self.training)
+        else:
+            x=x+skip
+
         x=self._r(x)
         return x
 
@@ -200,7 +206,7 @@ class Model(ModelBase, torch.nn.Module):
         block_counts_resnet_101=[3,4,23,3]
         block_counts_resnet_50=[3,4,6,3]
         block_counts=block_counts_resnet_50
-        d=1
+        d=4
         self._d=d
 
         block=SEResNeXtBottleNeckBlock
