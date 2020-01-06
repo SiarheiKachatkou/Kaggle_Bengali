@@ -33,11 +33,12 @@ class ConvBnRelu(torch.nn.Module):
         super().__init__()
         self._conv=nn.Conv2d(in_channels=in_channels,out_channels=out_channels,kernel_size=kernel_size,stride=stride,padding=kernel_size//2)
         self._bn=nn.BatchNorm2d(num_features=out_channels)
+        self._r=nn.ReLU()
 
     def forward(self,x):
         x=self._conv(x)
         x=self._bn(x)
-        x=nn.ReLU()(x)
+        x=self._r(x)
         return x
 
 class ResNetBasicBlock(torch.nn.Module):
@@ -45,19 +46,20 @@ class ResNetBasicBlock(torch.nn.Module):
         super().__init__()
 
         self._c1=nn.Conv2d(in_channels=in_channels,out_channels=in_channels,kernel_size=3,stride=1,padding=1)
-        self._r=nn.ReLU()
+        self._r1=nn.ReLU()
         self._c2=nn.Conv2d(in_channels=in_channels,out_channels=in_channels,kernel_size=3,stride=1,padding=1)
         self._bn=nn.BatchNorm2d(num_features=in_channels)
+        self._r2=nn.ReLU()
 
     def forward(self,x):
 
         skip=x
         x=self._c1(x)
-        x=self._r(x)
+        x=self._r1(x)
         x=self._c2(x)
         x=self._bn(x)
         x=x+skip
-        x=self._r(x)
+        x=self._r2(x)
 
         return x
 
@@ -68,25 +70,27 @@ class ResNetBottleNeckBlock(torch.nn.Module):
         bottleneck_depth=in_channels//4
         self._c1=nn.Conv2d(in_channels=in_channels,out_channels=bottleneck_depth,kernel_size=1,stride=1)
         self._bn1=nn.BatchNorm2d(num_features=bottleneck_depth)
-        self._r=nn.ReLU()
+        self._r1=nn.ReLU()
         self._c2=nn.Conv2d(in_channels=bottleneck_depth,out_channels=bottleneck_depth,kernel_size=3,stride=1,padding=1)
         self._bn2=nn.BatchNorm2d(num_features=bottleneck_depth)
-        self._c3=nn.Conv2d(in_channels=bottleneck_depth,out_channels=in_channels,kernel_size=1,stride=1)
+        self._r1=nn.ReLU()
+        self._c2=nn.Conv2d(in_channels=bottleneck_depth,out_channels=in_channels,kernel_size=1,stride=1)
         self._bn3=nn.BatchNorm2d(num_features=in_channels)
+        self._r3=nn.ReLU()
 
     def forward(self,x):
         skip=x
         x=self._c1(x)
-        x=self._r(x)
+        x=self._r1(x)
         x=self._bn1(x)
         x=self._c2(x)
-        x=self._r(x)
+        x=self._r2(x)
         x=self._bn2(x)
         x=self._c3(x)
         x=self._bn3(x)
 
         x=x+skip
-        x=self._r(x)
+        x=self._r3(x)
         return x
 
 class SEResNetBottleNeckBlock(torch.nn.Module):
@@ -97,11 +101,13 @@ class SEResNetBottleNeckBlock(torch.nn.Module):
         bottleneck_depth=in_channels//4
         self._c1=nn.Conv2d(in_channels=in_channels,out_channels=bottleneck_depth,kernel_size=1,stride=1)
         self._bn1=nn.BatchNorm2d(num_features=bottleneck_depth)
-        self._r=nn.ReLU()
+        self._r1=nn.ReLU()
         self._c2=nn.Conv2d(in_channels=bottleneck_depth,out_channels=bottleneck_depth,kernel_size=3,stride=1,padding=1)
         self._bn2=nn.BatchNorm2d(num_features=bottleneck_depth)
+        self._r2=nn.ReLU()
         self._c3=nn.Conv2d(in_channels=bottleneck_depth,out_channels=in_channels,kernel_size=1,stride=1)
         self._bn3=nn.BatchNorm2d(num_features=in_channels)
+        self._r3=nn.ReLU()
 
 
         self._reduce_rate=4
@@ -112,10 +118,10 @@ class SEResNetBottleNeckBlock(torch.nn.Module):
 
         skip=x
         x=self._c1(x)
-        x=self._r(x)
+        x=self._r1(x)
         x=self._bn1(x)
         x=self._c2(x)
-        x=self._r(x)
+        x=self._r2(x)
         x=self._bn2(x)
         x=self._c3(x)
         x=self._bn3(x)
@@ -136,7 +142,7 @@ class SEResNetBottleNeckBlock(torch.nn.Module):
         else:
             x=x+skip
 
-        x=self._r(x)
+        x=self._r3(x)
         return x
 
 
@@ -150,13 +156,14 @@ class SEResNeXtBottleNeckBlock(torch.nn.Module):
         self._c1=nn.Conv2d(in_channels=in_channels,out_channels=bottleneck_depth,
                            kernel_size=1,stride=1)
         self._bn1=nn.BatchNorm2d(num_features=bottleneck_depth)
-        self._r=nn.ReLU()
+        self._r1=nn.ReLU()
         self._c2=nn.Conv2d(in_channels=bottleneck_depth,out_channels=bottleneck_depth,
                            kernel_size=3,stride=1,padding=1,groups=self._cardinality)
         self._bn2=nn.BatchNorm2d(num_features=bottleneck_depth)
+        self._r2=nn.ReLU()
         self._c3=nn.Conv2d(in_channels=bottleneck_depth,out_channels=in_channels,kernel_size=1,stride=1)
         self._bn3=nn.BatchNorm2d(num_features=in_channels)
-
+        self._r3=nn.ReLU()
 
         self._reduce_rate=4
         self._SE_linear_squeeze=nn.Linear(in_channels,in_channels//self._reduce_rate)
@@ -166,10 +173,10 @@ class SEResNeXtBottleNeckBlock(torch.nn.Module):
 
         skip=x
         x=self._c1(x)
-        x=self._r(x)
+        x=self._r1(x)
         x=self._bn1(x)
         x=self._c2(x)
-        x=self._r(x)
+        x=self._r2(x)
         x=self._bn2(x)
         x=self._c3(x)
         x=self._bn3(x)
@@ -190,7 +197,7 @@ class SEResNeXtBottleNeckBlock(torch.nn.Module):
         else:
             x=x+skip
 
-        x=self._r(x)
+        x=self._r3(x)
         return x
 
 
