@@ -218,7 +218,7 @@ class Model(ModelBase, torch.nn.Module):
         block_counts_resnet_101=[3,4,23,3]
         block_counts_resnet_50=[3,4,6,3]
         block_counts=block_counts_resnet_50
-        d=4
+        d=1
         self._d=d
 
         block=SEResNetBottleNeckBlock
