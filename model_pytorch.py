@@ -26,6 +26,163 @@ def get_augmentations():
                       A.RandomFog(p=0.2),
                       A.ElasticTransform(alpha=3,sigma=5,alpha_affine=2)],p=0.3)
 
+
+class ConvBnRelu(torch.nn.Module):
+    def __init__(self,in_channels,out_channels,kernel_size=3,stride=1):
+        super().__init__()
+        self._conv=nn.Conv2d(in_channels=in_channels,out_channels=out_channels,kernel_size=kernel_size,stride=stride,padding=kernel_size//2)
+        self._bn=nn.BatchNorm2d(num_features=out_channels)
+
+    def forward(self,x):
+        x=self._conv(x)
+        x=self._bn(x)
+        x=nn.ReLU()(x)
+        return x
+
+class ResNetBasicBlock(torch.nn.Module):
+    def __init__(self, in_channels):
+        super().__init__()
+
+        self._c1=nn.Conv2d(in_channels=in_channels,out_channels=in_channels,kernel_size=3,stride=1,padding=1)
+        self._r=nn.ReLU()
+        self._c2=nn.Conv2d(in_channels=in_channels,out_channels=in_channels,kernel_size=3,stride=1,padding=1)
+        self._bn=nn.BatchNorm2d(num_features=in_channels)
+
+    def forward(self,x):
+
+        skip=x
+        x=self._c1(x)
+        x=self._r(x)
+        x=self._c2(x)
+        x=self._bn(x)
+        x=x+skip
+        x=self._r(x)
+
+        return x
+
+class ResNetBottleNeckBlock(torch.nn.Module):
+    def __init__(self, in_channels):
+        super().__init__()
+        self._in_channels=in_channels
+        bottleneck_depth=in_channels//4
+        self._c1=nn.Conv2d(in_channels=in_channels,out_channels=bottleneck_depth,kernel_size=1,stride=1)
+        self._bn1=nn.BatchNorm2d(num_features=bottleneck_depth)
+        self._r=nn.ReLU()
+        self._c2=nn.Conv2d(in_channels=bottleneck_depth,out_channels=bottleneck_depth,kernel_size=3,stride=1,padding=1)
+        self._bn2=nn.BatchNorm2d(num_features=bottleneck_depth)
+        self._c3=nn.Conv2d(in_channels=bottleneck_depth,out_channels=in_channels,kernel_size=1,stride=1)
+        self._bn3=nn.BatchNorm2d(num_features=in_channels)
+
+    def forward(self,x):
+        skip=x
+        x=self._c1(x)
+        x=self._r(x)
+        x=self._bn1(x)
+        x=self._c2(x)
+        x=self._r(x)
+        x=self._bn2(x)
+        x=self._c3(x)
+        x=self._bn3(x)
+
+        x=x+skip
+        x=self._r(x)
+        return x
+
+class SEResNetBottleNeckBlock(torch.nn.Module):
+    def __init__(self, in_channels):
+        super().__init__()
+        self._in_channels=in_channels
+        bottleneck_depth=in_channels//4
+        self._c1=nn.Conv2d(in_channels=in_channels,out_channels=bottleneck_depth,kernel_size=1,stride=1)
+        self._bn1=nn.BatchNorm2d(num_features=bottleneck_depth)
+        self._r=nn.ReLU()
+        self._c2=nn.Conv2d(in_channels=bottleneck_depth,out_channels=bottleneck_depth,kernel_size=3,stride=1,padding=1)
+        self._bn2=nn.BatchNorm2d(num_features=bottleneck_depth)
+        self._c3=nn.Conv2d(in_channels=bottleneck_depth,out_channels=in_channels,kernel_size=1,stride=1)
+        self._bn3=nn.BatchNorm2d(num_features=in_channels)
+
+
+        self._reduce_rate=4
+        self._SE_linear_squeeze=nn.Linear(in_channels,in_channels//self._reduce_rate)
+        self._SE_linear_exitation=nn.Linear(in_channels//self._reduce_rate,in_channels)
+
+    def forward(self,x):
+
+        skip=x
+        x=self._c1(x)
+        x=self._r(x)
+        x=self._bn1(x)
+        x=self._c2(x)
+        x=self._r(x)
+        x=self._bn2(x)
+        x=self._c3(x)
+        x=self._bn3(x)
+        #SE-block
+        global_pooled_x=nn.AdaptiveAvgPool2d(1)(x)
+        global_pooled_x=torch.squeeze(global_pooled_x,dim=-1)
+        global_pooled_x=torch.squeeze(global_pooled_x,dim=-1)
+        squeezed_x=self._SE_linear_squeeze(global_pooled_x)
+        squeezed_x=nn.ReLU()(squeezed_x)
+
+        exitated_x=self._SE_linear_exitation(squeezed_x)
+        scale_x=nn.Sigmoid()(exitated_x)
+        scale_x=scale_x.reshape([-1,self._in_channels,1,1])
+        x=x*scale_x
+
+        x=x+skip
+        x=self._r(x)
+        return x
+
+
+class SEResNeXtBottleNeckBlock(torch.nn.Module):
+    def __init__(self, in_channels):
+        super().__init__()
+        self._cardinality=32
+        self._in_channels=in_channels
+        bottleneck_depth=in_channels//2
+        self._c1=nn.Conv2d(in_channels=in_channels,out_channels=bottleneck_depth,
+                           kernel_size=1,stride=1)
+        self._bn1=nn.BatchNorm2d(num_features=bottleneck_depth)
+        self._r=nn.ReLU()
+        self._c2=nn.Conv2d(in_channels=bottleneck_depth,out_channels=bottleneck_depth,
+                           kernel_size=3,stride=1,padding=1,groups=self._cardinality)
+        self._bn2=nn.BatchNorm2d(num_features=bottleneck_depth)
+        self._c3=nn.Conv2d(in_channels=bottleneck_depth,out_channels=in_channels,kernel_size=1,stride=1)
+        self._bn3=nn.BatchNorm2d(num_features=in_channels)
+
+
+        self._reduce_rate=4
+        self._SE_linear_squeeze=nn.Linear(in_channels,in_channels//self._reduce_rate)
+        self._SE_linear_exitation=nn.Linear(in_channels//self._reduce_rate,in_channels)
+
+    def forward(self,x):
+
+        skip=x
+        x=self._c1(x)
+        x=self._r(x)
+        x=self._bn1(x)
+        x=self._c2(x)
+        x=self._r(x)
+        x=self._bn2(x)
+        x=self._c3(x)
+        x=self._bn3(x)
+        #SE-block
+        global_pooled_x=nn.AdaptiveAvgPool2d(1)(x)
+        global_pooled_x=torch.squeeze(global_pooled_x,dim=-1)
+        global_pooled_x=torch.squeeze(global_pooled_x,dim=-1)
+        squeezed_x=self._SE_linear_squeeze(global_pooled_x)
+        squeezed_x=nn.ReLU()(squeezed_x)
+
+        exitated_x=self._SE_linear_exitation(squeezed_x)
+        scale_x=nn.Sigmoid()(exitated_x)
+        scale_x=scale_x.reshape([-1,self._in_channels,1,1])
+        x=x*scale_x
+
+        x=x+skip
+        x=self._r(x)
+        return x
+
+
 class Model(ModelBase, torch.nn.Module):
 
     def __init__(self):
@@ -33,33 +190,49 @@ class Model(ModelBase, torch.nn.Module):
         ModelBase.__init__(self)
 
         self._device = torch.device("cuda:0")
-
+        self._layers=[]
         self._print_every_iter=2000
         self._eval_batches=100
 
         self._classes_list=[]
-        #self.backbone=torchvision.models.wide_resnet50_2(pretrained=False)
-        self.backbone=torchvision.models.resnet18(pretrained=False)
-        dbg=1
+        #resnet 152,resnet-101,resnet-50
+        block_counts_resnet_152=[3,8,36,3]
+        block_counts_resnet_101=[3,4,23,3]
+        block_counts_resnet_50=[3,4,6,3]
+        block_counts=block_counts_resnet_50
+        d=1
+        self._d=d
 
+        block=SEResNeXtBottleNeckBlock
+
+        self._blocks=[ConvBnRelu(in_channels=3,out_channels=64//d,stride=2,kernel_size=7),
+        ConvBnRelu(in_channels=64//d,out_channels=128//d,stride=2,kernel_size=3),
+        ConvBnRelu(in_channels=128//d,out_channels=256//d,stride=2,kernel_size=3)]
+        for _ in range(block_counts[0]):
+            self._blocks.append(block(in_channels=256//d))
+
+        self._blocks.append(ConvBnRelu(in_channels=256//d,out_channels=512//d,stride=2))
+        for _ in range(block_counts[1]):
+            self._blocks.append(block(in_channels=512//d))
+        self._blocks.append(ConvBnRelu(in_channels=512//d,out_channels=1024//d,stride=2))
+        for _ in range(block_counts[2]):
+            self._blocks.append(block(in_channels=1024//d))
+        self._blocks.append(ConvBnRelu(in_channels=1024//d,out_channels=2048//d,stride=2))
+        for _ in range(block_counts[3]):
+            self._blocks.append(block(in_channels=2048//d))
+
+        for i,b in enumerate(self._blocks):
+            setattr(self,'_block_{}'.format(i),b)
 
 
     def forward(self,x):
 
-        x=self.backbone.conv1(x)
-        x=self.backbone.bn1(x)
-        x=self.backbone.relu(x)
-        x=self.backbone.maxpool(x)
+        for b in self._blocks:
+            x=b(x)
 
-        x=self.backbone.layer1(x)
-        x=self.backbone.layer2(x)
-        x=self.backbone.layer3(x)
-        x=self.backbone.layer4(x)
-
-        #x=self.backbone.avgpool(x)
-
+        x=torch.mean(x,dim=-1)
+        x=torch.mean(x,dim=-1)
         x=torch.flatten(x,1)
-
         fc_graph=self._fc_graph(x)
         fc_vowel = self._fc_vowel(x)
         fc_conso=self._fc_conso(x)
@@ -71,7 +244,7 @@ class Model(ModelBase, torch.nn.Module):
     def compile(self,classes_list,**kwargs):
         self._classes_list=classes_list
 
-        in_features=8192#self.backbone.fc.in_features
+        in_features=2048//self._d
         self._fc_graph=torch.nn.Linear(in_features,self._classes_list[0])
         self._fc_vowel=torch.nn.Linear(in_features,self._classes_list[1])
         self._fc_conso=torch.nn.Linear(in_features,self._classes_list[2])
