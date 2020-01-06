@@ -6,7 +6,7 @@ class ShakeShake(torch.autograd.Function):
 
     @staticmethod
     def _get_random_alpha(x):
-        alpha = 0.5+0.1*(2*torch.cuda.FloatTensor(x.size(0)).uniform_()-1)
+        alpha = 0.5+0.25*(2*torch.cuda.FloatTensor(x.size(0)).uniform_()-1)
         alpha = alpha.view(alpha.size(0),1,1,1).expand_as(x)
         return alpha
 
@@ -16,13 +16,15 @@ class ShakeShake(torch.autograd.Function):
             alpha=ShakeShake._get_random_alpha(x)
         else:
             alpha=0.5
+        ctx.save_for_backward(alpha)
         return alpha*x+(1-alpha)*y
 
 
     @staticmethod
     def backward(ctx,grad_by_forward_output):
 
-        alpha = ShakeShake._get_random_alpha(grad_by_forward_output)
+        #alpha = ShakeShake._get_random_alpha(grad_by_forward_output)
+        alpha = ctx.saved_variables[0]
 
         d_forward_output_by_x=alpha
         d_forward_output_by_y = 1-alpha

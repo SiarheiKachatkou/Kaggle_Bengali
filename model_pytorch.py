@@ -90,8 +90,9 @@ class ResNetBottleNeckBlock(torch.nn.Module):
         return x
 
 class SEResNetBottleNeckBlock(torch.nn.Module):
-    def __init__(self, in_channels):
+    def __init__(self, in_channels,use_shake_shake=True):
         super().__init__()
+        self._use_shake_shake=use_shake_shake
         self._in_channels=in_channels
         bottleneck_depth=in_channels//4
         self._c1=nn.Conv2d(in_channels=in_channels,out_channels=bottleneck_depth,kernel_size=1,stride=1)
@@ -130,7 +131,11 @@ class SEResNetBottleNeckBlock(torch.nn.Module):
         scale_x=scale_x.reshape([-1,self._in_channels,1,1])
         x=x*scale_x
 
-        x=x+skip
+        if self._use_shake_shake:
+            x=ShakeShake.apply(x,skip,self.training)
+        else:
+            x=x+skip
+
         x=self._r(x)
         return x
 
@@ -209,7 +214,7 @@ class Model(ModelBase, torch.nn.Module):
         d=4
         self._d=d
 
-        block=SEResNeXtBottleNeckBlock
+        block=SEResNetBottleNeckBlock
 
         self._blocks=[ConvBnRelu(in_channels=3,out_channels=64//d,stride=2,kernel_size=7),
         ConvBnRelu(in_channels=64//d,out_channels=128//d,stride=2,kernel_size=3),
@@ -287,7 +292,7 @@ class Model(ModelBase, torch.nn.Module):
 
         loss_fn=nn.CrossEntropyLoss()
         optimizer=optim.Adam(self.parameters(),lr=LR)
-        scheduler=torch.optim.lr_scheduler.ReduceLROnPlateau(optimizer, mode='min', factor=0.5, patience=5, verbose=True, threshold=0.0001, threshold_mode='rel', cooldown=0, min_lr=1e-8, eps=1e-08)
+        scheduler=torch.optim.lr_scheduler.ReduceLROnPlateau(optimizer, mode='min', factor=0.5, patience=1, verbose=True, threshold=0.0001, threshold_mode='rel', cooldown=0, min_lr=1e-8, eps=1e-08)
 
         for epoch in tqdm(range(EPOCHS)):
             for i, data in enumerate(train_dataloader):
@@ -309,10 +314,13 @@ class Model(ModelBase, torch.nn.Module):
 
                 if i%self._print_every_iter==0:
 
-                    train_score=self._eval(train_val_dataloader)
-                    val_score=self._eval(val_dataloader)
-                    print('loss={} train_score={} val_score={}'.format(loss.item(),train_score,val_score))
+                    self.eval()
+                    with torch.no_grad():
+                        train_score=self._eval(train_val_dataloader)
+                        val_score=self._eval(val_dataloader)
+                        print('loss={} train_score={} val_score={}'.format(loss.item(),train_score,val_score))
                     scheduler.step(1-val_score)
+                    self.train()
 
 
     def _eval(self,dataloader):
