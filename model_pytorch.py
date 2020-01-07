@@ -59,9 +59,9 @@ class Model(ModelBase, torch.nn.Module):
     def compile(self,classes_list,**kwargs):
         self._classes_list=classes_list
 
-        in_features=self._backbone.fc.out_features
+        #in_features=self._backbone.fc.out_features
         #in_features=self._backbone.classifier[1].out_features
-        #in_features=self._backbone.classifier.out_features
+        in_features=self._backbone.classifier.out_features
         self._graph=nn.Linear(in_features, classes_list[0])
         self._vowel=nn.Linear(in_features, classes_list[1])
         self._conso=nn.Linear(in_features, classes_list[2])
