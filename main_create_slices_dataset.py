@@ -30,8 +30,8 @@ def list_label_to_symbol(class_map,list_label):
 
 if __name__ == "__main__":
 
-    activation_name='_block_21._r3'
-    max_imgs_count=100000
+    activation_name='_backbone.features.18.0'
+    max_imgs_count=1000
 
     parser=argparse.ArgumentParser()
     parser.add_argument('--sub_dataset',type=str,default='test')
@@ -68,9 +68,11 @@ if __name__ == "__main__":
         activations[name].append(out.cpu())
 
     for name, m in model.named_modules():
-        if type(m)==nn.ReLU:
+        if type(m)==nn.Conv2d:
             # partial to assign the layer name to each hook
+            print('possible activations name {}'.format(name))
             m.register_forward_hook(partial(save_activation, name))
+
 
     predicted_acts_batches=[]
     preds_batches=[]

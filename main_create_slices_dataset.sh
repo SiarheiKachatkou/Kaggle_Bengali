@@ -2,7 +2,7 @@
 
 set -x
 
-TAG=c080f40
+TAG=7ab610
 DST_DIR=/home/sergey/1T/DNNDebug/Data/SlicesDataset/
 
 PY=/home/sergey/anaconda3/envs/pytorch/bin/python
