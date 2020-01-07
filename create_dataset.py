@@ -43,12 +43,13 @@ def load_parquet(path_pattern, labels_csv):
     return imgs,image_ids,labels
 
 def crop_symbol(img):
-
+    '''
     _,bin=cv2.threshold(img,0,255,cv2.THRESH_OTSU)
     black=np.where(bin<230)
     left,right = min(black[1]), max(black[1])
     top,bottom = min(black[0]), max(black[0])
     img=img[top:bottom,left:right]
+    '''
 
     img=preproc(img)
 

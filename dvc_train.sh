@@ -27,5 +27,6 @@ metric="metric3.txt"
 
 dvc run --overwrite-dvcfile $deps_code $deps_data -f $outputs.dvc -o $outputs -M $metric $PY train.py &&
 dvc push $outputs.dvc &&
-gid add $metric
+git add $metric
+git add $outputs.dvc -f
 git commit -a -m $git_cmt_message
