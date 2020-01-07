@@ -2,6 +2,7 @@ import os
 import numpy as np
 import collections
 import argparse
+import pandas as pd
 from functools import partial
 import torch
 from torch import nn
@@ -15,15 +16,26 @@ from create_dataset_utils import load
 import sys
 sys.path.append('../DNNDebug/Python')
 from dnn_slice import DNNSlice, write_slices
-sys.path.append('..')
-from DNNDebug.Python.symbol import Symbol
+from dnn_symbol import Symbol
+
+def list_label_to_symbol(class_map,list_label):
+
+    s=''
+    for c,l in zip(['grapheme_root','vowel_diacritic','consonant_diacritic'],list_label):
+        df=class_map[class_map['component_type']==c]
+        new_char=df.iloc[l,-1]
+        if new_char!='0':
+            s+=new_char
+    return s
 
 if __name__ == "__main__":
 
     activation_name='_block_21._r3'
+    max_imgs_count=100000
+
     parser=argparse.ArgumentParser()
-    parser.add_argument('--sub_dataset',type=str,default='train')
-    parser.add_argument('--tag',type=str,default='661131ae')
+    parser.add_argument('--sub_dataset',type=str,default='test')
+    parser.add_argument('--tag',type=str,default='c080f40')
     parser.add_argument('--dst_dir',type=str,default='/home/sergey/1T/DNNDebug/Data/SlicesDataset/')
     args=parser.parse_args()
     sub_dataset=args.sub_dataset
@@ -32,7 +44,14 @@ if __name__ == "__main__":
 
     dataset_pkl=TRAIN_DATASET_PKL if sub_dataset=='train' else VAL_DATASET_PKL
 
+    class_map=pd.read_csv('data/raw/class_map.csv')
+
     imgs, labels, ids, classes = load(os.path.join(DATA_DIR,dataset_pkl))
+    if max_imgs_count<len(imgs):
+        imgs=imgs[:max_imgs_count]
+        labels=labels[:max_imgs_count]
+        ids=ids[:max_imgs_count]
+    print('{} images loaded'.format(len(imgs)))
 
     model=Model()
     model.load(os.path.join(DATA_DIR,MODELS_DIR,MODEL_NAME),classes)
@@ -68,11 +87,14 @@ if __name__ == "__main__":
     slices=[]
     for img,image_id,predicted_label, act, true_label in zip(imgs,ids,preds,acts, labels):
 
+        pred_symbol=list_label_to_symbol(class_map,predicted_label)
+        true_symbol=list_label_to_symbol(class_map,true_label)
+
         slice=DNNSlice(activation_slices_list=[act], activation_names=[activation_name],
-                       img=img, img_slice=img, img_slice_begin=0,
+                       img=None, img_slice=img, img_slice_begin=0,
                        img_slice_end=IMG_W,
-                       symbol=Symbol(label=predicted_label, x=0, prob=1.0,#TODO take actual probs
-                                     true_label=true_label), full_true_label=true_label, full_predicted_label=predicted_label,
+                       symbol=Symbol(label=pred_symbol, x=0, prob=1.0,#TODO take actual probs
+                             true_label=true_symbol), full_true_label=None, full_predicted_label=None,
                        image_id=image_id,
                        grads=None)
         slices.append(slice)
