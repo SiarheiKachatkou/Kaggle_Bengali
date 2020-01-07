@@ -1,5 +1,8 @@
 import numpy as np
 from torch.utils.data import Dataset
+import cv2
+import numpy as np
+from consts import IMG_H,IMG_W
 
 def _normalize_img(img):
     eps=1e-3
@@ -8,7 +11,7 @@ def _normalize_img(img):
 
 class BengaliDataset(Dataset):
     def __init__(self, images, labels=None, transform_fn=None):
-        self._images=images
+        self._images=[np.expand_dims(cv2.resize(img,(IMG_W,IMG_H)),axis=-1) for img in images]
         self._labels=labels
         self._transform_fn=transform_fn
 

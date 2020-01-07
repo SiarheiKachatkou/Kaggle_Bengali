@@ -1,16 +1,16 @@
-md5: dc7401ed88c222e563b70cf755392bcf
+md5: 8622396306d433c33aa0285fe2c49cd3
 cmd: /home/sergey/anaconda3/envs/tensorflow/bin/python create_dataset.py
 wdir: ..
 deps:
 - md5: 13debd3845f98cc0bb47864d1428fa46.dir
   path: data/raw
-- md5: 3e613f46c4e0c0ca999d6b008434656d
+- md5: fd5f9a366ac93b4b3154fdceb128b4b1
   path: consts.py
-- md5: 67af4fff3580582ec7f2c3be3f59f891
+- md5: d3b12b4668ad2db7ea5d8bd2315aa73d
   path: create_dataset.py
 - md5: ff0414473919f65a6c9e3266ea583f95
   path: create_dataset_utils.py
-- md5: d2e96a50ecb1723086a5ed9047822ed9
+- md5: 7f9a927bc2051e68dab41e02fa62398f
   path: dataset_pytorch.py
 - md5: 05c66aece18d092b9d09502fb9a4561b
   path: image_data_generator_tf.py
@@ -20,26 +20,30 @@ deps:
   path: model_base.py
 - md5: 460d1d154a827c40c27a2bb058e48d6b
   path: model.py
-- md5: 7304a94145e894ffabaae0ea612cc1a0
+- md5: ab068f5a49ee2539be2fda569bf72a1f
+  path: model_pytorch_my.py
+- md5: 362c4bc5ece07361d80e17b18ddfcb7a
   path: model_pytorch.py
 - md5: d70ca8e8d7bdb0333585077b128717c7
   path: model_tf.py
 - md5: baf9808e5d4d6479ecc1d5601fadfb18
   path: score.py
-- md5: ecd47be584691abebf5aa6a190af9c94
+- md5: cf4682d939136c14b6097faae7ba6dba
+  path: shake_shake.py
+- md5: 736a67c09aad320adc8ddf7e5a3e411d
   path: train.py
 outs:
-- md5: 93bc7a9369980f2bce96ddcabec1896a
+- md5: daefc35aae63219d6a28512161f1bb24
   path: data/test_datset.pkl
   cache: true
   metric: false
   persist: false
-- md5: 8d1db9d8b1bb29aa6b7b8191a9d0076c
+- md5: 05d09df05711a76c7a80b7a4b02aa768
   path: data/train_datset.pkl
   cache: true
   metric: false
   persist: false
-- md5: 59270ea53d2b5b476b9e67d848921b18
+- md5: e4ffb6fa3ad5999a93197ed67371038c
   path: data/val_datset.pkl
   cache: true
   metric: false
