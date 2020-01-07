@@ -40,8 +40,8 @@ class Model(ModelBase, torch.nn.Module):
         self._classes_list=[]
 
         #self._backbone=models.resnext50_32x4d()
-        #self._backbone=models.mnasnet1_0()
-        self._backbone=models.shufflenet_v2_x1_0()
+        self._backbone=models.mnasnet1_0()
+        #self._backbone=models.shufflenet_v2_x1_0()
 
     def forward(self,x):
 
@@ -57,8 +57,8 @@ class Model(ModelBase, torch.nn.Module):
     def compile(self,classes_list,**kwargs):
         self._classes_list=classes_list
 
-        in_features=self._backbone.fc.out_features
-        #in_features=self._backbone.classifier[1].out_features
+        #in_features=self._backbone.fc.out_features
+        in_features=self._backbone.classifier[1].out_features
         self._graph=nn.Linear(in_features, classes_list[0])
         self._vowel=nn.Linear(in_features, classes_list[1])
         self._conso=nn.Linear(in_features, classes_list[2])
