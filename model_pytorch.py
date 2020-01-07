@@ -1,5 +1,5 @@
 import torch
-import torchvision
+import torchvision.models as models
 import numpy as np
 from tqdm import tqdm
 from model_base import ModelBase
@@ -10,7 +10,6 @@ import torch.nn as nn
 import torch.optim as optim
 import torch.nn.functional as F
 import albumentations as A
-from shake_shake.shake_resnet import ShakeResNet
 
 from consts import IMG_W,IMG_H,N_CHANNELS, BATCH_SIZE, LR, EPOCHS
 
@@ -40,17 +39,15 @@ class Model(ModelBase, torch.nn.Module):
 
         self._classes_list=[]
 
-        self._graph=ShakeResNet(depth=26,w_base=64,label=168)
-        self._vowel=ShakeResNet(depth=26,w_base=64,label=11)
-        self._conso=ShakeResNet(depth=26,w_base=64,label=7)
-
+        self._backbone=models.resnext50_32x4d()
 
 
     def forward(self,x):
 
-        fc_graph=self._graph(x)
-        fc_vowel = self._vowel(x)
-        fc_conso=self._conso(x)
+        deep_fatures=self._backbone(x)
+        fc_graph=self._graph(deep_fatures)
+        fc_vowel = self._vowel(deep_fatures)
+        fc_conso=self._conso(deep_fatures)
 
         return fc_graph, fc_vowel, fc_conso
 
@@ -59,14 +56,19 @@ class Model(ModelBase, torch.nn.Module):
     def compile(self,classes_list,**kwargs):
         self._classes_list=classes_list
 
+        in_features=self._backbone.fc.out_features
+        self._graph=nn.Linear(in_features, classes_list[0])
+        self._vowel=nn.Linear(in_features, classes_list[1])
+        self._conso=nn.Linear(in_features, classes_list[2])
+
     def fit(self,train_images,train_labels, val_images, val_labels, batch_size,epochs, **kwargs):
 
         self.to(self._device)
 
         aug=get_augmentations()
         def aug_fn(img):
-            #return img
-            return aug(image=img)['image']
+            return img
+            #return aug(image=img)['image']
 
         train_dataset_aug=BengaliDataset(train_images,labels=train_labels,transform_fn=aug_fn)
         train_dataset=BengaliDataset(train_images,labels=train_labels)
@@ -90,7 +92,7 @@ class Model(ModelBase, torch.nn.Module):
 
         loss_fn=nn.CrossEntropyLoss()
         optimizer=optim.Adam(self.parameters(),lr=LR)
-        scheduler=torch.optim.lr_scheduler.ReduceLROnPlateau(optimizer, mode='min', factor=0.5, patience=5, verbose=True, threshold=0.0001, threshold_mode='rel', cooldown=0, min_lr=1e-8, eps=1e-08)
+        scheduler=torch.optim.lr_scheduler.ReduceLROnPlateau(optimizer, mode='min', factor=0.5, patience=1, verbose=True, threshold=0.0001, threshold_mode='rel', cooldown=0, min_lr=1e-8, eps=1e-08)
 
         for epoch in tqdm(range(EPOCHS)):
             for i, data in enumerate(train_dataloader):
@@ -111,10 +113,11 @@ class Model(ModelBase, torch.nn.Module):
                 optimizer.step()
 
                 if i%self._print_every_iter==0:
-
+                    self.eval()
                     train_score=self._eval(train_val_dataloader)
                     val_score=self._eval(val_dataloader)
                     print('loss={} train_score={} val_score={}'.format(loss.item(),train_score,val_score))
+                    self.train()
                     scheduler.step(1-val_score)
 
 
