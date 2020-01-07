@@ -43,7 +43,7 @@ class Model(ModelBase, torch.nn.Module):
         #self._backbone=models.mnasnet1_0()
         #self._backbone=models.shufflenet_v2_x1_0()
         #self._backbone=models.densenet161()
-        self._backbone=models.inception_v3()
+        self._backbone=models.mobilenet_v2()
 
     def forward(self,x):
 
