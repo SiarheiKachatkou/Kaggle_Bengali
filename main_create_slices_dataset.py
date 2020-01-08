@@ -5,6 +5,7 @@ import argparse
 import pandas as pd
 from functools import partial
 import torch
+from tqdm import tqdm
 from torch import nn
 from torch.utils.data import DataLoader
 from dataset_pytorch import BengaliDataset
@@ -30,17 +31,19 @@ def list_label_to_symbol(class_map,list_label):
 
 if __name__ == "__main__":
 
-    activation_name='_backbone.features.18.0'
 
     parser=argparse.ArgumentParser()
     parser.add_argument('--sub_dataset',type=str,default='test')
-    parser.add_argument('--tag',type=str,default='c080f40')
+    parser.add_argument('--tag',type=str,default='174e3c')
     parser.add_argument('--dst_dir',type=str,default='/home/sergey/1T/DNNDebug/Data/SlicesDataset/')
-    parser.add_argument('--max_img_count',type=int)
+    parser.add_argument('--max_imgs_count',type=int,default=100)
+    parser.add_argument('--activation_name_postfix',type=str,default='conv3')
     args=parser.parse_args()
     sub_dataset=args.sub_dataset
     dst_dir=args.dst_dir
     tag=args.tag
+    max_imgs_count=args.max_imgs_count
+    activation_name_postfix=args.activation_name_postfix
 
     dataset_pkl=TRAIN_DATASET_PKL if sub_dataset=='train' else VAL_DATASET_PKL
 
@@ -48,9 +51,10 @@ if __name__ == "__main__":
 
     imgs, labels, ids, classes = load(os.path.join(DATA_DIR,dataset_pkl))
     if max_imgs_count<len(imgs):
-        imgs=imgs[:max_imgs_count]
-        labels=labels[:max_imgs_count]
-        ids=ids[:max_imgs_count]
+        idxs=np.random.choice(range(len(imgs)),max_imgs_count,replace=False)
+        imgs=imgs[idxs]
+        labels=labels[idxs]
+        ids=ids[idxs]
     print('{} images loaded'.format(len(imgs)))
 
     model=Model()
@@ -67,32 +71,43 @@ if __name__ == "__main__":
     def save_activation(name, mod, inp, out):
         activations[name].append(out.cpu())
 
+    activation_names=[]
     for name, m in model.named_modules():
         if type(m)==nn.Conv2d:
             # partial to assign the layer name to each hook
+            if name.endswith(activation_name_postfix):
+                activation_names.append(name)
             print('possible activations name {}'.format(name))
             m.register_forward_hook(partial(save_activation, name))
 
 
-    predicted_acts_batches=[]
+    acts_list=[]
     preds_batches=[]
-    for batch in dataloader:
+    for bathc_idx, batch in tqdm(enumerate(dataloader)):
         imgs_normalized=batch['image']
         preds_batches.append(model._predict_on_tensor(imgs_normalized))
-        act=activations[activation_name]
-        predicted_acts_batches.append(act[0].data.cpu().numpy())
+        for name_idx, name in enumerate(activation_names):
+            act=activations[name]
+            act_batch=act[0].data.cpu().numpy()
+            if bathc_idx==0:
+                acts_list.append([act_batch])
+            else:
+                acts_list[name_idx].append(act_batch)
+
         activations=collections.defaultdict(list)
 
+    acts_list=[np.concatenate(acts_list[name_idx],axis=0) for name_idx in range(len(acts_list))]
     preds=np.concatenate(preds_batches,axis=0)
-    acts=np.concatenate(predicted_acts_batches,axis=0)
 
     slices=[]
-    for img,image_id,predicted_label, act, true_label in zip(imgs,ids,preds,acts, labels):
+    img_idx=0
+    for img,image_id,predicted_label, true_label in zip(imgs,ids,preds,labels):
 
         pred_symbol=list_label_to_symbol(class_map,predicted_label)
         true_symbol=list_label_to_symbol(class_map,true_label)
 
-        slice=DNNSlice(activation_slices_list=[act], activation_names=[activation_name],
+        activation_slices_list=[act[img_idx].flatten() for act in acts_list]
+        slice=DNNSlice(activation_slices_list=activation_slices_list, activation_names=activation_names,
                        img=None, img_slice=img, img_slice_begin=0,
                        img_slice_end=IMG_W,
                        symbol=Symbol(label=pred_symbol, x=0, prob=1.0,#TODO take actual probs
@@ -100,6 +115,7 @@ if __name__ == "__main__":
                        image_id=image_id,
                        grads=None)
         slices.append(slice)
+        img_idx+=1
 
     dir=os.path.join(dst_dir,sub_dataset+'_{}'.format(tag))
     if not os.path.exists(dir):
