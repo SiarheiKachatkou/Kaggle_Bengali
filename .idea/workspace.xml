@@ -2,12 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8d7aab7b-5a13-411d-a5a4-10047020d786" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/create_dataset.py" beforeDir="false" afterPath="$PROJECT_DIR$/create_dataset.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/consts.py" beforeDir="false" afterPath="$PROJECT_DIR$/consts.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data/models3.dvc" beforeDir="false" afterPath="$PROJECT_DIR$/data/models3.dvc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/train_val_test_datset.pkl.dvc" beforeDir="false" afterPath="$PROJECT_DIR$/data/train_val_test_datset.pkl.dvc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dvc_train.sh" beforeDir="false" afterPath="$PROJECT_DIR$/dvc_train.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main_create_slices_dataset.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_create_slices_dataset.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main_create_slices_dataset.sh" beforeDir="false" afterPath="$PROJECT_DIR$/main_create_slices_dataset.sh" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/metric3.txt" beforeDir="false" afterPath="$PROJECT_DIR$/metric3.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model_pytorch.py" beforeDir="false" afterPath="$PROJECT_DIR$/model_pytorch.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -29,8 +30,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/main_create_slices_dataset.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="359">
-              <caret line="43" selection-start-line="43" selection-end-line="43" />
+            <state relative-caret-position="194">
+              <caret line="38" column="51" lean-forward="true" selection-start-line="38" selection-start-column="51" selection-end-line="38" selection-end-column="51" />
               <folding>
                 <element signature="e#0#9#0" expanded="true" />
               </folding>
@@ -41,8 +42,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/main_create_slices_dataset.sh">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="60">
-              <caret line="4" column="10" lean-forward="true" selection-start-line="4" selection-start-column="4" selection-end-line="4" selection-end-column="10" />
+            <state relative-caret-position="105">
+              <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="7" />
             </state>
           </provider>
         </entry>
@@ -306,7 +307,7 @@
       <window_info anchor="bottom" id="SOQL Query" order="8" />
       <window_info anchor="bottom" id="Log Analyzer" order="9" />
       <window_info anchor="bottom" id="Educational.CheckDetails" order="10" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="11" visible="true" weight="0.40172786" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="11" visible="true" weight="0.5604752" />
       <window_info anchor="bottom" id="Event Log" order="12" side_tool="true" />
       <window_info anchor="bottom" id="Anonymous Apex" order="13" weight="0.32937366" />
       <window_info anchor="bottom" id="Python Console" order="14" weight="0.32073435" />
@@ -634,20 +635,20 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/main_create_slices_dataset.sh">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="4" column="10" lean-forward="true" selection-start-line="4" selection-start-column="4" selection-end-line="4" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/main_create_slices_dataset.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="359">
-          <caret line="43" selection-start-line="43" selection-end-line="43" />
+        <state relative-caret-position="194">
+          <caret line="38" column="51" lean-forward="true" selection-start-line="38" selection-start-column="51" selection-end-line="38" selection-end-column="51" />
           <folding>
             <element signature="e#0#9#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main_create_slices_dataset.sh">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="7" />
         </state>
       </provider>
     </entry>

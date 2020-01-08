@@ -31,12 +31,12 @@ def list_label_to_symbol(class_map,list_label):
 if __name__ == "__main__":
 
     activation_name='_backbone.features.18.0'
-    max_imgs_count=1000
 
     parser=argparse.ArgumentParser()
     parser.add_argument('--sub_dataset',type=str,default='test')
     parser.add_argument('--tag',type=str,default='c080f40')
     parser.add_argument('--dst_dir',type=str,default='/home/sergey/1T/DNNDebug/Data/SlicesDataset/')
+    parser.add_argument('--max_img_count',type=int)
     args=parser.parse_args()
     sub_dataset=args.sub_dataset
     dst_dir=args.dst_dir

@@ -39,11 +39,11 @@ class Model(ModelBase, torch.nn.Module):
 
         self._classes_list=[]
 
-        #self._backbone=models.resnext50_32x4d()
+        self._backbone=models.resnext50_32x4d()
         #self._backbone=models.mnasnet1_0()
         #self._backbone=models.shufflenet_v2_x1_0()
         #self._backbone=models.densenet161()
-        self._backbone=models.mobilenet_v2()
+        #self._backbone=models.mobilenet_v2()
 
     def forward(self,x):
 
@@ -59,8 +59,8 @@ class Model(ModelBase, torch.nn.Module):
     def compile(self,classes_list,**kwargs):
         self._classes_list=classes_list
 
-        #in_features=self._backbone.fc.out_features
-        in_features=self._backbone.classifier[-1].out_features
+        in_features=self._backbone.fc.out_features
+        #in_features=self._backbone.classifier[-1].out_features
         #in_features=self._backbone.classifier.out_features
         self._graph=nn.Linear(in_features, classes_list[0])
         self._vowel=nn.Linear(in_features, classes_list[1])
@@ -72,8 +72,8 @@ class Model(ModelBase, torch.nn.Module):
 
         aug=get_augmentations()
         def aug_fn(img):
-            return img
-            #return aug(image=img)['image']
+            #return img
+            return aug(image=img)['image']
 
         train_dataset_aug=BengaliDataset(train_images,labels=train_labels,transform_fn=aug_fn)
         train_dataset=BengaliDataset(train_images,labels=train_labels)
@@ -97,7 +97,7 @@ class Model(ModelBase, torch.nn.Module):
 
         loss_fn=nn.CrossEntropyLoss()
         optimizer=optim.Adam(self.parameters(),lr=LR)
-        scheduler=torch.optim.lr_scheduler.ReduceLROnPlateau(optimizer, mode='min', factor=0.5, patience=1, verbose=True, threshold=0.0001, threshold_mode='rel', cooldown=0, min_lr=1e-8, eps=1e-08)
+        scheduler=torch.optim.lr_scheduler.ReduceLROnPlateau(optimizer, mode='min', factor=0.5, patience=2, verbose=True, threshold=0.0001, threshold_mode='rel', cooldown=0, min_lr=1e-8, eps=1e-08)
 
         for epoch in tqdm(range(EPOCHS)):
             for i, data in enumerate(train_dataloader):
