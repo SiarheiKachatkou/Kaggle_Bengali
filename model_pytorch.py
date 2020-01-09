@@ -39,11 +39,11 @@ class Model(ModelBase, torch.nn.Module):
 
         self._classes_list=[]
 
-        self._backbone=models.resnext50_32x4d()
+        #self._backbone=models.resnext50_32x4d()
         #self._backbone=models.mnasnet1_0()
         #self._backbone=models.shufflenet_v2_x1_0()
         #self._backbone=models.densenet161()
-        #self._backbone=models.mobilenet_v2()
+        self._backbone=models.mobilenet_v2()
 
     def forward(self,x):
 
