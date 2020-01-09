@@ -30,6 +30,8 @@ BATCH_SIZE=32
 EPOCHS=10
 LR=0.01
 
+LR_SCHEDULER_PATINCE=0
+
 SEED=0
 
 TARGETS=['grapheme_root','vowel_diacritic','consonant_diacritic']
