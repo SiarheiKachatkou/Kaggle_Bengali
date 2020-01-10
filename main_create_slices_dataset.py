@@ -120,6 +120,6 @@ if __name__ == "__main__":
     dir=os.path.join(dst_dir,sub_dataset+'_{}'.format(tag))
     if not os.path.exists(dir):
         os.mkdir(dir)
-    filename=os.path.join(dir,'Bengali.bin')
+    filename = os.path.join(dir,'Bengali.bin')
     write_slices(slices,filename)
     print('{} slices saved to {}'.format(len(slices),filename))

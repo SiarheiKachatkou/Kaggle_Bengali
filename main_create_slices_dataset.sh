@@ -2,7 +2,7 @@
 
 set -x
 
-TAG=174e3c
+TAG=cea0d87234
 DST_DIR=/home/sergey/1T/DNNDebug/Data/SlicesDataset/
 MAX_IMGS_COUNT=1000
 ACTIVATION_NAME=conv3
