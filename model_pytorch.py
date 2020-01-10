@@ -11,20 +11,12 @@ import torch.optim as optim
 import torch.nn.functional as F
 import albumentations as A
 
-from consts import IMG_W,IMG_H,N_CHANNELS, BATCH_SIZE, LR, EPOCHS
+from consts import IMG_W,IMG_H,N_CHANNELS, BATCH_SIZE, LR, EPOCHS, LR_SCHEDULER_PATINCE
 
 
 def get_augmentations():
-    return A.Compose([A.RandomBrightness(p=0.2),
-                      A.RandomContrast(p=0.2),
-                      A.MotionBlur(p=0.2),
-                      A.CLAHE(clip_limit=1,p=0.1),
-                      A.CLAHE(clip_limit=4,p=0.1),
-                      A.Cutout(),
-                      A.RandomSnow(p=0.2),
-                      A.RandomRain(p=0.2),
-                      A.RandomFog(p=0.2),
-                      A.ElasticTransform(alpha=3,sigma=5,alpha_affine=2)],p=0.3)
+    return A.Compose([A.Cutout(),
+                      A.ElasticTransform(alpha=10,sigma=10,alpha_affine=2)],p=0.5)
 
 class Model(ModelBase, torch.nn.Module):
 
@@ -97,7 +89,7 @@ class Model(ModelBase, torch.nn.Module):
 
         loss_fn=nn.CrossEntropyLoss()
         optimizer=optim.Adam(self.parameters(),lr=LR)
-        scheduler=torch.optim.lr_scheduler.ReduceLROnPlateau(optimizer, mode='min', factor=0.5, patience=2, verbose=True, threshold=0.0001, threshold_mode='rel', cooldown=0, min_lr=1e-8, eps=1e-08)
+        scheduler=torch.optim.lr_scheduler.ReduceLROnPlateau(optimizer, mode='min', factor=0.5, patience=LR_SCHEDULER_PATINCE, verbose=True, threshold=0.0001, threshold_mode='rel', cooldown=0, min_lr=1e-8, eps=1e-08)
 
         for epoch in tqdm(range(EPOCHS)):
             for i, data in enumerate(train_dataloader):
