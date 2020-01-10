@@ -116,6 +116,7 @@ if __name__ == "__main__":
                        grads=None)
         slices.append(slice)
         img_idx+=1
+        print(img_idx)
 
     dir=os.path.join(dst_dir,sub_dataset+'_{}'.format(tag))
     if not os.path.exists(dir):
