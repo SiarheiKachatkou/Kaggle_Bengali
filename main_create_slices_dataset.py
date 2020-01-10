@@ -5,6 +5,7 @@ import argparse
 import pandas as pd
 from functools import partial
 import torch
+import shutil
 from tqdm import tqdm
 from torch import nn
 from torch.utils.data import DataLoader
@@ -102,8 +103,9 @@ if __name__ == "__main__":
     preds=np.concatenate(preds_batches,axis=0)
 
     dir=os.path.join(dst_dir,sub_dataset+'_{}'.format(tag))
-    if not os.path.exists(dir):
-        os.mkdir(dir)
+    if os.path.exists(dir):
+        shutil.rmtree(dir)
+    os.mkdir(dir)
 
     def dump_slices(slices,dir,img_idx):
         if len(slices)>0:
