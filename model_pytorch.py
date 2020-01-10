@@ -10,7 +10,7 @@ import torch.nn as nn
 import torch.optim as optim
 import torch.nn.functional as F
 import albumentations as A
-from shake_shake import ShakeShake
+from shake_shake_my import ShakeShake
 
 from consts import IMG_W,IMG_H,N_CHANNELS, BATCH_SIZE, LR, EPOCHS
 
