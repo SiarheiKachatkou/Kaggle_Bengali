@@ -38,12 +38,14 @@ if __name__ == "__main__":
     parser.add_argument('--dst_dir',type=str,default='/home/sergey/1T/DNNDebug/Data/SlicesDataset/')
     parser.add_argument('--max_imgs_count',type=int,default=100)
     parser.add_argument('--activation_name_postfix',type=str,default='conv3')
+    parser.add_argument('--slices_per_file',type=int,default=100)
     args=parser.parse_args()
     sub_dataset=args.sub_dataset
     dst_dir=args.dst_dir
     tag=args.tag
     max_imgs_count=args.max_imgs_count
     activation_name_postfix=args.activation_name_postfix
+    slices_per_file=args.slices_per_file
 
     dataset_pkl=TRAIN_DATASET_PKL if sub_dataset=='train' else VAL_DATASET_PKL
 
@@ -99,6 +101,16 @@ if __name__ == "__main__":
     acts_list=[np.concatenate(acts_list[name_idx],axis=0) for name_idx in range(len(acts_list))]
     preds=np.concatenate(preds_batches,axis=0)
 
+    dir=os.path.join(dst_dir,sub_dataset+'_{}'.format(tag))
+    if not os.path.exists(dir):
+        os.mkdir(dir)
+
+    def dump_slices(slices,dir,img_idx):
+        if len(slices)>0:
+            filename = os.path.join(dir,'Bengali_{}.bin'.format(img_idx))
+            write_slices(slices,filename)
+            print('{} slices saved to {}'.format(len(slices),filename))
+
     slices=[]
     img_idx=0
     for img,image_id,predicted_label, true_label in zip(imgs,ids,preds,labels):
@@ -116,11 +128,11 @@ if __name__ == "__main__":
                        grads=None)
         slices.append(slice)
         img_idx+=1
-        print(img_idx)
 
-    dir=os.path.join(dst_dir,sub_dataset+'_{}'.format(tag))
-    if not os.path.exists(dir):
-        os.mkdir(dir)
-    filename = os.path.join(dir,'Bengali.bin')
-    write_slices(slices,filename)
-    print('{} slices saved to {}'.format(len(slices),filename))
+        if len(slices)>slices_per_file:
+            dump_slices(slices,dir,img_idx)
+            slices=[]
+
+    if len(slices)>slices_per_file:
+        dump_slices(slices,dir,img_idx)
+        slices=[]
