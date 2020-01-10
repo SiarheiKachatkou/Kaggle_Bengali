@@ -4,7 +4,7 @@ set -x
 
 TAG=cea0d87234
 DST_DIR=/home/sergey/1T/DNNDebug/Data/SlicesDataset/
-MAX_IMGS_COUNT=1000
+MAX_IMGS_COUNT=10000
 ACTIVATION_NAME=conv3
 #_backbone.layer1.0.conv3
 

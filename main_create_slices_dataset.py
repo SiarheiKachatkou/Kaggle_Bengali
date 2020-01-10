@@ -83,9 +83,21 @@ if __name__ == "__main__":
             print('possible activations name {}'.format(name))
             m.register_forward_hook(partial(save_activation, name))
 
+    dataset_dir=os.path.join(dst_dir,sub_dataset+'_{}'.format(tag))
+    if os.path.exists(dataset_dir):
+        shutil.rmtree(dataset_dir)
+    os.mkdir(dataset_dir)
+
+    def dump_slices(slices,img_idx,batch_idx):
+        if len(slices)>0:
+            filename = os.path.join(dataset_dir,'Bengali_{}_{}.bin'.format(img_idx,bathc_idx))
+            write_slices(slices,filename)
+            print('{} slices saved to {}'.format(len(slices),filename))
+
 
     acts_list=[]
     preds_batches=[]
+    slices=[]
     for bathc_idx, batch in tqdm(enumerate(dataloader)):
         imgs_normalized=batch['image']
         preds_batches.append(model._predict_on_tensor(imgs_normalized))
@@ -99,42 +111,30 @@ if __name__ == "__main__":
 
         activations=collections.defaultdict(list)
 
-    acts_list=[np.concatenate(acts_list[name_idx],axis=0) for name_idx in range(len(acts_list))]
-    preds=np.concatenate(preds_batches,axis=0)
+        acts_list=[np.concatenate(acts_list[name_idx],axis=0) for name_idx in range(len(acts_list))]
+        preds=np.concatenate(preds_batches,axis=0)
 
-    dir=os.path.join(dst_dir,sub_dataset+'_{}'.format(tag))
-    if os.path.exists(dir):
-        shutil.rmtree(dir)
-    os.mkdir(dir)
+        img_idx=0
+        for img,image_id,predicted_label, true_label in zip(imgs,ids,preds,labels):
 
-    def dump_slices(slices,dir,img_idx):
+            pred_symbol=list_label_to_symbol(class_map,predicted_label)
+            true_symbol=list_label_to_symbol(class_map,true_label)
+
+            activation_slices_list=[act[img_idx].flatten() for act in acts_list]
+            slice=DNNSlice(activation_slices_list=activation_slices_list, activation_names=activation_names,
+                           img=None, img_slice=img, img_slice_begin=0,
+                           img_slice_end=IMG_W,
+                           symbol=Symbol(label=pred_symbol, x=0, prob=1.0,#TODO take actual probs
+                                 true_label=true_symbol), full_true_label=None, full_predicted_label=None,
+                           image_id=image_id,
+                           grads=None)
+            slices.append(slice)
+            img_idx+=1
+
+            if len(slices)>slices_per_file:
+                dump_slices(slices,img_idx,bathc_idx)
+                slices=[]
+
         if len(slices)>0:
-            filename = os.path.join(dir,'Bengali_{}.bin'.format(img_idx))
-            write_slices(slices,filename)
-            print('{} slices saved to {}'.format(len(slices),filename))
-
-    slices=[]
-    img_idx=0
-    for img,image_id,predicted_label, true_label in zip(imgs,ids,preds,labels):
-
-        pred_symbol=list_label_to_symbol(class_map,predicted_label)
-        true_symbol=list_label_to_symbol(class_map,true_label)
-
-        activation_slices_list=[act[img_idx].flatten() for act in acts_list]
-        slice=DNNSlice(activation_slices_list=activation_slices_list, activation_names=activation_names,
-                       img=None, img_slice=img, img_slice_begin=0,
-                       img_slice_end=IMG_W,
-                       symbol=Symbol(label=pred_symbol, x=0, prob=1.0,#TODO take actual probs
-                             true_label=true_symbol), full_true_label=None, full_predicted_label=None,
-                       image_id=image_id,
-                       grads=None)
-        slices.append(slice)
-        img_idx+=1
-
-        if len(slices)>slices_per_file:
-            dump_slices(slices,dir,img_idx)
+            dump_slices(slices,img_idx,bathc_idx)
             slices=[]
-
-    if len(slices)>slices_per_file:
-        dump_slices(slices,dir,img_idx)
-        slices=[]
