@@ -95,19 +95,19 @@ if __name__ == "__main__":
             print('{} slices saved to {}'.format(len(slices),filename))
 
 
-    acts_list=[]
-    preds_batches=[]
+
     slices=[]
     for bathc_idx, batch in tqdm(enumerate(dataloader)):
+
+        acts_list=[]
+        preds_batches=[]
+
         imgs_normalized=batch['image']
         preds_batches.append(model._predict_on_tensor(imgs_normalized))
         for name_idx, name in enumerate(activation_names):
             act=activations[name]
             act_batch=act[0].data.cpu().numpy()
-            if bathc_idx==0:
-                acts_list.append([act_batch])
-            else:
-                acts_list[name_idx].append(act_batch)
+            acts_list.append([act_batch])
 
         activations=collections.defaultdict(list)
 
