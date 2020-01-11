@@ -4,6 +4,7 @@ import collections
 import argparse
 import pandas as pd
 from functools import partial
+import re
 import torch
 import shutil
 from tqdm import tqdm
@@ -63,7 +64,7 @@ if __name__ == "__main__":
     model=Model()
     model.load(os.path.join(DATA_DIR,MODELS_DIR,MODEL_NAME),classes)
 
-    dataset=BengaliDataset(imgs,labels=None)
+    dataset=BengaliDataset(imgs,labels)
 
     dataloader=DataLoader(dataset, batch_size=BATCH_SIZE, shuffle=False, sampler=None,
            batch_sampler=None, num_workers=0, collate_fn=None,
@@ -76,11 +77,10 @@ if __name__ == "__main__":
 
     activation_names=[]
     for name, m in model.named_modules():
-        if type(m)==nn.Conv2d:
-            # partial to assign the layer name to each hook
-            if name.endswith(activation_name_postfix):
-                activation_names.append(name)
-            print('possible activations name {}'.format(name))
+        print('possible activations name {}'.format(name))
+        # partial to assign the layer name to each hook
+        if re.match('.*layer([0-9])$',name) is not None:
+            activation_names.append(name)
             m.register_forward_hook(partial(save_activation, name))
 
     dataset_dir=os.path.join(dst_dir,sub_dataset+'_{}'.format(tag))
@@ -90,19 +90,22 @@ if __name__ == "__main__":
 
     def dump_slices(slices,img_idx,batch_idx):
         if len(slices)>0:
-            filename = os.path.join(dataset_dir,'Bengali_{}_{}.bin'.format(img_idx,bathc_idx))
+            filename = os.path.join(dataset_dir,'Bengali_{}_{}.bin'.format(img_idx,batch_idx))
             write_slices(slices,filename)
             print('{} slices saved to {}'.format(len(slices),filename))
 
 
 
     slices=[]
+    global_img_idx=0
     for bathc_idx, batch in tqdm(enumerate(dataloader)):
 
         acts_list=[]
         preds_batches=[]
 
         imgs_normalized=batch['image']
+        labels=batch['label'].cpu().numpy()
+
         preds_batches.append(model._predict_on_tensor(imgs_normalized))
         for name_idx, name in enumerate(activation_names):
             act=activations[name]
@@ -115,7 +118,7 @@ if __name__ == "__main__":
         preds=np.concatenate(preds_batches,axis=0)
 
         img_idx=0
-        for img,image_id,predicted_label, true_label in zip(imgs,ids,preds,labels):
+        for img,predicted_label, true_label in zip(imgs,preds,labels):
 
             pred_symbol=list_label_to_symbol(class_map,predicted_label)
             true_symbol=list_label_to_symbol(class_map,true_label)
@@ -126,10 +129,11 @@ if __name__ == "__main__":
                            img_slice_end=IMG_W,
                            symbol=Symbol(label=pred_symbol, x=0, prob=1.0,#TODO take actual probs
                                  true_label=true_symbol), full_true_label=None, full_predicted_label=None,
-                           image_id=image_id,
+                           image_id=ids[global_img_idx],
                            grads=None)
             slices.append(slice)
             img_idx+=1
+            global_img_idx+=1
 
             if len(slices)>slices_per_file:
                 dump_slices(slices,img_idx,bathc_idx)
