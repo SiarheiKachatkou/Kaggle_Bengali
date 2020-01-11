@@ -19,12 +19,7 @@ def get_augmentations():
     return A.Compose([A.RandomBrightness(p=0.2),
                       A.RandomContrast(p=0.2),
                       A.MotionBlur(p=0.2),
-                      A.CLAHE(clip_limit=1,p=0.1),
-                      A.CLAHE(clip_limit=4,p=0.1),
                       A.Cutout(),
-                      A.RandomSnow(p=0.2),
-                      A.RandomRain(p=0.2),
-                      A.RandomFog(p=0.2),
                       A.ElasticTransform(alpha=3,sigma=5,alpha_affine=2)],p=0.3)
 
 
@@ -218,25 +213,28 @@ class Model(ModelBase, torch.nn.Module):
         block_counts_resnet_101=[3,4,23,3]
         block_counts_resnet_50=[3,4,6,3]
         block_counts=block_counts_resnet_50
-        d=2
+        d=4
         self._d=d
 
         block=SEResNetBottleNeckBlock
 
         self._blocks=[ConvBnRelu(in_channels=3,out_channels=64//d,stride=2,kernel_size=7),
         ConvBnRelu(in_channels=64//d,out_channels=128//d,stride=2,kernel_size=3),
-        ConvBnRelu(in_channels=128//d,out_channels=256//d,stride=2,kernel_size=3)]
+        ConvBnRelu(in_channels=128//d,out_channels=256//d,stride=1,kernel_size=3)
+        ]
+
         for _ in range(block_counts[0]):
             self._blocks.append(block(in_channels=256//d))
 
         self._blocks.append(ConvBnRelu(in_channels=256//d,out_channels=512//d,stride=2))
         for _ in range(block_counts[1]):
             self._blocks.append(block(in_channels=512//d))
+        '''
         self._blocks.append(ConvBnRelu(in_channels=512//d,out_channels=1024//d,stride=2))
+        
         for _ in range(block_counts[2]):
             self._blocks.append(block(in_channels=1024//d))
         self._blocks.append(ConvBnRelu(in_channels=1024//d,out_channels=2048//d,stride=2))
-        '''
         for _ in range(block_counts[3]):
             self._blocks.append(block(in_channels=2048//d))
         '''
@@ -253,22 +251,19 @@ class Model(ModelBase, torch.nn.Module):
         x=torch.mean(x,dim=-1)
         x=torch.mean(x,dim=-1)
         x=torch.flatten(x,1)
-        fc_graph=self._fc_graph(x)
-        fc_vowel = self._fc_vowel(x)
-        fc_conso=self._fc_conso(x)
-
-        return fc_graph, fc_vowel, fc_conso
-
+        outputs=[]
+        for idx,c in enumerate(self._classes_list):
+            head=getattr(self,'_head_{}'.format(idx))
+            outputs.append(head(x))
+        return outputs
 
 
     def compile(self,classes_list,**kwargs):
         self._classes_list=classes_list
 
-        in_features=2048//self._d
-        self._fc_graph=torch.nn.Linear(in_features,self._classes_list[0])
-        self._fc_vowel=torch.nn.Linear(in_features,self._classes_list[1])
-        self._fc_conso=torch.nn.Linear(in_features,self._classes_list[2])
-
+        in_features=512//self._d
+        for idx,c in enumerate(classes_list):
+            setattr(self,'_head_{}'.format(idx),torch.nn.Linear(in_features,c))
 
     def fit(self,train_images,train_labels, val_images, val_labels, batch_size,epochs, **kwargs):
 
@@ -313,9 +308,11 @@ class Model(ModelBase, torch.nn.Module):
 
                 optimizer.zero_grad()
 
-                fc_graph, fc_vowel, fc_conso = self.__call__(images)
+                heads_outputs = self.__call__(images)
 
-                loss=2*loss_fn(fc_graph,labels[:,0])+loss_fn(fc_vowel,labels[:,1])+loss_fn(fc_conso,labels[:,2])
+                loss=0
+                for idx in range(len(self._classes_list)):
+                    loss+=loss_fn(heads_outputs[idx],labels[:,idx])
 
                 loss.backward()
 
@@ -387,12 +384,9 @@ class Model(ModelBase, torch.nn.Module):
             return tensor.data.cpu().numpy().argmax(axis=1).reshape([-1,1])
 
         inputs=inputs.to(self._device)
-        graph,vowel,conso = self.__call__(inputs)
-
-        graph_labels=_argmax(graph)
-        vowel_labels=_argmax(vowel)
-        conso_labels=_argmax(conso)
-        labels = np.hstack([graph_labels,vowel_labels,conso_labels])
+        heads = self.__call__(inputs)
+        labels=[_argmax(head) for head in heads]
+        labels = np.hstack(labels)
         return labels
 
 
