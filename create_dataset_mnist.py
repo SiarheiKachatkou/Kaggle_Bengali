@@ -26,12 +26,10 @@ def data_loader_to_array(data_loader):
     for batch_img,batch_label in data_loader:
 
         imgs.extend([preproc(img) for img in batch_img.cpu().numpy()])
-        labels.append(batch_label.cpu().numpy())
+        labels.extend([[l] for l in batch_label.cpu().numpy()])
         for _ in range(len(batch_img)):
             ids.append(img_idx)
             img_idx+=1
-
-    labels=np.concatenate(labels,axis=0)
 
     return imgs,labels,ids
 

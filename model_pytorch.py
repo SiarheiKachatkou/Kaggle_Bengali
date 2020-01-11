@@ -19,12 +19,7 @@ def get_augmentations():
     return A.Compose([A.RandomBrightness(p=0.2),
                       A.RandomContrast(p=0.2),
                       A.MotionBlur(p=0.2),
-                      A.CLAHE(clip_limit=1,p=0.1),
-                      A.CLAHE(clip_limit=4,p=0.1),
                       A.Cutout(),
-                      A.RandomSnow(p=0.2),
-                      A.RandomRain(p=0.2),
-                      A.RandomFog(p=0.2),
                       A.ElasticTransform(alpha=3,sigma=5,alpha_affine=2)],p=0.3)
 
 
