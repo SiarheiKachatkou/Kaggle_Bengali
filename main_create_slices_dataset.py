@@ -42,7 +42,7 @@ if __name__ == "__main__":
     parser.add_argument('--dst_dir',type=str,default='/home/sergey/1T/DNNDebug/Data/SlicesDataset/')
     parser.add_argument('--max_imgs_count',type=int,default=100)
     parser.add_argument('--activation_name_postfix',type=str,default='conv3')
-    parser.add_argument('--slices_per_file',type=int,default=100)
+    parser.add_argument('--slices_per_file',type=int,default=500)
     parser.add_argument('--class_map_path',type=str)
 
     args=parser.parse_args()

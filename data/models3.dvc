@@ -1,4 +1,4 @@
-md5: 0f3dbfb03195036265c7fe505b3fdf57
+md5: 021e569fab28c05bb91998353f2f46da
 cmd: /home/sergey/anaconda3/envs/pytorch/bin/python train.py
 wdir: ..
 deps:
@@ -10,7 +10,7 @@ deps:
   path: create_dataset.py
 - md5: ff0414473919f65a6c9e3266ea583f95
   path: create_dataset_utils.py
-- md5: 6e1c3e94098432ef281c85d5ad58d82e
+- md5: 7f9a927bc2051e68dab41e02fa62398f
   path: dataset_pytorch.py
 - md5: 05c66aece18d092b9d09502fb9a4561b
   path: image_data_generator_tf.py
@@ -39,12 +39,12 @@ deps:
 - md5: 1d71bffd1710c2362c063de7691f4048
   path: data/val_datset.pkl
 outs:
-- md5: 425571ad9a80243a2b96eb5c17eb2368.dir
+- md5: 379b37b3173da23213263d078ed1a81c.dir
   path: data/models3
   cache: true
   metric: false
   persist: false
-- md5: b904836199c2fc7a319606a2b2e3d1af
+- md5: 25fbb34104ff38ac4f1ffa7b44b8f19b
   path: metric3.txt
   cache: false
   metric: true
