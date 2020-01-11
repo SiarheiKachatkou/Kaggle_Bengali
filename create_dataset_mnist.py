@@ -14,6 +14,7 @@ from consts import BATCH_SIZE, DATA_DIR,RAW_DIR,TRAIN_IMAGE_DATA_PATTERN, TEST_I
 debug_mode=False
 
 def preproc(x):
+    x=np.squeeze(x,axis=0)
     x=cv2.resize(x,(IMG_W,IMG_H))
     return np.expand_dims(x,axis=-1)
 
@@ -30,7 +31,6 @@ def data_loader_to_array(data_loader):
             ids.append(img_idx)
             img_idx+=1
 
-    imgs=np.concatenate(imgs,axis=0)
     labels=np.concatenate(labels,axis=0)
 
     return imgs,labels,ids
@@ -58,6 +58,8 @@ if __name__=="__main__":
     imgs_val,labels_val,ids_val = data_loader_to_array(val_data_loader)
     dump(os.path.join(DATA_DIR,VAL_DATASET_PKL), imgs_val,labels_val,ids_val, classes)
 
-    os.remove(os.path.join(DATA_DIR,TEST_DATASET_PKL))
+    test_file=os.path.join(DATA_DIR,TEST_DATASET_PKL)
+    if os.path.exists(test_file):
+        os.remove(test_file)
 
 

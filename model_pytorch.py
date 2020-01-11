@@ -253,22 +253,19 @@ class Model(ModelBase, torch.nn.Module):
         x=torch.mean(x,dim=-1)
         x=torch.mean(x,dim=-1)
         x=torch.flatten(x,1)
-        fc_graph=self._fc_graph(x)
-        fc_vowel = self._fc_vowel(x)
-        fc_conso=self._fc_conso(x)
-
-        return fc_graph, fc_vowel, fc_conso
-
+        outputs=[]
+        for idx,c in enumerate(self._classes_list):
+            head=getattr(self,'_head_{}'.format(idx))
+            outputs.append(head(x))
+        return outputs
 
 
     def compile(self,classes_list,**kwargs):
         self._classes_list=classes_list
 
         in_features=2048//self._d
-        self._fc_graph=torch.nn.Linear(in_features,self._classes_list[0])
-        self._fc_vowel=torch.nn.Linear(in_features,self._classes_list[1])
-        self._fc_conso=torch.nn.Linear(in_features,self._classes_list[2])
-
+        for idx,c in enumerate(classes_list):
+            setattr(self,'_head_{}'.format(idx),torch.nn.Linear(in_features,c))
 
     def fit(self,train_images,train_labels, val_images, val_labels, batch_size,epochs, **kwargs):
 
@@ -313,9 +310,11 @@ class Model(ModelBase, torch.nn.Module):
 
                 optimizer.zero_grad()
 
-                fc_graph, fc_vowel, fc_conso = self.__call__(images)
+                heads_outputs = self.__call__(images)
 
-                loss=2*loss_fn(fc_graph,labels[:,0])+loss_fn(fc_vowel,labels[:,1])+loss_fn(fc_conso,labels[:,2])
+                loss=0
+                for idx in range(len(self._classes_list)):
+                    loss+=loss_fn(heads_outputs[idx],labels[:,idx])
 
                 loss.backward()
 
@@ -386,12 +385,9 @@ class Model(ModelBase, torch.nn.Module):
             return tensor.data.cpu().numpy().argmax(axis=1).reshape([-1,1])
 
         inputs=inputs.to(self._device)
-        graph,vowel,conso = self.__call__(inputs)
-
-        graph_labels=_argmax(graph)
-        vowel_labels=_argmax(vowel)
-        conso_labels=_argmax(conso)
-        labels = np.hstack([graph_labels,vowel_labels,conso_labels])
+        heads = self.__call__(inputs)
+        labels=[_argmax(head) for head in heads]
+        labels = np.hstack(labels)
         return labels
 
 
