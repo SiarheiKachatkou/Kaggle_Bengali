@@ -8,5 +8,6 @@ def calc_score(solution,submission):
         y_pred_subset = submission[:, component]
         scores.append(sklearn.metrics.recall_score(
             y_true_subset, y_pred_subset, average='macro'))
-    final_score = np.average(scores, weights=[2,1,1])
+    weights=[1] if len(scores)==1 else [2,1,1]
+    final_score = np.average(scores, weights=weights)
     return final_score
