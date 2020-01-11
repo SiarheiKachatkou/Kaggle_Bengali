@@ -79,7 +79,7 @@ if __name__ == "__main__":
     for name, m in model.named_modules():
         print('possible activations name {}'.format(name))
         # partial to assign the layer name to each hook
-        if re.match('.*layer([0-9])$',name) is not None:
+        if re.match('.*block_([0-9]*)$',name) is not None:
             activation_names.append(name)
             m.register_forward_hook(partial(save_activation, name))
 
