@@ -7,8 +7,7 @@ from consts import IMG_H,IMG_W
 def _normalize_img(img):
     eps=1e-3
     img=img.astype(np.float32)
-    #return (img-np.mean(img))/(np.std(img)+eps)
-    return (img/128)-0.5
+    return (img-np.mean(img))/(np.std(img)+eps)
 
 class BengaliDataset(Dataset):
     def __init__(self, images, labels=None, transform_fn=None):
