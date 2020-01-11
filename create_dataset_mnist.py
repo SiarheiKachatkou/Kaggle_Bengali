@@ -4,6 +4,7 @@ import glob
 import cv2
 import torch
 import torchvision
+from torchvision import transforms
 import numpy as np
 import sklearn.model_selection
 from create_dataset_utils import dump,load
@@ -36,8 +37,9 @@ def data_loader_to_array(data_loader):
 if __name__=="__main__":
 
     root='mnist'
-    train_dataset=torchvision.datasets.MNIST(root,train=True,download=True)
-    val_dataset=torchvision.datasets.MNIST(root,train=False,download=True)
+    transform=transforms.ToTensor()
+    train_dataset=torchvision.datasets.MNIST(root,train=True,download=True,transform=transform)
+    val_dataset=torchvision.datasets.MNIST(root,train=False,download=True,transform=transform)
 
     train_data_loader = torch.utils.data.DataLoader(train_dataset,
                                           batch_size=BATCH_SIZE,
