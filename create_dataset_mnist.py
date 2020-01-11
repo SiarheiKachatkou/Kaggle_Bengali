@@ -56,8 +56,6 @@ if __name__=="__main__":
     imgs_val,labels_val,ids_val = data_loader_to_array(val_data_loader)
     dump(os.path.join(DATA_DIR,VAL_DATASET_PKL), imgs_val,labels_val,ids_val, classes)
 
-    test_file=os.path.join(DATA_DIR,TEST_DATASET_PKL)
-    if os.path.exists(test_file):
-        os.remove(test_file)
+    dump(os.path.join(DATA_DIR,TEST_DATASET_PKL), imgs_val,labels_val,ids_val, classes)
 
 
