@@ -22,7 +22,7 @@ def data_loader_to_array(data_loader):
     ids=[]
     img_idx=0
     for batch in data_loader:
-        imgs.append(batch['image'])
+        imgs.extend([preproc(img) for img in batch['image']])
         labels.append(batch['labels'])
         for _ in range(len(batch['images'])):
             ids.extend(img_idx)

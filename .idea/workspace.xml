@@ -2,13 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8d7aab7b-5a13-411d-a5a4-10047020d786" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/create_dataset_mnist.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/consts.py" beforeDir="false" afterPath="$PROJECT_DIR$/consts.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/models3.dvc" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dvc_create_dataset.sh" beforeDir="false" afterPath="$PROJECT_DIR$/dvc_create_dataset.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/metric3.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/model_pytorch.py" beforeDir="false" afterPath="$PROJECT_DIR$/model_pytorch.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/create_dataset_mnist.py" beforeDir="false" afterPath="$PROJECT_DIR$/create_dataset_mnist.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -53,11 +47,11 @@
               </provider>
             </entry>
           </file>
-          <file pinned="false" current-in-tab="false">
+          <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/create_dataset_mnist.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="386">
-                  <caret line="50" lean-forward="true" selection-start-line="50" selection-end-line="50" />
+                <state relative-caret-position="356">
+                  <caret line="24" column="44" selection-start-line="24" selection-start-column="44" selection-end-line="24" selection-end-column="44" />
                   <folding>
                     <element signature="e#0#19#0" expanded="true" />
                   </folding>
@@ -65,11 +59,11 @@
               </provider>
             </entry>
           </file>
-          <file pinned="false" current-in-tab="true">
+          <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/dvc_create_dataset.sh">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="495">
-                  <caret line="33" lean-forward="true" selection-start-line="33" selection-end-line="33" />
+                <state relative-caret-position="120">
+                  <caret line="8" lean-forward="true" selection-start-line="8" selection-end-line="8" />
                 </state>
               </provider>
             </entry>
@@ -183,8 +177,8 @@
         <option value="$PROJECT_DIR$/dataset_pytorch.py" />
         <option value="$PROJECT_DIR$/model_pytorch.py" />
         <option value="$PROJECT_DIR$/consts.py" />
-        <option value="$PROJECT_DIR$/create_dataset_mnist.py" />
         <option value="$PROJECT_DIR$/dvc_create_dataset.sh" />
+        <option value="$PROJECT_DIR$/create_dataset_mnist.py" />
       </list>
     </option>
   </component>
@@ -341,7 +335,7 @@
     <frame x="67" y="25" width="1853" height="1055" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.26065573" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.26065573" />
       <window_info id="Structure" order="1" weight="0.25" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
@@ -354,10 +348,10 @@
       <window_info anchor="bottom" id="SOQL Query" order="8" />
       <window_info anchor="bottom" id="Log Analyzer" order="9" />
       <window_info anchor="bottom" id="Educational.CheckDetails" order="10" />
-      <window_info anchor="bottom" id="Terminal" order="11" weight="0.39200863" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="11" visible="true" weight="0.39200863" />
       <window_info anchor="bottom" id="Event Log" order="12" side_tool="true" />
       <window_info anchor="bottom" id="Anonymous Apex" order="13" weight="0.32937366" />
-      <window_info anchor="bottom" id="Python Console" order="14" visible="true" weight="0.32937366" />
+      <window_info anchor="bottom" id="Python Console" order="14" weight="0.32937366" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -756,20 +750,20 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/create_dataset_mnist.py">
+    <entry file="file://$PROJECT_DIR$/dvc_create_dataset.sh">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="386">
-          <caret line="50" lean-forward="true" selection-start-line="50" selection-end-line="50" />
-          <folding>
-            <element signature="e#0#19#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="120">
+          <caret line="8" lean-forward="true" selection-start-line="8" selection-end-line="8" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/dvc_create_dataset.sh">
+    <entry file="file://$PROJECT_DIR$/create_dataset_mnist.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="495">
-          <caret line="33" lean-forward="true" selection-start-line="33" selection-end-line="33" />
+        <state relative-caret-position="356">
+          <caret line="24" column="44" selection-start-line="24" selection-start-column="44" selection-end-line="24" selection-end-column="44" />
+          <folding>
+            <element signature="e#0#19#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
