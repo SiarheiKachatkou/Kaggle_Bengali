@@ -218,14 +218,14 @@ class Model(ModelBase, torch.nn.Module):
         block_counts_resnet_101=[3,4,23,3]
         block_counts_resnet_50=[3,4,6,3]
         block_counts=block_counts_resnet_50
-        d=2
+        d=4
         self._d=d
 
         block=SEResNetBottleNeckBlock
 
-        self._blocks=[ConvBnRelu(in_channels=3,out_channels=64//d,stride=2,kernel_size=7),
-        ConvBnRelu(in_channels=64//d,out_channels=128//d,stride=2,kernel_size=3),
-        ConvBnRelu(in_channels=128//d,out_channels=256//d,stride=2,kernel_size=3)]
+        self._blocks=[ConvBnRelu(in_channels=3,out_channels=64//d,stride=3,kernel_size=7),
+        ConvBnRelu(in_channels=64//d,out_channels=128//d,stride=3,kernel_size=3),
+        ConvBnRelu(in_channels=128//d,out_channels=256//d,stride=3,kernel_size=3)]
         for _ in range(block_counts[0]):
             self._blocks.append(block(in_channels=256//d))
 
