@@ -12,7 +12,7 @@ from torch import nn
 from torch.utils.data import DataLoader
 from dataset_pytorch import BengaliDataset
 from model import Model
-from consts import DATA_DIR,MODEL_NAME, BATCH_SIZE, IMG_H, IMG_W, TEST_CSV, RAW_DIR, TRAIN_DATASET_PKL, VAL_DATASET_PKL, TEST_DATASET_PKL, IMAGE_GEN_PKL, MODELS_DIR, SUBMISSION_DIR, SUBMISSION_CSV,SAMPLE_SUBMISSION_CSV
+from consts import DATA_DIR,MODEL_NAME, TARGETS, BATCH_SIZE, IMG_H, IMG_W, TEST_CSV, RAW_DIR, TRAIN_DATASET_PKL, VAL_DATASET_PKL, TEST_DATASET_PKL, IMAGE_GEN_PKL, MODELS_DIR, SUBMISSION_DIR, SUBMISSION_CSV,SAMPLE_SUBMISSION_CSV
 
 from create_dataset_utils import load
 
@@ -24,11 +24,13 @@ from dnn_symbol import Symbol
 def list_label_to_symbol(class_map,list_label):
 
     s=''
-    for c,l in zip(['grapheme_root','vowel_diacritic','consonant_diacritic'],list_label):
+    min_length=min(len(TARGETS),len(list_label))
+    for idx in range(min_length):
+        c,l = TARGETS[idx], list_label[idx]
         df=class_map[class_map['component_type']==c]
         new_char=df.iloc[l,-1]
         if new_char!='0':
-            s+=new_char
+            s+=str(new_char)
     return s
 
 if __name__ == "__main__":
@@ -41,6 +43,8 @@ if __name__ == "__main__":
     parser.add_argument('--max_imgs_count',type=int,default=100)
     parser.add_argument('--activation_name_postfix',type=str,default='conv3')
     parser.add_argument('--slices_per_file',type=int,default=100)
+    parser.add_argument('--class_map_path',type=str)
+
     args=parser.parse_args()
     sub_dataset=args.sub_dataset
     dst_dir=args.dst_dir
@@ -51,7 +55,7 @@ if __name__ == "__main__":
 
     dataset_pkl=TRAIN_DATASET_PKL if sub_dataset=='train' else VAL_DATASET_PKL
 
-    class_map=pd.read_csv('data/raw/class_map.csv')
+    class_map=pd.read_csv(args.class_map_path)
 
     imgs, labels, ids, classes = load(os.path.join(DATA_DIR,dataset_pkl))
     if max_imgs_count<len(imgs):
@@ -100,25 +104,21 @@ if __name__ == "__main__":
     global_img_idx=0
     for bathc_idx, batch in tqdm(enumerate(dataloader)):
 
-        acts_list=[]
-        preds_batches=[]
-
         imgs_normalized=batch['image']
-        labels=batch['label'].cpu().numpy()
+        true_labels=batch['label'].cpu().numpy()
 
-        preds_batches.append(model._predict_on_tensor(imgs_normalized))
+        preds_batch=model._predict_on_tensor(imgs_normalized)
+        acts_list=[]
         for name_idx, name in enumerate(activation_names):
             act=activations[name]
             act_batch=act[0].data.cpu().numpy()
-            acts_list.append([act_batch])
+            acts_list.append(act_batch)
 
         activations=collections.defaultdict(list)
 
-        acts_list=[np.concatenate(acts_list[name_idx],axis=0) for name_idx in range(len(acts_list))]
-        preds=np.concatenate(preds_batches,axis=0)
-
         img_idx=0
-        for img,predicted_label, true_label in zip(imgs,preds,labels):
+        imgs=imgs_normalized.cpu().numpy()[:,0,:,:]
+        for img,predicted_label, true_label in zip(imgs,preds_batch,true_labels):
 
             pred_symbol=list_label_to_symbol(class_map,predicted_label)
             true_symbol=list_label_to_symbol(class_map,true_label)
