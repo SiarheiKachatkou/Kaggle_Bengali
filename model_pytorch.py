@@ -219,7 +219,8 @@ class Model(ModelBase, torch.nn.Module):
         block=SEResNetBottleNeckBlock
 
         self._blocks=[ConvBnRelu(in_channels=3,out_channels=64//d,stride=2,kernel_size=7),
-        ConvBnRelu(in_channels=64//d,out_channels=128//d,stride=2,kernel_size=3)
+        ConvBnRelu(in_channels=64//d,out_channels=128//d,stride=2,kernel_size=3),
+        ConvBnRelu(in_channels=128//d,out_channels=256//d,stride=1,kernel_size=3)
         ]
 
         for _ in range(block_counts[0]):
