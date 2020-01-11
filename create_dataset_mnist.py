@@ -31,7 +31,7 @@ def data_loader_to_array(data_loader):
             ids.append(img_idx)
             img_idx+=1
 
-    return imgs,labels,ids
+    return np.array(imgs),np.array(labels),np.array(ids)
 
 if __name__=="__main__":
 
