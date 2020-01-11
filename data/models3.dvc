@@ -1,8 +1,8 @@
-md5: 4b4bfb6109df5fc5d671469f32115757
+md5: 5ff1282acc64e4273b9f79d6171f40fa
 cmd: /home/sergey/anaconda3/envs/pytorch/bin/python train.py
 wdir: ..
 deps:
-- md5: 5721b9da8e75344a8f5cc1afdeef32a2
+- md5: 563d6a8b1bdeaee5a94f14e306a4f8a8
   path: consts.py
 - md5: e3151f86499f46827999eafeda14cb40
   path: create_dataset.py
@@ -18,16 +18,16 @@ deps:
   path: model_base.py
 - md5: 460d1d154a827c40c27a2bb058e48d6b
   path: model.py
-- md5: ab068f5a49ee2539be2fda569bf72a1f
-  path: model_pytorch_my.py
-- md5: 80fae2eaf9dbbed1e329a0e39b096d09
+- md5: 4f127c09dcf151d13aa64c8e6ff9c523
   path: model_pytorch.py
+- md5: 80fae2eaf9dbbed1e329a0e39b096d09
+  path: model_pytorch_zoo.py
 - md5: d70ca8e8d7bdb0333585077b128717c7
   path: model_tf.py
 - md5: baf9808e5d4d6479ecc1d5601fadfb18
   path: score.py
 - md5: cf4682d939136c14b6097faae7ba6dba
-  path: shake_shake.py
+  path: shake_shake_my.py
 - md5: 736a67c09aad320adc8ddf7e5a3e411d
   path: train.py
 - md5: 3b0395a45e97fe1d45bf44c15813a870
@@ -37,12 +37,12 @@ deps:
 - md5: 54814dffc2166d76263675fa4c01efc8
   path: data/val_datset.pkl
 outs:
-- md5: 2ad0bef5cac6fd58dbaaff55a60e179d.dir
+- md5: faa0b4acc7d7413487a0570528d557fe.dir
   path: data/models3
   cache: true
   metric: false
   persist: false
-- md5: 60876e4e9f2da8c77ef2157fba427052
+- md5: 917b9d9bc5fd3cd62dea82adf7ef32ab
   path: metric3.txt
   cache: false
   metric: true
