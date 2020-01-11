@@ -212,7 +212,7 @@ class Model(ModelBase, torch.nn.Module):
         block_counts_resnet_152=[3,8,36,3]
         block_counts_resnet_101=[3,4,23,3]
         block_counts_resnet_50=[3,4,6,3]
-        block_counts_resnet_50_mnist=[3,4,2]
+        block_counts_resnet_50_mnist=[3]
         block_counts=block_counts_resnet_50_mnist
         d=4
         self._d=d
@@ -228,9 +228,10 @@ class Model(ModelBase, torch.nn.Module):
             self._blocks.append(block(in_channels=256//d))
 
         self._blocks.append(ConvBnRelu(in_channels=256//d,out_channels=512//d,stride=2))
+        '''
         for _ in range(block_counts[1]):
             self._blocks.append(block(in_channels=512//d))
-        '''
+        
         self._blocks.append(ConvBnRelu(in_channels=512//d,out_channels=1024//d,stride=2))
         
         for _ in range(block_counts[2]):
@@ -262,7 +263,7 @@ class Model(ModelBase, torch.nn.Module):
     def compile(self,classes_list,**kwargs):
         self._classes_list=classes_list
 
-        in_features=512//self._d
+        in_features=256//self._d
         for idx,c in enumerate(classes_list):
             setattr(self,'_head_{}'.format(idx),torch.nn.Linear(in_features,c))
 
@@ -355,6 +356,7 @@ class Model(ModelBase, torch.nn.Module):
     def load(self,path_to_file,classes_list):
         self.compile(classes_list)
         self.load_state_dict(torch.load(path_to_file))
+        self.to(self._device)
 
     def predict(self, images):
 
