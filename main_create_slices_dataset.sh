@@ -5,7 +5,7 @@ set -x
 TAG=d84b318
 DST_DIR=/home/sergey/1T/DNNDebug/Data/SlicesDataset/
 CLASS_MAP_PATH='data/raw/class_map_mnist.csv'
-MAX_IMGS_COUNT=50000
+MAX_IMGS_COUNT=10000
 ACTIVATION_NAME=conv3
 #_backbone.layer1.0.conv3
 

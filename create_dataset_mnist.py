@@ -34,46 +34,25 @@ def data_loader_to_array(data_loader):
 
     return np.array(imgs),np.array(labels),np.array(ids)
 
-def augment53(imgs_train,labels_train,aug_count):
+def augment_top_is_matter(label_a,label_b,imgs_train,labels_train,aug_count):
 
-    imgs_train_53,labels_train_53,ids_train_53=[],[],[]
-    imgs_5=imgs_train[(labels_train==5).flatten()]
-    imgs_3=imgs_train[(labels_train==3).flatten()]
+    imgs_train_ab,labels_train_ab,ids_train_ab=[],[],[]
+    imgs_a=imgs_train[(labels_train==label_a).flatten()]
+    imgs_b=imgs_train[(labels_train==label_b).flatten()]
     for a_idx in range(aug_count):
-        img_5=random.choice(imgs_5)
-        img_3=random.choice(imgs_3)
-        h=len(img_5)
+        img_a=random.choice(imgs_a)
+        img_b=random.choice(imgs_b)
+        h=len(img_a)
         half_h=h//2
-        img_aug_3=np.concatenate([img_3[:half_h],img_5[half_h:]],axis=0)
-        img_aug_5=np.concatenate([img_5[:half_h],img_3[half_h:]],axis=0)
-        imgs_train_53.append(img_aug_3)
-        labels_train_53.append([3])
-        ids_train_53.append(a_idx)
-        imgs_train_53.append(img_aug_5)
-        labels_train_53.append([5])
-        ids_train_53.append(a_idx)
-    return np.array(imgs_train_53), np.array(labels_train_53),np.array(ids_train_53)
-
-def augment94(imgs_train,labels_train,aug_count):
-
-    imgs_train_94,labels_train_94,ids_train_94=[],[],[]
-    imgs_9=imgs_train[(labels_train==9).flatten()]
-    imgs_4=imgs_train[(labels_train==4).flatten()]
-    for a_idx in range(aug_count):
-        img_9=random.choice(imgs_9)
-        img_4=random.choice(imgs_4)
-        h=len(img_9)
-        half_h=h//2
-        img_aug_4=np.concatenate([img_4[:half_h],img_9[half_h:]],axis=0)
-        img_aug_9=np.concatenate([img_9[:half_h],img_4[half_h:]],axis=0)
-        imgs_train_94.append(img_aug_4)
-        labels_train_94.append([4])
-        ids_train_94.append(a_idx)
-        imgs_train_94.append(img_aug_9)
-        labels_train_94.append([9])
-        ids_train_94.append(a_idx)
-    return np.array(imgs_train_94), np.array(labels_train_94),np.array(ids_train_94)
-
+        img_aug_a=np.concatenate([img_a[:half_h],img_b[half_h:]],axis=0)
+        img_aug_b=np.concatenate([img_b[:half_h],img_a[half_h:]],axis=0)
+        imgs_train_ab.append(img_aug_a)
+        labels_train_ab.append([label_a])
+        ids_train_ab.append(a_idx)
+        imgs_train_ab.append(img_aug_b)
+        labels_train_ab.append([label_b])
+        ids_train_ab.append(a_idx)
+    return np.array(imgs_train_ab), np.array(labels_train_ab),np.array(ids_train_ab)
 
 if __name__=="__main__":
 
@@ -93,12 +72,18 @@ if __name__=="__main__":
     classes=[10]
 
     imgs_train,labels_train,ids_train = data_loader_to_array(train_data_loader)
-    imgs_train_53,labels_train_53,ids_train_53=augment53(imgs_train,labels_train,aug_count=1000)
-    imgs_train_94,labels_train_94,ids_train_94=augment94(imgs_train,labels_train,aug_count=1000)
+    imgs_augm=[]
+    labels_augm=[]
+    idxs_augm=[]
+    for label_a,label_b in [[5,3],[9,4],[7,9]]:
+        imgs_train_ab,labels_train_ab,ids_train_ab=augment_top_is_matter(label_a,label_b,imgs_train,labels_train,aug_count=1000)
+        imgs_augm.append(imgs_train_ab)
+        labels_augm.append(labels_train_ab)
+        idxs_augm.append(ids_train_ab)
 
-    imgs_train=np.concatenate([imgs_train,imgs_train_53,imgs_train_94],axis=0)
-    labels_train=np.concatenate([labels_train,labels_train_53,labels_train_94],axis=0)
-    ids_train=np.concatenate([ids_train,ids_train_53,ids_train_94],axis=0)
+    imgs_train=np.concatenate([imgs_train]+imgs_augm,axis=0)
+    labels_train=np.concatenate([labels_train]+labels_augm,axis=0)
+    ids_train=np.concatenate([ids_train]+idxs_augm,axis=0)
 
     dump(os.path.join(DATA_DIR,TRAIN_DATASET_PKL),imgs_train,labels_train,ids_train, classes)
 
