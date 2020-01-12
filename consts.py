@@ -37,3 +37,15 @@ SEED=0
 TARGETS=['grapheme_root','vowel_diacritic','consonant_diacritic']
 
 MODEL='model_pytorch'  #'model_tf'
+
+
+import torch
+torch.manual_seed(SEED)
+torch.backends.cudnn.deterministic = True
+torch.backends.cudnn.benchmark = False
+
+import numpy as np
+np.random.seed(SEED)
+
+import random
+random.seed(SEED)
