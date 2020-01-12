@@ -1,8 +1,8 @@
-md5: 8055704ce420eaba4d058129bc0e8152
+md5: 178d54c85b0a27d4bd0b8dc69d984f45
 cmd: /home/sergey/anaconda3/envs/pytorch/bin/python train.py
 wdir: ..
 deps:
-- md5: 13021fb1add9cd520d2e4b9613839ed5
+- md5: b4e7367dfb8719f03d483f1f37a2b292
   path: consts.py
 - md5: 028531d7bd8793615398eb9fa3c704b6
   path: create_dataset_mnist.py
@@ -41,7 +41,7 @@ deps:
 - md5: 1d71bffd1710c2362c063de7691f4048
   path: data/val_datset.pkl
 outs:
-- md5: 9a423b10ad8fe698fb2209873266b05a.dir
+- md5: 2ecb5426912d64a547df5b2fe4cfd33f.dir
   path: data/models3
   cache: true
   metric: false
