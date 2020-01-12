@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="8d7aab7b-5a13-411d-a5a4-10047020d786" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/create_dataset_mnist.py" beforeDir="false" afterPath="$PROJECT_DIR$/create_dataset_mnist.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dvc_create_dataset.sh" beforeDir="false" afterPath="$PROJECT_DIR$/dvc_create_dataset.sh" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -37,7 +36,7 @@
             <entry file="file://$PROJECT_DIR$/create_dataset_mnist.py">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="35">
-                  <caret line="78" column="125" selection-start-line="78" selection-start-column="125" selection-end-line="78" selection-end-column="125" />
+                  <caret line="78" column="124" selection-start-line="78" selection-start-column="124" selection-end-line="78" selection-end-column="124" />
                   <folding>
                     <element signature="e#0#19#0" expanded="true" />
                   </folding>
@@ -683,7 +682,7 @@
     <entry file="file://$PROJECT_DIR$/create_dataset_mnist.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="35">
-          <caret line="78" column="125" selection-start-line="78" selection-start-column="125" selection-end-line="78" selection-end-column="125" />
+          <caret line="78" column="124" selection-start-line="78" selection-start-column="124" selection-end-line="78" selection-end-column="124" />
           <folding>
             <element signature="e#0#19#0" expanded="true" />
           </folding>
