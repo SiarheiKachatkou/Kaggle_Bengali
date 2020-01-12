@@ -81,6 +81,7 @@ if __name__=="__main__":
         labels_augm.append(labels_train_ab)
         idxs_augm.append(ids_train_ab)
 
+
     imgs_train=np.concatenate([imgs_train]+imgs_augm,axis=0)
     labels_train=np.concatenate([labels_train]+labels_augm,axis=0)
     ids_train=np.concatenate([ids_train]+idxs_augm,axis=0)
