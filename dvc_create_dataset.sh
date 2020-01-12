@@ -35,4 +35,5 @@ fi
 output_dvc=data/train_val_test_datset.pkl.dvc
 dvc run --overwrite-dvcfile $deps_data $deps_code -f $output_dvc $outputs $PY $py_script
 dvc push $output_dvc
+git add $output_dvc
 git commit -a -m $git_commit_message
