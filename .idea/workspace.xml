@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="8d7aab7b-5a13-411d-a5a4-10047020d786" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/create_dataset_mnist.py" beforeDir="false" afterPath="$PROJECT_DIR$/create_dataset_mnist.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main_create_slices_dataset.sh" beforeDir="false" afterPath="$PROJECT_DIR$/main_create_slices_dataset.sh" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -19,7 +18,7 @@
             <entry file="file://$PROJECT_DIR$/data/act_profile.txt">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="458">
-                  <caret line="57" lean-forward="true" selection-start-line="57" selection-end-line="57" />
+                  <caret line="65" column="11" lean-forward="true" selection-start-line="65" selection-start-column="11" selection-end-line="65" selection-end-column="11" />
                 </state>
               </provider>
             </entry>
@@ -28,7 +27,7 @@
             <entry file="file://$PROJECT_DIR$/main_create_slices_dataset.sh">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="30">
-                  <caret line="2" column="6" lean-forward="true" selection-start-line="2" selection-start-column="6" selection-end-line="2" selection-end-column="6" />
+                  <caret line="2" column="6" selection-start-line="2" selection-start-column="6" selection-end-line="2" selection-end-column="6" />
                 </state>
               </provider>
             </entry>
@@ -37,7 +36,7 @@
             <entry file="file://$PROJECT_DIR$/create_dataset_mnist.py">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="478">
-                  <caret line="86" lean-forward="true" selection-start-line="86" selection-end-line="86" />
+                  <caret line="90" lean-forward="true" selection-start-line="90" selection-end-line="90" />
                   <folding>
                     <element signature="e#0#19#0" expanded="true" />
                   </folding>
@@ -666,21 +665,21 @@
     <entry file="file://$PROJECT_DIR$/main_create_slices_dataset.sh">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="30">
-          <caret line="2" column="6" lean-forward="true" selection-start-line="2" selection-start-column="6" selection-end-line="2" selection-end-column="6" />
+          <caret line="2" column="6" selection-start-line="2" selection-start-column="6" selection-end-line="2" selection-end-column="6" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/data/act_profile.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="458">
-          <caret line="57" lean-forward="true" selection-start-line="57" selection-end-line="57" />
+          <caret line="65" column="11" lean-forward="true" selection-start-line="65" selection-start-column="11" selection-end-line="65" selection-end-column="11" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/create_dataset_mnist.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="478">
-          <caret line="86" lean-forward="true" selection-start-line="86" selection-end-line="86" />
+          <caret line="90" lean-forward="true" selection-start-line="90" selection-end-line="90" />
           <folding>
             <element signature="e#0#19#0" expanded="true" />
           </folding>

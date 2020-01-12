@@ -85,6 +85,10 @@ if __name__=="__main__":
     labels_train=np.concatenate([labels_train]+labels_augm,axis=0)
     ids_train=np.concatenate([ids_train]+idxs_augm,axis=0)
 
+    z=list(zip(imgs_train,labels_train,ids_train))
+    random.shuffle(z)
+    imgs_train,labels_train,ids_train=zip(*z)
+
     dump(os.path.join(DATA_DIR,TRAIN_DATASET_PKL),imgs_train,labels_train,ids_train, classes)
 
     imgs_val,labels_val,ids_val = data_loader_to_array(val_data_loader)
