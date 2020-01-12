@@ -47,10 +47,10 @@ def augment53(imgs_train,labels_train,aug_count):
         img_aug_3=np.concatenate([img_3[:half_h],img_5[half_h:]],axis=0)
         img_aug_5=np.concatenate([img_5[:half_h],img_3[half_h:]],axis=0)
         imgs_train_53.append(img_aug_3)
-        labels_train_53.append(3)
+        labels_train_53.append([3])
         ids_train_53.append(a_idx)
         imgs_train_53.append(img_aug_5)
-        labels_train_53.append(5)
+        labels_train_53.append([5])
         ids_train_53.append(a_idx)
     return np.array(imgs_train_53), np.array(labels_train_53),np.array(ids_train_53)
 
