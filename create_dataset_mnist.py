@@ -1,6 +1,7 @@
 import pandas as pd
 import os
 import glob
+import argparse
 import cv2
 import random
 import torch
@@ -56,6 +57,11 @@ def augment_top_is_mater(label_a,label_b,imgs_train,labels_train,aug_count):
 
 if __name__=="__main__":
 
+    parser=argparse.ArgumentParser()
+    parser.add_argument('--augm_count',type=int)
+    args=parser.parse_args()
+    augm_count=args.augm_count
+
     root='mnist'
     transform=transforms.ToTensor()
     train_dataset=torchvision.datasets.MNIST(root,train=True,download=True,transform=transform)
@@ -76,7 +82,7 @@ if __name__=="__main__":
     labels_augm=[]
     idxs_augm=[]
     for label_a,label_b in [[5,3],[9,4],[7,9]]:
-        imgs_train_ab,labels_train_ab,ids_train_ab=augment_top_is_mater(label_a,label_b,imgs_train,labels_train,aug_count=800)
+        imgs_train_ab,labels_train_ab,ids_train_ab=augment_top_is_mater(label_a,label_b,imgs_train,labels_train,aug_count=augm_count)
         imgs_augm.append(imgs_train_ab)
         labels_augm.append(labels_train_ab)
         idxs_augm.append(ids_train_ab)

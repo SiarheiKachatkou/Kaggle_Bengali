@@ -6,6 +6,7 @@ MODE=MNIST
 # BENGALI
 
 git_commit_message=$1
+augm_count=$2
 
 if [[ $git_commit_message == "" ]]
 then
@@ -27,7 +28,7 @@ outputs="-o data/test_datset.pkl -o data/train_datset.pkl -o data/val_datset.pkl
 
 if [[ $MODE == MNIST ]]
 then
-py_script=create_dataset_mnist.py
+py_script="create_dataset_mnist.py --augm_count=$augm_count"
 else
 py_script=create_dataset.py
 fi
