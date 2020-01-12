@@ -39,6 +39,7 @@ TARGETS=['grapheme_root','vowel_diacritic','consonant_diacritic']
 MODEL='model_pytorch'  #'model_tf'
 
 
+
 import torch
 torch.manual_seed(SEED)
 torch.backends.cudnn.deterministic = True
