@@ -1,4 +1,4 @@
-md5: 1b2e7cc752eb7ec95713d667cc62873b
+md5: 5a42e6c111e56baaac5fd1f7b02564a7
 cmd: /home/sergey/anaconda3/envs/pytorch/bin/python create_dataset_mnist.py
 wdir: ..
 deps:
@@ -6,7 +6,7 @@ deps:
   path: data/raw
 - md5: b4e7367dfb8719f03d483f1f37a2b292
   path: consts.py
-- md5: bc108500108408102e99fbc47426faf7
+- md5: 4ef1d11070d36f4e8caa97586e92e9ee
   path: create_dataset_mnist.py
 - md5: e3151f86499f46827999eafeda14cb40
   path: create_dataset.py
@@ -42,7 +42,7 @@ outs:
   cache: true
   metric: false
   persist: false
-- md5: c5556afedac40bb4c1d0abd52f4bf04d
+- md5: d12e01d0e92f4eed52bf309c89386bf8
   path: data/train_datset.pkl
   cache: true
   metric: false
