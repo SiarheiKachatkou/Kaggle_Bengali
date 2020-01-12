@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8d7aab7b-5a13-411d-a5a4-10047020d786" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/create_dataset_mnist.py" beforeDir="false" afterPath="$PROJECT_DIR$/create_dataset_mnist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/models3.dvc" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/metric3.txt" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -262,7 +263,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="67" y="25" width="1853" height="1055" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.1989071" />
       <window_info id="Structure" order="1" weight="0.25" />
