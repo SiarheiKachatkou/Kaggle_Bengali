@@ -1,5 +1,5 @@
-md5: 898380df9ebbe8d9dc60c3baad11c525
-cmd: /home/sergey/anaconda3/envs/pytorch/bin/python create_dataset_mnist.py --augm_count=900
+md5: bcc41264f188213ea1ffe04abef57006
+cmd: /home/sergey/anaconda3/envs/pytorch/bin/python create_dataset_mnist.py --augm_count=1000
 wdir: ..
 deps:
 - md5: 13debd3845f98cc0bb47864d1428fa46.dir
@@ -42,7 +42,7 @@ outs:
   cache: true
   metric: false
   persist: false
-- md5: b3f47a8d5090c4476d62fae3f395942a
+- md5: 707112d2db0662041af74da7b455b02b
   path: data/train_datset.pkl
   cache: true
   metric: false

@@ -2,7 +2,7 @@
 
 set -x
 
-for augm_count in 800 900
+for augm_count in {1000..10000..1000}
 do
 
 git_msg=mnist_augm_1_$augm_count
