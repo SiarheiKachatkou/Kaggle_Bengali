@@ -34,7 +34,7 @@ def data_loader_to_array(data_loader):
 
     return np.array(imgs),np.array(labels),np.array(ids)
 
-def augment_top_is_matter(label_a,label_b,imgs_train,labels_train,aug_count):
+def augment_top_is_mater(label_a,label_b,imgs_train,labels_train,aug_count):
 
     imgs_train_ab,labels_train_ab,ids_train_ab=[],[],[]
     imgs_a=imgs_train[(labels_train==label_a).flatten()]
@@ -76,7 +76,7 @@ if __name__=="__main__":
     labels_augm=[]
     idxs_augm=[]
     for label_a,label_b in [[5,3],[9,4],[7,9]]:
-        imgs_train_ab,labels_train_ab,ids_train_ab=augment_top_is_matter(label_a,label_b,imgs_train,labels_train,aug_count=400)
+        imgs_train_ab,labels_train_ab,ids_train_ab=augment_top_is_mater(label_a,label_b,imgs_train,labels_train,aug_count=400)
         imgs_augm.append(imgs_train_ab)
         labels_augm.append(labels_train_ab)
         idxs_augm.append(ids_train_ab)

@@ -1,4 +1,4 @@
-md5: a25874e54c856b4e4ce790b61feb444a
+md5: 6ca5b399dcd6ac489e9c059e0d50a9df
 cmd: /home/sergey/anaconda3/envs/pytorch/bin/python create_dataset_mnist.py
 wdir: ..
 deps:
@@ -6,7 +6,7 @@ deps:
   path: data/raw
 - md5: b4e7367dfb8719f03d483f1f37a2b292
   path: consts.py
-- md5: c23bf62344e446c469b0715a8147d052
+- md5: 743624e5298f514ed32b2f72da58d08c
   path: create_dataset_mnist.py
 - md5: e3151f86499f46827999eafeda14cb40
   path: create_dataset.py
