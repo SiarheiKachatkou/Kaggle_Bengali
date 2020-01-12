@@ -78,19 +78,20 @@ if __name__=="__main__":
     classes=[10]
 
     imgs_train,labels_train,ids_train = data_loader_to_array(train_data_loader)
-    imgs_augm=[]
-    labels_augm=[]
-    idxs_augm=[]
-    for label_a,label_b in [[5,3],[9,4],[7,9]]:
-        imgs_train_ab,labels_train_ab,ids_train_ab=augment_top_is_mater(label_a,label_b,imgs_train,labels_train,aug_count=augm_count)
-        imgs_augm.append(imgs_train_ab)
-        labels_augm.append(labels_train_ab)
-        idxs_augm.append(ids_train_ab)
+    if augm_count!=0:
+        imgs_augm=[]
+        labels_augm=[]
+        idxs_augm=[]
+        for label_a,label_b in [[5,3],[9,4],[7,9]]:
+            imgs_train_ab,labels_train_ab,ids_train_ab=augment_top_is_mater(label_a,label_b,imgs_train,labels_train,aug_count=augm_count)
+            imgs_augm.append(imgs_train_ab)
+            labels_augm.append(labels_train_ab)
+            idxs_augm.append(ids_train_ab)
 
 
-    imgs_train=np.concatenate([imgs_train]+imgs_augm,axis=0)
-    labels_train=np.concatenate([labels_train]+labels_augm,axis=0)
-    ids_train=np.concatenate([ids_train]+idxs_augm,axis=0)
+        imgs_train=np.concatenate([imgs_train]+imgs_augm,axis=0)
+        labels_train=np.concatenate([labels_train]+labels_augm,axis=0)
+        ids_train=np.concatenate([ids_train]+idxs_augm,axis=0)
 
     z=list(zip(imgs_train,labels_train,ids_train))
     random.shuffle(z)
