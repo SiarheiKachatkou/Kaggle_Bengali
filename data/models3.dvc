@@ -1,10 +1,10 @@
-md5: 178d54c85b0a27d4bd0b8dc69d984f45
+md5: c7139688bb391d4cfbb501c4a2522eb3
 cmd: /home/sergey/anaconda3/envs/pytorch/bin/python train.py
 wdir: ..
 deps:
 - md5: b4e7367dfb8719f03d483f1f37a2b292
   path: consts.py
-- md5: 028531d7bd8793615398eb9fa3c704b6
+- md5: 8068b9ac34812fd80e24e312b59cf0bb
   path: create_dataset_mnist.py
 - md5: e3151f86499f46827999eafeda14cb40
   path: create_dataset.py
@@ -36,17 +36,17 @@ deps:
   path: train.py
 - md5: 1d71bffd1710c2362c063de7691f4048
   path: data/test_datset.pkl
-- md5: 707112d2db0662041af74da7b455b02b
+- md5: f75a425b62eb83a451de78b246c46b67
   path: data/train_datset.pkl
 - md5: 1d71bffd1710c2362c063de7691f4048
   path: data/val_datset.pkl
 outs:
-- md5: 2ecb5426912d64a547df5b2fe4cfd33f.dir
+- md5: fd17e44a8aeaa6d6c1d86c1b41993572.dir
   path: data/models3
   cache: true
   metric: false
   persist: false
-- md5: a4149d25876ac6055e159b06eda1f814
+- md5: 5e7cde8d1c8d690203e35ba2255d89a7
   path: metric3.txt
   cache: false
   metric: true
