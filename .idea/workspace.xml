@@ -18,7 +18,7 @@
             <entry file="file://$PROJECT_DIR$/data/act_profile.txt">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="68">
-                  <caret line="66" lean-forward="true" selection-start-line="66" selection-end-line="66" />
+                  <caret line="66" selection-start-line="66" selection-end-line="66" />
                 </state>
               </provider>
             </entry>
@@ -35,8 +35,8 @@
           <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/create_dataset_mnist.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="478">
-                  <caret line="87" lean-forward="true" selection-start-line="87" selection-end-line="87" />
+                <state relative-caret-position="463">
+                  <caret line="86" column="4" selection-start-line="86" selection-start-column="4" selection-end-line="86" selection-end-column="4" />
                   <folding>
                     <element signature="e#0#19#0" expanded="true" />
                   </folding>
@@ -666,14 +666,14 @@
     <entry file="file://$PROJECT_DIR$/data/act_profile.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
-          <caret line="66" lean-forward="true" selection-start-line="66" selection-end-line="66" />
+          <caret line="66" selection-start-line="66" selection-end-line="66" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/create_dataset_mnist.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="478">
-          <caret line="87" lean-forward="true" selection-start-line="87" selection-end-line="87" />
+        <state relative-caret-position="463">
+          <caret line="86" column="4" selection-start-line="86" selection-start-column="4" selection-end-line="86" selection-end-column="4" />
           <folding>
             <element signature="e#0#19#0" expanded="true" />
           </folding>
