@@ -2,6 +2,7 @@ import pandas as pd
 import os
 import glob
 import cv2
+import random
 import torch
 import torchvision
 from torchvision import transforms
@@ -33,6 +34,28 @@ def data_loader_to_array(data_loader):
 
     return np.array(imgs),np.array(labels),np.array(ids)
 
+def augment53(imgs_train,labels_train,aug_count):
+
+    imgs_train_53,labels_train_53,ids_train_53=[],[],[]
+    imgs_5=imgs_train[(labels_train==5).flatten()]
+    imgs_3=imgs_train[(labels_train==3).flatten()]
+    for a_idx in range(aug_count):
+        img_5=random.choice(imgs_5)
+        img_3=random.choice(imgs_3)
+        h=len(img_5)
+        half_h=h//2
+        img_aug_3=np.concatenate([img_3[:half_h],img_5[half_h:]],axis=0)
+        img_aug_5=np.concatenate([img_5[:half_h],img_3[half_h:]],axis=0)
+        imgs_train_53.append(img_aug_3)
+        labels_train_53.append(3)
+        ids_train_53.append(a_idx)
+        imgs_train_53.append(img_aug_5)
+        labels_train_53.append(5)
+        ids_train_53.append(a_idx)
+    return np.array(imgs_train_53), np.array(labels_train_53),np.array(ids_train_53)
+
+
+
 if __name__=="__main__":
 
     root='mnist'
@@ -51,6 +74,12 @@ if __name__=="__main__":
     classes=[10]
 
     imgs_train,labels_train,ids_train = data_loader_to_array(train_data_loader)
+    imgs_train_53,labels_train_53,ids_train_53=augment53(imgs_train,labels_train,aug_count=1000)
+
+    imgs_train=np.concatenate([imgs_train,imgs_train_53],axis=0)
+    labels_train=np.concatenate([labels_train,labels_train_53],axis=0)
+    ids_train=np.concatenate([ids_train,ids_train_53],axis=0)
+
     dump(os.path.join(DATA_DIR,TRAIN_DATASET_PKL),imgs_train,labels_train,ids_train, classes)
 
     imgs_val,labels_val,ids_val = data_loader_to_array(val_data_loader)
