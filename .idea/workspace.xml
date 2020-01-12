@@ -262,10 +262,10 @@
       <method v="2" />
     </configuration>
     <list>
+      <item itemvalue="Python.create_dataset_mnist" />
+      <item itemvalue="Python.make_submission" />
       <item itemvalue="Python.train" />
       <item itemvalue="Python.train_torch" />
-      <item itemvalue="Python.make_submission" />
-      <item itemvalue="Python.create_dataset_mnist" />
     </list>
   </component>
   <component name="SvnConfiguration">
