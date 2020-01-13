@@ -221,14 +221,14 @@ class Model(ModelBase, torch.nn.Module):
 
         self._blocks=[ConvBnRelu(in_channels=3,out_channels=64//d,stride=2,kernel_size=7),
         ConvBnRelu(in_channels=64//d,out_channels=128//d,stride=2,kernel_size=3),
-        ConvBnRelu(in_channels=128//d,out_channels=256//d,stride=1,kernel_size=3)
+        ConvBnRelu(in_channels=128//d,out_channels=256//d,stride=2,kernel_size=3)
         ]
 
         for _ in range(block_counts[0]):
             self._blocks.append(block(in_channels=256//d))
 
         self._blocks.append(ConvBnRelu(in_channels=256//d,out_channels=512//d,stride=2))
-        '''
+
         for _ in range(block_counts[1]):
             self._blocks.append(block(in_channels=512//d))
         
@@ -239,7 +239,7 @@ class Model(ModelBase, torch.nn.Module):
         self._blocks.append(ConvBnRelu(in_channels=1024//d,out_channels=2048//d,stride=2))
         for _ in range(block_counts[3]):
             self._blocks.append(block(in_channels=2048//d))
-        '''
+
 
         for i,b in enumerate(self._blocks):
             setattr(self,'_block_{}'.format(i),b)
@@ -263,7 +263,7 @@ class Model(ModelBase, torch.nn.Module):
     def compile(self,classes_list,**kwargs):
         self._classes_list=classes_list
 
-        in_features=512//self._d
+        in_features=2048//self._d
         for idx,c in enumerate(classes_list):
             setattr(self,'_head_{}'.format(idx),torch.nn.Linear(in_features,c))
 
