@@ -273,8 +273,8 @@ class Model(ModelBase, torch.nn.Module):
 
         aug=get_augmentations()
         def aug_fn(img):
-            #return img
-            return aug(image=img)['image']
+            return img
+            #return aug(image=img)['image']
 
         train_dataset_aug=BengaliDataset(train_images,labels=train_labels,transform_fn=aug_fn)
         train_dataset=BengaliDataset(train_images,labels=train_labels)
