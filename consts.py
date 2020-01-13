@@ -2,6 +2,7 @@
 DATA_DIR='data'
 RAW_DIR='raw'
 MODELS_DIR='models3'
+MODELS_PRETRAINED_DIR='models_pretrained'
 SUBMISSION_DIR = 'submissions'
 SUBMISSION_CSV = 'submission.csv'
 SAMPLE_SUBMISSION_CSV = 'sample_submission.csv'

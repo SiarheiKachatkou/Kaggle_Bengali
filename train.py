@@ -5,14 +5,14 @@ import pandas as pd
 from model import Model
 from create_dataset_utils import load
 from score import calc_score
-from consts import DATA_DIR,MODEL_NAME,BATCH_SIZE,EPOCHS, TRAIN_DATASET_PKL, VAL_DATASET_PKL, MODELS_DIR, METRIC_FILE_PATH
+from consts import MODELS_PRETRAINED_DIR, DATA_DIR,MODEL_NAME,BATCH_SIZE,EPOCHS, TRAIN_DATASET_PKL, VAL_DATASET_PKL, MODELS_DIR, METRIC_FILE_PATH
 
 debug_regime=False
 
 if __name__ == "__main__":
 
     parser=argparse.ArgumentParser()
-    parser.add_argument('--fine_tune',type=bool,default=False)
+    parser.add_argument('--fine_tune',type=int,default=0)
     args=parser.parse_args()
 
     train_images, train_labels, _, classes = load(os.path.join(DATA_DIR,TRAIN_DATASET_PKL))
@@ -29,17 +29,19 @@ if __name__ == "__main__":
     print('{} val images loaded'.format(len(val_images)))
 
 
-    model_dir=os.path.join(DATA_DIR,MODELS_DIR)
-    if not os.path.exists(model_dir):
-        os.mkdir(model_dir)
-    model_filepath=os.path.join(model_dir,MODEL_NAME)
 
     model=Model()
 
     model.compile(classes_list=classes)
-    if args.fine_tune:
-        model.load(model_filepath, classes)
+    if args.fine_tune!=0:
+        model_pretrained_filepath=os.path.join(DATA_DIR,MODELS_PRETRAINED_DIR,MODEL_NAME)
+        model.load(model_pretrained_filepath, classes)
     model.fit(train_images,train_labels, val_images,val_labels,batch_size=BATCH_SIZE,epochs=EPOCHS)
+
+    model_dir=os.path.join(DATA_DIR,MODELS_DIR)
+    if not os.path.exists(model_dir):
+        os.mkdir(model_dir)
+    model_filepath=os.path.join(model_dir,MODEL_NAME)
 
     model.save(model_filepath)
 
