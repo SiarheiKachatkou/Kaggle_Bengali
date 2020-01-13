@@ -2,6 +2,8 @@
 
 git_cmt_message=$1
 
+fine_tune=${2:-0}
+
 set -x
 
 
@@ -25,7 +27,7 @@ deps_data="-d data/test_datset.pkl -d data/train_datset.pkl -d data/val_datset.p
 outputs="data/models3"
 metric="metric3.txt"
 
-dvc run --overwrite-dvcfile $deps_code $deps_data -f $outputs.dvc -o $outputs -M $metric $PY train.py &&
+dvc run --overwrite-dvcfile $deps_code $deps_data -f $outputs.dvc -o $outputs -M $metric $PY train.py --fine_tune=$fine_tune &&
 dvc push $outputs.dvc &&
 git add $metric
 git add $outputs.dvc -f

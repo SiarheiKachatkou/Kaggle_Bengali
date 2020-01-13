@@ -3,8 +3,11 @@
   <component name="ChangeListManager">
     <list default="true" id="8d7aab7b-5a13-411d-a5a4-10047020d786" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/models3.dvc" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/metric3.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/consts.py" beforeDir="false" afterPath="$PROJECT_DIR$/consts.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/models3.dvc" beforeDir="false" afterPath="$PROJECT_DIR$/data/models3.dvc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dvc_train.sh" beforeDir="false" afterPath="$PROJECT_DIR$/dvc_train.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main_create_slices_dataset.sh" beforeDir="false" afterPath="$PROJECT_DIR$/main_create_slices_dataset.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/train.py" beforeDir="false" afterPath="$PROJECT_DIR$/train.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -19,11 +22,20 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/train.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="45">
-                  <caret line="9" selection-start-line="9" selection-end-line="9" />
+                <state relative-caret-position="208">
+                  <caret line="19" lean-forward="true" selection-start-line="19" selection-end-line="19" />
                   <folding>
                     <element signature="e#0#9#0" expanded="true" />
                   </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/consts.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="450">
+                  <caret line="30" column="8" selection-start-line="30" selection-start-column="8" selection-end-line="30" selection-end-column="8" />
                 </state>
               </provider>
             </entry>
@@ -40,7 +52,25 @@
               </provider>
             </entry>
           </file>
-          <file pinned="false" current-in-tab="true">
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/dvc_train.sh">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="120">
+                  <caret line="8" lean-forward="true" selection-start-line="8" selection-end-line="8" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/dvc_create_dataset.sh">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="90">
+                  <caret line="6" lean-forward="true" selection-start-line="6" selection-end-line="6" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/main_create_slices_dataset.sh">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="270">
@@ -68,8 +98,8 @@
           <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/model_pytorch.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="304">
-                  <caret line="55" column="16" selection-start-line="55" selection-start-column="16" selection-end-line="55" selection-end-column="16" />
+                <state relative-caret-position="274">
+                  <caret line="53" column="21" selection-start-line="53" selection-start-column="21" selection-end-line="53" selection-end-column="21" />
                   <folding>
                     <element signature="e#0#12#0" expanded="true" />
                   </folding>
@@ -113,18 +143,18 @@
         <option value="$PROJECT_DIR$/shake_shake/shake_resnext.py" />
         <option value="$PROJECT_DIR$/shake_shake/shake_resnet.py" />
         <option value="$PROJECT_DIR$/dataset_pytorch.py" />
-        <option value="$PROJECT_DIR$/train.py" />
-        <option value="$PROJECT_DIR$/dvc_train.sh" />
         <option value="$PROJECT_DIR$/create_dataset.py" />
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/model_pytorch.py" />
-        <option value="$PROJECT_DIR$/consts.py" />
         <option value="$PROJECT_DIR$/data/act_profile.txt" />
         <option value="$PROJECT_DIR$/dvc_create_dataset.sh" />
         <option value="$PROJECT_DIR$/dvc_run.sh" />
         <option value="$PROJECT_DIR$/create_dataset_mnist.py" />
         <option value="$PROJECT_DIR$/create_dataset_utils.py" />
         <option value="$PROJECT_DIR$/main_create_slices_dataset.sh" />
+        <option value="$PROJECT_DIR$/train.py" />
+        <option value="$PROJECT_DIR$/dvc_train.sh" />
+        <option value="$PROJECT_DIR$/consts.py" />
       </list>
     </option>
   </component>
@@ -154,6 +184,12 @@
               <item name="Bengali_mnist_2" type="b2602c69:ProjectViewProjectNode" />
               <item name="Bengali_mnist_2" type="462c0819:PsiDirectoryNode" />
               <item name="data" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Bengali_mnist_2" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Bengali_mnist_2" type="462c0819:PsiDirectoryNode" />
+              <item name="data" type="462c0819:PsiDirectoryNode" />
+              <item name="models3" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="Bengali_mnist_2" type="b2602c69:ProjectViewProjectNode" />
@@ -282,7 +318,7 @@
     <frame x="67" y="25" width="1853" height="1055" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.1989071" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.1989071" />
       <window_info id="Structure" order="1" weight="0.25" />
       <window_info anchor="bottom" id="Messages" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -296,7 +332,7 @@
       <window_info anchor="bottom" id="SOQL Query" order="8" />
       <window_info anchor="bottom" id="Log Analyzer" order="9" />
       <window_info anchor="bottom" id="Educational.CheckDetails" order="10" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="11" visible="true" weight="0.39200863" />
+      <window_info anchor="bottom" id="Terminal" order="11" visible="true" weight="0.39200863" />
       <window_info anchor="bottom" id="Event Log" order="12" side_tool="true" />
       <window_info anchor="bottom" id="Anonymous Apex" order="13" weight="0.32937366" />
       <window_info anchor="bottom" id="Python Console" order="14" weight="0.32937366" />
@@ -610,34 +646,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/train.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
-          <caret line="9" selection-start-line="9" selection-end-line="9" />
-          <folding>
-            <element signature="e#0#9#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/metric3.txt">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/consts.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="20" selection-start-line="20" selection-end-line="20" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/data/act_profile.txt" />
-    <entry file="file://$PROJECT_DIR$/dvc_train.sh">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="6" selection-start-line="6" selection-end-line="6" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/create_dataset.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="182">
@@ -661,23 +673,6 @@
           <caret line="16" selection-start-line="16" selection-end-line="16" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dvc_create_dataset.sh">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="6" lean-forward="true" selection-start-line="6" selection-end-line="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/model_pytorch.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="304">
-          <caret line="55" column="16" selection-start-line="55" selection-start-column="16" selection-end-line="55" selection-end-column="16" />
-          <folding>
-            <element signature="e#0#12#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -712,10 +707,51 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/model_pytorch.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="274">
+          <caret line="53" column="21" selection-start-line="53" selection-start-column="21" selection-end-line="53" selection-end-column="21" />
+          <folding>
+            <element signature="e#0#12#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/main_create_slices_dataset.sh">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="270">
           <caret line="18" lean-forward="true" selection-start-line="18" selection-end-line="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/train.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="208">
+          <caret line="19" lean-forward="true" selection-start-line="19" selection-end-line="19" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dvc_create_dataset.sh">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="6" lean-forward="true" selection-start-line="6" selection-end-line="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dvc_train.sh">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="8" lean-forward="true" selection-start-line="8" selection-end-line="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/consts.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="450">
+          <caret line="30" column="8" selection-start-line="30" selection-start-column="8" selection-end-line="30" selection-end-column="8" />
         </state>
       </provider>
     </entry>
