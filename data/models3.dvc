@@ -1,16 +1,16 @@
-md5: 927e17a3b59edeb9c22bfc995581a1d2
+cmd: /home/sergey/anaconda3/envs/pytorch/bin/python train.py --fine_tune=0
 wdir: ..
 outs:
-- path: data/models3
-  persist: false
-  md5: 086ab7f41bf0ee73c5501ad6ee64064f.dir
+- persist: false
   cache: true
+  path: data/models3
   metric: false
-- path: metric3.txt
-  persist: false
-  md5: ca200e40ac4fce6b431cffbf41456b33
+  md5: e071b475df16097fded802c6894162d8.dir
+- persist: false
   cache: false
+  path: metric3.txt
   metric: true
+  md5: 0f441c9235d0f1010a533d8c337caa4a
 deps:
 - path: consts.py
   md5: cbd0cd308503e2571ae69d4690972762
@@ -33,7 +33,7 @@ deps:
 - path: model.py
   md5: 460d1d154a827c40c27a2bb058e48d6b
 - path: model_pytorch.py
-  md5: 5c239c0926b2aa6dda516d69bd5d0cc7
+  md5: 83cc113fa1250e7f5afbbb21f0cd7d83
 - path: model_pytorch_zoo.py
   md5: 80fae2eaf9dbbed1e329a0e39b096d09
 - path: model_tf.py
@@ -50,4 +50,4 @@ deps:
   md5: 0430d8e1f157d4f67a0204a29fe4f38f
 - path: data/val_datset.pkl
   md5: b318a554c3dde69f1971de018662944e
-cmd: /home/sergey/anaconda3/envs/pytorch/bin/python train.py --fine_tune=0
+md5: e8bddd3a0ef354f5f1d1cd57beb84de0
