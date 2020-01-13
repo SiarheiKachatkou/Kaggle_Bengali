@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 
+set -x
+
 git_cmt_message=$1
 
 fine_tune=${2:-0}
-
-set -x
 
 
 if [[ $git_cmt_message == "" ]]

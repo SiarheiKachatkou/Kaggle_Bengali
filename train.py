@@ -37,7 +37,7 @@ if __name__ == "__main__":
     model=Model()
 
     model.compile(classes_list=classes)
-    if args.fune_tune:
+    if args.fine_tune:
         model.load(model_filepath, classes)
     model.fit(train_images,train_labels, val_images,val_labels,batch_size=BATCH_SIZE,epochs=EPOCHS)
 
