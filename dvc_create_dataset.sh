@@ -2,8 +2,10 @@
 
 set -x
 
-MODE=MNIST
-# BENGALI
+MODE=BENGALI
+
+# MNIST
+
 
 git_commit_message=$1
 augm_count=$2
