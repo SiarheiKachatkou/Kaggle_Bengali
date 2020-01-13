@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="8d7aab7b-5a13-411d-a5a4-10047020d786" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/model_pytorch.py" beforeDir="false" afterPath="$PROJECT_DIR$/model_pytorch.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -67,8 +66,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/model_pytorch.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
-              <caret line="264" lean-forward="true" selection-start-line="264" selection-end-line="264" />
+            <state relative-caret-position="159">
+              <caret line="216" column="11" lean-forward="true" selection-start-line="216" selection-start-column="11" selection-end-line="216" selection-end-column="11" />
             </state>
           </provider>
         </entry>
@@ -748,8 +747,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/model_pytorch.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="264" lean-forward="true" selection-start-line="264" selection-end-line="264" />
+        <state relative-caret-position="159">
+          <caret line="216" column="11" lean-forward="true" selection-start-line="216" selection-start-column="11" selection-end-line="216" selection-end-column="11" />
         </state>
       </provider>
     </entry>
