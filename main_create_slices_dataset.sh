@@ -2,7 +2,7 @@
 
 set -x
 
-TAG=63ba291
+TAG=de0f66d
 DST_DIR=/home/sergey/1T/DNNDebug/Data/SlicesDataset/
 CLASS_MAP_PATH='data/raw/class_map.csv'
 MAX_IMGS_COUNT=10000
