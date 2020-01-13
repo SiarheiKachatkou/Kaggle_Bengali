@@ -1,5 +1,5 @@
 import pickle
-
+import numpy as np
 
 def dump(path_to_file, imgs,labels, ids, classes):
     with open(path_to_file,'wb') as file:
@@ -8,4 +8,4 @@ def dump(path_to_file, imgs,labels, ids, classes):
 def load(path_to_file):
     with open(path_to_file,'rb') as file:
         imgs,labels,ids, classes = pickle.load(file)
-    return imgs,labels,ids, classes
+    return np.array(imgs),np.array(labels),np.array(ids), classes
