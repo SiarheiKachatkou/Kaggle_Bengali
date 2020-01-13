@@ -29,6 +29,6 @@ metric="metric3.txt"
 
 dvc run --overwrite-dvcfile $deps_code $deps_data -f $outputs.dvc -o $outputs -M $metric $PY train.py --fine_tune=$fine_tune &&
 dvc push $outputs.dvc &&
-git add $metric
-git add $outputs.dvc -f
+git add $metric &&
+git add $outputs.dvc -f &&
 git commit -a -m $git_cmt_message

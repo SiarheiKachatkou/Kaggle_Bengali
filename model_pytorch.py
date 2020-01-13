@@ -211,7 +211,7 @@ class Model(ModelBase, torch.nn.Module):
         #resnet 152,resnet-101,resnet-50
         block_counts_resnet_152=[3,8,36,3]
         block_counts_resnet_101=[3,4,23,3]
-        lock_counts_resnet_50=[3,4,6,3]
+        block_counts_resnet_50=[3,4,6,3]
         #block_counts_resnet_50_mnist=[3]
         block_counts=block_counts_resnet_50
         d=4
