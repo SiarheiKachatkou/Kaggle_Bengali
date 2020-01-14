@@ -218,15 +218,15 @@ class Model(ModelBase, torch.nn.Module):
         #block_counts_resnet_50_mnist=[3]
         block_counts=block_counts_resnet_50
 
-        self._d=2
+        self._d=0.5
         def m(c):
             return self._m(c)
 
-        block=SEResNetBottleNeckBlock
+        block=SEResNeXtBottleNeckBlock
 
-        self._blocks=[ConvBnRelu(in_channels=3,out_channels=m(64),stride=2,kernel_size=7),
-        ConvBnRelu(in_channels=m(64),out_channels=m(128),stride=2,kernel_size=3),
-        ConvBnRelu(in_channels=m(128),out_channels=m(256),stride=2,kernel_size=3)
+        self._blocks=[ConvBnRelu(in_channels=3,out_channels=m(64),stride=2,kernel_size=2),
+        ConvBnRelu(in_channels=m(64),out_channels=m(128),stride=2,kernel_size=2),
+        ConvBnRelu(in_channels=m(128),out_channels=m(256),stride=2,kernel_size=2)
         ]
 
         for _ in range(block_counts[0]):
