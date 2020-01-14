@@ -2,11 +2,11 @@
 
 set -x
 
-TAG=467addd
+TAG=dcbb71
 DST_DIR=/home/sergey/1T/DNNDebug/Data/SlicesDataset/
 CLASS_MAP_PATH='data/raw/class_map.csv'
-MAX_IMGS_COUNT_TRAIN=10000
-MAX_IMGS_COUNT_TEST=1000
+MAX_IMGS_COUNT_TRAIN=5000
+MAX_IMGS_COUNT_TEST=500
 ACTIVATION_NAME=conv3
 #_backbone.layer1.0.conv3
 
