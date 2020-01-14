@@ -43,7 +43,7 @@ def load_parquet(path_pattern, labels_csv):
     return imgs,image_ids,labels
 
 def crop_symbol(img):
-
+    '''
     top=10
     left=10
     img=img[top:-top,left:-left]
@@ -54,7 +54,7 @@ def crop_symbol(img):
     top,bottom = min(black[0]), max(black[0])
     img=bin[top:bottom,left:right]
 
-
+    '''
     img=preproc(img)
 
     return img

@@ -1,15 +1,17 @@
-md5: b451404fa1f2d37803bbd5ef2d2889d5
-cmd: /home/sergey/anaconda3/envs/pytorch/bin/python make_submission.py
+md5: 40f748781161f9694bb87a99fd8252d4
+cmd: /home/sergey/anaconda3/envs/tensorflow/bin/python make_submission.py
 wdir: ../..
 deps:
-- md5: 436206c01d966b80b6a3dca33c4d8ac0
+- md5: 61e41ab4577fa7b10dbf769a854605a4
   path: make_submission.py
-- md5: b579203b42742e5a972ccf995ecec0c4.dir
-  path: data/models2
-- md5: 93bc7a9369980f2bce96ddcabec1896a
+- md5: aabd5cb020771a4b162f3f080885c543.dir
+  path: data/models
+- md5: 2a8398ad832c384966f1b43d3c088b8e
   path: data/test_datset.pkl
+- md5: 73952a52feace4c99f8b006d2c7d1cd2
+  path: data/image_gen.pkl
 outs:
-- md5: 38c98a29f0dc096886b11cb1cf92e5a7
+- md5: 74096ac47b0c3c7f3190231812c812b3
   path: data/submissions/submission.csv
   cache: false
   metric: false

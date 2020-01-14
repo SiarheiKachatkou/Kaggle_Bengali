@@ -242,9 +242,9 @@ class Model(ModelBase, torch.nn.Module):
         for _ in range(block_counts[2]):
             self._blocks.append(block(in_channels=m(1024)))
 
-        self._blocks.append(ConvBnRelu(in_channels=m(1024),out_channels=m(2048),stride=2))
+        self._blocks.append(nn.MaxPool2d(kernel_size=2,stride=2))
         for _ in range(block_counts[3]):
-            self._blocks.append(block(in_channels=m(2048)))
+            self._blocks.append(block(in_channels=m(1024)))
 
 
 
@@ -270,7 +270,7 @@ class Model(ModelBase, torch.nn.Module):
     def compile(self,classes_list,**kwargs):
         self._classes_list=classes_list
 
-        in_features=self._m(2048)
+        in_features=self._m(1024)
         for idx,c in enumerate(classes_list):
             setattr(self,'_head_{}'.format(idx),torch.nn.Linear(in_features,c))
 
