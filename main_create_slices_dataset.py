@@ -123,7 +123,7 @@ if __name__ == "__main__":
             pred_symbol=list_label_to_symbol(class_map,predicted_label)
             true_symbol=list_label_to_symbol(class_map,true_label)
 
-            activation_slices_list=[act[img_idx].flatten() for act in acts_list]
+            activation_slices_list=[act[img_idx] for act in acts_list]
             slice=DNNSlice(activation_slices_list=activation_slices_list, activation_names=activation_names,
                            img=None, img_slice=img, img_slice_begin=0,
                            img_slice_end=IMG_W,
