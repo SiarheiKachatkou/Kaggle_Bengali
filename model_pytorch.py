@@ -214,7 +214,7 @@ class Model(ModelBase, torch.nn.Module):
         #resnet 152,resnet-101,resnet-50
         block_counts_resnet_152=[3,8,36,3]
         block_counts_resnet_101=[3,4,23,3]
-        block_counts_resnet_50=[3,4,6,3]
+        block_counts_resnet_50=[3,4,3,3]
         #block_counts_resnet_50_mnist=[3]
         block_counts=block_counts_resnet_50
 
@@ -237,15 +237,15 @@ class Model(ModelBase, torch.nn.Module):
         for _ in range(block_counts[1]):
             self._blocks.append(block(in_channels=m(512)))
         
-        self._blocks.append(ConvBnRelu(in_channels=m(512),out_channels=m(1024),stride=2))
+        self._blocks.append(ConvBnRelu(in_channels=m(512),out_channels=m(1024),stride=2)) #11
         
         for _ in range(block_counts[2]):
             self._blocks.append(block(in_channels=m(1024)))
-        '''
-        self._blocks.append(ConvBnRelu(in_channels=1024//d,out_channels=2048//d,stride=2))
+
+        self._blocks.append(ConvBnRelu(in_channels=m(1024),out_channels=m(2048),stride=2))
         for _ in range(block_counts[3]):
-            self._blocks.append(block(in_channels=2048//d))
-        '''
+            self._blocks.append(block(in_channels=m(2048)))
+
 
 
         for i,b in enumerate(self._blocks):
@@ -270,7 +270,7 @@ class Model(ModelBase, torch.nn.Module):
     def compile(self,classes_list,**kwargs):
         self._classes_list=classes_list
 
-        in_features=self._m(1024)
+        in_features=self._m(2048)
         for idx,c in enumerate(classes_list):
             setattr(self,'_head_{}'.format(idx),torch.nn.Linear(in_features,c))
 
