@@ -2,13 +2,15 @@
 
 set -x
 
-MODE=BENGALI
+MODE=MNIST
+
+#BENGALI
 
 # MNIST
 
 
 git_commit_message=$1
-augm_count=$2
+augm_count=${2:-0}
 
 if [[ $git_commit_message == "" ]]
 then
