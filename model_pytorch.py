@@ -24,9 +24,9 @@ def get_augmentations():
 
 
 class ConvBnRelu(torch.nn.Module):
-    def __init__(self,in_channels,out_channels,kernel_size=3,stride=1):
+    def __init__(self,in_channels,out_channels,kernel_size=3,stride=1,dilation=1):
         super().__init__()
-        self._conv=nn.Conv2d(in_channels=in_channels,out_channels=out_channels,kernel_size=kernel_size,stride=stride,padding=kernel_size//2)
+        self._conv=nn.Conv2d(in_channels=in_channels,out_channels=out_channels,kernel_size=kernel_size,stride=stride,padding=kernel_size//2,dilation=dilation)
         self._bn=nn.BatchNorm2d(num_features=out_channels)
         self._r=nn.ReLU()
 
@@ -224,7 +224,7 @@ class Model(ModelBase, torch.nn.Module):
 
         block=SEResNeXtBottleNeckBlock
 
-        self._blocks=[ConvBnRelu(in_channels=3,out_channels=m(64),stride=2,kernel_size=13),
+        self._blocks=[ConvBnRelu(in_channels=3,out_channels=m(64),stride=2,kernel_size=13,dilation=2),
         ConvBnRelu(in_channels=m(64),out_channels=m(128),stride=2,kernel_size=7),
         ConvBnRelu(in_channels=m(128),out_channels=m(256),stride=1,kernel_size=3)
         ]
