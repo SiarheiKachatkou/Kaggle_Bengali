@@ -233,7 +233,7 @@ class Model(ModelBase, torch.nn.Module):
             self._blocks.append(block(in_channels=m(256)))
 
         self._blocks.append(ConvBnRelu(in_channels=m(256),out_channels=m(512),stride=2))
-
+        '''
         for _ in range(block_counts[1]):
             self._blocks.append(block(in_channels=m(512)))
         
@@ -246,7 +246,7 @@ class Model(ModelBase, torch.nn.Module):
         for _ in range(block_counts[3]):
             self._blocks.append(block(in_channels=m(1024)))
 
-
+        '''
 
         for i,b in enumerate(self._blocks):
             setattr(self,'_block_{}'.format(i),b)
@@ -270,7 +270,7 @@ class Model(ModelBase, torch.nn.Module):
     def compile(self,classes_list,**kwargs):
         self._classes_list=classes_list
 
-        in_features=self._m(1024)
+        in_features=self._m(512)
         for idx,c in enumerate(classes_list):
             setattr(self,'_head_{}'.format(idx),torch.nn.Linear(in_features,c))
 
