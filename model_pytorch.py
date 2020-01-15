@@ -218,7 +218,7 @@ class Model(ModelBase, torch.nn.Module):
         #block_counts_resnet_50_mnist=[3]
         block_counts=block_counts_resnet_50
 
-        self._d=0.5
+        self._d=2
         def m(c):
             return self._m(c)
 
