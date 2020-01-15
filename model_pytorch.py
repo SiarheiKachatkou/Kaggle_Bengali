@@ -224,7 +224,7 @@ class Model(ModelBase, torch.nn.Module):
 
         block=SEResNeXtBottleNeckBlock
 
-        self._blocks=[ConvBnRelu(in_channels=3,out_channels=m(64),stride=2,kernel_size=13,dilation=2),
+        self._blocks=[ConvBnRelu(in_channels=3,out_channels=m(64),stride=1,kernel_size=13,dilation=2),
         ConvBnRelu(in_channels=m(64),out_channels=m(128),stride=2,kernel_size=7),
         ConvBnRelu(in_channels=m(128),out_channels=m(256),stride=1,kernel_size=3)
         ]
