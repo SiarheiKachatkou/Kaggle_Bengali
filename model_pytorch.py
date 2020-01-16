@@ -90,9 +90,8 @@ class ResNetBottleNeckBlock(torch.nn.Module):
         return x
 
 class SEResNetBottleNeckBlock(torch.nn.Module):
-    def __init__(self, in_channels,use_shake_shake=False):
+    def __init__(self, in_channels):
         super().__init__()
-        self._use_shake_shake=use_shake_shake
         self._in_channels=in_channels
         bottleneck_depth=in_channels//4
         self._c1=nn.Conv2d(in_channels=in_channels,out_channels=bottleneck_depth,kernel_size=1,stride=1)
@@ -133,19 +132,49 @@ class SEResNetBottleNeckBlock(torch.nn.Module):
         scale_x=scale_x.reshape([-1,self._in_channels,1,1])
         x=x*scale_x
 
-        if self._use_shake_shake:
-            x=ShakeShake.apply(x,skip,self.training)
-        else:
-            x=x+skip
+
+        x=x+skip
 
         x=self._r3(x)
         return x
 
 
-class SEResNeXtBottleNeckBlock(torch.nn.Module):
-    def __init__(self, in_channels, use_shake_shake=True):
+
+class SEResNetBlockShakeShake(torch.nn.Module):
+    def __init__(self, in_channels):
         super().__init__()
-        self._use_shake_shake=use_shake_shake
+        self._in_channels=in_channels
+        self._c1=nn.Conv2d(in_channels=in_channels,out_channels=in_channels,kernel_size=3,stride=1,padding=1)
+        self._bn1=nn.BatchNorm2d(num_features=in_channels)
+        self._r1=nn.ReLU()
+
+        self._c2=nn.Conv2d(in_channels=in_channels,out_channels=in_channels,kernel_size=3,stride=1,padding=1)
+        self._bn2=nn.BatchNorm2d(num_features=in_channels)
+        self._r2=nn.ReLU()
+
+        self._r3=nn.ReLU()
+
+    def forward(self,input_x):
+
+        skip=input_x
+        x1=self._c1(input_x)
+        x1=self._r1(x1)
+        x1=self._bn1(x1)
+
+        x2=self._c2(input_x)
+        x2=self._r2(x2)
+        x2=self._bn2(x2)
+
+        x=ShakeShake.apply(x1,x2,self.training)
+        x=x+skip
+        x=self._r3(x)
+        return x
+
+
+
+class SEResNeXtBottleNeckBlock(torch.nn.Module):
+    def __init__(self, in_channels):
+        super().__init__()
         self._cardinality=64
         self._in_channels=in_channels
         bottleneck_depth=in_channels//2
@@ -188,10 +217,8 @@ class SEResNeXtBottleNeckBlock(torch.nn.Module):
         scale_x=scale_x.reshape([-1,self._in_channels,1,1])
         x=x*scale_x
 
-        if self._use_shake_shake:
-            x=ShakeShake.apply(x,skip,self.training)
-        else:
-            x=x+skip
+
+        x=x+skip
 
         x=self._r3(x)
         return x
@@ -236,7 +263,7 @@ class Model(ModelBase, torch.nn.Module):
         '''
 
         self._blocks.append(ResNetBasicBlock(in_channels=m(256)))
-        self._blocks.append(SEResNeXtBottleNeckBlock(in_channels=m(256)))
+        self._blocks.append(SEResNetBlockShakeShake(in_channels=m(256)))
         self._blocks.append(ResNetBasicBlock(in_channels=m(256)))
 
         d2=2

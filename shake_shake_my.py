@@ -6,7 +6,7 @@ class ShakeShake(torch.autograd.Function):
 
     @staticmethod
     def _get_random_alpha(x):
-        alpha = 0.5+0.05*(2*torch.cuda.FloatTensor(x.size(0)).uniform_()-1)
+        alpha = 0.5+0.5*(2*torch.cuda.FloatTensor(x.size(0)).uniform_()-1)
         alpha = alpha.view(alpha.size(0),1,1,1).expand_as(x)
         return alpha
 
