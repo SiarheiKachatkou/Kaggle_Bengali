@@ -5,7 +5,7 @@ set -x
 TAG=$1
 
 if [[ $TAG == "" ]]
-do
+then
 echo Error specify TAG
 exit 1
 fi
