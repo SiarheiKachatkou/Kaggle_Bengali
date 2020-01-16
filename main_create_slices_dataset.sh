@@ -2,7 +2,14 @@
 
 set -x
 
-TAG=daa8406
+TAG=$1
+
+if [[ $TAG == "" ]]
+do
+echo Error specify TAG
+exit 1
+fi
+
 DST_DIR=/home/sergey/1T/DNNDebug/Data/SlicesDataset/
 CLASS_MAP_PATH='data/raw/class_map_mnist.csv'
 MAX_IMGS_COUNT_TRAIN=5000

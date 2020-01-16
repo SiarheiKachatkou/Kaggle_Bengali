@@ -226,8 +226,11 @@ class Model(ModelBase, torch.nn.Module):
         block=SEResNeXtBottleNeckBlock
 
         self._blocks=[ConvBnRelu(in_channels=3,out_channels=m(64),stride=1,kernel_size=13,dilation=2),
+                      nn.Dropout(p=0.1),
         ConvBnRelu(in_channels=m(64),out_channels=m(128),stride=2,kernel_size=7),
-        ConvBnRelu(in_channels=m(128),out_channels=m(256),stride=1,kernel_size=3)
+                      nn.Dropout(p=0.1),
+        ConvBnRelu(in_channels=m(128),out_channels=m(256),stride=1,kernel_size=3),
+                      nn.Dropout(p=0.1)
         ]
 
         for _ in range(block_counts[0]):
@@ -235,7 +238,7 @@ class Model(ModelBase, torch.nn.Module):
 
         d2=2
         self._blocks.append(ConvBnRelu(in_channels=m(256),out_channels=m(d2*512),stride=2))
-        self._blocks.append(ConvBnRelu(in_channels=m(d2*512),out_channels=m(d2*1024),stride=2,kernel_size=2))
+        self._blocks.append(ConvBnRelu(in_channels=m(d2*512),out_channels=m(d2*1024),stride=2,kernel_size=3))
         self._blocks.append(ConvBnRelu(in_channels=m(d2*1024),out_channels=m(d2*2048),stride=2))
         '''
         for _ in range(block_counts[1]):
