@@ -146,7 +146,7 @@ class SEResNeXtBottleNeckBlock(torch.nn.Module):
     def __init__(self, in_channels, use_shake_shake=True):
         super().__init__()
         self._use_shake_shake=use_shake_shake
-        self._cardinality=32
+        self._cardinality=16
         self._in_channels=in_channels
         bottleneck_depth=in_channels//2
         self._c1=nn.Conv2d(in_channels=in_channels,out_channels=bottleneck_depth,
@@ -223,7 +223,7 @@ class Model(ModelBase, torch.nn.Module):
         def m(c):
             return self._m(c)
 
-        block=SEResNetBottleNeckBlock
+        block=SEResNeXtBottleNeckBlock
 
         self._blocks=[ConvBnRelu(in_channels=3,out_channels=m(64),stride=1,kernel_size=13,dilation=2),
         ConvBnRelu(in_channels=m(64),out_channels=m(128),stride=2,kernel_size=7),
