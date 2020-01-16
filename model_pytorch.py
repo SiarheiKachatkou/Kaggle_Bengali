@@ -29,6 +29,7 @@ class ConvBnRelu(torch.nn.Module):
         self._conv=nn.Conv2d(in_channels=in_channels,out_channels=out_channels,kernel_size=kernel_size,stride=stride,padding=kernel_size//2,dilation=dilation)
         self._bn=nn.BatchNorm2d(num_features=out_channels)
         self._r=nn.ReLU()
+        self.out_features=out_channels
 
     def forward(self,x):
         x=self._conv(x)
@@ -218,7 +219,7 @@ class Model(ModelBase, torch.nn.Module):
         #block_counts_resnet_50_mnist=[3]
         block_counts=block_counts_resnet_50
 
-        self._d=2
+        self._d=0.5
         def m(c):
             return self._m(c)
 
@@ -232,7 +233,10 @@ class Model(ModelBase, torch.nn.Module):
         for _ in range(block_counts[0]):
             self._blocks.append(block(in_channels=m(256)))
 
-        self._blocks.append(ConvBnRelu(in_channels=m(256),out_channels=m(512),stride=2))
+        d2=2
+        self._blocks.append(ConvBnRelu(in_channels=m(256),out_channels=m(d2*512),stride=2))
+        self._blocks.append(ConvBnRelu(in_channels=m(d2*512),out_channels=m(d2*1024),stride=2))
+        self._blocks.append(ConvBnRelu(in_channels=m(d2*1024),out_channels=m(d2*2048),stride=2))
         '''
         for _ in range(block_counts[1]):
             self._blocks.append(block(in_channels=m(512)))
@@ -270,7 +274,7 @@ class Model(ModelBase, torch.nn.Module):
     def compile(self,classes_list,**kwargs):
         self._classes_list=classes_list
 
-        in_features=self._m(512)
+        in_features=self._blocks[-1].out_features
         for idx,c in enumerate(classes_list):
             setattr(self,'_head_{}'.format(idx),torch.nn.Linear(in_features,c))
 
