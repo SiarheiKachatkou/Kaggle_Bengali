@@ -69,7 +69,7 @@ class ResNetBottleNeckBlock(torch.nn.Module):
         self._r1=nn.ReLU()
         self._c2=nn.Conv2d(in_channels=bottleneck_depth,out_channels=bottleneck_depth,kernel_size=3,stride=1,padding=1)
         self._bn2=nn.BatchNorm2d(num_features=bottleneck_depth)
-        self._r1=nn.ReLU()
+        self._r2=nn.ReLU()
         self._c2=nn.Conv2d(in_channels=bottleneck_depth,out_channels=in_channels,kernel_size=1,stride=1)
         self._bn3=nn.BatchNorm2d(num_features=in_channels)
         self._r3=nn.ReLU()
@@ -144,26 +144,17 @@ class SEResNetBlockShakeShake(torch.nn.Module):
     def __init__(self, in_channels):
         super().__init__()
         self._in_channels=in_channels
-        self._c1=nn.Conv2d(in_channels=in_channels,out_channels=in_channels,kernel_size=3,stride=1,padding=1)
-        self._bn1=nn.BatchNorm2d(num_features=in_channels)
-        self._r1=nn.ReLU()
-
-        self._c2=nn.Conv2d(in_channels=in_channels,out_channels=in_channels,kernel_size=3,stride=1,padding=1)
-        self._bn2=nn.BatchNorm2d(num_features=in_channels)
-        self._r2=nn.ReLU()
+        self._branch1=ResNetBasicBlock(in_channels=in_channels)
+        self._branch2=ResNetBasicBlock(in_channels=in_channels)
 
         self._r3=nn.ReLU()
 
     def forward(self,input_x):
 
         skip=input_x
-        x1=self._c1(input_x)
-        x1=self._r1(x1)
-        x1=self._bn1(x1)
+        x1=self._branch1(input_x)
 
-        x2=self._c2(input_x)
-        x2=self._r2(x2)
-        x2=self._bn2(x2)
+        x2=self._branch2(input_x)
 
         x=ShakeShake.apply(x1,x2,self.training)
         x=x+skip
