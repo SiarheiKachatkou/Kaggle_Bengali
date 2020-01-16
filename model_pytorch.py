@@ -223,21 +223,17 @@ class Model(ModelBase, torch.nn.Module):
         def m(c):
             return self._m(c)
 
-        block=SEResNeXtBottleNeckBlock
+        block=ResNetBasicBlock #SEResNeXtBottleNeckBlock
 
         self._blocks=[ConvBnRelu(in_channels=3,out_channels=m(64),stride=1,kernel_size=13,dilation=2),
         ConvBnRelu(in_channels=m(64),out_channels=m(128),stride=2,kernel_size=7),
         ConvBnRelu(in_channels=m(128),out_channels=m(256),stride=1,kernel_size=3)
         ]
 
-        self._blocks.append(SEResNetBottleNeckBlock(in_channels=m(256)))
-        self._blocks.append(SEResNeXtBottleNeckBlock(in_channels=m(256)))
-        self._blocks.append(ResNetBasicBlock(in_channels=m(256)))
 
-        '''
         for _ in range(block_counts[0]):
             self._blocks.append(block(in_channels=m(256)))
-        '''
+
         d2=2
         self._blocks.append(ConvBnRelu(in_channels=m(256),out_channels=m(d2*512),stride=2))
         self._blocks.append(ConvBnRelu(in_channels=m(d2*512),out_channels=m(d2*1024),stride=2,kernel_size=3))
