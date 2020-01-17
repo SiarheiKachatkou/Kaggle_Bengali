@@ -254,7 +254,7 @@ class Model(ModelBase, torch.nn.Module):
         '''
 
         self._blocks.append(ResNetBasicBlock(in_channels=m(256)))
-        self._blocks.append(SEResNetBlockShakeShake(in_channels=m(256)))
+        self._blocks.append(SEResNetBottleNeckBlock(in_channels=m(256)))#block_4
         self._blocks.append(ResNetBasicBlock(in_channels=m(256)))
 
         d2=2
