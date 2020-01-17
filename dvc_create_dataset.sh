@@ -2,7 +2,7 @@
 
 set -x
 
-MODE=MNIST
+MODE=BENGALI
 
 #BENGALI
 
@@ -18,7 +18,7 @@ echo ERROR specify git commit message argument
 exit 1
 fi
 
-PY=/home/sergey/anaconda3/envs/pytorch/bin/python
+PY=/home/sergey/anaconda3/envs/tensorflow/bin/python
 
 deps_code=""
 for p in *.py

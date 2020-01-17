@@ -24,8 +24,8 @@ MODEL_NAME='model'
 
 IMG_WIDTH = 236
 IMG_HEIGHT = 137
-IMG_W=28
-IMG_H=28
+IMG_W=64
+IMG_H=64
 N_CHANNELS = 1
 BATCH_SIZE=32
 EPOCHS=10
@@ -39,10 +39,13 @@ TARGETS=['grapheme_root','vowel_diacritic','consonant_diacritic']
 
 MODEL='model_pytorch'  #'model_tf'
 
-import torch
-torch.manual_seed(SEED)
-torch.backends.cudnn.deterministic = True
-torch.backends.cudnn.benchmark = False
+try:
+    import torch
+    torch.manual_seed(SEED)
+    torch.backends.cudnn.deterministic = True
+    torch.backends.cudnn.benchmark = False
+except:
+    print('Can not import pytorch and set cuda deterministic')
 
 import numpy as np
 np.random.seed(SEED)
