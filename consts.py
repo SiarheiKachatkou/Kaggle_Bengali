@@ -24,12 +24,12 @@ MODEL_NAME='model'
 
 IMG_WIDTH = 236
 IMG_HEIGHT = 137
-IMG_W=128
-IMG_H=128
+IMG_W=64
+IMG_H=64
 N_CHANNELS = 1
 BATCH_SIZE=32
-EPOCHS=30
-LR=0.001
+EPOCHS=10
+LR=0.01
 
 LR_SCHEDULER_PATINCE=3
 
@@ -39,10 +39,13 @@ TARGETS=['grapheme_root','vowel_diacritic','consonant_diacritic']
 
 MODEL='model_pytorch'  #'model_tf'
 
-import torch
-torch.manual_seed(SEED)
-torch.backends.cudnn.deterministic = True
-torch.backends.cudnn.benchmark = False
+try:
+    import torch
+    torch.manual_seed(SEED)
+    torch.backends.cudnn.deterministic = True
+    torch.backends.cudnn.benchmark = False
+except:
+    print('can not import pytorch, gpu use will be undeterministic')
 
 import numpy as np
 np.random.seed(SEED)

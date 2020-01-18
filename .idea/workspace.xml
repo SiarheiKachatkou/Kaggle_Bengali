@@ -2,16 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8d7aab7b-5a13-411d-a5a4-10047020d786" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/data/train_val_test_datset.pkl.dvc" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/consts.py" beforeDir="false" afterPath="$PROJECT_DIR$/consts.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/create_dataset.py" beforeDir="false" afterPath="$PROJECT_DIR$/create_dataset.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/data/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/raw.dvc" beforeDir="false" afterPath="$PROJECT_DIR$/data/raw.dvc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/submissions/submission.csv" beforeDir="false" afterPath="$PROJECT_DIR$/data/submissions/submission.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/submissions/submission.csv.dvc" beforeDir="false" afterPath="$PROJECT_DIR$/data/submissions/submission.csv.dvc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main_create_slices_dataset.sh" beforeDir="false" afterPath="$PROJECT_DIR$/main_create_slices_dataset.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/train_val_test_datset.pkl.dvc" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/model_pytorch.py" beforeDir="false" afterPath="$PROJECT_DIR$/model_pytorch.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -24,8 +19,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/train.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="375">
-              <caret line="25" column="43" lean-forward="true" selection-start-line="25" selection-start-column="43" selection-end-line="25" selection-end-column="43" />
+            <state relative-caret-position="990">
+              <caret line="66" lean-forward="true" selection-start-line="66" selection-end-line="66" />
               <folding>
                 <element signature="e#0#9#0" expanded="true" />
               </folding>
@@ -36,8 +31,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/consts.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="166">
-              <caret line="33" column="22" selection-start-line="33" selection-start-column="22" selection-end-line="33" selection-end-column="22" />
+            <state relative-caret-position="720">
+              <caret line="48" lean-forward="true" selection-start-line="48" selection-end-line="48" />
             </state>
           </provider>
         </entry>
@@ -45,8 +40,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/dvc_create_dataset.sh">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="360">
-              <caret line="36" selection-start-line="36" selection-end-line="36" />
+            <state relative-caret-position="285">
+              <caret line="19" lean-forward="true" selection-start-line="19" selection-end-line="19" />
             </state>
           </provider>
         </entry>
@@ -54,8 +49,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/model_pytorch.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="360">
-              <caret line="285" column="36" selection-start-line="285" selection-start-column="36" selection-end-line="285" selection-end-column="36" />
+            <state relative-caret-position="388">
+              <caret line="232" column="19" lean-forward="true" selection-start-line="232" selection-start-column="19" selection-end-line="232" selection-end-column="19" />
               <folding>
                 <element signature="e#0#12#0" expanded="true" />
               </folding>
@@ -64,9 +59,21 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/create_dataset_utils.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="165">
+              <caret line="11" lean-forward="true" selection-start-line="11" selection-end-line="11" />
+              <folding>
+                <element signature="e#0#13#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/create_dataset.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="82">
+            <state relative-caret-position="90">
               <caret line="14" column="36" selection-start-line="14" selection-start-column="36" selection-end-line="14" selection-end-column="36" />
               <folding>
                 <element signature="e#0#19#0" expanded="true" />
@@ -114,22 +121,22 @@
         <option value="$PROJECT_DIR$/create_dataset_mnist.py" />
         <option value="$PROJECT_DIR$/create_dataset_utils.py" />
         <option value="$PROJECT_DIR$/train.py" />
-        <option value="$PROJECT_DIR$/dvc_create_dataset.sh" />
-        <option value="$PROJECT_DIR$/requirements.txt" />
         <option value="$PROJECT_DIR$/dvc_train.sh" />
         <option value="$PROJECT_DIR$/main_create_slices_dataset.py" />
         <option value="$PROJECT_DIR$/main_create_slices_dataset.sh" />
-        <option value="$PROJECT_DIR$/model_pytorch.py" />
         <option value="$PROJECT_DIR$/create_dataset.py" />
+        <option value="$PROJECT_DIR$/requirements.txt" />
+        <option value="$PROJECT_DIR$/model_pytorch.py" />
+        <option value="$PROJECT_DIR$/dvc_create_dataset.sh" />
         <option value="$PROJECT_DIR$/consts.py" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="67" />
+  <component name="ProjectFrameBounds" extendedState="4">
+    <option name="x" value="1953" />
     <option name="y" value="25" />
-    <option name="width" value="927" />
-    <option name="height" value="1055" />
+    <option name="width" value="1887" />
+    <option name="height" value="2135" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
@@ -144,19 +151,8 @@
         <subPane>
           <expand>
             <path>
-              <item name="Bengali_master" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Bengali_master" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Bengali_master" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Bengali_master" type="462c0819:PsiDirectoryNode" />
-              <item name="data" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Bengali_master" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Bengali_master" type="462c0819:PsiDirectoryNode" />
-              <item name="data" type="462c0819:PsiDirectoryNode" />
-              <item name="raw" type="462c0819:PsiDirectoryNode" />
+              <item name="Bengali_open_source_96" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Bengali_open_source_96" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -276,15 +272,15 @@
     <configuration />
   </component>
   <component name="ToolWindowManager">
-    <frame x="67" y="25" width="1853" height="1055" extended-state="6" />
+    <frame x="1953" y="25" width="1887" height="2135" extended-state="4" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.1989071" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.3996781" />
       <window_info id="Structure" order="1" weight="0.25" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.43196544" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.39956802" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.3993021" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -292,7 +288,7 @@
       <window_info anchor="bottom" id="SOQL Query" order="8" show_stripe_button="false" weight="0.32937366" />
       <window_info anchor="bottom" id="Log Analyzer" order="9" show_stripe_button="false" weight="0.32937366" />
       <window_info anchor="bottom" id="Educational.CheckDetails" order="10" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="11" visible="true" weight="0.39200863" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="11" visible="true" weight="0.39232302" />
       <window_info anchor="bottom" id="Event Log" order="12" side_tool="true" />
       <window_info anchor="bottom" id="Anonymous Apex" order="13" show_stripe_button="false" weight="0.32937366" />
       <window_info anchor="bottom" id="Python Console" order="14" weight="0.32937366" />
@@ -389,16 +385,6 @@
           <url>file://$PROJECT_DIR$/dataset_pytorch.py</url>
           <line>14</line>
           <option name="timeStamp" value="30" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/model_pytorch.py</url>
-          <line>49</line>
-          <option name="timeStamp" value="31" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/model_pytorch.py</url>
-          <line>61</line>
-          <option name="timeStamp" value="32" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/create_dataset_mnist.py</url>
@@ -593,16 +579,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/create_dataset_utils.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="11" selection-start-line="11" selection-end-line="11" />
-          <folding>
-            <element signature="e#0#13#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/create_dataset_mnist.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="238">
@@ -647,13 +623,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/requirements.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="15" selection-start-column="15" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/dvc_train.sh">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="233">
@@ -678,16 +647,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/model_pytorch.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="285" column="36" selection-start-line="285" selection-start-column="36" selection-end-line="285" selection-end-column="36" />
-          <folding>
-            <element signature="e#0#12#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/dataset_pytorch.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="120">
@@ -705,13 +664,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/dvc_create_dataset.sh">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="36" selection-start-line="36" selection-end-line="36" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../../anaconda3/envs/pytorch/lib/python3.5/posixpath.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="190">
@@ -721,7 +673,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/create_dataset.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="82">
+        <state relative-caret-position="90">
           <caret line="14" column="36" selection-start-line="14" selection-start-column="36" selection-end-line="14" selection-end-column="36" />
           <folding>
             <element signature="e#0#19#0" expanded="true" />
@@ -729,20 +681,54 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/requirements.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="4" lean-forward="true" selection-start-line="4" selection-end-line="4" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/train.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="375">
-          <caret line="25" column="43" lean-forward="true" selection-start-line="25" selection-start-column="43" selection-end-line="25" selection-end-column="43" />
+        <state relative-caret-position="990">
+          <caret line="66" lean-forward="true" selection-start-line="66" selection-end-line="66" />
           <folding>
             <element signature="e#0#9#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/model_pytorch.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="388">
+          <caret line="232" column="19" lean-forward="true" selection-start-line="232" selection-start-column="19" selection-end-line="232" selection-end-column="19" />
+          <folding>
+            <element signature="e#0#12#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/create_dataset_utils.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="11" lean-forward="true" selection-start-line="11" selection-end-line="11" />
+          <folding>
+            <element signature="e#0#13#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dvc_create_dataset.sh">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="19" lean-forward="true" selection-start-line="19" selection-end-line="19" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/consts.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="166">
-          <caret line="33" column="22" selection-start-line="33" selection-start-column="22" selection-end-line="33" selection-end-column="22" />
+        <state relative-caret-position="720">
+          <caret line="48" lean-forward="true" selection-start-line="48" selection-end-line="48" />
         </state>
       </provider>
     </entry>
