@@ -16,7 +16,7 @@ echo ERROR specify git commit message argument
 exit 1
 fi
 
-PY=/home/sergey/anaconda3/envs/tensorflow/bin/python
+PY=/home/user/anaconda3/envs/tensorflow/bin/python
 
 deps_code=""
 for p in *.py

@@ -1,4 +1,6 @@
 ['remote "origin"']
 url = /home/sergey/1T/DvcStorage/kaggle/Bengali/
 [core]
-remote = origin
+remote = origin_datasets
+['remote "origin_datasets"']
+url = /mnt/Datasets/DvcStorage/KaggleBengali/
