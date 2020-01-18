@@ -418,6 +418,8 @@ class Model(ModelBase, torch.nn.Module):
 
     def _predict_on_tensor(self,inputs):
 
+        self.eval()
+
         def _argmax(tensor):
             return tensor.data.cpu().numpy().argmax(axis=1).reshape([-1,1])
 

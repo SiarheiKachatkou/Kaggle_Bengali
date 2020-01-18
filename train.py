@@ -33,18 +33,17 @@ if __name__ == "__main__":
         os.mkdir(model_dir)
     model_filepath=os.path.join(model_dir,MODEL_NAME)
 
-    if False:
-        model=Model()
 
-        model.compile(classes_list=classes)
-        if args.fine_tune!=0:
-            model_pretrained_filepath=os.path.join(DATA_DIR,MODELS_PRETRAINED_DIR,MODEL_NAME)
-            model.load(model_pretrained_filepath, classes)
-        model.fit(train_images,train_labels, val_images,val_labels,batch_size=BATCH_SIZE,epochs=EPOCHS)
+    model=Model()
 
+    model.compile(classes_list=classes)
+    if args.fine_tune!=0:
+        model_pretrained_filepath=os.path.join(DATA_DIR,MODELS_PRETRAINED_DIR,MODEL_NAME)
+        model.load(model_pretrained_filepath, classes)
+    model.fit(train_images,train_labels, val_images,val_labels,batch_size=BATCH_SIZE,epochs=EPOCHS)
 
+    model.save(model_filepath)
 
-        model.save(model_filepath)
 
     model_loaded=Model()
     model_loaded.load(model_filepath, classes)
