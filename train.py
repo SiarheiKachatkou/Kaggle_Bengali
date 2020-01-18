@@ -5,7 +5,8 @@ import pandas as pd
 from model import Model
 from create_dataset_utils import load
 from score import calc_score
-from consts import MODELS_PRETRAINED_DIR, DATA_DIR,MODEL_NAME,BATCH_SIZE,EPOCHS, TRAIN_DATASET_PKL, VAL_DATASET_PKL, MODELS_DIR, METRIC_FILE_PATH
+from consts import MODELS_PRETRAINED_DIR, DATA_DIR,MODEL_NAME,BATCH_SIZE,EPOCHS, TRAIN_DATASET_DIR, VAL_DATASET_DIR, \
+    MODELS_DIR, METRIC_FILE_PATH
 
 debug_regime=False
 
@@ -15,8 +16,8 @@ if __name__ == "__main__":
     parser.add_argument('--fine_tune',type=int,default=0)
     args=parser.parse_args()
 
-    train_images, train_labels, _, classes = load(os.path.join(DATA_DIR,TRAIN_DATASET_PKL))
-    val_images, val_labels, _, _  = load(os.path.join(DATA_DIR,VAL_DATASET_PKL))
+    train_images, train_labels, _, classes = load(os.path.join(DATA_DIR,TRAIN_DATASET_DIR))
+    val_images, val_labels, _, _  = load(os.path.join(DATA_DIR,VAL_DATASET_DIR))
 
     if debug_regime:
         max_samples=100
@@ -37,8 +38,6 @@ if __name__ == "__main__":
     model=Model()
 
     model.compile(classes_list=classes)
-
-    print(model)
 
     if args.fine_tune!=0:
         model_pretrained_filepath=os.path.join(DATA_DIR,MODELS_PRETRAINED_DIR,MODEL_NAME)

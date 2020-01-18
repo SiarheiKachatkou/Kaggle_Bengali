@@ -22,7 +22,7 @@ deps_code="$deps_code -d $p"
 done
 
 
-deps_data="-d data/test_datset.pkl -d data/train_datset.pkl -d data/val_datset.pkl"
+deps_data="-d data/test_datset -d data/train_datset -d data/val_datset"
 
 outputs="data/models"
 metric="metric.txt"

@@ -50,8 +50,8 @@ def load(path_to_dir):
     imgs_all=[]
     labels_all=[]
     ids_all=[]
-    for f in files:
-        with open(path_to_file,'rb') as file:
+    for path_to_file in files:
+        with open(os.path.join(path_to_dir,path_to_file),'rb') as file:
             imgs,labels,ids, classes = pickle.load(file)
             imgs_all.append(imgs)
             labels_all.append(labels)
