@@ -288,7 +288,7 @@ class Model(ModelBase, torch.nn.Module):
 
         self._classes_list=[]
 
-        self._classifier=build_classifier(arch='pretrained', load_model_path=None, n_total=168+11+7, model_name='', device='cuda:0')
+        self._classifier=build_classifier(arch='pretrained', load_model_path=None, n_total=168+11+7, model_name='se_resnext101_32x4d', device='cuda:0')
 
 
     def forward(self,x):

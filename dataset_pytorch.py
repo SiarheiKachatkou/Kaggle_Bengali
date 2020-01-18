@@ -22,7 +22,7 @@ class BengaliDataset(Dataset):
         img=self._images[idx]
         label= -1 if self._labels is None else self._labels[idx]
 
-        img=np.concatenate([img,img,img],axis=-1)
+        #img=np.concatenate([img,img,img],axis=-1)
 
         if self._transform_fn:
             img=self._transform_fn(img)
