@@ -1,45 +1,53 @@
-md5: dde74ef22f2e8dddc4d0b332c5bc7f57
-cmd: /home/sergey/anaconda3/envs/tensorflow/bin/python create_dataset.py
+md5: d85f53432c4228be25dc06d102bdc036
+cmd: /home/sergey/anaconda3/envs/pytorch/bin/python create_dataset_mnist.py --augm_count=0
 wdir: ..
 deps:
-- md5: 13debd3845f98cc0bb47864d1428fa46.dir
+- md5: c424a132947632d715018a8736e15014.dir
   path: data/raw
-- md5: 3e613f46c4e0c0ca999d6b008434656d
+- md5: b4e7367dfb8719f03d483f1f37a2b292
   path: consts.py
-- md5: 6f10863f020d5b285f354bf14d201076
+- md5: 6c999b7056911c03c6a08dac39bbc79a
+  path: create_dataset_mnist.py
+- md5: e3151f86499f46827999eafeda14cb40
   path: create_dataset.py
-- md5: ff0414473919f65a6c9e3266ea583f95
+- md5: 038d05ec72c8dfbdaa1cecb039f5a54b
   path: create_dataset_utils.py
-- md5: d2e96a50ecb1723086a5ed9047822ed9
+- md5: 7f9a927bc2051e68dab41e02fa62398f
   path: dataset_pytorch.py
 - md5: 05c66aece18d092b9d09502fb9a4561b
   path: image_data_generator_tf.py
+- md5: 7693844935321c403af58487d33646d3
+  path: main_create_slices_dataset.py
 - md5: 436206c01d966b80b6a3dca33c4d8ac0
   path: make_submission.py
 - md5: 53562b8ab467a1dde744e198a61d17f7
   path: model_base.py
 - md5: 460d1d154a827c40c27a2bb058e48d6b
   path: model.py
-- md5: 7304a94145e894ffabaae0ea612cc1a0
+- md5: 6483547016edab5fa474d9602316fb75
   path: model_pytorch.py
+- md5: 80fae2eaf9dbbed1e329a0e39b096d09
+  path: model_pytorch_zoo.py
 - md5: d70ca8e8d7bdb0333585077b128717c7
   path: model_tf.py
-- md5: baf9808e5d4d6479ecc1d5601fadfb18
+- md5: 0411d7e228648c97a49bdd7849537046
   path: score.py
-- md5: ecd47be584691abebf5aa6a190af9c94
+- md5: cf4682d939136c14b6097faae7ba6dba
+  path: shake_shake_my.py
+- md5: 736a67c09aad320adc8ddf7e5a3e411d
   path: train.py
 outs:
-- md5: fd87d467ef68caf5926509e407874ff5
+- md5: 1d71bffd1710c2362c063de7691f4048
   path: data/test_datset.pkl
   cache: true
   metric: false
   persist: false
-- md5: 20e2e02a3739c69487066e01b74c540d
+- md5: aaf30616813e26e863c4c9f984b856ee
   path: data/train_datset.pkl
   cache: true
   metric: false
   persist: false
-- md5: e470a531e40617671cb02698c1c6a71b
+- md5: 1d71bffd1710c2362c063de7691f4048
   path: data/val_datset.pkl
   cache: true
   metric: false
