@@ -257,10 +257,10 @@ class Model(ModelBase, torch.nn.Module):
         self._blocks.append(SEResNetBottleNeckBlock(in_channels=m(256)))#block_4
         self._blocks.append(ResNetBasicBlock(in_channels=m(256)))
 
-        d2=2
+        d2=1
         self._blocks.append(ConvBnRelu(in_channels=m(256),out_channels=m(d2*512),stride=2))
         self._blocks.append(ConvBnRelu(in_channels=m(d2*512),out_channels=m(d2*1024),stride=2,kernel_size=3))
-        self._blocks.append(nn.Dropout(p=0.5))
+        self._blocks.append(nn.Dropout(p=0.05))
         self._blocks.append(ConvBnRelu(in_channels=m(d2*1024),out_channels=m(d2*2048),stride=2))
         '''
         for _ in range(block_counts[1]):
