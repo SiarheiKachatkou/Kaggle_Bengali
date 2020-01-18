@@ -1,13 +1,13 @@
 
 DATA_DIR='data'
 RAW_DIR='raw'
-MODELS_DIR='models'
+MODELS_DIR='models1'
 MODELS_PRETRAINED_DIR='models_pretrained'
 SUBMISSION_DIR = 'submissions'
 SUBMISSION_CSV = 'submission.csv'
 SAMPLE_SUBMISSION_CSV = 'sample_submission.csv'
 
-METRIC_FILE_PATH='metric.txt'
+METRIC_FILE_PATH='metric1.txt'
 
 TRAIN_IMAGE_DATA_PATTERN='train_image_data_*.parquet'
 TEST_IMAGE_DATA_PATTERN='test_image_data_*.parquet'
@@ -24,12 +24,12 @@ MODEL_NAME='model'
 
 IMG_WIDTH = 236
 IMG_HEIGHT = 137
-IMG_W=128
-IMG_H=128
+IMG_W=224
+IMG_H=224
 N_CHANNELS = 1
 BATCH_SIZE=128
-EPOCHS=10
-LR=0.04
+EPOCHS=80
+LR=0.1
 
 LR_SCHEDULER_PATINCE=0
 

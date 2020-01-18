@@ -7,7 +7,7 @@ class ModelBase():
         raise NotImplementedError
 
 
-    def fit(self,train_images,train_labels, val_images, val_labels, batch_size,epochs, **kwargs):
+    def fit(self,train_images,train_labels, val_images, val_labels, batch_size,epochs,path_to_file, **kwargs):
         raise NotImplementedError
 
     def save(self,path_to_file):

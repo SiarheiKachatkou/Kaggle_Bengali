@@ -283,7 +283,7 @@ class Model(ModelBase, torch.nn.Module):
 
         self._device = torch.device("cuda")
 
-        self._print_every_iter=2000
+        self._print_every_iter=1000
         self._eval_batches=100
 
         self._classes_list=[]
@@ -299,7 +299,7 @@ class Model(ModelBase, torch.nn.Module):
         self._classes_list=classes_list
 
 
-    def fit(self,train_images,train_labels, val_images, val_labels, batch_size,epochs, **kwargs):
+    def fit(self,train_images,train_labels, val_images, val_labels, batch_size,epochs, path_to_file, **kwargs):
 
         self.to(self._device)
 
@@ -361,6 +361,7 @@ class Model(ModelBase, torch.nn.Module):
                         print('loss={} train_score={} val_score={}'.format(loss.item(),train_score,val_score))
                     scheduler.step(1-val_score)
                     self.train()
+            self.save(path_to_file)
 
 
     def _eval(self,dataloader):
@@ -413,6 +414,8 @@ class Model(ModelBase, torch.nn.Module):
         return np.concatenate(predicted_labels,axis=0)
 
     def _predict_on_tensor(self,inputs):
+
+        self.eval()
 
         def _argmax(tensor):
             return tensor.data.cpu().numpy().argmax(axis=1).reshape([-1,1])

@@ -24,8 +24,8 @@ done
 
 deps_data="-d data/test_datset.pkl -d data/train_datset.pkl -d data/val_datset.pkl"
 
-outputs="data/models"
-metric="metric.txt"
+outputs="data/models1"
+metric="metric1.txt"
 
 dvc run --overwrite-dvcfile $deps_code $deps_data -f $outputs.dvc -o $outputs -M $metric $PY train.py --fine_tune=$fine_tune &&
 dvc push $outputs.dvc &&
