@@ -1,0 +1,53 @@
+outs:
+- metric: false
+  cache: true
+  persist: false
+  md5: 74529a761f3b4dd26f26f45786a538b2.dir
+  path: data/models
+- metric: true
+  cache: false
+  persist: false
+  md5: ccfc67152d36029345eed35e7c256e08
+  path: metric.txt
+cmd: /home/user/anaconda3/envs/pytorch/bin/python train.py --fine_tune=0
+wdir: ..
+md5: 7643b20187f2fc3598a20c50bd6e1ddb
+deps:
+- md5: e8b2cff03868bf4b397f75375adede12
+  path: consts.py
+- md5: 6c999b7056911c03c6a08dac39bbc79a
+  path: create_dataset_mnist.py
+- md5: e3151f86499f46827999eafeda14cb40
+  path: create_dataset.py
+- md5: 038d05ec72c8dfbdaa1cecb039f5a54b
+  path: create_dataset_utils.py
+- md5: 868d11456339d1c90b697d28672a7293
+  path: dataset_pytorch.py
+- md5: 05c66aece18d092b9d09502fb9a4561b
+  path: image_data_generator_tf.py
+- md5: c33077d23de66bae96547f2f989ffb40
+  path: main_create_slices_dataset.py
+- md5: 436206c01d966b80b6a3dca33c4d8ac0
+  path: make_submission.py
+- md5: 53562b8ab467a1dde744e198a61d17f7
+  path: model_base.py
+- md5: 460d1d154a827c40c27a2bb058e48d6b
+  path: model.py
+- md5: 17a0d501b159d4a965d2dc7957b823b6
+  path: model_pytorch.py
+- md5: 80fae2eaf9dbbed1e329a0e39b096d09
+  path: model_pytorch_zoo.py
+- md5: d70ca8e8d7bdb0333585077b128717c7
+  path: model_tf.py
+- md5: 0411d7e228648c97a49bdd7849537046
+  path: score.py
+- md5: cf4682d939136c14b6097faae7ba6dba
+  path: shake_shake_my.py
+- md5: 607721c7179f9dfb6a01f33c776bec1f
+  path: train.py
+- md5: 53b89676619b003b92e043fef50801be
+  path: data/test_datset.pkl
+- md5: 7777b3b2fd13526585abd5c267f7e891
+  path: data/train_datset.pkl
+- md5: b88d9acd4360fbe9382cc1b0c03b4f3e
+  path: data/val_datset.pkl

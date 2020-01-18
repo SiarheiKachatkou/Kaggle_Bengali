@@ -281,7 +281,7 @@ class Model(ModelBase, torch.nn.Module):
         torch.nn.Module.__init__(self)
         ModelBase.__init__(self)
 
-        self._device = torch.device("cuda:0")
+        self._device = torch.device("cuda")
 
         self._print_every_iter=2000
         self._eval_batches=100
@@ -289,7 +289,7 @@ class Model(ModelBase, torch.nn.Module):
         self._classes_list=[]
 
         self._classifier=build_classifier(arch='pretrained', load_model_path=None, n_total=168+11+7, model_name='se_resnext101_32x4d', device='cuda:0')
-
+        #self._classifier=torch.nn.DataParallel(self._classifier)
 
     def forward(self,x):
         return self._classifier.forward(x)
