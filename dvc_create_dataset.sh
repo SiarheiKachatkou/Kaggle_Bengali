@@ -16,7 +16,7 @@ echo ERROR specify git commit message argument
 exit 1
 fi
 
-PY=/home/user/anaconda3/envs/tensorflow/bin/python
+PY=/home/user/anaconda3/envs/pytorch/bin/python
 
 deps_code=""
 for p in *.py
@@ -26,7 +26,7 @@ done
 
 deps_data="-d data/raw"
 
-outputs="-o data/test_datset.pkl -o data/train_datset.pkl -o data/val_datset.pkl"
+outputs="-o data/test_datset -o data/train_datset -o data/val_datset"
 
 if [[ $MODE == MNIST ]]
 then
