@@ -93,6 +93,7 @@ class SEResNetBottleNeckBlock(torch.nn.Module):
     def __init__(self, in_channels):
         super().__init__()
         self._in_channels=in_channels
+        self.out_features=in_channels
         bottleneck_depth=in_channels//4
         self._c1=nn.Conv2d(in_channels=in_channels,out_channels=bottleneck_depth,kernel_size=1,stride=1)
         self._bn1=nn.BatchNorm2d(num_features=bottleneck_depth)
@@ -265,9 +266,7 @@ class Model(ModelBase, torch.nn.Module):
         self._blocks.append(ConvBnRelu(in_channels=m(d2*512),out_channels=m(d2*1024),stride=2,kernel_size=3))
         self._blocks.append(nn.Dropout(p=0.5))
         self._blocks.append(nn.MaxPool2d(kernel_size=2,stride=2))
-        self._blocks.append(SEResNetBlockShakeShake(in_channels=m(d2*1024)))
-        self._blocks.append(nn.MaxPool2d(kernel_size=2,stride=2))
-        self._blocks.append(SEResNetBlockShakeShake(in_channels=m(d2*1024)))
+        self._blocks.append(SEResNetBottleNeckBlock(in_channels=m(d2*1024)))
 
         '''
         for _ in range(block_counts[1]):
