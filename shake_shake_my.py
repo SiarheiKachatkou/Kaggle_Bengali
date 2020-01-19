@@ -14,9 +14,9 @@ class ShakeShake(torch.autograd.Function):
     def forward(ctx,x,y, training=True):
         if training:
             alpha=ShakeShake._get_random_alpha(x)
+            ctx.save_for_backward(alpha)
         else:
             alpha=0.5
-        ctx.save_for_backward(alpha)
         return alpha*x+(1-alpha)*y
 
 

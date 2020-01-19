@@ -43,6 +43,7 @@ if __name__ == "__main__":
     model.fit(train_images,train_labels, val_images,val_labels,batch_size=BATCH_SIZE,epochs=EPOCHS)
 
     model.save(model_filepath)
+    
 
 
     model_loaded=Model()

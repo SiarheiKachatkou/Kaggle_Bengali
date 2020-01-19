@@ -144,10 +144,12 @@ class SEResNetBlockShakeShake(torch.nn.Module):
     def __init__(self, in_channels):
         super().__init__()
         self._in_channels=in_channels
+        self.out_features=in_channels
         self._branch1=ResNetBasicBlock(in_channels=in_channels)
         self._branch2=ResNetBasicBlock(in_channels=in_channels)
 
         self._r3=nn.ReLU()
+
 
     def forward(self,input_x):
 
@@ -263,7 +265,10 @@ class Model(ModelBase, torch.nn.Module):
         self._blocks.append(ConvBnRelu(in_channels=m(d2*512),out_channels=m(d2*1024),stride=2,kernel_size=3))
         self._blocks.append(nn.Dropout(p=0.5))
         self._blocks.append(nn.MaxPool2d(kernel_size=2,stride=2))
-        self._blocks.append(ConvBnRelu(in_channels=m(d2*1024),out_channels=m(d2*2048),stride=2))
+        self._blocks.append(SEResNetBlockShakeShake(in_channels=m(d2*1024)))
+        self._blocks.append(nn.MaxPool2d(kernel_size=2,stride=2))
+        self._blocks.append(SEResNetBlockShakeShake(in_channels=m(d2*1024)))
+
         '''
         for _ in range(block_counts[1]):
             self._blocks.append(block(in_channels=m(512)))
