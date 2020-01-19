@@ -12,7 +12,8 @@ from torch import nn
 from torch.utils.data import DataLoader
 from dataset_pytorch import BengaliDataset
 from model import Model
-from consts import DATA_DIR,MODEL_NAME, TARGETS, BATCH_SIZE, IMG_H, IMG_W, TEST_CSV, RAW_DIR, TRAIN_DATASET_PKL, VAL_DATASET_PKL, TEST_DATASET_PKL, IMAGE_GEN_PKL, MODELS_DIR, SUBMISSION_DIR, SUBMISSION_CSV,SAMPLE_SUBMISSION_CSV
+from consts import DATA_DIR,MODEL_NAME, TARGETS, BATCH_SIZE, IMG_H, IMG_W, \
+    TEST_CSV, RAW_DIR, TRAIN_DATASET_DIR, VAL_DATASET_DIR, TEST_DATASET_DIR, IMAGE_GEN_PKL, MODELS_DIR, SUBMISSION_DIR, SUBMISSION_CSV,SAMPLE_SUBMISSION_CSV
 
 from create_dataset_utils import load
 
@@ -53,7 +54,7 @@ if __name__ == "__main__":
     activation_name_postfix=args.activation_name_postfix
     slices_per_file=args.slices_per_file
 
-    dataset_pkl=TRAIN_DATASET_PKL if sub_dataset=='train' else VAL_DATASET_PKL
+    dataset_pkl=TRAIN_DATASET_DIR if sub_dataset=='train' else VAL_DATASET_DIR
 
     class_map=pd.read_csv(args.class_map_path)
 
@@ -83,7 +84,7 @@ if __name__ == "__main__":
     for name, m in model.named_modules():
         print('possible activations name {}'.format(name))
         # partial to assign the layer name to each hook
-        if re.match('.*block_([0-9]*)$',name) is not None:
+        if re.match('.*layer([0124].[012]*)$',name) is not None:
             activation_names.append(name)
             m.register_forward_hook(partial(save_activation, name))
 
@@ -91,6 +92,8 @@ if __name__ == "__main__":
     if os.path.exists(dataset_dir):
         shutil.rmtree(dataset_dir)
     os.mkdir(dataset_dir)
+
+    print('found activations count {}'.format(len(activation_names)))
 
     def dump_slices(slices,img_idx,batch_idx):
         if len(slices)>0:

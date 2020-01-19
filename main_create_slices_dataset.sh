@@ -2,16 +2,16 @@
 
 set -x
 
-TAG=ffd8db
-DST_DIR=/home/sergey/1T/DNNDebug/Data/SlicesDataset/
+TAG=d08460b
+DST_DIR=/home/user/GIT/DNNDebug/Data/SlicesDataset/
 CLASS_MAP_PATH='data/raw/class_map.csv'
-MAX_IMGS_COUNT_TRAIN=5000
-MAX_IMGS_COUNT_TEST=500
+MAX_IMGS_COUNT_TRAIN=10000
+MAX_IMGS_COUNT_TEST=100
 ACTIVATION_NAME=conv3
 #_backbone.layer1.0.conv3
 
 
-PY=/home/sergey/anaconda3/envs/pytorch/bin/python
+PY=/home/user/anaconda3/envs/pytorch/bin/python
 
 sub_datasets=(train test)
 max_sample_counts=($MAX_IMGS_COUNT_TRAIN $MAX_IMGS_COUNT_TEST)
