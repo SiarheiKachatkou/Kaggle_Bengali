@@ -270,7 +270,7 @@ class Model(ModelBase, torch.nn.Module):
         self._blocks.append(ConvBnRelu(in_channels=m(d2*512),out_channels=m(d2*1024),stride=2,kernel_size=3))
         self._blocks.append(ConvBnRelu(in_channels=m(d2*1024),out_channels=m(d2*512),stride=1,kernel_size=1))
         self._blocks.append(ConvBnRelu(in_channels=m(d2*512),out_channels=m(d2*1024),stride=2,kernel_size=3))
-        self._blocks.append(ConvBnRelu(in_channels=m(d2*1024),out_channels=m(d2*512),stride=1,kernel_size=1))
+
 
         '''
         for _ in range(block_counts[1]):
