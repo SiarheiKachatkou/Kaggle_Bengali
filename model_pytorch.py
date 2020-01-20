@@ -330,9 +330,9 @@ class Model(ModelBase, torch.nn.Module):
 
         loss_fn=nn.CrossEntropyLoss()
         optimizer=optim.Adam(self.parameters(),lr=LR)
-        iter_per_epochs=4375
-        scheduler = CosineAnnealingWarmUpRestarts(optimizer, T_0=iter_per_epochs//2, T_mult=2, eta_max=LR, T_up=iter_per_epochs//20, gamma=0.5)
-
+        iter_per_epochs=1000
+        scheduler = CosineAnnealingWarmUpRestarts(optimizer, T_0=iter_per_epochs//4, T_mult=2, eta_max=LR, T_up=20, gamma=0.5)
+        sch_i=0
         for epoch in tqdm(range(EPOCHS)):
             for i, data in enumerate(train_dataloader):
 
@@ -363,7 +363,8 @@ class Model(ModelBase, torch.nn.Module):
                         print('lr={}'.format(scheduler.get_lr()))
                     self.train()
 
-                scheduler.step()
+                scheduler.step(sch_i)
+                sch_i+=1
 
             self.save(path_to_file)
 
