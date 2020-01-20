@@ -39,7 +39,6 @@ model_loaded.compile(classes)
 
 optimizer=optim.Adam(model_loaded.parameters(),lr=LR)
 iter_per_epochs=140000//BATCH_SIZE
-
 scheduler = CosineScheduler(optimizer, period_initial=iter_per_epochs//2, period_mult=2, lr_initial=0.1, period_warmup_percent=0.1,lr_reduction=0.5)
 
 lrs=[]
