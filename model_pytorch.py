@@ -16,7 +16,7 @@ import math
 from torch.nn import init
 import pretrainedmodels
 from torch.nn import Sequential
-from cosine_scheduler import CosineAnnealingWarmUpRestarts
+from cosine_scheduler import CosineScheduler
 
 
 
@@ -330,9 +330,9 @@ class Model(ModelBase, torch.nn.Module):
 
         loss_fn=nn.CrossEntropyLoss()
         optimizer=optim.Adam(self.parameters(),lr=LR)
-        iter_per_epochs=1000
-        scheduler = CosineAnnealingWarmUpRestarts(optimizer, perioid_initial=iter_per_epochs // 4, period_mult=2, lr_initial=LR, period_warmup_percent=20, lr_reduction=0.5)
-        sch_i=0
+        iter_per_epochs=140000//BATCH_SIZE
+        scheduler = CosineScheduler(optimizer, period_initial=iter_per_epochs//2, period_mult=2, lr_initial=0.1, period_warmup_percent=0.1,lr_reduction=0.5)
+
         for epoch in tqdm(range(EPOCHS)):
             for i, data in enumerate(train_dataloader):
 
@@ -363,8 +363,7 @@ class Model(ModelBase, torch.nn.Module):
                         print('lr={}'.format(scheduler.get_lr()))
                     self.train()
 
-                scheduler.step(sch_i)
-                sch_i+=1
+                scheduler.step()
 
             self.save(path_to_file)
 
