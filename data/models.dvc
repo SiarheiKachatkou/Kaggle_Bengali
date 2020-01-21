@@ -1,18 +1,7 @@
-outs:
-- cache: true
-  path: data/models
-  metric: false
-  md5: 197d1cf3011c6ed062139afb81ecf006.dir
-  persist: false
-- cache: false
-  path: metric.txt
-  metric: true
-  md5: 183c48adfdf5ad3397ca6a74dd5f40e9
-  persist: false
-wdir: ..
+cmd: /home/user/anaconda3/envs/pytorch/bin/python train.py --fine_tune=1
 deps:
 - path: consts.py
-  md5: 62f495b4bf4fcad82f7e1d1d33a2e3fb
+  md5: 18747b01035fb8eb9820651112e3e680
 - path: cosine_lr_show.py
   md5: f13c625632281b8de36fa3ecc6bd7fc8
 - path: cosine_scheduler.py
@@ -36,7 +25,7 @@ deps:
 - path: model.py
   md5: 460d1d154a827c40c27a2bb058e48d6b
 - path: model_pytorch.py
-  md5: d597fcd1b4fd365bf8ee0ef7b5e3c05c
+  md5: c5a5c94ef86923d9709906b51dd2b2bc
 - path: model_pytorch_zoo.py
   md5: 80fae2eaf9dbbed1e329a0e39b096d09
 - path: model_tf.py
@@ -55,5 +44,16 @@ deps:
   md5: 1a0debf06b27ec40b3339e8701bd3cf3.dir
 - path: data/val_datset
   md5: bfc66402e3f190b15fa0bf83426069ac.dir
-md5: 8f66c319eec4379acb9b8576fc2dd2ac
-cmd: /home/user/anaconda3/envs/pytorch/bin/python train.py --fine_tune=0
+wdir: ..
+outs:
+- persist: false
+  path: data/models
+  cache: true
+  metric: false
+  md5: dfb9fb1e3435046a6e9c56e8461f8ac2.dir
+- persist: false
+  path: metric.txt
+  cache: false
+  metric: true
+  md5: c5b996c8fb61a2d899d61aaad356b6df
+md5: 1d976ff9cce231d99538216bc1dcf27f

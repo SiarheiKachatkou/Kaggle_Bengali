@@ -19,9 +19,19 @@ from torch.nn import Sequential
 from cosine_scheduler import CosineScheduler
 from transform import affine_image
 
-
 from consts import IMG_W,IMG_H,N_CHANNELS, BATCH_SIZE, LR, EPOCHS
 
+mode='FP32'
+
+'''
+try:
+    from apex.parallel import DistributedDataParallel as DDP
+    from apex.fp16_utils import *
+    from apex import amp, optimizers
+    from apex.multi_tensor_apply import multi_tensor_applier
+except ImportError:
+    raise ImportError("Please install apex from https://www.github.com/nvidia/apex to run this example.")
+'''
 
 def get_augmentations():
     return A.Compose([A.RandomBrightness(p=0.2),
@@ -328,10 +338,16 @@ class Model(ModelBase, torch.nn.Module):
 
 
         loss_fn=nn.CrossEntropyLoss()
-        #optimizer=optim.Adam(self.parameters(),lr=LR)
-        optimizer=optim.Adam(self._classifier.predictor.lin_layers.parameters(),lr=LR)
+        optimizer=optim.Adam(self.parameters(),lr=LR)
+        #optimizer=optim.Adam(self._classifier.predictor.lin_layers.parameters(),lr=LR)
         iter_per_epochs=140000//BATCH_SIZE
         scheduler = CosineScheduler(optimizer, period_initial=iter_per_epochs//2, period_mult=2, lr_initial=0.1, period_warmup_percent=0.1,lr_reduction=0.5)
+
+        if mode == 'FP16':
+            self._classifier = network_to_half(self._classifier)
+            optimizer = FP16_Optimizer(optimizer, static_loss_scale=128)
+        elif mode == 'amp':
+            self._classifier, optimizer = amp.initialize(self._classifier, optimizer, opt_level=args.opt_level)
 
         for epoch in tqdm(range(EPOCHS)):
             for i, data in enumerate(train_dataloader):
@@ -349,7 +365,13 @@ class Model(ModelBase, torch.nn.Module):
                 for idx in range(len(self._classes_list)):
                     loss+=loss_fn(heads_outputs[idx],labels[:,idx])
 
-                loss.backward()
+                if mode == 'FP32':
+                    loss.backward()
+                elif mode == 'FP16':
+                    optimizer.backward(loss)
+                else:
+                    with amp.scale_loss(loss, optimizer) as scaled_loss:
+                        scaled_loss.backward()
 
                 optimizer.step()
 
