@@ -1,4 +1,4 @@
-md5: 43e87c26fb91aa5444906da9df6cdda8
+md5: 6f72f5e2abfa1074c03ec1cec46fcc42
 cmd: /home/user/anaconda3/envs/pytorch/bin/python train.py --fine_tune=0
 wdir: ..
 deps:
@@ -38,6 +38,8 @@ deps:
   path: shake_shake_my.py
 - md5: dbf88161055468e75650ae57e99ffb87
   path: train.py
+- md5: d41d8cd98f00b204e9800998ecf8427e
+  path: transform.py
 - md5: ef4941df0679e923b5e129898dafcc88.dir
   path: data/test_datset
 - md5: 1a0debf06b27ec40b3339e8701bd3cf3.dir
@@ -45,7 +47,7 @@ deps:
 - md5: bfc66402e3f190b15fa0bf83426069ac.dir
   path: data/val_datset
 outs:
-- md5: 02916069729bb02d57ce07652f8503f2.dir
+- md5: 54da33e85d8c7baf51afc81601a9bc31.dir
   path: data/models
   cache: true
   metric: false
