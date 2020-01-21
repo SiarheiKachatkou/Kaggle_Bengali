@@ -17,7 +17,7 @@ from torch.nn import init
 import pretrainedmodels
 from torch.nn import Sequential
 from cosine_scheduler import CosineScheduler
-
+from transform import affine_image
 
 
 from consts import IMG_W,IMG_H,N_CHANNELS, BATCH_SIZE, LR, EPOCHS
@@ -152,8 +152,7 @@ class PretrainedCNN(nn.Module):
                  in_channels=1, out_dim=10, use_bn=True,
                  pretrained=None):
         super(PretrainedCNN, self).__init__()
-        self.conv0 = nn.Conv2d(
-            in_channels, 3, kernel_size=3, stride=1, padding=1, bias=True)
+
         self.base_model = pretrainedmodels.__dict__[model_name](pretrained=pretrained)
         activation = F.leaky_relu
         self.do_pooling = True
@@ -167,8 +166,7 @@ class PretrainedCNN(nn.Module):
         self.lin_layers = Sequential(lin1, lin2)
 
     def forward(self, x):
-        h = self.conv0(x)
-        h = self.base_model.features(h)
+        h = self.base_model.features(x)
 
         if self.do_pooling:
             h = torch.sum(h, dim=(-1, -2))
@@ -305,8 +303,8 @@ class Model(ModelBase, torch.nn.Module):
 
         aug=get_augmentations()
         def aug_fn(img):
-            #return img
-            return aug(image=img)['image']
+            return affine_image(img)
+            #return aug(image=img)['image']
 
         train_dataset_aug=BengaliDataset(train_images,labels=train_labels,transform_fn=aug_fn)
         train_dataset=BengaliDataset(train_images,labels=train_labels)
@@ -329,7 +327,8 @@ class Model(ModelBase, torch.nn.Module):
 
 
         loss_fn=nn.CrossEntropyLoss()
-        optimizer=optim.Adam(self.parameters(),lr=LR)
+        #optimizer=optim.Adam(self.parameters(),lr=LR)
+        optimizer=optim.Adam(self.lin_layers.parameters(),lr=LR)
         iter_per_epochs=140000//BATCH_SIZE
         scheduler = CosineScheduler(optimizer, period_initial=iter_per_epochs//2, period_mult=2, lr_initial=0.1, period_warmup_percent=0.1,lr_reduction=0.5)
 
