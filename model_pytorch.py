@@ -150,7 +150,7 @@ class LinearBlock(nn.Module):
 class PretrainedCNN(nn.Module):
     def __init__(self, model_name='se_resnext101_32x4d',
                  in_channels=1, out_dim=10, use_bn=True,
-                 pretrained=None):
+                 pretrained='imagenet'):
         super(PretrainedCNN, self).__init__()
 
         self.base_model = pretrainedmodels.__dict__[model_name](pretrained=pretrained)
@@ -303,7 +303,8 @@ class Model(ModelBase, torch.nn.Module):
 
         aug=get_augmentations()
         def aug_fn(img):
-            return affine_image(img)
+            img=affine_image(img)
+            return img
             #return aug(image=img)['image']
 
         train_dataset_aug=BengaliDataset(train_images,labels=train_labels,transform_fn=aug_fn)
@@ -328,7 +329,7 @@ class Model(ModelBase, torch.nn.Module):
 
         loss_fn=nn.CrossEntropyLoss()
         #optimizer=optim.Adam(self.parameters(),lr=LR)
-        optimizer=optim.Adam(self.lin_layers.parameters(),lr=LR)
+        optimizer=optim.Adam(self._classifier.predictor.lin_layers.parameters(),lr=LR)
         iter_per_epochs=140000//BATCH_SIZE
         scheduler = CosineScheduler(optimizer, period_initial=iter_per_epochs//2, period_mult=2, lr_initial=0.1, period_warmup_percent=0.1,lr_reduction=0.5)
 

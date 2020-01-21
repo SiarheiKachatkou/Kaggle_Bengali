@@ -17,8 +17,6 @@ def affine_image(img):
     """
     # ch, h, w = img.shape
     # img = img / 255.
-    if img.ndim == 3:
-        img = img[0]
 
     # --- scale ---
     min_scale = 0.8
@@ -42,7 +40,6 @@ def affine_image(img):
     tform = AffineTransform(scale=(sx, sy), rotation=rot_angle, shear=shear_angle,
                             translation=(tx, ty))
     transformed_image = warp(img, tform)
-    assert transformed_image.ndim == 2
     return transformed_image
 
 
