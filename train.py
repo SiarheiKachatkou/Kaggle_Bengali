@@ -26,6 +26,9 @@ if __name__ == "__main__":
         val_images=val_images[:max_samples]
         val_labels=val_labels[:max_samples]
 
+
+
+
     print('{} train images loaded'.format(len(train_images)))
     print('{} val images loaded'.format(len(val_images)))
 

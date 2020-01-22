@@ -37,8 +37,14 @@ def get_augmentations():
     return A.Compose([A.RandomBrightness(p=0.2),
                       A.RandomContrast(p=0.2),
                       A.MotionBlur(p=0.2),
-                      A.Cutout(),
-                      A.ElasticTransform(alpha=3,sigma=5,alpha_affine=2)],p=0.3)
+                      A.Cutout(num_holes=8, max_h_size=8, max_w_size=8, fill_value=0,p=0.2),
+                      A.Cutout(num_holes=16, max_h_size=4, max_w_size=4, fill_value=0,p=0.2),
+                      A.Cutout(num_holes=3, max_h_size=20, max_w_size=20, fill_value=0,p=0.2),
+                      A.ShiftScaleRotate(shift_limit=0.06,scale_limit=0.1,rotate_limit=5,p=0.5),
+                      A.ElasticTransform(alpha=3,sigma=5,alpha_affine=2),
+                      A.CLAHE(clip_limit=1,p=0.1),
+                      A.CLAHE(clip_limit=3,p=0.1),
+                      ],p=0.5)
 
 def residual_add(lhs, rhs):
     lhs_ch, rhs_ch = lhs.shape[1], rhs.shape[1]
@@ -171,8 +177,8 @@ class PretrainedCNN(nn.Module):
         else:
             inch = None
         hdim = 512
-        lin1 = LinearBlock(inch, hdim, use_bn=use_bn, activation=activation, residual=False)
-        lin2 = LinearBlock(hdim, out_dim, use_bn=use_bn, activation=None, residual=False)
+        lin1 = LinearBlock(inch, hdim, use_bn=use_bn, activation=activation, residual=False,dropout_ratio=0.5)
+        lin2 = LinearBlock(hdim, out_dim, use_bn=use_bn, activation=None, residual=False,dropout_ratio=0.5)
         self.lin_layers = Sequential(lin1, lin2)
 
     def forward(self, x):
@@ -313,9 +319,9 @@ class Model(ModelBase, torch.nn.Module):
 
         aug=get_augmentations()
         def aug_fn(img):
-            img=affine_image(img)
-            return img
-            #return aug(image=img)['image']
+            #img=affine_image(img)
+            #return img
+            return aug(image=img)['image']
 
         train_dataset_aug=BengaliDataset(train_images,labels=train_labels,transform_fn=aug_fn)
         train_dataset=BengaliDataset(train_images,labels=train_labels)
