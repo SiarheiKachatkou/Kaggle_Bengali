@@ -10,6 +10,8 @@ from consts import MODELS_PRETRAINED_DIR, DATA_DIR,MODEL_NAME,BATCH_SIZE,EPOCHS,
 
 debug_regime=False
 
+import matplotlib.pyplot as plt
+
 if __name__ == "__main__":
 
     parser=argparse.ArgumentParser()
@@ -25,8 +27,6 @@ if __name__ == "__main__":
         train_labels=train_labels[:max_samples]
         val_images=val_images[:max_samples]
         val_labels=val_labels[:max_samples]
-
-
 
 
     print('{} train images loaded'.format(len(train_images)))

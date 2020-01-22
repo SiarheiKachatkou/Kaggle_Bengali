@@ -10,6 +10,7 @@ import torch.nn as nn
 import torch.optim as optim
 import torch.nn.functional as F
 import albumentations as A
+import cv2
 from typing import List
 from torch.nn.parameter import Parameter
 import math
@@ -34,17 +35,19 @@ except ImportError:
 '''
 
 def get_augmentations():
-    return A.Compose([A.RandomBrightness(p=0.2),
-                      A.RandomContrast(p=0.2),
-                      A.MotionBlur(p=0.2),
-                      A.Cutout(num_holes=8, max_h_size=8, max_w_size=8, fill_value=0,p=0.2),
-                      A.Cutout(num_holes=16, max_h_size=4, max_w_size=4, fill_value=0,p=0.2),
-                      A.Cutout(num_holes=3, max_h_size=20, max_w_size=20, fill_value=0,p=0.2),
-                      A.ShiftScaleRotate(shift_limit=0.06,scale_limit=0.1,rotate_limit=5,p=0.5),
-                      A.ElasticTransform(alpha=3,sigma=5,alpha_affine=2),
-                      A.CLAHE(clip_limit=1,p=0.1),
-                      A.CLAHE(clip_limit=3,p=0.1),
-                      ],p=0.5)
+    return A.OneOf([
+                      A.RandomContrast(limit=(0.8,1.2),p=0.2),
+                      A.MotionBlur(blur_limit=15,p=0.2),
+                      A.Cutout(num_holes=8, max_h_size=8, max_w_size=8, fill_value=0,p=0.8),
+                      A.Cutout(num_holes=16, max_h_size=4, max_w_size=4, fill_value=255,p=0.8),
+                      A.Cutout(num_holes=3, max_h_size=20, max_w_size=20, fill_value=0,p=0.8),
+                      A.Cutout(num_holes=10, max_h_size=20, max_w_size=20, fill_value=255,p=0.8),
+                      A.ShiftScaleRotate(shift_limit=0.06,scale_limit=0.1,rotate_limit=15,border_mode=cv2.BORDER_CONSTANT,value=255,p=0.8),
+                      A.ElasticTransform(alpha=30,sigma=5,alpha_affine=10,border_mode=cv2.BORDER_CONSTANT,value=255,p=1.0),
+                      A.ElasticTransform(alpha=60,sigma=15,alpha_affine=20,border_mode=cv2.BORDER_CONSTANT,value=255,p=1.0),
+                      ],p=0.8)
+
+
 
 def residual_add(lhs, rhs):
     lhs_ch, rhs_ch = lhs.shape[1], rhs.shape[1]
@@ -319,8 +322,6 @@ class Model(ModelBase, torch.nn.Module):
 
         aug=get_augmentations()
         def aug_fn(img):
-            #img=affine_image(img)
-            #return img
             return aug(image=img)['image']
 
         train_dataset_aug=BengaliDataset(train_images,labels=train_labels,transform_fn=aug_fn)
