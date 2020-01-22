@@ -246,70 +246,59 @@ class Model(ModelBase, torch.nn.Module):
 
         block=ResNetBasicBlock #SEResNeXtBottleNeckBlock
 
-        self._blocks=[ConvBnRelu(in_channels=3,out_channels=m(64),stride=1,kernel_size=13,dilation=2),
-        ConvBnRelu(in_channels=m(64),out_channels=m(128),stride=2,kernel_size=7),
-        ConvBnRelu(in_channels=m(128),out_channels=m(256),stride=1,kernel_size=3)
-        ]
+        def get_blocks():
 
-        '''
-        for _ in range(block_counts[0]):
-            self._blocks.append(block(in_channels=m(256)))
-        '''
+            _blocks=[ConvBnRelu(in_channels=3,out_channels=m(64),stride=1,kernel_size=13,dilation=2),
+            ConvBnRelu(in_channels=m(64),out_channels=m(128),stride=2,kernel_size=7),
+            ConvBnRelu(in_channels=m(128),out_channels=m(256),stride=1,kernel_size=3)
+            ]
 
-        self._blocks.append(ResNetBasicBlock(in_channels=m(256)))
-        self._blocks.append(SEResNetBottleNeckBlock(in_channels=m(256)))#block_4
-        self._blocks.append(ResNetBasicBlock(in_channels=m(256)))
+            _blocks.append(ResNetBasicBlock(in_channels=m(256)))
+            _blocks.append(SEResNetBottleNeckBlock(in_channels=m(256)))
+            _blocks.append(ResNetBasicBlock(in_channels=m(256)))
 
-        d2=2
-        self._blocks.append(nn.Dropout(p=0.5))
-        self._blocks.append(ConvBnRelu(in_channels=m(256),out_channels=m(d2*512),stride=2))
-        self._blocks.append(ConvBnRelu(in_channels=m(d2*512),out_channels=m(d2*1024),stride=2,kernel_size=3))
-        self._blocks.append(nn.Dropout(p=0.5))
-        self._blocks.append(nn.MaxPool2d(kernel_size=2,stride=2))
-        self._blocks.append(ConvBnRelu(in_channels=m(d2*1024),out_channels=m(d2*512),stride=1,kernel_size=1))
-        self._blocks.append(ConvBnRelu(in_channels=m(d2*512),out_channels=m(d2*1024),stride=2,kernel_size=3))
-        self._blocks.append(ConvBnRelu(in_channels=m(d2*1024),out_channels=m(d2*512),stride=1,kernel_size=1))
-        self._blocks.append(ConvBnRelu(in_channels=m(d2*512),out_channels=m(d2*1024),stride=2,kernel_size=3))
+            d2=2
+            _blocks.append(nn.Dropout(p=0.5))
+            _blocks.append(ConvBnRelu(in_channels=m(256),out_channels=m(d2*512),stride=2))
+            _blocks.append(ConvBnRelu(in_channels=m(d2*512),out_channels=m(d2*1024),stride=2,kernel_size=3))
+            _blocks.append(nn.Dropout(p=0.5))
+            _blocks.append(nn.MaxPool2d(kernel_size=2,stride=2))
+            _blocks.append(ConvBnRelu(in_channels=m(d2*1024),out_channels=m(d2*512),stride=1,kernel_size=1))
+            _blocks.append(ConvBnRelu(in_channels=m(d2*512),out_channels=m(d2*1024),stride=2,kernel_size=3))
+            _blocks.append(ConvBnRelu(in_channels=m(d2*1024),out_channels=m(d2*512),stride=1,kernel_size=1))
+            _blocks.append(ConvBnRelu(in_channels=m(d2*512),out_channels=m(d2*1024),stride=2,kernel_size=3))
+            return _blocks
 
+        for head_idx in range(3):
+            blocks=get_blocks()
 
-        '''
-        for _ in range(block_counts[1]):
-            self._blocks.append(block(in_channels=m(512)))
-        
-        self._blocks.append(ConvBnRelu(in_channels=m(512),out_channels=m(1024),stride=2)) #11
-        
-        for _ in range(block_counts[2]):
-            self._blocks.append(block(in_channels=m(1024)))
-
-        self._blocks.append(nn.MaxPool2d(kernel_size=2,stride=2))
-        for _ in range(block_counts[3]):
-            self._blocks.append(block(in_channels=m(1024)))
-
-        '''
-
-        for i,b in enumerate(self._blocks):
-            setattr(self,'_block_{}'.format(i),b)
+            for i,b in enumerate(blocks):
+                setattr(self,'_block_{}_{}'.format(head_idx,i),b)
+            setattr(self,'_blocks_{}'.format(head_idx),blocks)
 
 
     def forward(self,x):
 
-        for b in self._blocks:
-            x=b(x)
-
-        x=torch.mean(x,dim=-1)
-        x=torch.mean(x,dim=-1)
-        x=torch.flatten(x,1)
         outputs=[]
         for idx,c in enumerate(self._classes_list):
-            head=getattr(self,'_head_{}'.format(idx))
-            outputs.append(head(x))
+
+            x1=x
+            for b in getattr(self,'_blocks_{}'.format(idx)):
+                x1=b(x1)
+
+            x1=torch.mean(x1,dim=-1)
+            x1=torch.mean(x1,dim=-1)
+            x1=torch.flatten(x1,1)
+            y=getattr(self,'_head_{}'.format(idx))(x1)
+            outputs.append(y)
+
         return outputs
 
 
     def compile(self,classes_list,**kwargs):
         self._classes_list=classes_list
 
-        in_features=self._blocks[-1].out_features
+        in_features=self._blocks_0[-1].out_features
         for idx,c in enumerate(classes_list):
             setattr(self,'_head_{}'.format(idx),torch.nn.Linear(in_features,c))
 
