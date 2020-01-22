@@ -1,8 +1,8 @@
-md5: 6f72f5e2abfa1074c03ec1cec46fcc42
+md5: 4bcdf48df6e5ad848866f664007c64ce
 cmd: /home/user/anaconda3/envs/pytorch/bin/python train.py --fine_tune=0
 wdir: ..
 deps:
-- md5: 580bf46565b4aeaeda552c9b082fa1a0
+- md5: 2600466b20c8340d1e2abf0834659cd6
   path: consts.py
 - md5: f13c625632281b8de36fa3ecc6bd7fc8
   path: cosine_lr_show.py
@@ -47,12 +47,12 @@ deps:
 - md5: bfc66402e3f190b15fa0bf83426069ac.dir
   path: data/val_datset
 outs:
-- md5: 54da33e85d8c7baf51afc81601a9bc31.dir
+- md5: f119fac3c7620a0575d544d3cc8eeb32.dir
   path: data/models
   cache: true
   metric: false
   persist: false
-- md5: 664e988472abf835b1415e954f4abd82
+- md5: f79e91addcb4855e4b55961dea1ee0df
   path: metric.txt
   cache: false
   metric: true
