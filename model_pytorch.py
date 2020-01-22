@@ -45,7 +45,7 @@ def get_augmentations():
                       A.ShiftScaleRotate(shift_limit=0.06,scale_limit=0.1,rotate_limit=15,border_mode=cv2.BORDER_CONSTANT,value=255,p=0.8),
                       A.ElasticTransform(alpha=30,sigma=5,alpha_affine=10,border_mode=cv2.BORDER_CONSTANT,value=255,p=1.0),
                       A.ElasticTransform(alpha=60,sigma=15,alpha_affine=20,border_mode=cv2.BORDER_CONSTANT,value=255,p=1.0),
-                      ],p=0.8)
+                      ],p=0.001)
 
 
 
@@ -180,8 +180,8 @@ class PretrainedCNN(nn.Module):
         else:
             inch = None
         hdim = 512
-        lin1 = LinearBlock(inch, hdim, use_bn=use_bn, activation=activation, residual=False,dropout_ratio=0.5)
-        lin2 = LinearBlock(hdim, out_dim, use_bn=use_bn, activation=None, residual=False,dropout_ratio=0.5)
+        lin1 = LinearBlock(inch, hdim, use_bn=use_bn, activation=activation, residual=False,dropout_ratio=0.01)
+        lin2 = LinearBlock(hdim, out_dim, use_bn=use_bn, activation=None, residual=False,dropout_ratio=0.01)
         self.lin_layers = Sequential(lin1, lin2)
 
     def forward(self, x):
