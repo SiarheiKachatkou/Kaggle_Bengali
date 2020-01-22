@@ -348,7 +348,7 @@ class Model(ModelBase, torch.nn.Module):
         optimizer=optim.Adam(self.parameters(),lr=LR)
         #optimizer=optim.Adam(self._classifier.predictor.lin_layers.parameters(),lr=LR)
         iter_per_epochs=140000//BATCH_SIZE
-        scheduler = CosineScheduler(optimizer, period_initial=iter_per_epochs//2, period_mult=2, lr_initial=0.1, period_warmup_percent=0.1,lr_reduction=0.5)
+        scheduler = CosineScheduler(optimizer, period_initial=iter_per_epochs//2, period_mult=2, lr_initial=LR, period_warmup_percent=0.1,lr_reduction=0.5)
 
         if mode == 'FP16':
             self._classifier = network_to_half(self._classifier)
