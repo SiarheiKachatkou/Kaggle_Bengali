@@ -23,16 +23,16 @@ from transform import affine_image
 from consts import IMG_W,IMG_H,N_CHANNELS, BATCH_SIZE, LR, EPOCHS
 
 mode='FP32'
+opt_level='O3'
 
-'''
 try:
     from apex.parallel import DistributedDataParallel as DDP
     from apex.fp16_utils import *
     from apex import amp, optimizers
     from apex.multi_tensor_apply import multi_tensor_applier
 except ImportError:
-    raise ImportError("Please install apex from https://www.github.com/nvidia/apex to run this example.")
-'''
+    print(" apex not avalaible Please install apex from https://www.github.com/nvidia/apex to run this example.")
+
 
 def get_augmentations():
     return A.OneOf([
@@ -322,7 +322,8 @@ class Model(ModelBase, torch.nn.Module):
 
         aug=get_augmentations()
         def aug_fn(img):
-            return aug(image=img)['image']
+            return img
+            #return aug(image=img)['image']
 
         train_dataset_aug=BengaliDataset(train_images,labels=train_labels,transform_fn=aug_fn)
         train_dataset=BengaliDataset(train_images,labels=train_labels)
@@ -348,13 +349,13 @@ class Model(ModelBase, torch.nn.Module):
         optimizer=optim.Adam(self.parameters(),lr=LR)
         #optimizer=optim.Adam(self._classifier.predictor.lin_layers.parameters(),lr=LR)
         iter_per_epochs=140000//BATCH_SIZE
-        scheduler = CosineScheduler(optimizer, period_initial=iter_per_epochs//2, period_mult=2, lr_initial=0.1, period_warmup_percent=0.1,lr_reduction=0.5)
+        scheduler = CosineScheduler(optimizer, period_initial=iter_per_epochs//2, period_mult=2, lr_initial=LR, period_warmup_percent=0.1,lr_reduction=0.5)
 
         if mode == 'FP16':
             self._classifier = network_to_half(self._classifier)
             optimizer = FP16_Optimizer(optimizer, static_loss_scale=128)
         elif mode == 'amp':
-            self._classifier, optimizer = amp.initialize(self._classifier, optimizer, opt_level=args.opt_level)
+            self._classifier, optimizer = amp.initialize(self._classifier, optimizer, opt_level=opt_level)
 
         for epoch in tqdm(range(EPOCHS)):
             for i, data in enumerate(train_dataloader):
