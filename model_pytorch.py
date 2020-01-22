@@ -10,6 +10,7 @@ import torch.nn as nn
 import torch.optim as optim
 import torch.nn.functional as F
 import albumentations as A
+import cv2
 from typing import List
 from torch.nn.parameter import Parameter
 import math
@@ -17,18 +18,36 @@ from torch.nn import init
 import pretrainedmodels
 from torch.nn import Sequential
 from cosine_scheduler import CosineScheduler
-
-
+from transform import affine_image
 
 from consts import IMG_W,IMG_H,N_CHANNELS, BATCH_SIZE, LR, EPOCHS
 
+mode='FP32'
+
+'''
+try:
+    from apex.parallel import DistributedDataParallel as DDP
+    from apex.fp16_utils import *
+    from apex import amp, optimizers
+    from apex.multi_tensor_apply import multi_tensor_applier
+except ImportError:
+    raise ImportError("Please install apex from https://www.github.com/nvidia/apex to run this example.")
+'''
 
 def get_augmentations():
-    return A.Compose([A.RandomBrightness(p=0.2),
-                      A.RandomContrast(p=0.2),
-                      A.MotionBlur(p=0.2),
-                      A.Cutout(),
-                      A.ElasticTransform(alpha=3,sigma=5,alpha_affine=2)],p=0.3)
+    return A.OneOf([
+                      A.RandomContrast(limit=(0.8,1.2),p=0.2),
+                      A.MotionBlur(blur_limit=15,p=0.2),
+                      A.Cutout(num_holes=8, max_h_size=8, max_w_size=8, fill_value=0,p=0.8),
+                      A.Cutout(num_holes=16, max_h_size=4, max_w_size=4, fill_value=255,p=0.8),
+                      A.Cutout(num_holes=3, max_h_size=20, max_w_size=20, fill_value=0,p=0.8),
+                      A.Cutout(num_holes=10, max_h_size=20, max_w_size=20, fill_value=255,p=0.8),
+                      A.ShiftScaleRotate(shift_limit=0.06,scale_limit=0.1,rotate_limit=15,border_mode=cv2.BORDER_CONSTANT,value=255,p=0.8),
+                      A.ElasticTransform(alpha=30,sigma=5,alpha_affine=10,border_mode=cv2.BORDER_CONSTANT,value=255,p=1.0),
+                      A.ElasticTransform(alpha=60,sigma=15,alpha_affine=20,border_mode=cv2.BORDER_CONSTANT,value=255,p=1.0),
+                      ],p=0.8)
+
+
 
 def residual_add(lhs, rhs):
     lhs_ch, rhs_ch = lhs.shape[1], rhs.shape[1]
@@ -150,10 +169,9 @@ class LinearBlock(nn.Module):
 class PretrainedCNN(nn.Module):
     def __init__(self, model_name='se_resnext101_32x4d',
                  in_channels=1, out_dim=10, use_bn=True,
-                 pretrained=None):
+                 pretrained='imagenet'):
         super(PretrainedCNN, self).__init__()
-        self.conv0 = nn.Conv2d(
-            in_channels, 3, kernel_size=3, stride=1, padding=1, bias=True)
+
         self.base_model = pretrainedmodels.__dict__[model_name](pretrained=pretrained)
         activation = F.leaky_relu
         self.do_pooling = True
@@ -162,13 +180,12 @@ class PretrainedCNN(nn.Module):
         else:
             inch = None
         hdim = 512
-        lin1 = LinearBlock(inch, hdim, use_bn=use_bn, activation=activation, residual=False)
-        lin2 = LinearBlock(hdim, out_dim, use_bn=use_bn, activation=None, residual=False)
+        lin1 = LinearBlock(inch, hdim, use_bn=use_bn, activation=activation, residual=False,dropout_ratio=0.5)
+        lin2 = LinearBlock(hdim, out_dim, use_bn=use_bn, activation=None, residual=False,dropout_ratio=0.5)
         self.lin_layers = Sequential(lin1, lin2)
 
     def forward(self, x):
-        h = self.conv0(x)
-        h = self.base_model.features(h)
+        h = self.base_model.features(x)
 
         if self.do_pooling:
             h = torch.sum(h, dim=(-1, -2))
@@ -305,7 +322,6 @@ class Model(ModelBase, torch.nn.Module):
 
         aug=get_augmentations()
         def aug_fn(img):
-            #return img
             return aug(image=img)['image']
 
         train_dataset_aug=BengaliDataset(train_images,labels=train_labels,transform_fn=aug_fn)
@@ -330,8 +346,15 @@ class Model(ModelBase, torch.nn.Module):
 
         loss_fn=nn.CrossEntropyLoss()
         optimizer=optim.Adam(self.parameters(),lr=LR)
+        #optimizer=optim.Adam(self._classifier.predictor.lin_layers.parameters(),lr=LR)
         iter_per_epochs=140000//BATCH_SIZE
         scheduler = CosineScheduler(optimizer, period_initial=iter_per_epochs//2, period_mult=2, lr_initial=0.1, period_warmup_percent=0.1,lr_reduction=0.5)
+
+        if mode == 'FP16':
+            self._classifier = network_to_half(self._classifier)
+            optimizer = FP16_Optimizer(optimizer, static_loss_scale=128)
+        elif mode == 'amp':
+            self._classifier, optimizer = amp.initialize(self._classifier, optimizer, opt_level=args.opt_level)
 
         for epoch in tqdm(range(EPOCHS)):
             for i, data in enumerate(train_dataloader):
@@ -349,7 +372,13 @@ class Model(ModelBase, torch.nn.Module):
                 for idx in range(len(self._classes_list)):
                     loss+=loss_fn(heads_outputs[idx],labels[:,idx])
 
-                loss.backward()
+                if mode == 'FP32':
+                    loss.backward()
+                elif mode == 'FP16':
+                    optimizer.backward(loss)
+                else:
+                    with amp.scale_loss(loss, optimizer) as scaled_loss:
+                        scaled_loss.backward()
 
                 optimizer.step()
 

@@ -5,7 +5,14 @@ import numpy as np
 from consts import IMG_H,IMG_W
 
 def _normalize_img(img):
-    img=np.expand_dims(cv2.resize(img,(IMG_W,IMG_H)),axis=-1)
+    img=cv2.resize(img,(IMG_W,IMG_H))
+    if len(img.shape)==2:
+        img=np.expand_dims(img,axis=-1)
+        img=np.concatenate([img,img,img],axis=2)
+    else:
+        if img.shape[-1]==1:
+            img=np.concatenate([img,img,img],axis=2)
+
     eps=1e-3
     img=img.astype(np.float32)
     return (img-np.mean(img))/(np.std(img)+eps)
