@@ -13,13 +13,7 @@ echo ERROR specify git commit message argument
 exit 1
 fi
 
-
-PY=/home/user/anaconda3/envs/pytorch/bin/python
-if ! [[ -f $PY ]]
-then
-PY=/home/sergey/anaconda3/envs/pytorch/bin/python
-fi
-
+source export_env.sh
 
 deps_code=""
 for p in *.py
