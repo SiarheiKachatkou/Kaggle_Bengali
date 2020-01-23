@@ -155,7 +155,7 @@ class BengaliClassifier(nn.Module):
 
 
 def build_classifier(n_total, model_name='se_resnext101_32x4d', device='cuda:0'):
-    predictor = PretrainedCNN(in_channels=N_CHANNELS, out_dim=out_dim, model_name=model_name)
+    predictor = PretrainedCNN(in_channels=N_CHANNELS, out_dim=n_total, model_name=model_name)
     classifier = BengaliClassifier(predictor)
     classifier.to(device)
     return classifier
