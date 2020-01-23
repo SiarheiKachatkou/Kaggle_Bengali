@@ -13,7 +13,7 @@ import albumentations as A
 from shake_shake_my import ShakeShake
 from loss import RecallScore,calc_classes_weights
 
-from consts import IMG_W,IMG_H,N_CHANNELS, BATCH_SIZE, LR, EPOCHS
+from consts import IMG_W,IMG_H,N_CHANNELS, BATCH_SIZE, LR, EPOCHS,LOSS_WEIGHTS
 
 
 def get_augmentations():
@@ -303,7 +303,6 @@ class Model(ModelBase, torch.nn.Module):
 
         aug=get_augmentations()
         def aug_fn(img):
-            #return img
             return aug(image=img)['image']
 
 
@@ -346,9 +345,9 @@ class Model(ModelBase, torch.nn.Module):
                 heads_outputs = self.__call__(images)
 
                 loss=0
-                loss_weights=[1,0,0]
+
                 for idx in range(len(self._classes_list)):
-                    this_loss=loss_weights[idx]*loss_fns[idx](heads_outputs[idx],labels[:,idx])
+                    this_loss=LOSS_WEIGHTS[idx]*loss_fns[idx](heads_outputs[idx],labels[:,idx])
                     loss+=this_loss
 
                 loss.backward()

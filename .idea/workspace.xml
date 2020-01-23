@@ -2,12 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8d7aab7b-5a13-411d-a5a4-10047020d786" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/models.dvc" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/log" beforeDir="false" afterPath="$PROJECT_DIR$/log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/log_1" beforeDir="false" afterPath="$PROJECT_DIR$/log_1" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/loss.py" beforeDir="false" afterPath="$PROJECT_DIR$/loss.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/metric.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/consts.py" beforeDir="false" afterPath="$PROJECT_DIR$/consts.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/model_pytorch.py" beforeDir="false" afterPath="$PROJECT_DIR$/model_pytorch.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -33,17 +28,17 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/consts.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="810">
-              <caret line="54" selection-start-line="54" selection-end-line="54" />
+            <state relative-caret-position="495">
+              <caret line="33" selection-start-line="33" selection-end-line="33" selection-end-column="12" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/model_pytorch.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1033">
-              <caret line="340" column="64" lean-forward="true" selection-start-line="340" selection-start-column="64" selection-end-line="340" selection-end-column="64" />
+            <state relative-caret-position="1063">
+              <caret line="367" lean-forward="true" selection-start-line="367" selection-end-line="367" />
               <folding>
                 <element signature="e#0#12#0" expanded="true" />
               </folding>
@@ -67,16 +62,16 @@
         <entry file="file://$PROJECT_DIR$/log">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="555">
-              <caret line="37" lean-forward="true" selection-start-line="37" selection-end-line="37" />
+              <caret line="37" selection-start-line="37" selection-end-line="37" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/log_1">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1170">
-              <caret line="96" column="34" lean-forward="true" selection-start-line="96" selection-start-column="33" selection-end-line="96" selection-end-column="34" />
+            <state relative-caret-position="960">
+              <caret line="82" column="77" selection-start-line="82" selection-start-column="77" selection-end-line="82" selection-end-column="77" />
             </state>
           </provider>
         </entry>
@@ -137,14 +132,14 @@
         <option value="$PROJECT_DIR$/dvc_train.sh" />
         <option value="$PROJECT_DIR$/dvc_create_dataset.sh" />
         <option value="$PROJECT_DIR$/main_create_slices_dataset.sh" />
-        <option value="$PROJECT_DIR$/consts.py" />
         <option value="$PROJECT_DIR$/shake_shake_my.py" />
         <option value="$PROJECT_DIR$/score.py" />
         <option value="$PROJECT_DIR$/train.py" />
         <option value="$PROJECT_DIR$/log_1" />
-        <option value="$PROJECT_DIR$/model_pytorch.py" />
         <option value="$PROJECT_DIR$/loss.py" />
         <option value="$PROJECT_DIR$/log" />
+        <option value="$PROJECT_DIR$/consts.py" />
+        <option value="$PROJECT_DIR$/model_pytorch.py" />
       </list>
     </option>
   </component>
@@ -294,7 +289,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="1954" y="25" width="1886" height="2135" extended-state="5" />
-    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.27106816" />
       <window_info id="Structure" order="1" weight="0.25" />
@@ -692,13 +686,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/consts.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="810">
-          <caret line="54" selection-start-line="54" selection-end-line="54" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/train.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="390">
@@ -730,13 +717,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/model_pytorch.py">
+    <entry file="file://$PROJECT_DIR$/log">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1033">
-          <caret line="340" column="64" lean-forward="true" selection-start-line="340" selection-start-column="64" selection-end-line="340" selection-end-column="64" />
-          <folding>
-            <element signature="e#0#12#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="555">
+          <caret line="37" selection-start-line="37" selection-end-line="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/log_1">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="960">
+          <caret line="82" column="77" selection-start-line="82" selection-start-column="77" selection-end-line="82" selection-end-column="77" />
         </state>
       </provider>
     </entry>
@@ -750,17 +741,20 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/log">
+    <entry file="file://$PROJECT_DIR$/consts.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="555">
-          <caret line="37" lean-forward="true" selection-start-line="37" selection-end-line="37" />
+        <state relative-caret-position="495">
+          <caret line="33" selection-start-line="33" selection-end-line="33" selection-end-column="12" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/log_1">
+    <entry file="file://$PROJECT_DIR$/model_pytorch.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1170">
-          <caret line="96" column="34" lean-forward="true" selection-start-line="96" selection-start-column="33" selection-end-line="96" selection-end-column="34" />
+        <state relative-caret-position="1063">
+          <caret line="367" lean-forward="true" selection-start-line="367" selection-end-line="367" />
+          <folding>
+            <element signature="e#0#12#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
