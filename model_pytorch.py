@@ -11,6 +11,7 @@ import torch.optim as optim
 import torch.nn.functional as F
 import albumentations as A
 from shake_shake_my import ShakeShake
+from loss import RecallScore,calc_classes_weights
 
 from consts import IMG_W,IMG_H,N_CHANNELS, BATCH_SIZE, LR, EPOCHS
 
@@ -311,6 +312,9 @@ class Model(ModelBase, torch.nn.Module):
             #return img
             return aug(image=img)['image']
 
+
+        classes_weights=calc_classes_weights(train_labels,self._classes_list)
+
         train_dataset_aug=BengaliDataset(train_images,labels=train_labels,transform_fn=aug_fn)
         train_dataset=BengaliDataset(train_images,labels=train_labels)
         val_dataset=BengaliDataset(val_images,labels=val_labels)
@@ -331,7 +335,7 @@ class Model(ModelBase, torch.nn.Module):
            worker_init_fn=None)
 
 
-        loss_fn=nn.CrossEntropyLoss()
+        loss_fn=RecallScore(classes_weights)
         optimizer=optim.Adam(self.parameters(),lr=LR)
         scheduler=torch.optim.lr_scheduler.ReduceLROnPlateau(optimizer, mode='min', factor=0.5, patience=1, verbose=True, threshold=0.0001, threshold_mode='rel', cooldown=0, min_lr=1e-8, eps=1e-08)
 

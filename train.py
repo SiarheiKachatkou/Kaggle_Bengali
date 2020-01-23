@@ -7,7 +7,7 @@ from create_dataset_utils import load
 from score import calc_score
 from consts import MODELS_PRETRAINED_DIR, DATA_DIR,MODEL_NAME,BATCH_SIZE,EPOCHS, TRAIN_DATASET_PKL, VAL_DATASET_PKL, MODELS_DIR, METRIC_FILE_PATH
 
-debug_regime=True
+debug_regime=False
 
 if __name__ == "__main__":
 
@@ -33,7 +33,7 @@ if __name__ == "__main__":
         os.mkdir(model_dir)
     model_filepath=os.path.join(model_dir,MODEL_NAME)
 
-    '''
+
     model=Model()
 
     model.compile(classes_list=classes)
@@ -43,8 +43,6 @@ if __name__ == "__main__":
     model.fit(train_images,train_labels, val_images,val_labels,batch_size=BATCH_SIZE,epochs=EPOCHS)
 
     model.save(model_filepath)
-    
-    '''
 
     model_loaded=Model()
     model_loaded.load(model_filepath, classes)
