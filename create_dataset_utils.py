@@ -5,24 +5,28 @@ import cv2
 import numpy as np
 from consts import IMG_H, IMG_W
 
-def preproc(x):
-    x=cv2.resize(x,(IMG_W,IMG_H))
-    return np.expand_dims(x,axis=-1)
-
 def crop_symbol(img):
 
     top=10
     left=10
+    pad=16
+
     img=img[top:-top,left:-left]
 
     _,bin=cv2.threshold(img,0,255,cv2.THRESH_OTSU)
-    black=np.where(bin<230)
+    black=np.where(bin<100)
     left,right = min(black[1]), max(black[1])
     top,bottom = min(black[0]), max(black[0])
-    img=bin[top:bottom,left:right]
+    img=img[top:bottom,left:right]
 
+    # padding for do not change aspect ratio
+    height=bottom-top
+    width=right-left
+    max_size=max(height,width)+pad
 
-    img=preproc(img)
+    img=np.pad(img,[((max_size-height)//2,),((max_size-width)//2,),(0,)],mode='constant',constant_values=255)
+
+    img=cv2.resize(img,(IMG_W,IMG_H))
 
     return img
 
