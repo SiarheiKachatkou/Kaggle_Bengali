@@ -18,7 +18,6 @@ from torch.nn import init
 import pretrainedmodels
 from torch.nn import Sequential
 from cosine_scheduler import CosineScheduler
-from transform import affine_image
 
 from consts import IMG_W,IMG_H,N_CHANNELS, BATCH_SIZE, LR, EPOCHS, AUGM_PROB, DROPOUT_P
 
@@ -46,9 +45,6 @@ def get_augmentations():
                       A.ElasticTransform(alpha=30,sigma=5,alpha_affine=10,border_mode=cv2.BORDER_CONSTANT,value=255,p=1.0),
                       A.ElasticTransform(alpha=60,sigma=15,alpha_affine=20,border_mode=cv2.BORDER_CONSTANT,value=255,p=1.0),
                       ],p=AUGM_PROB)
-
-
-
 
 
 
@@ -181,36 +177,39 @@ def build_classifier(arch, load_model_path, n_total, model_name='', device='cuda
 
 class Model(ModelBase, torch.nn.Module):
 
+    def _m(self,channels):
+        return int(self._d*channels)
 
     def __init__(self):
         torch.nn.Module.__init__(self)
         ModelBase.__init__(self)
 
-        self._device = torch.device("cuda")
-
-        self._print_every_iter=1000
+        self._device = torch.device("cuda:0")
+        self._print_every_iter=2000
         self._eval_batches=100
 
         self._classes_list=[]
 
         self._classifier=build_classifier(arch='pretrained', load_model_path=None, n_total=168+11+7, model_name='se_resnext101_32x4d', device='cuda:0')
-        #self._classifier=torch.nn.DataParallel(self._classifier)
 
     def forward(self,x):
-        return self._classifier.forward(x)
+
+        return self._classifier(x)
 
 
     def compile(self,classes_list,**kwargs):
         self._classes_list=classes_list
 
-
-    def fit(self,train_images,train_labels, val_images, val_labels, batch_size,epochs, path_to_file, **kwargs):
+    def fit(self,train_images,train_labels, val_images, val_labels, batch_size,epochs, **kwargs):
 
         self.to(self._device)
 
         aug=get_augmentations()
         def aug_fn(img):
             return aug(image=img)['image']
+
+
+        classes_weights=calc_classes_weights(train_labels,self._classes_list)
 
         train_dataset_aug=BengaliDataset(train_images,labels=train_labels,transform_fn=aug_fn)
         train_dataset=BengaliDataset(train_images,labels=train_labels)
@@ -232,9 +231,8 @@ class Model(ModelBase, torch.nn.Module):
            worker_init_fn=None)
 
 
-        loss_fn=nn.CrossEntropyLoss()
+        loss_fns=[RecallScore(class_weights) for class_weights in classes_weights]
         optimizer=optim.Adam(self.parameters(),lr=LR)
-        #optimizer=optim.Adam(self._classifier.predictor.lin_layers.parameters(),lr=LR)
         iter_per_epochs=140000//BATCH_SIZE
         scheduler = CosineScheduler(optimizer, period_initial=iter_per_epochs//2, period_mult=2, lr_initial=LR, period_warmup_percent=0.1,lr_reduction=0.5)
 
@@ -243,6 +241,7 @@ class Model(ModelBase, torch.nn.Module):
             optimizer = FP16_Optimizer(optimizer, static_loss_scale=128)
         elif mode == 'amp':
             self._classifier, optimizer = amp.initialize(self._classifier, optimizer, opt_level=opt_level)
+
 
         for epoch in tqdm(range(EPOCHS)):
             for i, data in enumerate(train_dataloader):
@@ -258,15 +257,10 @@ class Model(ModelBase, torch.nn.Module):
 
                 loss=0
                 for idx in range(len(self._classes_list)):
-                    loss+=loss_fn(heads_outputs[idx],labels[:,idx])
+                    this_loss=LOSS_WEIGHTS[idx]*loss_fns[idx](heads_outputs[idx],labels[:,idx])
+                    loss+=this_loss
 
-                if mode == 'FP32':
-                    loss.backward()
-                elif mode == 'FP16':
-                    optimizer.backward(loss)
-                else:
-                    with amp.scale_loss(loss, optimizer) as scaled_loss:
-                        scaled_loss.backward()
+                loss.backward()
 
                 optimizer.step()
 
@@ -277,12 +271,8 @@ class Model(ModelBase, torch.nn.Module):
                         train_score=self._eval(train_val_dataloader)
                         val_score=self._eval(val_dataloader)
                         print('loss={} train_score={} val_score={}'.format(loss.item(),train_score,val_score))
-                        print('lr={}'.format(scheduler.get_lr()))
+                    scheduler.step(1-val_score)
                     self.train()
-
-                scheduler.step()
-
-            self.save(path_to_file)
 
 
     def _eval(self,dataloader):
@@ -335,8 +325,6 @@ class Model(ModelBase, torch.nn.Module):
         return np.concatenate(predicted_labels,axis=0)
 
     def _predict_on_tensor(self,inputs):
-
-        self.eval()
 
         def _argmax(tensor):
             return tensor.data.cpu().numpy().argmax(axis=1).reshape([-1,1])
