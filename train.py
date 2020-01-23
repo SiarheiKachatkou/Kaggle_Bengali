@@ -7,7 +7,7 @@ from create_dataset_utils import load
 from score import calc_score
 from consts import MODELS_PRETRAINED_DIR, DATA_DIR,MODEL_NAME,BATCH_SIZE,EPOCHS, TRAIN_DATASET_PKL, VAL_DATASET_PKL, MODELS_DIR, METRIC_FILE_PATH
 
-debug_regime=False
+debug_regime=True
 
 if __name__ == "__main__":
 
@@ -33,7 +33,7 @@ if __name__ == "__main__":
         os.mkdir(model_dir)
     model_filepath=os.path.join(model_dir,MODEL_NAME)
 
-
+    '''
     model=Model()
 
     model.compile(classes_list=classes)
@@ -44,14 +44,15 @@ if __name__ == "__main__":
 
     model.save(model_filepath)
     
-
+    '''
 
     model_loaded=Model()
     model_loaded.load(model_filepath, classes)
     model_loaded.eval()
     val_preds=model_loaded.predict( val_images)
-    acc=[float(all(np.equal(val_pred,val_label))) for val_pred,val_label in zip(val_preds,val_labels)]
-    acc=np.mean(acc)
+    acc=[np.equal(val_pred,val_label) for val_pred,val_label in zip(val_preds,val_labels)]
+    acc=np.array(acc,dtype=np.float32)
+    acc=np.mean(acc,axis=0)
     print('validation accuracy of loaded model = {}'.format(acc))
 
     score=calc_score(solution=val_preds,submission=val_labels)
