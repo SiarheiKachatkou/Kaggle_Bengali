@@ -13,7 +13,8 @@ def calc_classes_weights(labels,classes_list):
         assert len(unique_labels)==classes_list[c], "not all classes are presented in dataset"
         l=list(l)
         freq=[l.count(unique_label) for unique_label in unique_labels]
-        w=[1./f for f in freq]
+        total=sum(freq)
+        w=[total/f for f in freq]
         weights.append(w)
 
     return weights
@@ -27,7 +28,6 @@ class RecallScore(nn.Module):
         self._raw_loss_fn=nn.CrossEntropyLoss(weight=self.class_weights)
 
     def forward(self,output,target,):
-        #w=self.class_weights.gather(0,target)
         loss=self._raw_loss_fn(output,target)
         return loss
 

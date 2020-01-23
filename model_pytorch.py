@@ -270,27 +270,26 @@ class Model(ModelBase, torch.nn.Module):
             _blocks.append(ConvBnRelu(in_channels=m(d2*512),out_channels=m(d2*1024),stride=2,kernel_size=3))
             return _blocks
 
-        for head_idx in range(3):
-            blocks=get_blocks()
 
-            for i,b in enumerate(blocks):
-                setattr(self,'_block_{}_{}'.format(head_idx,i),b)
-            setattr(self,'_blocks_{}'.format(head_idx),blocks)
+        self._blocks=get_blocks()
+
+        for i,b in enumerate(self._blocks):
+            setattr(self,'_block_{}'.format(i),b)
+
 
 
     def forward(self,x):
 
+        for b in self._blocks:
+            x=b(x)
+
+        x=torch.mean(x,dim=-1)
+        x=torch.mean(x,dim=-1)
+        x=torch.flatten(x,1)
+
         outputs=[]
         for idx,c in enumerate(self._classes_list):
-
-            x1=x
-            for b in getattr(self,'_blocks_{}'.format(idx)):
-                x1=b(x1)
-
-            x1=torch.mean(x1,dim=-1)
-            x1=torch.mean(x1,dim=-1)
-            x1=torch.flatten(x1,1)
-            y=getattr(self,'_head_{}'.format(idx))(x1)
+            y=getattr(self,'_head_{}'.format(idx))(x)
             outputs.append(y)
 
         return outputs
@@ -299,7 +298,7 @@ class Model(ModelBase, torch.nn.Module):
     def compile(self,classes_list,**kwargs):
         self._classes_list=classes_list
 
-        in_features=self._blocks_0[-1].out_features
+        in_features=self._blocks[-1].out_features
         for idx,c in enumerate(classes_list):
             setattr(self,'_head_{}'.format(idx),torch.nn.Linear(in_features,c))
 
@@ -353,11 +352,13 @@ class Model(ModelBase, torch.nn.Module):
 
                 loss=0
                 for idx in range(len(self._classes_list)):
-                    loss+=loss_fns[idx](heads_outputs[idx],labels[:,idx])
+                    this_loss=loss_fns[idx](heads_outputs[idx],labels[:,idx])
+                    loss+=this_loss
 
                 loss.backward()
-
                 optimizer.step()
+
+
 
                 if i%self._print_every_iter==0:
 

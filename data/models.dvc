@@ -1,4 +1,4 @@
-md5: c9f43cf306994f304c78359dc816ff1f
+md5: ec3fd55696247efef86fb10823ed43d9
 cmd: /home/sergey/anaconda3/envs/pytorch/bin/python train.py --fine_tune=0
 wdir: ..
 deps:
@@ -14,6 +14,8 @@ deps:
   path: dataset_pytorch.py
 - md5: 05c66aece18d092b9d09502fb9a4561b
   path: image_data_generator_tf.py
+- md5: 5d3d3ad9f3a4fe4b3b3277859312b77f
+  path: loss.py
 - md5: c33077d23de66bae96547f2f989ffb40
   path: main_create_slices_dataset.py
 - md5: 436206c01d966b80b6a3dca33c4d8ac0
@@ -22,17 +24,17 @@ deps:
   path: model_base.py
 - md5: 460d1d154a827c40c27a2bb058e48d6b
   path: model.py
-- md5: 976b6974c41ee75e59fd8c6cff212ac2
+- md5: d32d903dd49c98124abfd49e038d8f7d
   path: model_pytorch.py
 - md5: 80fae2eaf9dbbed1e329a0e39b096d09
   path: model_pytorch_zoo.py
 - md5: d70ca8e8d7bdb0333585077b128717c7
   path: model_tf.py
-- md5: 0411d7e228648c97a49bdd7849537046
+- md5: 95b59db486e2dcefd878a4e62ce32311
   path: score.py
 - md5: d90a7fba6efbc8dce83225f422d5152e
   path: shake_shake_my.py
-- md5: 01b07cd69f56575c61aca7fa13f7562b
+- md5: caa527211a88f53f6b3d0f5feee611b7
   path: train.py
 - md5: 773daf70dff6e117d923d5a00d8aa106
   path: data/test_datset.pkl
@@ -41,12 +43,12 @@ deps:
 - md5: d5ea381ca6208c05ec4dd74114f1485e
   path: data/val_datset.pkl
 outs:
-- md5: 5831f6931dd7523d9603477ecd2ba9a7.dir
+- md5: b4da4c6cc3d713e641cb8a1ecf20ae9d.dir
   path: data/models
   cache: true
   metric: false
   persist: false
-- md5: aae675781b6ff19bbe4e9e698c27f680
+- md5: 74611c1d7e55ee8735198b8cecd4c829
   path: metric.txt
   cache: false
   metric: true
