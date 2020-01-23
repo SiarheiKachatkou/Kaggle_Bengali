@@ -22,14 +22,13 @@ class RecallScore(nn.Module):
     def __init__(self,classes_weights):
         super().__init__()
 
-        self.class_weights=classes_weights
+        self.class_weights=torch.Tensor(classes_weights).to(device=torch.device('cuda'))
         self.classes_labels=list(range(len(classes_weights)))
-        self._raw_loss_fn=nn.CrossEntropyLoss()
+        self._raw_loss_fn=nn.CrossEntropyLoss(weight=self.class_weights)
 
-    def forward(self,y_pred,y_true,):
-        idxs=torch.where(y_true==self.classes_labels)
-        w=self.class_weights[idxs]
-        loss=self._raw_loss_fn(y_pred=y_pred,y_true=y_true,weights=w)
+    def forward(self,output,target,):
+        #w=self.class_weights.gather(0,target)
+        loss=self._raw_loss_fn(output,target)
         return loss
 
 

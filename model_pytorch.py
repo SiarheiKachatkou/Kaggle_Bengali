@@ -335,7 +335,7 @@ class Model(ModelBase, torch.nn.Module):
            worker_init_fn=None)
 
 
-        loss_fn=RecallScore(classes_weights)
+        loss_fns=[RecallScore(class_weights) for class_weights in classes_weights]
         optimizer=optim.Adam(self.parameters(),lr=LR)
         scheduler=torch.optim.lr_scheduler.ReduceLROnPlateau(optimizer, mode='min', factor=0.5, patience=1, verbose=True, threshold=0.0001, threshold_mode='rel', cooldown=0, min_lr=1e-8, eps=1e-08)
 
@@ -353,7 +353,7 @@ class Model(ModelBase, torch.nn.Module):
 
                 loss=0
                 for idx in range(len(self._classes_list)):
-                    loss+=loss_fn(heads_outputs[idx],labels[:,idx])
+                    loss+=loss_fns[idx](heads_outputs[idx],labels[:,idx])
 
                 loss.backward()
 
