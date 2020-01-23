@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8d7aab7b-5a13-411d-a5a4-10047020d786" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/loss.py" beforeDir="false" afterPath="$PROJECT_DIR$/loss.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cosine_scheduler.py" beforeDir="false" afterPath="$PROJECT_DIR$/cosine_scheduler.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model_pytorch.py" beforeDir="false" afterPath="$PROJECT_DIR$/model_pytorch.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -60,10 +61,22 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/model_pytorch.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="60">
-              <caret line="49" selection-start-line="49" selection-end-line="49" />
+            <state relative-caret-position="315">
+              <caret line="21" column="101" selection-start-line="21" selection-start-column="101" selection-end-line="21" selection-end-column="101" />
               <folding>
                 <element signature="e#0#12#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/cosine_scheduler.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="316">
+              <caret line="43" lean-forward="true" selection-start-line="43" selection-end-line="43" />
+              <folding>
+                <element signature="e#0#11#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -78,7 +91,7 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/loss.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="86">
@@ -104,18 +117,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="105">
               <caret line="7" selection-start-line="7" selection-end-line="7" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/cosine_lr_show.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="120">
-              <caret line="33" column="49" selection-start-line="33" selection-start-column="49" selection-end-line="33" selection-end-column="49" />
-              <folding>
-                <element signature="e#0#9#0" expanded="true" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -161,7 +162,6 @@
         <option value="$PROJECT_DIR$/main_create_slices_dataset.py" />
         <option value="$PROJECT_DIR$/main_create_slices_dataset.sh" />
         <option value="$PROJECT_DIR$/cosine_lr_test.py" />
-        <option value="$PROJECT_DIR$/cosine_scheduler.py" />
         <option value="$PROJECT_DIR$/cosine_lr_show.py" />
         <option value="$PROJECT_DIR$/transform.py" />
         <option value="$PROJECT_DIR$/dataset_pytorch.py" />
@@ -169,11 +169,12 @@
         <option value="$PROJECT_DIR$/create_dataset.py" />
         <option value="$PROJECT_DIR$/consts.py" />
         <option value="$PROJECT_DIR$/train.py" />
-        <option value="$PROJECT_DIR$/model_pytorch.py" />
         <option value="$PROJECT_DIR$/dvc_create_dataset.sh" />
         <option value="$PROJECT_DIR$/export_env.sh" />
         <option value="$PROJECT_DIR$/dvc_train.sh" />
         <option value="$PROJECT_DIR$/loss.py" />
+        <option value="$PROJECT_DIR$/model_pytorch.py" />
+        <option value="$PROJECT_DIR$/cosine_scheduler.py" />
       </list>
     </option>
   </component>
@@ -343,7 +344,7 @@
     <frame x="65" y="-4" width="1855" height="1204" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.4066594" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.4066594" />
       <window_info id="Structure" order="1" weight="0.25" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
@@ -360,7 +361,7 @@
       <window_info anchor="bottom" id="Anonymous Apex" order="12" show_stripe_button="false" weight="0.32937366" />
       <window_info anchor="bottom" id="Python Console" order="13" weight="0.3286908" />
       <window_info anchor="bottom" id="Messages" order="14" />
-      <window_info anchor="bottom" id="Terminal" order="15" visible="true" weight="0.39090064" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="15" visible="true" weight="0.39090064" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -648,16 +649,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/../../anaconda3/envs/pytorch/lib/python3.7/site-packages/torch/optim/lr_scheduler.py" />
-    <entry file="file://$PROJECT_DIR$/cosine_scheduler.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="318">
-          <caret line="24" selection-start-line="24" selection-end-line="24" />
-          <folding>
-            <element signature="e#0#11#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../../anaconda3/envs/pytorch/lib/python3.7/site-packages/torch/utils/data/_utils/fetch.py" />
     <entry file="file://$PROJECT_DIR$/../../anaconda3/envs/pytorch/lib/python3.7/site-packages/torch/nn/modules/module.py" />
     <entry file="file://$PROJECT_DIR$/../../anaconda3/envs/pytorch/lib/python3.7/site-packages/numpy/core/fromnumeric.py" />
@@ -732,16 +723,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/model_pytorch.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="49" selection-start-line="49" selection-end-line="49" />
-          <folding>
-            <element signature="e#0#12#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/export_env.sh">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="105">
@@ -769,6 +750,26 @@
           <caret line="6" column="18" selection-start-line="6" selection-start-column="18" selection-end-line="6" selection-end-column="18" />
           <folding>
             <element signature="e#0#12#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/model_pytorch.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="21" column="101" selection-start-line="21" selection-start-column="101" selection-end-line="21" selection-end-column="101" />
+          <folding>
+            <element signature="e#0#12#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cosine_scheduler.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="316">
+          <caret line="43" lean-forward="true" selection-start-line="43" selection-end-line="43" />
+          <folding>
+            <element signature="e#0#11#0" expanded="true" />
           </folding>
         </state>
       </provider>

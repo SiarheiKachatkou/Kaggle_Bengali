@@ -41,8 +41,6 @@ class CosineScheduler(_LRScheduler):
         return [self.lr]
 
     def step(self, epoch=None):
-        if epoch is not None:
-            raise NotImplementedError
 
         self.time_curr+=1
         time=self.time_curr
