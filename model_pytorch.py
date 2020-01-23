@@ -64,6 +64,7 @@ class ResNetBottleNeckBlock(torch.nn.Module):
     def __init__(self, in_channels):
         super().__init__()
         self._in_channels=in_channels
+        self.out_features=in_channels
         bottleneck_depth=in_channels//4
         self._c1=nn.Conv2d(in_channels=in_channels,out_channels=bottleneck_depth,kernel_size=1,stride=1)
         self._bn1=nn.BatchNorm2d(num_features=bottleneck_depth)
@@ -71,7 +72,7 @@ class ResNetBottleNeckBlock(torch.nn.Module):
         self._c2=nn.Conv2d(in_channels=bottleneck_depth,out_channels=bottleneck_depth,kernel_size=3,stride=1,padding=1)
         self._bn2=nn.BatchNorm2d(num_features=bottleneck_depth)
         self._r2=nn.ReLU()
-        self._c2=nn.Conv2d(in_channels=bottleneck_depth,out_channels=in_channels,kernel_size=1,stride=1)
+        self._c3=nn.Conv2d(in_channels=bottleneck_depth,out_channels=in_channels,kernel_size=1,stride=1)
         self._bn3=nn.BatchNorm2d(num_features=in_channels)
         self._r3=nn.ReLU()
 
@@ -238,36 +239,30 @@ class Model(ModelBase, torch.nn.Module):
         block_counts_resnet_152=[3,8,36,3]
         block_counts_resnet_101=[3,4,23,3]
         block_counts_resnet_50=[3,4,3,3]
-        #block_counts_resnet_50_mnist=[3]
         block_counts=block_counts_resnet_50
 
-        self._d=0.5
+        self._d=1
         def m(c):
             return self._m(c)
 
-        block=ResNetBasicBlock #SEResNeXtBottleNeckBlock
+        block=ResNetBottleNeckBlock
 
         def get_blocks():
 
-            _blocks=[ConvBnRelu(in_channels=3,out_channels=m(64),stride=1,kernel_size=13,dilation=2),
-            ConvBnRelu(in_channels=m(64),out_channels=m(128),stride=2,kernel_size=7),
-            ConvBnRelu(in_channels=m(128),out_channels=m(256),stride=1,kernel_size=3)
+            _blocks=[ConvBnRelu(in_channels=3,out_channels=m(4),stride=1,kernel_size=13,dilation=2),
+            ConvBnRelu(in_channels=m(4),out_channels=m(8),stride=2,kernel_size=7),
+            ConvBnRelu(in_channels=m(8),out_channels=m(16),stride=1,kernel_size=3)
             ]
 
-            _blocks.append(ResNetBasicBlock(in_channels=m(256)))
-            _blocks.append(SEResNetBottleNeckBlock(in_channels=m(256)))
-            _blocks.append(ResNetBasicBlock(in_channels=m(256)))
+            features=16
+            for i,c in enumerate(block_counts):
+                for _ in range(c):
+                    _blocks.append(block(in_channels=m(features)))
+                if i!=len(block_counts)-1:
+                    _blocks.append(nn.MaxPool2d(2,2))
+                    _blocks.append(ConvBnRelu(in_channels=m(features),out_channels=m(2*features),stride=1,kernel_size=1))
+                features=features*2
 
-            d2=2
-            _blocks.append(nn.Dropout(p=0.5))
-            _blocks.append(ConvBnRelu(in_channels=m(256),out_channels=m(d2*512),stride=2))
-            _blocks.append(ConvBnRelu(in_channels=m(d2*512),out_channels=m(d2*1024),stride=2,kernel_size=3))
-            _blocks.append(nn.Dropout(p=0.5))
-            _blocks.append(nn.MaxPool2d(kernel_size=2,stride=2))
-            _blocks.append(ConvBnRelu(in_channels=m(d2*1024),out_channels=m(d2*512),stride=1,kernel_size=1))
-            _blocks.append(ConvBnRelu(in_channels=m(d2*512),out_channels=m(d2*1024),stride=2,kernel_size=3))
-            _blocks.append(ConvBnRelu(in_channels=m(d2*1024),out_channels=m(d2*512),stride=1,kernel_size=1))
-            _blocks.append(ConvBnRelu(in_channels=m(d2*512),out_channels=m(d2*1024),stride=2,kernel_size=3))
             return _blocks
 
 
@@ -351,8 +346,9 @@ class Model(ModelBase, torch.nn.Module):
                 heads_outputs = self.__call__(images)
 
                 loss=0
+                loss_weights=[1,1,1]
                 for idx in range(len(self._classes_list)):
-                    this_loss=loss_fns[idx](heads_outputs[idx],labels[:,idx])
+                    this_loss=loss_weights[idx]*loss_fns[idx](heads_outputs[idx],labels[:,idx])
                     loss+=this_loss
 
                 loss.backward()

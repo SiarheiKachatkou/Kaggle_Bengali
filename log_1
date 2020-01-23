@@ -1,0 +1,21 @@
+scores befor averaging = [0.006060606060606061, 0.09090909090909091, 0.14285714285714285]
+scores befor averaging = [0.006097560975609756, 0.09090909090909091, 0.14285714285714285]
+loss=9.706982612609863 train_score=0.06147186147186147 val_score=0.061490338929363314
+scores befor averaging = [0.04297281636781543, 0.5204756421986221, 0.30863614578551024]
+scores befor averaging = [0.03471399022706892, 0.5015189818293083, 0.2932201757394396]
+loss=6.258895397186279 train_score=0.2287643551799408 val_score=0.21604178450572145
+/home/sergey/anaconda3/envs/pytorch/lib/python3.5/site-packages/sklearn/metrics/_classification.py:1272: UndefinedMetricWarning: Recall is ill-defined and being set to 0.0 in labels with no true samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, msg_start, len(result))
+scores befor averaging = [0.15867434118072926, 0.7144963878359915, 0.6112272930196508]
+scores befor averaging = [0.1399009811735276, 0.7132992352192152, 0.5843468610068444]
+loss=3.628220319747925 train_score=0.41076809080427523 val_score=0.3943620146432787
+ 10%|██████████████████████▍                                                                                                                                                                                                         | 1/10 [07:58<1:11:49, 478.86s/it]scores befor averaging = [0.2833922780202546, 0.7429359576075409, 0.6421074061594955]
+scores befor averaging = [0.2647292323218584, 0.7600803816040809, 0.6705890281139707]
+loss=3.3648014068603516 train_score=0.48795697995188636 val_score=0.49003196859044207
+scores befor averaging = [0.4466911385263081, 0.8127968842410862, 0.7300744255907707]
+scores befor averaging = [0.43340183302524676, 0.8084926935466189, 0.6624472146023133]
+loss=2.7983174324035645 train_score=0.6090633967211183 val_score=0.5844358935498564
+scores befor averaging = [0.5603877403863743, 0.8365529088747995, 0.873357383998785]
+scores befor averaging = [0.5500719090024566, 0.8375963858509267, 0.9134381346465058]
+loss=2.3204426765441895 train_score=0.7076714434115833 val_score=0.7127945846255864
+
