@@ -153,25 +153,10 @@ class BengaliClassifier(nn.Module):
         pred_labels = [torch.argmax(p, dim=1) for p in preds]
         return pred_labels
 
-def build_predictor(arch, out_dim, model_name=None):
-    if arch == 'pretrained':
-        predictor = PretrainedCNN(in_channels=1, out_dim=out_dim, model_name=model_name)
-    else:
-        raise ValueError("[ERROR] Unexpected value arch={}".format(arch))
-    return predictor
 
-
-def build_classifier(arch, load_model_path, n_total, model_name='', device='cuda:0'):
-    if isinstance(device, str):
-        device = torch.device(device)
-    predictor = build_predictor(arch, out_dim=n_total, model_name=model_name)
-    print('predictor', type(predictor))
+def build_classifier(n_total, model_name='se_resnext101_32x4d', device='cuda:0'):
+    predictor = PretrainedCNN(in_channels=N_CHANNELS, out_dim=out_dim, model_name=model_name)
     classifier = BengaliClassifier(predictor)
-    if load_model_path:
-        predictor.load_state_dict(torch.load(load_model_path))
-    else:
-        print("[WARNING] Unexpected value load_model_path={}"
-              .format(load_model_path))
     classifier.to(device)
     return classifier
 
@@ -190,7 +175,7 @@ class Model(ModelBase, torch.nn.Module):
 
         self._classes_list=[]
 
-        self._classifier=build_classifier(arch='pretrained', load_model_path=None, n_total=168+11+7, model_name='se_resnext101_32x4d', device='cuda:0')
+        self._classifier=build_classifier(n_total=168+11+7, model_name='se_resnext101_32x4d', device='cuda:0')
 
     def forward(self,x):
 
