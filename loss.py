@@ -4,7 +4,7 @@ import numpy as np
 
 
 def calc_classes_weights(labels,classes_list):
-    betta=0.99
+    betta=0.999999
 
     weights=[]
     classes_count=np.shape(labels)[1]
