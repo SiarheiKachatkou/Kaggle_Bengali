@@ -11,7 +11,7 @@ from consts import DATA_DIR,RAW_DIR,TRAIN_IMAGE_DATA_PATTERN, TEST_IMAGE_DATA_PA
     TRAIN_DATASET_DIR, VAL_DATASET_DIR, TEST_DATASET_DIR, \
     IMAGE_GEN_PKL, SEED, TARGETS
 
-debug_mode=True
+debug_mode=False
 
 def load_parquet(path_pattern, labels_csv):
 
