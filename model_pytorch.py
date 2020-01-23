@@ -346,7 +346,7 @@ class Model(ModelBase, torch.nn.Module):
                 heads_outputs = self.__call__(images)
 
                 loss=0
-                loss_weights=[1,1,1]
+                loss_weights=[1,0,0]
                 for idx in range(len(self._classes_list)):
                     this_loss=loss_weights[idx]*loss_fns[idx](heads_outputs[idx],labels[:,idx])
                     loss+=this_loss
