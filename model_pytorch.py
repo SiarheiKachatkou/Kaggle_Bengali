@@ -12,10 +12,11 @@ import torch.nn.functional as F
 import albumentations as A
 from shake_shake_my import ShakeShake
 import cv2
-from consts import IMG_W,IMG_H,N_CHANNELS, BATCH_SIZE, LR, EPOCHS, AUGM_PROB
+from consts import IMG_W,IMG_H,N_CHANNELS, BATCH_SIZE, LR, EPOCHS, AUGM_PROB,FAST_PROTO_SCALE, DROPOUT_P, LOSS_WEIGHTS, LR_SCHEDULER_PATINCE
 from loss import calc_classes_weights, RecallScore
-from consts import IMG_W,IMG_H,N_CHANNELS, BATCH_SIZE, LR, EPOCHS, AUGM_PROB, DROPOUT_P, LOSS_WEIGHTS
 
+def k(kernel_size):
+    return max(1,round(kernel_size/FAST_PROTO_SCALE))
 
 
 def get_augmentations():
@@ -49,9 +50,9 @@ class ResNetBasicBlock(torch.nn.Module):
     def __init__(self, in_channels):
         super().__init__()
 
-        self._c1=nn.Conv2d(in_channels=in_channels,out_channels=in_channels,kernel_size=3,stride=1,padding=1)
+        self._c1=nn.Conv2d(in_channels=in_channels,out_channels=in_channels,kernel_size=k(3),stride=1,padding=1)
         self._r1=nn.ReLU()
-        self._c2=nn.Conv2d(in_channels=in_channels,out_channels=in_channels,kernel_size=3,stride=1,padding=1)
+        self._c2=nn.Conv2d(in_channels=in_channels,out_channels=in_channels,kernel_size=k(3),stride=1,padding=1)
         self._bn=nn.BatchNorm2d(num_features=in_channels)
         self._r2=nn.ReLU()
 
@@ -75,7 +76,7 @@ class ResNetBottleNeckBlock(torch.nn.Module):
         self._c1=nn.Conv2d(in_channels=in_channels,out_channels=bottleneck_depth,kernel_size=1,stride=1)
         self._bn1=nn.BatchNorm2d(num_features=bottleneck_depth)
         self._r1=nn.ReLU()
-        self._c2=nn.Conv2d(in_channels=bottleneck_depth,out_channels=bottleneck_depth,kernel_size=3,stride=1,padding=1)
+        self._c2=nn.Conv2d(in_channels=bottleneck_depth,out_channels=bottleneck_depth,kernel_size=k(3),stride=1,padding=k(3)//2)
         self._bn2=nn.BatchNorm2d(num_features=bottleneck_depth)
         self._r2=nn.ReLU()
         self._c2=nn.Conv2d(in_channels=bottleneck_depth,out_channels=in_channels,kernel_size=1,stride=1)
@@ -106,7 +107,7 @@ class SEResNetBottleNeckBlock(torch.nn.Module):
         self._c1=nn.Conv2d(in_channels=in_channels,out_channels=bottleneck_depth,kernel_size=1,stride=1)
         self._bn1=nn.BatchNorm2d(num_features=bottleneck_depth)
         self._r1=nn.ReLU()
-        self._c2=nn.Conv2d(in_channels=bottleneck_depth,out_channels=bottleneck_depth,kernel_size=3,stride=1,padding=1)
+        self._c2=nn.Conv2d(in_channels=bottleneck_depth,out_channels=bottleneck_depth,kernel_size=k(3),stride=1,padding=k(3)//2)
         self._bn2=nn.BatchNorm2d(num_features=bottleneck_depth)
         self._r2=nn.ReLU()
         self._c3=nn.Conv2d(in_channels=bottleneck_depth,out_channels=in_channels,kernel_size=1,stride=1)
@@ -185,7 +186,7 @@ class SEResNeXtBottleNeckBlock(torch.nn.Module):
         self._bn1=nn.BatchNorm2d(num_features=bottleneck_depth)
         self._r1=nn.ReLU()
         self._c2=nn.Conv2d(in_channels=bottleneck_depth,out_channels=bottleneck_depth,
-                           kernel_size=3,stride=1,padding=1,groups=self._cardinality)
+                           kernel_size=k(3),stride=1,padding=1,groups=self._cardinality)
         self._bn2=nn.BatchNorm2d(num_features=bottleneck_depth)
         self._r2=nn.ReLU()
         self._c3=nn.Conv2d(in_channels=bottleneck_depth,out_channels=in_channels,kernel_size=1,stride=1)
@@ -248,52 +249,24 @@ class Model(ModelBase, torch.nn.Module):
         #block_counts_resnet_50_mnist=[3]
         block_counts=block_counts_resnet_50
 
-        self._d=0.5
+        self._d=1
         def m(c):
             return self._m(c)
 
-        block=ResNetBasicBlock #SEResNeXtBottleNeckBlock
+        block=SEResNeXtBottleNeckBlock
 
-        self._blocks=[ConvBnRelu(in_channels=3,out_channels=m(64),stride=1,kernel_size=13,dilation=2),
-        ConvBnRelu(in_channels=m(64),out_channels=m(128),stride=2,kernel_size=7),
-        ConvBnRelu(in_channels=m(128),out_channels=m(256),stride=1,kernel_size=3)
+        self._blocks=[ConvBnRelu(in_channels=3,out_channels=m(64),stride=2,kernel_size=k(7)),
+        ConvBnRelu(in_channels=m(64),out_channels=m(128),stride=2,kernel_size=k(7)),
+        ConvBnRelu(in_channels=m(128),out_channels=m(256),stride=2,kernel_size=k(3))
         ]
 
-        '''
-        for _ in range(block_counts[0]):
-            self._blocks.append(block(in_channels=m(256)))
-        '''
+        features=256
+        for b in block_counts:
+            for _ in range(b):
+                self._blocks.append(block(in_channels=m(features)))
 
-        self._blocks.append(ResNetBasicBlock(in_channels=m(256)))
-        self._blocks.append(SEResNetBottleNeckBlock(in_channels=m(256)))#block_4
-        self._blocks.append(ResNetBasicBlock(in_channels=m(256)))
-
-        d2=2
-        self._blocks.append(nn.Dropout(p=0.5))
-        self._blocks.append(ConvBnRelu(in_channels=m(256),out_channels=m(d2*512),stride=2))
-        self._blocks.append(ConvBnRelu(in_channels=m(d2*512),out_channels=m(d2*1024),stride=2,kernel_size=3))
-        self._blocks.append(nn.Dropout(p=0.5))
-        self._blocks.append(nn.MaxPool2d(kernel_size=2,stride=2))
-        self._blocks.append(ConvBnRelu(in_channels=m(d2*1024),out_channels=m(d2*512),stride=1,kernel_size=1))
-        self._blocks.append(ConvBnRelu(in_channels=m(d2*512),out_channels=m(d2*1024),stride=2,kernel_size=3))
-        self._blocks.append(ConvBnRelu(in_channels=m(d2*1024),out_channels=m(d2*512),stride=1,kernel_size=1))
-        self._blocks.append(ConvBnRelu(in_channels=m(d2*512),out_channels=m(d2*1024),stride=2,kernel_size=3))
-        self._blocks.append(ConvBnRelu(in_channels=m(d2*1024),out_channels=m(d2*512),stride=1,kernel_size=1))
-
-        '''
-        for _ in range(block_counts[1]):
-            self._blocks.append(block(in_channels=m(512)))
-        
-        self._blocks.append(ConvBnRelu(in_channels=m(512),out_channels=m(1024),stride=2)) #11
-        
-        for _ in range(block_counts[2]):
-            self._blocks.append(block(in_channels=m(1024)))
-
-        self._blocks.append(nn.MaxPool2d(kernel_size=2,stride=2))
-        for _ in range(block_counts[3]):
-            self._blocks.append(block(in_channels=m(1024)))
-
-        '''
+            self._blocks.append(ConvBnRelu(in_channels=m(features),out_channels=m(2*features),kernel_size=k(3),stride=2))
+            features*=2
 
         for i,b in enumerate(self._blocks):
             setattr(self,'_block_{}'.format(i),b)
@@ -327,6 +300,8 @@ class Model(ModelBase, torch.nn.Module):
 
         aug=get_augmentations()
         def aug_fn(img):
+            if FAST_PROTO_SCALE!=1:
+                img=cv2.resize(img,(IMG_W//FAST_PROTO_SCALE,IMG_H//FAST_PROTO_SCALE))
             return aug(image=img)['image']
 
         train_dataset_aug=BengaliDataset(train_images,labels=train_labels,transform_fn=aug_fn)
@@ -353,7 +328,7 @@ class Model(ModelBase, torch.nn.Module):
 
         loss_fns=[RecallScore(class_weights) for class_weights in classes_weights]
         optimizer=optim.Adam(self.parameters(),lr=LR)
-        scheduler=torch.optim.lr_scheduler.ReduceLROnPlateau(optimizer, mode='min', factor=0.5, patience=1, verbose=True, threshold=0.0001, threshold_mode='rel', cooldown=0, min_lr=1e-8, eps=1e-08)
+        scheduler=torch.optim.lr_scheduler.ReduceLROnPlateau(optimizer, mode='min', factor=0.5, patience=LR_SCHEDULER_PATINCE, verbose=True, threshold=0.0001, threshold_mode='rel', cooldown=0, min_lr=1e-8, eps=1e-08)
 
         for epoch in tqdm(range(EPOCHS)):
             for i, data in enumerate(train_dataloader):
