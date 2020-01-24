@@ -13,7 +13,7 @@ loss=2.6350650787353516 train_score=0.5460344771260327 val_score=0.5292508496743
 
 
 -------------------
-no albumentation
+no albumentation,WEIGHTS=[1,1,1]
 160672 train images loaded
 40168 val images loaded
   0%|                                                                                                                                                                                                                                           | 0/50 [00:00<?, ?it/s]scores befor averaging = [0.005988023952095809, 0.09090909090909091, 0.14285714285714285]
@@ -25,3 +25,6 @@ loss=3.586167097091675 train_score=0.46927766538372295 val_score=0.4559797029705
   2%|████▍                                                                                                                                                                                                                           | 1/50 [07:30<6:08:01, 450.65s/it]scores befor averaging = [0.42287753255682775, 0.7298570983453883, 0.6590480587091416]
 scores befor averaging = [0.4005461862225575, 0.7294525427202216, 0.6009488431831834]
 loss=1.8528915643692017 train_score=0.5586650555420463 val_score=0.5328734395871301
+
+
+no albumentation,WEIGHTS=[10,1,1]
