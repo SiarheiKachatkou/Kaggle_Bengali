@@ -14,6 +14,7 @@ from shake_shake_my import ShakeShake
 import cv2
 from consts import IMG_W,IMG_H,N_CHANNELS, BATCH_SIZE, LR, EPOCHS, AUGM_PROB,FAST_PROTO_SCALE, DROPOUT_P, LOSS_WEIGHTS, LR_SCHEDULER_PATINCE
 from loss import calc_classes_weights, RecallScore
+from torch.utils.data import WeightedRandomSampler
 
 def k(kernel_size):
     return kernel_size
@@ -252,17 +253,15 @@ class Model(ModelBase, torch.nn.Module):
         #resnet 152,resnet-101,resnet-50
         block_counts_resnet_152=[3,8,36,3]
         block_counts_resnet_101=[3,4,23,3]
-        block_counts_resnet_50=[3,4,3,3]
+        block_counts_resnet_50=[3,4]
         #block_counts_resnet_50_mnist=[3]
         block_counts=block_counts_resnet_50
 
-        self._d=2
+        self._d=1
         def m(c):
             return self._m(c)
 
-        block=SEResNeXtBottleNeckBlock
-
-        curr_img_size=k(IMG_H)
+        block=SEResNetBottleNeckBlock
 
         self._blocks=[ConvBnRelu(in_channels=3,out_channels=m(64),stride=2,kernel_size=k(7)),
         ConvBnRelu(in_channels=m(64),out_channels=m(128),stride=2,kernel_size=k(7)),
@@ -317,7 +316,11 @@ class Model(ModelBase, torch.nn.Module):
         train_dataset=BengaliDataset(train_images,labels=train_labels)
         val_dataset=BengaliDataset(val_images,labels=val_labels)
 
-        train_dataloader=DataLoader(train_dataset_aug, batch_size=BATCH_SIZE, shuffle=True, sampler=None,
+        classes_weights=calc_classes_weights(train_labels,self._classes_list)
+
+        train_samples_weight=[classes_weights[0][l[0]] for l in train_labels]
+        train_sampler=WeightedRandomSampler(train_samples_weight, num_samples=len(train_samples_weight), replacement=True)
+        train_dataloader=DataLoader(train_dataset_aug, batch_size=BATCH_SIZE, shuffle=False, sampler=train_sampler,
            batch_sampler=None, num_workers=0, collate_fn=None,
            pin_memory=False, drop_last=False, timeout=0,
            worker_init_fn=None)
@@ -332,8 +335,6 @@ class Model(ModelBase, torch.nn.Module):
            pin_memory=False, drop_last=False, timeout=0,
            worker_init_fn=None)
 
-
-        classes_weights=calc_classes_weights(train_labels,self._classes_list)
 
         loss_fns=[RecallScore(class_weights) for class_weights in classes_weights]
         optimizer=optim.Adam(self.parameters(),lr=LR)
