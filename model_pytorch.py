@@ -16,6 +16,7 @@ from consts import IMG_W,IMG_H,N_CHANNELS, BATCH_SIZE, LR, EPOCHS, AUGM_PROB,FAS
 from loss import calc_classes_weights, RecallScore
 
 def k(kernel_size):
+    return kernel_size
     return max(1,round(kernel_size/FAST_PROTO_SCALE))
 
 
@@ -186,7 +187,7 @@ class SEResNeXtBottleNeckBlock(torch.nn.Module):
         self._bn1=nn.BatchNorm2d(num_features=bottleneck_depth)
         self._r1=nn.ReLU()
         self._c2=nn.Conv2d(in_channels=bottleneck_depth,out_channels=bottleneck_depth,
-                           kernel_size=k(3),stride=1,padding=1,groups=self._cardinality)
+                           kernel_size=k(3),stride=1,padding=(k(3))//2,groups=self._cardinality)
         self._bn2=nn.BatchNorm2d(num_features=bottleneck_depth)
         self._r2=nn.ReLU()
         self._c3=nn.Conv2d(in_channels=bottleneck_depth,out_channels=in_channels,kernel_size=1,stride=1)
@@ -220,7 +221,13 @@ class SEResNeXtBottleNeckBlock(torch.nn.Module):
         scale_x=scale_x.reshape([-1,self._in_channels,1,1])
         x=x*scale_x
 
-
+        _,_,h_skip,w_skip=skip.shape
+        _,_,h_x,w_x=x.shape
+        if w_skip>w_x:
+            x=nn.ReplicationPad2d((w_skip-w_x,0,h_skip-h_x,0))(x)
+        else:
+            if w_skip<w_x:
+                skip=nn.ReplicationPad2d((w_x-w_skip,0,h_x-h_skip,0))(skip)
         x=x+skip
 
         x=self._r3(x)
@@ -249,11 +256,13 @@ class Model(ModelBase, torch.nn.Module):
         #block_counts_resnet_50_mnist=[3]
         block_counts=block_counts_resnet_50
 
-        self._d=1
+        self._d=0.5
         def m(c):
             return self._m(c)
 
         block=SEResNeXtBottleNeckBlock
+
+        curr_img_size=k(IMG_H)
 
         self._blocks=[ConvBnRelu(in_channels=3,out_channels=m(64),stride=2,kernel_size=k(7)),
         ConvBnRelu(in_channels=m(64),out_channels=m(128),stride=2,kernel_size=k(7)),
@@ -265,7 +274,7 @@ class Model(ModelBase, torch.nn.Module):
             for _ in range(b):
                 self._blocks.append(block(in_channels=m(features)))
 
-            self._blocks.append(ConvBnRelu(in_channels=m(features),out_channels=m(2*features),kernel_size=k(3),stride=2))
+            self._blocks.append(ConvBnRelu(in_channels=m(features),out_channels=m(2*features),kernel_size=1,stride=1))
             features*=2
 
         for i,b in enumerate(self._blocks):
@@ -301,7 +310,7 @@ class Model(ModelBase, torch.nn.Module):
         aug=get_augmentations()
         def aug_fn(img):
             if FAST_PROTO_SCALE!=1:
-                img=cv2.resize(img,(IMG_W//FAST_PROTO_SCALE,IMG_H//FAST_PROTO_SCALE))
+                img=cv2.resize(img,(round(IMG_W/FAST_PROTO_SCALE),round(IMG_H/FAST_PROTO_SCALE)))
             return aug(image=img)['image']
 
         train_dataset_aug=BengaliDataset(train_images,labels=train_labels,transform_fn=aug_fn)
