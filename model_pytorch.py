@@ -245,9 +245,16 @@ class Model(ModelBase, torch.nn.Module):
                     this_loss=LOSS_WEIGHTS[idx]*loss_fns[idx](heads_outputs[idx],labels[:,idx])
                     loss+=this_loss
 
-                loss.backward()
 
-                optimizer.step()
+                if mode == 'FP32':
+                    loss.backward()
+                    optimizer.step()
+                elif mode == 'FP16':
+                    optimizer.backward(loss)
+                else:
+                    with amp.scale_loss(loss, optimizer) as scaled_loss:
+                        scaled_loss.backward()
+
 
                 if i%self._print_every_iter==0:
 
