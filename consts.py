@@ -1,13 +1,13 @@
 
 DATA_DIR='data'
 RAW_DIR='raw'
-MODELS_DIR='models3'
+MODELS_DIR='models'
 MODELS_PRETRAINED_DIR='models_pretrained'
 SUBMISSION_DIR = 'submissions'
 SUBMISSION_CSV = 'submission.csv'
 SAMPLE_SUBMISSION_CSV = 'sample_submission.csv'
 
-METRIC_FILE_PATH='metric3.txt'
+METRIC_FILE_PATH='metric.txt'
 
 TRAIN_IMAGE_DATA_PATTERN='train_image_data_*.parquet'
 TEST_IMAGE_DATA_PATTERN='test_image_data_*.parquet'
@@ -28,9 +28,9 @@ IMG_W=64
 IMG_H=64
 N_CHANNELS = 1
 BATCH_SIZE=64
-EPOCHS=10
-LR=0.05
-AUGM_PROB=0
+EPOCHS=50
+LR=0.01
+AUGM_PROB=0.5
 DROPOUT_P=0.5
 
 LOSS_WEIGHTS=[10,1,1]

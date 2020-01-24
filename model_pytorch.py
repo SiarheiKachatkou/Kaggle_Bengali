@@ -383,8 +383,11 @@ class Model(ModelBase, torch.nn.Module):
                         train_score=self._eval(train_val_dataloader)
                         val_score=self._eval(val_dataloader)
                         print('loss={} train_score={} val_score={}'.format(loss.item(),train_score,val_score))
-                    scheduler.step(1-val_score)
+                        print('lr={}'.format(scheduler.get_lr()))
                     self.train()
+
+                scheduler.step()
+
 
 
     def _eval(self,dataloader):
