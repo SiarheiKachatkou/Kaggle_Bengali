@@ -21,7 +21,7 @@ from cosine_scheduler import CosineScheduler
 from loss import calc_classes_weights, RecallScore
 from consts import IMG_W,IMG_H,N_CHANNELS, BATCH_SIZE, LR, EPOCHS, AUGM_PROB, DROPOUT_P, LOSS_WEIGHTS
 
-mode='FP32'
+mode='FP16'
 opt_level='O3'
 
 try:
