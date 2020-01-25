@@ -274,7 +274,7 @@ class Model(ModelBase, torch.nn.Module):
             for _ in range(b):
                 self._blocks.append(block(in_channels=m(features)))
 
-            self._blocks.append(ConvBnRelu(in_channels=m(features),out_channels=m(2*features),kernel_size=3,stride=2))
+            self._blocks.append(ConvBnRelu(in_channels=m(features),out_channels=m(2*features),kernel_size=3,stride=1))
             features*=2
 
         for i,b in enumerate(self._blocks):
@@ -303,7 +303,7 @@ class Model(ModelBase, torch.nn.Module):
         for idx,c in enumerate(classes_list):
             setattr(self,'_head_{}'.format(idx),torch.nn.Linear(in_features,c))
 
-    def fit(self,train_images,train_labels, val_images, val_labels, batch_size,epochs, **kwargs):
+    def fit(self,train_images,train_labels, val_images, val_labels, batch_size,epochs, path_to_save, **kwargs):
 
         self.to(self._device)
 
@@ -343,7 +343,9 @@ class Model(ModelBase, torch.nn.Module):
 
         loss_fns=[RecallScore(class_weights) for class_weights in classes_weights]
         optimizer=optim.Adam(self.parameters(),lr=LR)
-        scheduler=torch.optim.lr_scheduler.ReduceLROnPlateau(optimizer, mode='min', factor=0.5, patience=LR_SCHEDULER_PATINCE, verbose=True, threshold=0.0001, threshold_mode='rel', cooldown=0, min_lr=1e-8, eps=1e-08)
+        scheduler=torch.optim.lr_scheduler.ReduceLROnPlateau(optimizer, mode='min', factor=0.5, patience=LR_SCHEDULER_PATINCE, verbose=True,
+                                                             threshold=0.0001, threshold_mode='abs',
+                                                             cooldown=0, min_lr=1e-6, eps=1e-08)
 
         for epoch in tqdm(range(EPOCHS)):
             for i, data in enumerate(train_dataloader):
@@ -375,6 +377,7 @@ class Model(ModelBase, torch.nn.Module):
                         print('loss={} train_score={} val_score={}'.format(loss.item(),train_score,val_score))
                     self.train()
                     scheduler.step(1-val_score)
+            self.save(path_to_save)
 
 
 
