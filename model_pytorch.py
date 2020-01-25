@@ -303,7 +303,7 @@ class Model(ModelBase, torch.nn.Module):
         for idx,c in enumerate(classes_list):
             setattr(self,'_head_{}'.format(idx),torch.nn.Linear(in_features,c))
 
-    def fit(self,train_images,train_labels, val_images, val_labels, batch_size,epochs, path_to_save, **kwargs):
+    def fit(self,train_images,train_labels, val_images, val_labels, batch_size,epochs, path_to_model_save, **kwargs):
 
         self.to(self._device)
 
@@ -377,7 +377,7 @@ class Model(ModelBase, torch.nn.Module):
                         print('loss={} train_score={} val_score={}'.format(loss.item(),train_score,val_score))
                     self.train()
                     scheduler.step(1-val_score)
-            self.save(path_to_save)
+            self.save(path_to_model_save)
 
 
 

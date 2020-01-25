@@ -40,7 +40,7 @@ if __name__ == "__main__":
     if args.fine_tune!=0:
         model_pretrained_filepath=os.path.join(DATA_DIR,MODELS_PRETRAINED_DIR,MODEL_NAME)
         model.load(model_pretrained_filepath, classes)
-    model.fit(train_images,train_labels, val_images,val_labels,path_to_file=model_filepath,batch_size=BATCH_SIZE,epochs=EPOCHS)
+    model.fit(train_images,train_labels, val_images,val_labels,path_to_model_save=model_filepath,batch_size=BATCH_SIZE,epochs=EPOCHS)
 
     model.save(model_filepath)
 
