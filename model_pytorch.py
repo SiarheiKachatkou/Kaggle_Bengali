@@ -10,6 +10,7 @@ import torch.nn as nn
 import torch.optim as optim
 import torch.nn.functional as F
 import albumentations as A
+import pretrainedmodels
 from shake_shake_my import ShakeShake
 import cv2
 from consts import IMG_W,IMG_H,N_CHANNELS, BATCH_SIZE, LR, EPOCHS, AUGM_PROB,FAST_PROTO_SCALE, \
@@ -251,44 +252,13 @@ class Model(ModelBase, torch.nn.Module):
         self._eval_batches=100
 
         self._classes_list=[]
-        #resnet 152,resnet-101,resnet-50
-        block_counts_resnet_152=[3,8,36,3]
-        block_counts_resnet_101=[3,4,23,3]
-        block_counts_resnet_50=[3,4,6,3]
-        #block_counts_resnet_50_mnist=[3]
-        block_counts=block_counts_resnet_50
 
-        self._d=1
-        def m(c):
-            return self._m(c)
-
-        block=SEResNetBottleNeckBlock
-
-        self._blocks=[ConvBnRelu(in_channels=3,out_channels=m(64),stride=2,kernel_size=k(7)),
-        ConvBnRelu(in_channels=m(64),out_channels=m(128),stride=2,kernel_size=k(7)),
-        ConvBnRelu(in_channels=m(128),out_channels=m(256),stride=2,kernel_size=k(3))
-        ]
-
-        features=256
-        for b in block_counts:
-            for _ in range(b):
-                self._blocks.append(block(in_channels=m(features)))
-
-            self._blocks.append(ConvBnRelu(in_channels=m(features),out_channels=m(2*features),kernel_size=3,stride=1))
-            features*=2
-
-        for i,b in enumerate(self._blocks):
-            setattr(self,'_block_{}'.format(i),b)
-
+        self._backbone=pretrainedmodels.se_resnext101_32x4d()
 
     def forward(self,x):
 
-        for b in self._blocks:
-            x=b(x)
+        x=self._backbone(x)
 
-        x=torch.mean(x,dim=-1)
-        x=torch.mean(x,dim=-1)
-        x=torch.flatten(x,1)
         outputs=[]
         for idx,c in enumerate(self._classes_list):
             head=getattr(self,'_head_{}'.format(idx))
@@ -299,7 +269,7 @@ class Model(ModelBase, torch.nn.Module):
     def compile(self,classes_list,**kwargs):
         self._classes_list=classes_list
 
-        in_features=self._blocks[-1].out_features
+        in_features=self._backbone.last_linear.out_features
         for idx,c in enumerate(classes_list):
             setattr(self,'_head_{}'.format(idx),torch.nn.Linear(in_features,c))
 
