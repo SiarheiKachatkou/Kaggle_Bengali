@@ -36,205 +36,6 @@ def get_augmentations():
                       A.ElasticTransform(alpha=60,sigma=15,alpha_affine=20,border_mode=cv2.BORDER_CONSTANT,value=255,p=1.0),
                       ],p=AUGM_PROB)
 
-class ConvBnRelu(torch.nn.Module):
-    def __init__(self,in_channels,out_channels,kernel_size=3,stride=1,dilation=1):
-        super().__init__()
-        self._conv=nn.Conv2d(in_channels=in_channels,out_channels=out_channels,kernel_size=kernel_size,stride=stride,padding=kernel_size//2,dilation=dilation)
-        self._bn=nn.BatchNorm2d(num_features=out_channels)
-        self._r=nn.ReLU()
-        self.out_features=out_channels
-
-    def forward(self,x):
-        x=self._conv(x)
-        x=self._bn(x)
-        x=self._r(x)
-        return x
-
-class ResNetBasicBlock(torch.nn.Module):
-    def __init__(self, in_channels):
-        super().__init__()
-
-        self._c1=nn.Conv2d(in_channels=in_channels,out_channels=in_channels,kernel_size=k(3),stride=1,padding=1)
-        self._r1=nn.ReLU()
-        self._c2=nn.Conv2d(in_channels=in_channels,out_channels=in_channels,kernel_size=k(3),stride=1,padding=1)
-        self._bn=nn.BatchNorm2d(num_features=in_channels)
-        self._r2=nn.ReLU()
-
-    def forward(self,x):
-
-        skip=x
-        x=self._c1(x)
-        x=self._r1(x)
-        x=self._c2(x)
-        x=self._bn(x)
-        x=x+skip
-        x=self._r2(x)
-
-        return x
-
-class ResNetBottleNeckBlock(torch.nn.Module):
-    def __init__(self, in_channels):
-        super().__init__()
-        self._in_channels=in_channels
-        bottleneck_depth=in_channels//4
-        self._c1=nn.Conv2d(in_channels=in_channels,out_channels=bottleneck_depth,kernel_size=1,stride=1)
-        self._bn1=nn.BatchNorm2d(num_features=bottleneck_depth)
-        self._r1=nn.ReLU()
-        self._c2=nn.Conv2d(in_channels=bottleneck_depth,out_channels=bottleneck_depth,kernel_size=k(3),stride=1,padding=k(3)//2)
-        self._bn2=nn.BatchNorm2d(num_features=bottleneck_depth)
-        self._r2=nn.ReLU()
-        self._c2=nn.Conv2d(in_channels=bottleneck_depth,out_channels=in_channels,kernel_size=1,stride=1)
-        self._bn3=nn.BatchNorm2d(num_features=in_channels)
-        self._r3=nn.ReLU()
-
-    def forward(self,x):
-        skip=x
-        x=self._c1(x)
-        x=self._r1(x)
-        x=self._bn1(x)
-        x=self._c2(x)
-        x=self._r2(x)
-        x=self._bn2(x)
-        x=self._c3(x)
-        x=self._bn3(x)
-
-        x=x+skip
-        x=self._r3(x)
-        return x
-
-class SEResNetBottleNeckBlock(torch.nn.Module):
-    def __init__(self, in_channels):
-        super().__init__()
-        self._in_channels=in_channels
-        self.out_features=in_channels
-        bottleneck_depth=in_channels//4
-        self._c1=nn.Conv2d(in_channels=in_channels,out_channels=bottleneck_depth,kernel_size=1,stride=1)
-        self._bn1=nn.BatchNorm2d(num_features=bottleneck_depth)
-        self._r1=nn.ReLU()
-        self._c2=nn.Conv2d(in_channels=bottleneck_depth,out_channels=bottleneck_depth,kernel_size=k(3),stride=1,padding=k(3)//2)
-        self._bn2=nn.BatchNorm2d(num_features=bottleneck_depth)
-        self._r2=nn.ReLU()
-        self._c3=nn.Conv2d(in_channels=bottleneck_depth,out_channels=in_channels,kernel_size=1,stride=1)
-        self._bn3=nn.BatchNorm2d(num_features=in_channels)
-        self._r3=nn.ReLU()
-
-
-        self._reduce_rate=4
-        self._SE_linear_squeeze=nn.Linear(in_channels,in_channels//self._reduce_rate)
-        self._SE_linear_exitation=nn.Linear(in_channels//self._reduce_rate,in_channels)
-
-    def forward(self,x):
-
-        skip=x
-        x=self._c1(x)
-        x=self._r1(x)
-        x=self._bn1(x)
-        x=self._c2(x)
-        x=self._r2(x)
-        x=self._bn2(x)
-        x=self._c3(x)
-        x=self._bn3(x)
-        #SE-block
-        global_pooled_x=nn.AdaptiveAvgPool2d(1)(x)
-        global_pooled_x=torch.squeeze(global_pooled_x,dim=-1)
-        global_pooled_x=torch.squeeze(global_pooled_x,dim=-1)
-        squeezed_x=self._SE_linear_squeeze(global_pooled_x)
-        squeezed_x=nn.ReLU()(squeezed_x)
-
-        exitated_x=self._SE_linear_exitation(squeezed_x)
-        scale_x=nn.Sigmoid()(exitated_x)
-        scale_x=scale_x.reshape([-1,self._in_channels,1,1])
-        x=x*scale_x
-
-
-        x=x+skip
-
-        x=self._r3(x)
-        return x
-
-
-
-class SEResNetBlockShakeShake(torch.nn.Module):
-    def __init__(self, in_channels):
-        super().__init__()
-        self._in_channels=in_channels
-        self.out_features=in_channels
-        self._branch1=ResNetBasicBlock(in_channels=in_channels)
-        self._branch2=ResNetBasicBlock(in_channels=in_channels)
-
-        self._r3=nn.ReLU()
-
-
-    def forward(self,input_x):
-
-        skip=input_x
-        x1=self._branch1(input_x)
-
-        x2=self._branch2(input_x)
-
-        x=ShakeShake.apply(x1,x2,self.training)
-        x=x+skip
-        x=self._r3(x)
-        return x
-
-
-
-class SEResNeXtBottleNeckBlock(torch.nn.Module):
-    def __init__(self, in_channels):
-        super().__init__()
-        self._cardinality=64
-        self._in_channels=in_channels
-        bottleneck_depth=in_channels//2
-        self._c1=nn.Conv2d(in_channels=in_channels,out_channels=bottleneck_depth,
-                           kernel_size=1,stride=1)
-        self._bn1=nn.BatchNorm2d(num_features=bottleneck_depth)
-        self._r1=nn.ReLU()
-        self._c2=nn.Conv2d(in_channels=bottleneck_depth,out_channels=bottleneck_depth,
-                           kernel_size=k(3),stride=1,padding=(k(3))//2,groups=self._cardinality)
-        self._bn2=nn.BatchNorm2d(num_features=bottleneck_depth)
-        self._r2=nn.ReLU()
-        self._c3=nn.Conv2d(in_channels=bottleneck_depth,out_channels=in_channels,kernel_size=1,stride=1)
-        self._bn3=nn.BatchNorm2d(num_features=in_channels)
-        self._r3=nn.ReLU()
-
-        self._reduce_rate=4
-        self._SE_linear_squeeze=nn.Linear(in_channels,in_channels//self._reduce_rate)
-        self._SE_linear_exitation=nn.Linear(in_channels//self._reduce_rate,in_channels)
-
-    def forward(self,x):
-
-        skip=x
-        x=self._c1(x)
-        x=self._r1(x)
-        x=self._bn1(x)
-        x=self._c2(x)
-        x=self._r2(x)
-        x=self._bn2(x)
-        x=self._c3(x)
-        x=self._bn3(x)
-        #SE-block
-        global_pooled_x=nn.AdaptiveAvgPool2d(1)(x)
-        global_pooled_x=torch.squeeze(global_pooled_x,dim=-1)
-        global_pooled_x=torch.squeeze(global_pooled_x,dim=-1)
-        squeezed_x=self._SE_linear_squeeze(global_pooled_x)
-        squeezed_x=nn.ReLU()(squeezed_x)
-
-        exitated_x=self._SE_linear_exitation(squeezed_x)
-        scale_x=nn.Sigmoid()(exitated_x)
-        scale_x=scale_x.reshape([-1,self._in_channels,1,1])
-        x=x*scale_x
-
-        _,_,h_skip,w_skip=skip.shape
-        _,_,h_x,w_x=x.shape
-        if w_skip>w_x:
-            x=nn.ReplicationPad2d((w_skip-w_x,0,h_skip-h_x,0))(x)
-        else:
-            if w_skip<w_x:
-                skip=nn.ReplicationPad2d((w_x-w_skip,0,h_x-h_skip,0))(skip)
-        x=x+skip
-
-        x=self._r3(x)
-        return x
 
 
 class Model(ModelBase, torch.nn.Module):
@@ -253,25 +54,22 @@ class Model(ModelBase, torch.nn.Module):
 
         self._classes_list=[]
 
-        self._backbone=pretrainedmodels.se_resnext101_32x4d()
+        self._backbone=pretrainedmodels.se_resnext50_32x4d()
+
+        self._backbone.avg_pool=nn.AdaptiveAvgPool2d(1)
+
+            #se_resnext101_32x4d()
 
     def forward(self,x):
 
         x=self._backbone(x)
-
-        outputs=[]
-        for idx,c in enumerate(self._classes_list):
-            head=getattr(self,'_head_{}'.format(idx))
-            outputs.append(head(x))
+        outputs=torch.split(x,self._classes_list)
         return outputs
 
 
     def compile(self,classes_list,**kwargs):
         self._classes_list=classes_list
-
-        in_features=self._backbone.last_linear.out_features
-        for idx,c in enumerate(classes_list):
-            setattr(self,'_head_{}'.format(idx),torch.nn.Linear(in_features,c))
+        self._backbone.last_linear.out_features=np.sum(self._classes_list)
 
     def fit(self,train_images,train_labels, val_images, val_labels, batch_size,epochs, path_to_model_save, **kwargs):
 
