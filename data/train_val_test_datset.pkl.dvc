@@ -1,26 +1,7 @@
-outs:
-- persist: false
-  md5: e025c5e36ad63c6e67899ed2abedcf38.dir
-  path: data/test_datset
-  metric: false
-  cache: true
-- persist: false
-  md5: bedd8cc795a92f2cc119dbbade701032.dir
-  path: data/train_datset
-  metric: false
-  cache: true
-- persist: false
-  md5: 526381cc9401af7a657565c3cc909069.dir
-  path: data/val_datset
-  metric: false
-  cache: true
-md5: a8e3489a296ad40cb0f6115e6b485202
-wdir: ..
-cmd: /home/user/anaconda3/envs/pytorch/bin/python create_dataset.py
 deps:
 - md5: 13debd3845f98cc0bb47864d1428fa46.dir
   path: data/raw
-- md5: 45b15ac61ecc273d38e6f855f55b56c4
+- md5: ab2d798c8785b7826e988891c9d7ecde
   path: consts.py
 - md5: f13c625632281b8de36fa3ecc6bd7fc8
   path: cosine_lr_show.py
@@ -42,11 +23,11 @@ deps:
   path: main_create_slices_dataset.py
 - md5: 436206c01d966b80b6a3dca33c4d8ac0
   path: make_submission.py
-- md5: 71d21cd556329d3627c639a0633f2fea
+- md5: 97c8531932499be829fa049ddbb8a4bf
   path: model_base.py
 - md5: 460d1d154a827c40c27a2bb058e48d6b
   path: model.py
-- md5: f326789d3a6e37cf8bb56a520a453bb2
+- md5: 22d6f7bbb6539f733ae433c223819a49
   path: model_pytorch.py
 - md5: 80fae2eaf9dbbed1e329a0e39b096d09
   path: model_pytorch_zoo.py
@@ -56,7 +37,26 @@ deps:
   path: score.py
 - md5: d90a7fba6efbc8dce83225f422d5152e
   path: shake_shake_my.py
-- md5: d72147d01cbc609e0cd0abdbfba66208
+- md5: f5ff10a813e14773ee079badc36a0001
   path: train.py
 - md5: ed185b6e5206803a250bcbcf82098125
   path: transform.py
+outs:
+- metric: false
+  md5: c03e4937ded9c810a357d4b7d2160c04.dir
+  persist: false
+  cache: true
+  path: data/test_datset
+- metric: false
+  md5: 220880d5d6c03998643b36d1e65430d6.dir
+  persist: false
+  cache: true
+  path: data/train_datset
+- metric: false
+  md5: 5ecbf1c8ed3808cb5443e58bdcd4ed81.dir
+  persist: false
+  cache: true
+  path: data/val_datset
+md5: 6c484881c63583aee194233446e26725
+cmd: /home/user/anaconda3/envs/pytorch/bin/python create_dataset.py
+wdir: ..
