@@ -54,7 +54,9 @@ class Model(ModelBase, torch.nn.Module):
 
         self._classes_list=[]
 
-        self._backbone=pretrainedmodels.inceptionv4()
+        self._backbone=pretrainedmodels.nasnetalarge(pretrained=False)
+
+            #inceptionv4()
 
 
 
