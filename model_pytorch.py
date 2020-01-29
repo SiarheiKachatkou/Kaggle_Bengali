@@ -54,13 +54,15 @@ class Model(ModelBase, torch.nn.Module):
 
         self._classes_list=[]
 
-        self._backbone=pretrainedmodels.nasnetalarge(pretrained=False)
+        self._backbone=pretrainedmodels.densenet201(pretrained=None)
+
+            #nasnetalarge(pretrained=False)
 
             #inceptionv4()
 
 
 
-        self._backbone.avg_pool=nn.AdaptiveAvgPool2d(1)
+        #self._backbone.avg_pool=nn.AdaptiveAvgPool2d(1)
 
         #se_resnext50_32x4d()
         #se_resnext101_32x4d()
