@@ -54,7 +54,9 @@ class Model(ModelBase, torch.nn.Module):
 
         self._classes_list=[]
 
-        self._backbone=pretrainedmodels.densenet201(pretrained=None)
+        self._backbone=pretrainedmodels.densenet121(pretrained=None)
+
+            #densenet201(pretrained=None)
 
             #nasnetalarge(pretrained=False)
 
