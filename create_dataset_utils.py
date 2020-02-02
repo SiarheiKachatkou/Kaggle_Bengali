@@ -3,15 +3,11 @@ import pickle
 import shutil
 import cv2
 import numpy as np
-from consts import IMG_H, IMG_W
+from consts import IMG_H, IMG_W,TOP_CUT,LEFT_CUT,PAD
 
 def crop_symbol(img):
 
-    top=10
-    left=10
-    pad=16
-
-    img=img[top:-top,left:-left]
+    img=img[TOP_CUT:-TOP_CUT,LEFT_CUT:-LEFT_CUT]
 
     _,bin=cv2.threshold(img,0,255,cv2.THRESH_OTSU)
     black=np.where(bin<100)
@@ -22,7 +18,7 @@ def crop_symbol(img):
     # padding for do not change aspect ratio
     height=bottom-top
     width=right-left
-    max_size=max(height,width)+pad
+    max_size=max(height,width)+PAD
 
     img=np.pad(img,[((max_size-height)//2,),((max_size-width)//2,),(0,)],mode='constant',constant_values=255)
 
