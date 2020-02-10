@@ -74,7 +74,7 @@ class Model(ModelBase, torch.nn.Module):
         self._classes_list=[]
 
         self._backbone=BackBone()
-        self._backbone=nn.DataParallel(self._backbone)
+        #self._backbone=nn.DataParallel(self._backbone)
 
     def forward(self,x):
         x=self._backbone(x)
@@ -87,7 +87,7 @@ class Model(ModelBase, torch.nn.Module):
 
     def fit(self,train_images,train_labels, val_images, val_labels, batch_size,epochs, path_to_model_save, **kwargs):
 
-        torch.distributed.init_process_group(backend='nccl')
+        #torch.distributed.init_process_group(backend='nccl')
 
         self.to(self._device)
 
@@ -105,7 +105,7 @@ class Model(ModelBase, torch.nn.Module):
 
         classes_weights=calc_classes_weights(train_labels,self._classes_list)
 
-        train_sampler = torch.utils.data.distributed.DistributedSampler(train_dataset_aug)
+        train_sampler = None#torch.utils.data.distributed.DistributedSampler(train_dataset_aug)
 
         train_dataloader=DataLoader(train_dataset_aug, batch_size=BATCH_SIZE, shuffle=False, sampler=train_sampler,
            batch_sampler=None, num_workers=0, collate_fn=None,
