@@ -130,6 +130,7 @@ class Model(ModelBase, torch.nn.Module):
                                                              cooldown=0, min_lr=1e-6, eps=1e-08)
         start_time=datetime.now()
         for epoch in tqdm(range(EPOCHS)):
+            tf.logging.info('epoch {}/{}'.format(epoch+1,EPOCHS))
             for i, data in enumerate(train_dataloader):
 
                 images,labels=data['image'],data['label']
@@ -158,7 +159,7 @@ class Model(ModelBase, torch.nn.Module):
                         val_score=self._eval(val_dataloader)
                         tf.logging.info('loss={} train_score={} val_score={}'.format(loss.item(),train_score,val_score))
                         time=(datetime.now()-start_time).seconds
-                        tf.logging.info('iter/secs={}'.format(self._print_every_iter/time))
+                        tf.logging.info('iter/secs={}   lr={}'.format(self._print_every_iter/time,scheduler.get_last_lr()))
                         start_time=datetime.now()
 
                     self.train()
