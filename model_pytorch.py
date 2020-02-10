@@ -89,6 +89,8 @@ class Model(ModelBase, torch.nn.Module):
 
         self.to(self._device)
 
+        tf.logging.info("Let's use {} GPUs!".format(torch.cuda.device_count))
+
         aug=get_augmentations()
         def aug_fn(img):
             if FAST_PROTO_SCALE!=1:
@@ -101,11 +103,7 @@ class Model(ModelBase, torch.nn.Module):
 
         classes_weights=calc_classes_weights(train_labels,self._classes_list)
 
-        if USE_FREQ_SAMPLING:
-            train_samples_weight=[classes_weights[0][l[0]] for l in train_labels]
-            train_sampler=WeightedRandomSampler(train_samples_weight, num_samples=len(train_samples_weight), replacement=True)
-        else:
-            train_sampler=None
+        train_sampler = torch.utils.data.distributed.DistributedSampler(train_dataset_aug)
 
         train_dataloader=DataLoader(train_dataset_aug, batch_size=BATCH_SIZE, shuffle=False, sampler=train_sampler,
            batch_sampler=None, num_workers=0, collate_fn=None,
