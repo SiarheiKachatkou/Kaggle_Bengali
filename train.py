@@ -64,10 +64,10 @@ def main():
     acc=[np.equal(val_pred,val_label) for val_pred,val_label in zip(val_preds,val_labels)]
     acc=np.array(acc,dtype=np.float32)
     acc=np.mean(acc,axis=0)
-    print('validation accuracy = {}'.format(acc))
+    tf.logging.info('validation accuracy = {}'.format(acc))
 
     score=calc_score(solution=val_preds,submission=val_labels)
-    print('score={}'.format(score))
+    tf.logging.info('score={}'.format(score))
 
     def save_fn(path):
         with open(path,'wt') as file:

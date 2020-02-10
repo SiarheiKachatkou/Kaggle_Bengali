@@ -156,9 +156,9 @@ class Model(ModelBase, torch.nn.Module):
                     with torch.no_grad():
                         train_score=self._eval(train_val_dataloader)
                         val_score=self._eval(val_dataloader)
-                        tf.logger.info('loss={} train_score={} val_score={}'.format(loss.item(),train_score,val_score))
+                        tf.logging.info('loss={} train_score={} val_score={}'.format(loss.item(),train_score,val_score))
                         time=(datetime.now()-start_time).seconds
-                        tf.logger.info('iter/secs={}'.format(self._print_every_iter/time))
+                        tf.logging.info('iter/secs={}'.format(self._print_every_iter/time))
                         start_time=datetime.now()
 
                     self.train()
