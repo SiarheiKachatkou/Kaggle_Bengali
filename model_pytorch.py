@@ -1,4 +1,6 @@
 import torch
+import tensorflow as tf
+from datetime import datetime
 import torchvision
 import numpy as np
 import cv2
@@ -15,7 +17,7 @@ from .score import calc_score
 from .dataset_pytorch import BengaliDataset
 from .shake_shake_my import ShakeShake
 from .consts import IMG_W,IMG_H,N_CHANNELS, BATCH_SIZE, LR, EPOCHS, AUGM_PROB,FAST_PROTO_SCALE, \
-    DROPOUT_P, LOSS_WEIGHTS, LR_SCHEDULER_PATINCE,USE_FREQ_SAMPLING
+    DROPOUT_P, LOSS_WEIGHTS, LR_SCHEDULER_PATINCE,USE_FREQ_SAMPLING,CLASSES_LIST
 from .loss import calc_classes_weights, RecallScore
 from .save_to_maybe_gs import save
 
@@ -37,6 +39,22 @@ def get_augmentations():
                       A.ElasticTransform(alpha=60,sigma=15,alpha_affine=20,border_mode=cv2.BORDER_CONSTANT,value=255,p=1.0),
                       ],p=AUGM_PROB)
 
+class BackBone(nn.Module):
+    def __init__(self):
+        super().__init__(self)
+        self._backbone=pretrainedmodels.resnet152(pretrained=None)
+        in_features=self._backbone.last_linear.in_features
+        self._last_linear=nn.Linear(in_features=in_features,out_features=np.sum(CLASSES_LIST),bias=True)
+
+    def forward(self, x):
+        x=self._backbone.features(x)
+        x=torch.nn.AdaptiveAvgPool2d(1)(x)
+        x=torch.squeeze(x,dim=-1)
+        x=torch.squeeze(x,dim=-1)
+        x=self._last_linear(x)
+        return x;
+
+
 
 
 class Model(ModelBase, torch.nn.Module):
@@ -55,23 +73,17 @@ class Model(ModelBase, torch.nn.Module):
 
         self._classes_list=[]
 
-        self._backbone=pretrainedmodels.resnet152(pretrained=None)
-        self._backbone=nn.DataParallel(self._backbone)
+        self._backbone=BackBone()
+        #self._backbone=nn.DataParallel(self._backbone)
 
     def forward(self,x):
-
-        x=self._backbone.features(x)
-        x=torch.nn.AdaptiveAvgPool2d(1)(x)
-        x=torch.squeeze(x,dim=-1)
-        x=torch.squeeze(x,dim=-1)
-        x=self._last_linear(x)
+        x=self._backbone(x)
         outputs=torch.split(x,self._classes_list,dim=1)
         return outputs
 
     def compile(self,classes_list,**kwargs):
         self._classes_list=classes_list
-        in_features=self._backbone.last_linear.in_features
-        self._last_linear=nn.Linear(in_features=in_features,out_features=np.sum(self._classes_list),bias=True)
+
 
     def fit(self,train_images,train_labels, val_images, val_labels, batch_size,epochs, path_to_model_save, **kwargs):
 
@@ -116,7 +128,7 @@ class Model(ModelBase, torch.nn.Module):
         scheduler=torch.optim.lr_scheduler.ReduceLROnPlateau(optimizer, mode='min', factor=0.5, patience=LR_SCHEDULER_PATINCE, verbose=True,
                                                              threshold=0.0001, threshold_mode='abs',
                                                              cooldown=0, min_lr=1e-6, eps=1e-08)
-
+        start_time=datetime.now()
         for epoch in tqdm(range(EPOCHS)):
             for i, data in enumerate(train_dataloader):
 
@@ -144,7 +156,10 @@ class Model(ModelBase, torch.nn.Module):
                     with torch.no_grad():
                         train_score=self._eval(train_val_dataloader)
                         val_score=self._eval(val_dataloader)
-                        print('loss={} train_score={} val_score={}'.format(loss.item(),train_score,val_score))
+                        tf.logger.info('loss={} train_score={} val_score={}'.format(loss.item(),train_score,val_score))
+                        time=(datetime.now()-start_time).seconds
+                        tf.logger.info('iter/secs={}'.format(self._print_every_iter/time))
+                        start_time=datetime.now()
 
                     self.train()
                     scheduler.step(1-val_score)

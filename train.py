@@ -17,6 +17,7 @@ def parse_args():
     parser.add_argument('--train_bin_files_dir',type=str,help=' train binary files in gs or local')
     parser.add_argument('--test_bin_files_dir',type=str,help=' test binary files in gs or local')
     parser.add_argument('--job-dir',type=str,default=ARTIFACTS_DIR,help=' directory for chekpoints and metric saving, is google storage directory for running in cloud')
+    parser.add_argument('--verbosity',choices=['DEBUG', 'ERROR', 'FATAL', 'INFO', 'WARN'],default='INFO')
     args=parser.parse_args()
     return args
 
@@ -24,6 +25,8 @@ def parse_args():
 def main():
 
     args=parse_args()
+
+    tf.logging.set_verbosity(args.verbosity)
 
     local_train_dir=download_dir_from_gcs(args.train_bin_files_dir,DATA_DIR)
     local_test_dir=download_dir_from_gcs(args.test_bin_files_dir,DATA_DIR)
