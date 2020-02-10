@@ -17,7 +17,7 @@ from .shake_shake_my import ShakeShake
 from .consts import IMG_W,IMG_H,N_CHANNELS, BATCH_SIZE, LR, EPOCHS, AUGM_PROB,FAST_PROTO_SCALE, \
     DROPOUT_P, LOSS_WEIGHTS, LR_SCHEDULER_PATINCE,USE_FREQ_SAMPLING
 from .loss import calc_classes_weights, RecallScore
-
+from .save_to_maybe_gs import save
 
 def k(kernel_size):
     return kernel_size
@@ -161,7 +161,7 @@ class Model(ModelBase, torch.nn.Module):
                         print('loss={} train_score={} val_score={}'.format(loss.item(),train_score,val_score))
                     self.train()
                     scheduler.step(1-val_score)
-            self.save(path_to_model_save)
+            save(self.save,path_to_model_save)
 
 
 

@@ -7,6 +7,8 @@ from .create_dataset_utils import load
 from .score import calc_score
 from .consts import MODELS_PRETRAINED_DIR, DATA_DIR,MODEL_NAME,BATCH_SIZE,EPOCHS, TRAIN_DATASET_DIR, VAL_DATASET_DIR, MODELS_DIR, METRIC_FILE_PATH,ARTIFACTS_DIR
 from ..dataset_utils import download_dir_from_gcs
+from .save_to_maybe_gs import save
+
 debug_regime=False
 
 def parse_args():
@@ -18,14 +20,6 @@ def parse_args():
     args=parser.parse_args()
     return args
 
-def save(save_fn, dst_path_may_be_gs):
-    tmp_name='tmp'
-    save_fn(tmp_name)
-    if dst_path_may_be_gs.startswith('gs:'):
-        subprocess.check_call(
-              ['gsutil',  'cp', tmp_name, dst_path_may_be_gs])
-    else:
-        os.rename(tmp_name, dst_path_may_be_gs)
 
 def main():
 
@@ -60,8 +54,6 @@ def main():
         model_pretrained_filepath=os.path.join(args.job_dir,args.ckpt_name)
         model.load(model_pretrained_filepath, classes)
     model.fit(train_images,train_labels, val_images,val_labels,path_to_model_save=model_filepath,batch_size=BATCH_SIZE,epochs=EPOCHS)
-
-    save(model.save,model_filepath)
 
     model.eval()
     val_preds=model.predict( val_images)
