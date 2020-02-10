@@ -159,7 +159,7 @@ class Model(ModelBase, torch.nn.Module):
                         val_score=self._eval(val_dataloader)
                         tf.logging.info('loss={} train_score={} val_score={}'.format(loss.item(),train_score,val_score))
                         time=(datetime.now()-start_time).seconds
-                        tf.logging.info('iter/secs={}   lr={}'.format(self._print_every_iter/time,scheduler.get_last_lr()))
+                        tf.logging.info('iter/secs={}   lr={}'.format(self._print_every_iter/time,optimizer.param_groups[0]['lr']))
                         start_time=datetime.now()
 
                     self.train()
