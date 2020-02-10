@@ -74,7 +74,7 @@ class Model(ModelBase, torch.nn.Module):
         self._classes_list=[]
 
         self._backbone=BackBone()
-        #self._backbone=nn.DataParallel(self._backbone)
+        self._backbone=nn.DataParallel(self._backbone)
 
     def forward(self,x):
         x=self._backbone(x)
