@@ -1,22 +1,23 @@
 import torch
 import torchvision
 import numpy as np
+import cv2
 from tqdm import tqdm
-from model_base import ModelBase
-from score import calc_score
-from dataset_pytorch import BengaliDataset
 from torch.utils.data import DataLoader
 import torch.nn as nn
 import torch.optim as optim
 import torch.nn.functional as F
 import albumentations as A
 import pretrainedmodels
-from shake_shake_my import ShakeShake
-import cv2
-from consts import IMG_W,IMG_H,N_CHANNELS, BATCH_SIZE, LR, EPOCHS, AUGM_PROB,FAST_PROTO_SCALE, \
-    DROPOUT_P, LOSS_WEIGHTS, LR_SCHEDULER_PATINCE,USE_FREQ_SAMPLING
-from loss import calc_classes_weights, RecallScore
 from torch.utils.data import WeightedRandomSampler
+from .model_base import ModelBase
+from .score import calc_score
+from .dataset_pytorch import BengaliDataset
+from .shake_shake_my import ShakeShake
+from .consts import IMG_W,IMG_H,N_CHANNELS, BATCH_SIZE, LR, EPOCHS, AUGM_PROB,FAST_PROTO_SCALE, \
+    DROPOUT_P, LOSS_WEIGHTS, LR_SCHEDULER_PATINCE,USE_FREQ_SAMPLING
+from .loss import calc_classes_weights, RecallScore
+
 
 def k(kernel_size):
     return kernel_size

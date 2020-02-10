@@ -1,4 +1,6 @@
 
+
+ARTIFACTS_DIR='artifacts'
 DATA_DIR='data'
 RAW_DIR='raw'
 MODELS_DIR='models'
@@ -45,8 +47,6 @@ FAST_PROTO_SCALE=1
 SEED=0
 
 TARGETS=['grapheme_root','vowel_diacritic','consonant_diacritic']
-
-MODEL='model_pytorch'  #'model_tf'
 
 try:
     import torch
