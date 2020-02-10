@@ -2,6 +2,7 @@ import os
 import numpy as np
 import argparse
 import subprocess
+import tensorflow as tf
 from .model_pytorch import Model
 from .create_dataset_utils import load
 from .score import calc_score
