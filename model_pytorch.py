@@ -87,9 +87,11 @@ class Model(ModelBase, torch.nn.Module):
 
     def fit(self,train_images,train_labels, val_images, val_labels, batch_size,epochs, path_to_model_save, **kwargs):
 
+        torch.distributed.init_process_group(backend='nccl', init_method=None, timeout=datetime.timedelta(0, 1800), world_size=-1, rank=-1, store=None, group_name='')
+
         self.to(self._device)
 
-        tf.logging.info("Let's use {} GPUs!".format(torch.cuda.device_count))
+        tf.logging.info("Let's use {} GPUs!".format(torch.cuda.device_count()))
 
         aug=get_augmentations()
         def aug_fn(img):
