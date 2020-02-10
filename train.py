@@ -48,7 +48,7 @@ def main():
     print('{} val images loaded'.format(len(val_images)))
 
     model_dir=os.path.join(args.job_dir,MODELS_DIR)
-    if not os.path.exists(model_dir):
+    if (not model_dir.startswith('gs')) and (not os.path.exists(model_dir)):
         os.mkdir(model_dir)
     model_filepath=os.path.join(model_dir,MODEL_NAME)
 
