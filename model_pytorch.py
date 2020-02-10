@@ -48,29 +48,15 @@ class Model(ModelBase, torch.nn.Module):
         torch.nn.Module.__init__(self)
         ModelBase.__init__(self)
 
-        self._device = torch.device("cuda:0")
+        self._device = torch.device("cuda")
         self._layers=[]
         self._print_every_iter=2000
         self._eval_batches=100
 
         self._classes_list=[]
 
-        self._backbone=pretrainedmodels.pnasnet5large(pretrained=None)
-
-            #densenet121(pretrained=None) -best
-
-            #densenet201(pretrained=None)
-
-            #nasnetalarge(pretrained=False)
-
-            #inceptionv4()
-
-
-
-        #self._backbone.avg_pool=nn.AdaptiveAvgPool2d(1)
-
-        #se_resnext50_32x4d()
-        #se_resnext101_32x4d()
+        self._backbone=pretrainedmodels.resnet152(pretrained=None)
+        self._backbone=nn.DataParallel(self._backbone)
 
     def forward(self,x):
 
@@ -159,6 +145,7 @@ class Model(ModelBase, torch.nn.Module):
                         train_score=self._eval(train_val_dataloader)
                         val_score=self._eval(val_dataloader)
                         print('loss={} train_score={} val_score={}'.format(loss.item(),train_score,val_score))
+
                     self.train()
                     scheduler.step(1-val_score)
             save(self.save,path_to_model_save)
