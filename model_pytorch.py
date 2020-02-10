@@ -55,22 +55,37 @@ class Model(ModelBase, torch.nn.Module):
 
         self._classes_list=[]
 
-        self._backbone=pretrainedmodels.se_resnext50_32x4d()
+        self._backbone=pretrainedmodels.pnasnet5large(pretrained=None)
 
-        self._backbone.avg_pool=nn.AdaptiveAvgPool2d(1)
+            #densenet121(pretrained=None) -best
 
-            #se_resnext101_32x4d()
+            #densenet201(pretrained=None)
+
+            #nasnetalarge(pretrained=False)
+
+            #inceptionv4()
+
+
+
+        #self._backbone.avg_pool=nn.AdaptiveAvgPool2d(1)
+
+        #se_resnext50_32x4d()
+        #se_resnext101_32x4d()
 
     def forward(self,x):
 
-        x=self._backbone(x)
-        outputs=torch.split(x,self._classes_list)
+        x=self._backbone.features(x)
+        x=torch.nn.AdaptiveAvgPool2d(1)(x)
+        x=torch.squeeze(x,dim=-1)
+        x=torch.squeeze(x,dim=-1)
+        x=self._last_linear(x)
+        outputs=torch.split(x,self._classes_list,dim=1)
         return outputs
-
 
     def compile(self,classes_list,**kwargs):
         self._classes_list=classes_list
-        self._backbone.last_linear.out_features=np.sum(self._classes_list)
+        in_features=self._backbone.last_linear.in_features
+        self._last_linear=nn.Linear(in_features=in_features,out_features=np.sum(self._classes_list),bias=True)
 
     def fit(self,train_images,train_labels, val_images, val_labels, batch_size,epochs, path_to_model_save, **kwargs):
 
