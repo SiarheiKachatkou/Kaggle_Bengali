@@ -11,10 +11,10 @@ debug_regime=False
 
 def parse_args():
     parser=argparse.ArgumentParser()
-    parser.add_argument('--fine_tune',type=int,default=0)
+    parser.add_argument('--ckpt_name',type=str,default='')
     parser.add_argument('--train_bin_files_dir',type=str,help=' train binary files in gs or local')
     parser.add_argument('--test_bin_files_dir',type=str,help=' test binary files in gs or local')
-    parser.add_argument('--artifacts_dir',type=str,default=ARTIFACTS_DIR,help=' directory for chekpoints and metric saving, is google storage directory for running in cloud')
+    parser.add_argument('--job-dir',type=str,default=ARTIFACTS_DIR,help=' directory for chekpoints and metric saving, is google storage directory for running in cloud')
     args=parser.parse_args()
     return args
 
@@ -47,7 +47,7 @@ def main():
     print('{} train images loaded'.format(len(train_images)))
     print('{} val images loaded'.format(len(val_images)))
 
-    model_dir=os.path.join(args.artifacts_dir,MODELS_DIR)
+    model_dir=os.path.join(args.job_dir,MODELS_DIR)
     if not os.path.exists(model_dir):
         os.mkdir(model_dir)
     model_filepath=os.path.join(model_dir,MODEL_NAME)
@@ -56,8 +56,8 @@ def main():
     model=Model()
 
     model.compile(classes_list=classes)
-    if args.fine_tune!=0:
-        model_pretrained_filepath=os.path.join(args.artifacts_dir,MODELS_PRETRAINED_DIR,MODEL_NAME)
+    if not (args.ckpt_name==''):
+        model_pretrained_filepath=os.path.join(args.job_dir,args.ckpt_name)
         model.load(model_pretrained_filepath, classes)
     model.fit(train_images,train_labels, val_images,val_labels,path_to_model_save=model_filepath,batch_size=BATCH_SIZE,epochs=EPOCHS)
 
@@ -77,7 +77,7 @@ def main():
         with open(path,'wt') as file:
             file.write(str(score))
 
-    save(save_fn,os.path.join(args.artifacts_dir,METRIC_FILE_PATH))
+    save(save_fn,os.path.join(args.job_dir,METRIC_FILE_PATH))
 
 if __name__ == "__main__":
     main()
