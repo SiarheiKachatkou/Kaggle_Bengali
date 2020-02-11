@@ -14,7 +14,7 @@ debug_regime=False
 
 def parse_args():
     parser=argparse.ArgumentParser()
-    parser.add_argument('--ckpt_name',type=str,default='')
+    parser.add_argument('--ckpt_full_path',type=str,default='',help='if non empty model will be restored from ckpt state and continue training, path maye be in gs')
     parser.add_argument('--train_bin_files_dir',type=str,help=' train binary files in gs or local')
     parser.add_argument('--test_bin_files_dir',type=str,help=' test binary files in gs or local')
     parser.add_argument('--job-dir',type=str,default=ARTIFACTS_DIR,help=' directory for chekpoints and metric saving, is google storage directory for running in cloud')
@@ -54,8 +54,8 @@ def main():
     model=Model()
 
     model.compile(classes_list=classes)
-    if not (args.ckpt_name==''):
-        model_pretrained_filepath=os.path.join(args.job_dir,args.ckpt_name)
+    if not (args.ckpt_full_path==''):
+        model_pretrained_filepath=download_dir_from_gcs(args.ckpt_full_path,model_filepath)
         model.load(model_pretrained_filepath, classes)
     model.fit(train_images,train_labels, val_images,val_labels,path_to_model_save=model_filepath,batch_size=BATCH_SIZE,epochs=EPOCHS)
 
