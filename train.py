@@ -7,7 +7,7 @@ from .model_pytorch import Model
 from .create_dataset_utils import load
 from .score import calc_score
 from .consts import MODELS_PRETRAINED_DIR, DATA_DIR,MODEL_NAME,BATCH_SIZE,EPOCHS, TRAIN_DATASET_DIR, VAL_DATASET_DIR, MODELS_DIR, METRIC_FILE_PATH,ARTIFACTS_DIR
-from ..dataset_utils import download_dir_from_gcs
+from ..dataset_utils import download_dir_from_gcs, download_file_from_gcs
 from .save_to_maybe_gs import save
 
 debug_regime=False
@@ -55,7 +55,7 @@ def main():
 
     model.compile(classes_list=classes)
     if not (args.ckpt_full_path==''):
-        model_pretrained_filepath=download_dir_from_gcs(args.ckpt_full_path,model_filepath)
+        model_pretrained_filepath=download_file_from_gcs(args.ckpt_full_path,model_filepath)
         model.load(model_pretrained_filepath, classes)
     model.fit(train_images,train_labels, val_images,val_labels,path_to_model_save=model_filepath,batch_size=BATCH_SIZE,epochs=EPOCHS)
 
