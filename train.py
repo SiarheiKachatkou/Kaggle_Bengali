@@ -55,7 +55,7 @@ def main():
 
     model.compile(classes_list=classes)
     if not (args.ckpt_full_path==''):
-        model_pretrained_filepath=download_file_from_gcs(args.ckpt_full_path,model_filepath)
+        model_pretrained_filepath=download_file_from_gcs(args.ckpt_full_path,'starting_ckpt')
         model.load(model_pretrained_filepath, classes)
     model.fit(train_images,train_labels, val_images,val_labels,path_to_model_save=model_filepath,batch_size=BATCH_SIZE,epochs=EPOCHS)
 
