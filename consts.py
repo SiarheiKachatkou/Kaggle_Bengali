@@ -1,5 +1,6 @@
 import logging
 import os
+
 ARTIFACTS_DIR='artifacts'
 DATA_DIR='data'
 RAW_DIR='raw'
