@@ -1,7 +1,7 @@
 import os
 import numpy as np
 import argparse
-import logging
+from .local_logging import get_logger
 import subprocess
 import tensorflow as tf
 from .model_pytorch import Model
@@ -29,17 +29,10 @@ def parse_args():
 def main():
 
     args=parse_args()
+    logger=get_logger(__name__)
 
-    fh=logging.FileHandler(LOG_FILENAME)
-    fh.setLevel(LOG_LEVEL)
-    sh=logging.StreamHandler()
-    sh.setLevel(LOG_LEVEL)
-    logger=logging.getLogger(__name__)
-    logger.addHandler(fh)
-    logger.addHandler(sh)
-
-    local_train_dir=download_dir_from_gcs(args.train_bin_files_dir,DATA_DIR)
-    local_test_dir=download_dir_from_gcs(args.test_bin_files_dir,DATA_DIR)
+    local_train_dir=download_dir_from_gcs(args.train_bin_files_dir,os.path.join(DATA_DIR,TRAIN_DATASET_DIR))
+    local_test_dir=download_dir_from_gcs(args.test_bin_files_dir,os.path.join(DATA_DIR,TRAIN_DATASET_DIR))
 
     train_images, train_labels, _, classes = load(local_train_dir)
     val_images, val_labels, _, _  = load(local_test_dir)

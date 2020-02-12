@@ -2,7 +2,6 @@ import torch
 from datetime import datetime
 import torchvision
 import shutil
-import logging
 import numpy as np
 import cv2
 from tqdm import tqdm
@@ -18,8 +17,9 @@ from .consts import IMG_W,IMG_H,N_CHANNELS, BATCH_SIZE, LR, EPOCHS, AUGM_PROB,FA
     DROPOUT_P, LOSS_WEIGHTS, LR_SCHEDULER_PATINCE,USE_FREQ_SAMPLING,CLASSES_LIST, LOG_FILENAME
 from .loss import calc_classes_weights, RecallScore
 from .save_to_maybe_gs import save
+from ..local_logging import get_logger
 
-logger=logging.getLogger(__name__)
+logger=get_logger(__name__)
 
 def k(kernel_size):
     return kernel_size
