@@ -42,7 +42,7 @@ def get_augmentations():
 class BackBone(nn.Module):
     def __init__(self):
         super().__init__()
-        self._backbone=pretrainedmodels.resnet152(pretrained=None)
+        self._backbone=pretrainedmodels.resnet50(pretrained=None)
         in_features=self._backbone.last_linear.in_features
         self._last_linear=nn.Linear(in_features=in_features,out_features=np.sum(CLASSES_LIST),bias=True)
 
