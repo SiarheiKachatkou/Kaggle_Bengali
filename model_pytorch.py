@@ -18,7 +18,7 @@ from .consts import IMG_W,IMG_H,N_CHANNELS, BATCH_SIZE, LR, EPOCHS, AUGM_PROB,FA
 from .loss import calc_classes_weights, RecallScore
 from .save_to_maybe_gs import save
 from ..local_logging import get_logger
-from .resnet import resnet152
+from .resnet import resnet50
 
 logger=get_logger(__name__)
 
@@ -44,7 +44,7 @@ def get_augmentations():
 class BackBone(nn.Module):
     def __init__(self):
         super().__init__()
-        self._backbone=resnet152(pretrained=None)
+        self._backbone=resnet50(pretrained=None)
         in_features=self._backbone.fc.in_features
         self._backbone.fc=nn.Linear(in_features=in_features,out_features=np.sum(CLASSES_LIST),bias=True)
 
