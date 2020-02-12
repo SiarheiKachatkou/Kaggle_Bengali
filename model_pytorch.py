@@ -1,6 +1,7 @@
 import torch
 from datetime import datetime
 import torchvision
+import shutil
 import logging
 import numpy as np
 import cv2

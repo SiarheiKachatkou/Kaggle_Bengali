@@ -7,7 +7,9 @@ import tensorflow as tf
 from .model_pytorch import Model
 from .create_dataset_utils import load
 from .score import calc_score
-from .consts import MODELS_PRETRAINED_DIR, DATA_DIR,MODEL_NAME,BATCH_SIZE,EPOCHS, TRAIN_DATASET_DIR, VAL_DATASET_DIR, MODELS_DIR, METRIC_FILE_PATH,ARTIFACTS_DIR, LOG_FILENAME
+from .consts import MODELS_PRETRAINED_DIR, DATA_DIR,MODEL_NAME,BATCH_SIZE,EPOCHS, \
+    TRAIN_DATASET_DIR, VAL_DATASET_DIR, MODELS_DIR, METRIC_FILE_PATH,ARTIFACTS_DIR, LOG_FILENAME, LOG_LEVEL
+
 from ..dataset_utils import download_dir_from_gcs, download_file_from_gcs
 from .save_to_maybe_gs import save
 
@@ -29,7 +31,9 @@ def main():
     args=parse_args()
 
     fh=logging.FileHandler(LOG_FILENAME)
-    sh=logging.StreamHandler(logging.INFO)
+    fh.setLevel(LOG_LEVEL)
+    sh=logging.StreamHandler()
+    sh.setLevel(LOG_LEVEL)
     logger=logging.getLogger(__name__)
     logger.addHandler(fh)
     logger.addHandler(sh)
