@@ -1,25 +1,24 @@
 import torch
-import tensorflow as tf
 from datetime import datetime
 import torchvision
+import logging
 import numpy as np
 import cv2
 from tqdm import tqdm
 from torch.utils.data import DataLoader
 import torch.nn as nn
 import torch.optim as optim
-import torch.nn.functional as F
 import albumentations as A
 import pretrainedmodels
-from torch.utils.data import WeightedRandomSampler
 from .model_base import ModelBase
 from .score import calc_score
 from .dataset_pytorch import BengaliDataset
-from .shake_shake_my import ShakeShake
 from .consts import IMG_W,IMG_H,N_CHANNELS, BATCH_SIZE, LR, EPOCHS, AUGM_PROB,FAST_PROTO_SCALE, \
-    DROPOUT_P, LOSS_WEIGHTS, LR_SCHEDULER_PATINCE,USE_FREQ_SAMPLING,CLASSES_LIST
+    DROPOUT_P, LOSS_WEIGHTS, LR_SCHEDULER_PATINCE,USE_FREQ_SAMPLING,CLASSES_LIST, LOG_FILENAME
 from .loss import calc_classes_weights, RecallScore
 from .save_to_maybe_gs import save
+
+logger=logging.getLogger(__name__)
 
 def k(kernel_size):
     return kernel_size
@@ -87,11 +86,9 @@ class Model(ModelBase, torch.nn.Module):
 
     def fit(self,train_images,train_labels, val_images, val_labels, batch_size,epochs, path_to_model_save, **kwargs):
 
-        #torch.distributed.init_process_group(backend='nccl')
-
         self.to(self._device)
 
-        tf.logging.info("Let's use {} GPUs!".format(torch.cuda.device_count()))
+        logger.info("Let's use {} GPUs!".format(torch.cuda.device_count()))
 
         aug=get_augmentations()
         def aug_fn(img):
@@ -105,7 +102,7 @@ class Model(ModelBase, torch.nn.Module):
 
         classes_weights=calc_classes_weights(train_labels,self._classes_list)
 
-        train_sampler = None#torch.utils.data.distributed.DistributedSampler(train_dataset_aug)
+        train_sampler = None
 
         train_dataloader=DataLoader(train_dataset_aug, batch_size=BATCH_SIZE, shuffle=False, sampler=train_sampler,
            batch_sampler=None, num_workers=0, collate_fn=None,
@@ -130,7 +127,7 @@ class Model(ModelBase, torch.nn.Module):
                                                              cooldown=0, min_lr=1e-6, eps=1e-08)
         start_time=datetime.now()
         for epoch in tqdm(range(EPOCHS)):
-            tf.logging.info('epoch {}/{}'.format(epoch+1,EPOCHS))
+            logger.info('epoch {}/{}'.format(epoch+1,EPOCHS))
             for i, data in enumerate(train_dataloader):
 
                 images,labels=data['image'],data['label']
@@ -157,14 +154,19 @@ class Model(ModelBase, torch.nn.Module):
                     with torch.no_grad():
                         train_score=self._eval(train_val_dataloader)
                         val_score=self._eval(val_dataloader)
-                        tf.logging.info('loss={} train_score={} val_score={}'.format(loss.item(),train_score,val_score))
+                        logger.info('loss={} train_score={} val_score={}'.format(loss.item(),train_score,val_score))
                         time=(datetime.now()-start_time).seconds
                         if i!=0:
-                            tf.logging.info('iter/secs={}   lr={}'.format(self._print_every_iter/time,optimizer.param_groups[0]['lr']))
+                            logger.info('iter/secs={}   lr={}'.format(self._print_every_iter/time,optimizer.param_groups[0]['lr']))
                         start_time=datetime.now()
 
                     self.train()
                     scheduler.step(1-val_score)
+
+            def copy_log_file(dst_path):
+                shutil.copyfile(LOG_FILENAME,dst_path)
+
+            save(copy_log_file, path_to_model_save+'_log.txt')
             save(self.save,path_to_model_save)
 
 

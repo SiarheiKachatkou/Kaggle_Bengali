@@ -1,12 +1,13 @@
 import os
 import numpy as np
 import argparse
+import logging
 import subprocess
 import tensorflow as tf
 from .model_pytorch import Model
 from .create_dataset_utils import load
 from .score import calc_score
-from .consts import MODELS_PRETRAINED_DIR, DATA_DIR,MODEL_NAME,BATCH_SIZE,EPOCHS, TRAIN_DATASET_DIR, VAL_DATASET_DIR, MODELS_DIR, METRIC_FILE_PATH,ARTIFACTS_DIR
+from .consts import MODELS_PRETRAINED_DIR, DATA_DIR,MODEL_NAME,BATCH_SIZE,EPOCHS, TRAIN_DATASET_DIR, VAL_DATASET_DIR, MODELS_DIR, METRIC_FILE_PATH,ARTIFACTS_DIR, LOG_FILENAME
 from ..dataset_utils import download_dir_from_gcs, download_file_from_gcs
 from .save_to_maybe_gs import save
 
@@ -27,7 +28,11 @@ def main():
 
     args=parse_args()
 
-    tf.logging.set_verbosity(args.verbosity)
+    fh=logging.FileHandler(LOG_FILENAME)
+    sh=logging.StreamHandler(logging.INFO)
+    logger=logging.getLogger(__name__)
+    logger.addHandler(fh)
+    logger.addHandler(sh)
 
     local_train_dir=download_dir_from_gcs(args.train_bin_files_dir,DATA_DIR)
     local_test_dir=download_dir_from_gcs(args.test_bin_files_dir,DATA_DIR)
@@ -42,8 +47,8 @@ def main():
         val_images=val_images[:max_samples]
         val_labels=val_labels[:max_samples]
 
-    print('{} train images loaded'.format(len(train_images)))
-    print('{} val images loaded'.format(len(val_images)))
+    logger.info('{} train images loaded'.format(len(train_images)))
+    logger.info('{} val images loaded'.format(len(val_images)))
 
     model_dir=os.path.join(args.job_dir,MODELS_DIR)
     if (not model_dir.startswith('gs')) and (not os.path.exists(model_dir)):
@@ -64,16 +69,17 @@ def main():
     acc=[np.equal(val_pred,val_label) for val_pred,val_label in zip(val_preds,val_labels)]
     acc=np.array(acc,dtype=np.float32)
     acc=np.mean(acc,axis=0)
-    tf.logging.info('validation accuracy = {}'.format(acc))
+    logger.info('validation accuracy = {}'.format(acc))
 
     score=calc_score(solution=val_preds,submission=val_labels)
-    tf.logging.info('score={}'.format(score))
+    logger.info('score={}'.format(score))
 
     def save_fn(path):
         with open(path,'wt') as file:
             file.write(str(score))
 
     save(save_fn,os.path.join(args.job_dir,METRIC_FILE_PATH))
+
 
 if __name__ == "__main__":
     main()

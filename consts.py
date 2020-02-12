@@ -1,5 +1,5 @@
-
-
+import logging
+import os
 ARTIFACTS_DIR='artifacts'
 DATA_DIR='data'
 RAW_DIR='raw'
@@ -8,6 +8,10 @@ MODELS_PRETRAINED_DIR='models_pretrained'
 SUBMISSION_DIR = 'submissions'
 SUBMISSION_CSV = 'submission.csv'
 SAMPLE_SUBMISSION_CSV = 'sample_submission.csv'
+
+LOG_FILENAME=os.path.join(os.path.dirname(__file__),'training_log.txt')
+
+LOG_LEVEL=logging.INFO
 
 METRIC_FILE_PATH='metric.txt'
 
