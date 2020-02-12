@@ -68,7 +68,7 @@ class Model(ModelBase, torch.nn.Module):
 
         self._device = torch.device("cuda")
         self._layers=[]
-        self._print_every_iter=2000
+        self._print_every_iter=(140000//BATCH_SIZE)//3
         self._eval_batches=100
 
         self._classes_list=[]
@@ -126,9 +126,10 @@ class Model(ModelBase, torch.nn.Module):
         scheduler=torch.optim.lr_scheduler.ReduceLROnPlateau(optimizer, mode='min', factor=0.5, patience=LR_SCHEDULER_PATINCE, verbose=True,
                                                              threshold=0.0001, threshold_mode='abs',
                                                              cooldown=0, min_lr=1e-6, eps=1e-08)
-        start_time=datetime.now()
+
         for epoch in tqdm(range(EPOCHS)):
             logger.info('epoch {}/{}'.format(epoch+1,EPOCHS))
+            start_time=datetime.now()
             for i, data in enumerate(train_dataloader):
 
                 images,labels=data['image'],data['label']
@@ -157,8 +158,8 @@ class Model(ModelBase, torch.nn.Module):
                         val_score=self._eval(val_dataloader)
                         logger.info('loss={} train_score={} val_score={}'.format(loss.item(),train_score,val_score))
                         time=(datetime.now()-start_time).seconds
-                        if i!=0:
-                            logger.info('iter/secs={}   lr={}'.format(self._print_every_iter/time,optimizer.param_groups[0]['lr']))
+                        iters_done= 1 if i==0 else self._print_every_iter
+                        logger.info('iter/secs={}   lr={}'.format(iters_done/time,optimizer.param_groups[0]['lr']))
                         start_time=datetime.now()
 
                     self.train()
