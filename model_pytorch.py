@@ -18,6 +18,7 @@ from .consts import IMG_W,IMG_H,N_CHANNELS, BATCH_SIZE, LR, EPOCHS, AUGM_PROB,FA
 from .loss import calc_classes_weights, RecallScore
 from .save_to_maybe_gs import save
 from ..local_logging import get_logger
+from .resnet import resnet152
 
 logger=get_logger(__name__)
 
@@ -39,19 +40,17 @@ def get_augmentations():
                       A.ElasticTransform(alpha=60,sigma=15,alpha_affine=20,border_mode=cv2.BORDER_CONSTANT,value=255,p=1.0),
                       ],p=AUGM_PROB)
 
+
 class BackBone(nn.Module):
     def __init__(self):
         super().__init__()
-        self._backbone=pretrainedmodels.resnet50(pretrained=None)
-        in_features=self._backbone.last_linear.in_features
-        self._last_linear=nn.Linear(in_features=in_features,out_features=np.sum(CLASSES_LIST),bias=True)
+        self._backbone=resnet152(pretrained=None)
+        in_features=self._backbone.fc.in_features
+        self._backbone.fc=nn.Linear(in_features=in_features,out_features=np.sum(CLASSES_LIST),bias=True)
 
     def forward(self, x):
-        x=self._backbone.features(x)
-        x=torch.nn.AdaptiveAvgPool2d(1)(x)
-        x=torch.squeeze(x,dim=-1)
-        x=torch.squeeze(x,dim=-1)
-        x=self._last_linear(x)
+
+        x=self._backbone(x)
         return x
 
 
