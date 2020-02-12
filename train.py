@@ -1,7 +1,7 @@
 import os
 import numpy as np
 import argparse
-from .local_logging import get_logger
+from ..local_logging import get_logger
 import subprocess
 import tensorflow as tf
 from .model_pytorch import Model
