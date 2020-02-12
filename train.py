@@ -32,7 +32,7 @@ def main():
     logger=get_logger(__name__)
 
     local_train_dir=download_dir_from_gcs(args.train_bin_files_dir,os.path.join(DATA_DIR,TRAIN_DATASET_DIR))
-    local_test_dir=download_dir_from_gcs(args.test_bin_files_dir,os.path.join(DATA_DIR,TRAIN_DATASET_DIR))
+    local_test_dir=download_dir_from_gcs(args.test_bin_files_dir,os.path.join(DATA_DIR,VAL_DATASET_DIR))
 
     train_images, train_labels, _, classes = load(local_train_dir)
     val_images, val_labels, _, _  = load(local_test_dir)
