@@ -18,7 +18,7 @@ from .consts import IMG_W,IMG_H,N_CHANNELS, BATCH_SIZE, LR, EPOCHS, AUGM_PROB,FA
 from .loss import calc_classes_weights, RecallScore
 from .save_to_maybe_gs import save
 from ..local_logging import get_logger
-from .resnet import resnet50
+from .resnet import resnet152
 
 logger=get_logger(__name__)
 
