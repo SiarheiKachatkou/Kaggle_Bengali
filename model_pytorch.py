@@ -10,6 +10,7 @@ import torch.nn as nn
 import torch.optim as optim
 import albumentations as A
 import pretrainedmodels
+from .radam import RAdam
 from .model_base import ModelBase
 from .score import calc_score
 from .dataset_pytorch import BengaliDataset
@@ -121,7 +122,8 @@ class Model(ModelBase, torch.nn.Module):
 
 
         loss_fns=[RecallScore(class_weights) for class_weights in classes_weights]
-        optimizer=optim.Adam(self.parameters(),lr=LR)
+        #optimizer=optim.Adam(self.parameters(),lr=LR)
+        optimizer=RAdam(self.parameters(),lr=LR)
         scheduler=torch.optim.lr_scheduler.ReduceLROnPlateau(optimizer, mode='min', factor=0.5, patience=LR_SCHEDULER_PATINCE, verbose=True,
                                                              threshold=0.0001, threshold_mode='abs',
                                                              cooldown=0, min_lr=1e-6, eps=1e-08)
