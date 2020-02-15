@@ -45,9 +45,10 @@ def get_augmentations():
 class BackBone(nn.Module):
     def __init__(self):
         super().__init__()
-        self._backbone=resnet152(pretrained=None)
-        in_features=self._backbone.fc.in_features
-        self._backbone.fc=nn.Linear(in_features=in_features,out_features=np.sum(CLASSES_LIST),bias=True)
+        self._backbone=pretrainedmodels.nasnetalarge(pretrained=None)
+        #resnet152(pretrained=None)
+        in_features=self._backbone.last_linear.in_features
+        self._backbone.last_linear=nn.Linear(in_features=in_features,out_features=np.sum(CLASSES_LIST),bias=True)
 
     def forward(self, x):
 
