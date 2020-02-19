@@ -2,7 +2,7 @@ import numpy as np
 from torch.utils.data import Dataset
 import cv2
 import numpy as np
-from consts import IMG_H,IMG_W
+from .consts import IMG_H,IMG_W
 
 def _normalize_img(img):
     if len(img.shape)==2:

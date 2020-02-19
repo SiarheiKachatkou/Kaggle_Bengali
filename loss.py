@@ -1,7 +1,7 @@
 import torch
 import torch.nn as nn
 import numpy as np
-from consts import BETA
+from .consts import BETA
 
 
 def calc_classes_weights(labels,classes_list):

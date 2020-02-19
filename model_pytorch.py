@@ -1,22 +1,27 @@
 import torch
+from datetime import datetime
 import torchvision
+import shutil
 import numpy as np
+import cv2
 from tqdm import tqdm
-from model_base import ModelBase
-from score import calc_score
-from dataset_pytorch import BengaliDataset
 from torch.utils.data import DataLoader
 import torch.nn as nn
 import torch.optim as optim
-import torch.nn.functional as F
 import albumentations as A
 import pretrainedmodels
-from shake_shake_my import ShakeShake
-import cv2
-from consts import IMG_W,IMG_H,N_CHANNELS, BATCH_SIZE, LR, EPOCHS, AUGM_PROB,FAST_PROTO_SCALE, \
-    DROPOUT_P, LOSS_WEIGHTS, LR_SCHEDULER_PATINCE,USE_FREQ_SAMPLING
-from loss import calc_classes_weights, RecallScore
-from torch.utils.data import WeightedRandomSampler
+from .radam import RAdam
+from .model_base import ModelBase
+from .score import calc_score
+from .dataset_pytorch import BengaliDataset
+from .consts import IMG_W,IMG_H,N_CHANNELS, BATCH_SIZE, LR, EPOCHS, AUGM_PROB,FAST_PROTO_SCALE, \
+    DROPOUT_P, LOSS_WEIGHTS, LR_SCHEDULER_PATINCE,USE_FREQ_SAMPLING,CLASSES_LIST, LOG_FILENAME
+from .loss import calc_classes_weights, RecallScore
+from .save_to_maybe_gs import save
+from ..local_logging import get_logger
+from .resnet import resnet152
+
+logger=get_logger(__name__)
 
 def k(kernel_size):
     return kernel_size
@@ -37,6 +42,22 @@ def get_augmentations():
                       ],p=AUGM_PROB)
 
 
+class BackBone(nn.Module):
+    def __init__(self):
+        super().__init__()
+        self._backbone=pretrainedmodels.resnet152(pretrained=None)
+        #pretrainedmodels.nasnetalarge(pretrained=None)
+        #resnet152(pretrained=None)
+        in_features=self._backbone.last_linear.in_features
+        self._backbone.last_linear=nn.Linear(in_features=in_features,out_features=np.sum(CLASSES_LIST),bias=True)
+
+    def forward(self, x):
+
+        x=self._backbone(x)
+        return x
+
+
+
 
 class Model(ModelBase, torch.nn.Module):
 
@@ -47,48 +68,30 @@ class Model(ModelBase, torch.nn.Module):
         torch.nn.Module.__init__(self)
         ModelBase.__init__(self)
 
-        self._device = torch.device("cuda:0")
+        self._device = torch.device("cuda")
         self._layers=[]
-        self._print_every_iter=2000
+        self._print_every_iter=(140000//BATCH_SIZE)//3
         self._eval_batches=100
 
         self._classes_list=[]
 
-        self._backbone=pretrainedmodels.pnasnet5large(pretrained=None)
-
-            #densenet121(pretrained=None) -best
-
-            #densenet201(pretrained=None)
-
-            #nasnetalarge(pretrained=False)
-
-            #inceptionv4()
-
-
-
-        #self._backbone.avg_pool=nn.AdaptiveAvgPool2d(1)
-
-        #se_resnext50_32x4d()
-        #se_resnext101_32x4d()
+        self._backbone=BackBone()
+        #self._backbone=nn.DataParallel(self._backbone)
 
     def forward(self,x):
-
-        x=self._backbone.features(x)
-        x=torch.nn.AdaptiveAvgPool2d(1)(x)
-        x=torch.squeeze(x,dim=-1)
-        x=torch.squeeze(x,dim=-1)
-        x=self._last_linear(x)
+        x=self._backbone(x)
         outputs=torch.split(x,self._classes_list,dim=1)
         return outputs
 
     def compile(self,classes_list,**kwargs):
         self._classes_list=classes_list
-        in_features=self._backbone.last_linear.in_features
-        self._last_linear=nn.Linear(in_features=in_features,out_features=np.sum(self._classes_list),bias=True)
+
 
     def fit(self,train_images,train_labels, val_images, val_labels, batch_size,epochs, path_to_model_save, **kwargs):
 
         self.to(self._device)
+
+        logger.info("Let's use {} GPUs!".format(torch.cuda.device_count()))
 
         aug=get_augmentations()
         def aug_fn(img):
@@ -102,11 +105,7 @@ class Model(ModelBase, torch.nn.Module):
 
         classes_weights=calc_classes_weights(train_labels,self._classes_list)
 
-        if USE_FREQ_SAMPLING:
-            train_samples_weight=[classes_weights[0][l[0]] for l in train_labels]
-            train_sampler=WeightedRandomSampler(train_samples_weight, num_samples=len(train_samples_weight), replacement=True)
-        else:
-            train_sampler=None
+        train_sampler = None
 
         train_dataloader=DataLoader(train_dataset_aug, batch_size=BATCH_SIZE, shuffle=False, sampler=train_sampler,
            batch_sampler=None, num_workers=0, collate_fn=None,
@@ -125,12 +124,15 @@ class Model(ModelBase, torch.nn.Module):
 
 
         loss_fns=[RecallScore(class_weights) for class_weights in classes_weights]
-        optimizer=optim.Adam(self.parameters(),lr=LR)
+        #optimizer=optim.Adam(self.parameters(),lr=LR)
+        optimizer=RAdam(self.parameters(),lr=LR)
         scheduler=torch.optim.lr_scheduler.ReduceLROnPlateau(optimizer, mode='min', factor=0.5, patience=LR_SCHEDULER_PATINCE, verbose=True,
                                                              threshold=0.0001, threshold_mode='abs',
                                                              cooldown=0, min_lr=1e-6, eps=1e-08)
 
         for epoch in tqdm(range(EPOCHS)):
+            logger.info('epoch {}/{}'.format(epoch+1,EPOCHS))
+            start_time=datetime.now()
             for i, data in enumerate(train_dataloader):
 
                 images,labels=data['image'],data['label']
@@ -157,10 +159,20 @@ class Model(ModelBase, torch.nn.Module):
                     with torch.no_grad():
                         train_score=self._eval(train_val_dataloader)
                         val_score=self._eval(val_dataloader)
-                        print('loss={} train_score={} val_score={}'.format(loss.item(),train_score,val_score))
+                        logger.info('loss={} train_score={} val_score={}'.format(loss.item(),train_score,val_score))
+                        time=(datetime.now()-start_time).seconds
+                        iters_done= 1 if i==0 else self._print_every_iter
+                        logger.info('iter/secs={}   lr={}'.format(iters_done/time,optimizer.param_groups[0]['lr']))
+                        start_time=datetime.now()
+
                     self.train()
                     scheduler.step(1-val_score)
-            self.save(path_to_model_save)
+
+            def copy_log_file(dst_path):
+                shutil.copyfile(LOG_FILENAME,dst_path)
+
+            save(copy_log_file, path_to_model_save+'_log.txt')
+            save(self.save,path_to_model_save)
 
 
 

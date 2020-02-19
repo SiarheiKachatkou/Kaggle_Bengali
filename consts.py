@@ -1,4 +1,7 @@
+import logging
+import os
 
+ARTIFACTS_DIR='artifacts'
 DATA_DIR='data'
 RAW_DIR='raw'
 MODELS_DIR='models'
@@ -6,6 +9,10 @@ MODELS_PRETRAINED_DIR='models_pretrained'
 SUBMISSION_DIR = 'submissions'
 SUBMISSION_CSV = 'submission.csv'
 SAMPLE_SUBMISSION_CSV = 'sample_submission.csv'
+
+LOG_FILENAME=os.path.join(os.path.dirname(__file__),'training_log.txt')
+
+LOG_LEVEL=logging.INFO
 
 METRIC_FILE_PATH='metric.txt'
 
@@ -32,10 +39,10 @@ PAD=4
 
 
 N_CHANNELS = 1
-BATCH_SIZE=32
-EPOCHS=20
-LR=0.01
-LR_SCHEDULER_PATINCE=1
+BATCH_SIZE=64
+EPOCHS=100
+LR=0.1
+LR_SCHEDULER_PATINCE=8
 AUGM_PROB=0.4
 DROPOUT_P=0.5
 
@@ -46,12 +53,11 @@ USE_FREQ_SAMPLING=False
 
 FAST_PROTO_SCALE=1
 
+CLASSES_LIST=[168,11,7]
 
 SEED=0
 
 TARGETS=['grapheme_root','vowel_diacritic','consonant_diacritic']
-
-MODEL='model_pytorch'  #'model_tf'
 
 try:
     import torch
