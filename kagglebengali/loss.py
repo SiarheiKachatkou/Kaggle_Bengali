@@ -26,8 +26,8 @@ def calc_classes_weights(labels,classes_list):
 class RecallScore(nn.Module):
     def __init__(self,classes_weights):
         super().__init__()
-        self.class_weights=torch.Tensor(classes_weights).to(device=torch.device('cuda'))
-        self.classes_labels=list(range(len(classes_weights)))
+        #self.class_weights=torch.Tensor(classes_weights).to(device=torch.device('cuda'))
+        #self.classes_labels=list(range(len(classes_weights)))
         self._raw_loss_fn=nn.CrossEntropyLoss()#weight=self.class_weights)
 
     def forward(self,output,target,):

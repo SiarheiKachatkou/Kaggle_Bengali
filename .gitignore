@@ -1,5 +1,5 @@
-data
-__pycache__
-.idea
-mnist
 DvcStorage
+data/train_2
+data/train_datset_clear
+__pycache__
+artifacts

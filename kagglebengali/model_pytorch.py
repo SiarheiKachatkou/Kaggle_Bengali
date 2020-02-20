@@ -18,7 +18,7 @@ from .consts import IMG_W,IMG_H,N_CHANNELS, BATCH_SIZE, LR, EPOCHS, AUGM_PROB,FA
     DROPOUT_P, LOSS_WEIGHTS, LR_SCHEDULER_PATINCE,USE_FREQ_SAMPLING,CLASSES_LIST, LOG_FILENAME
 from .loss import calc_classes_weights, RecallScore
 from .save_to_maybe_gs import save
-from ..local_logging import get_logger
+from .local_logging import get_logger
 from .resnet import resnet152
 
 logger=get_logger(__name__)
@@ -73,7 +73,7 @@ class Model(ModelBase, torch.nn.Module):
         self._print_every_iter=(140000//BATCH_SIZE)//3
         self._eval_batches=100
 
-        self._classes_list=[]
+        self._classes_list=CLASSES_LIST
 
         self._backbone=BackBone()
         #self._backbone=nn.DataParallel(self._backbone)
@@ -84,7 +84,7 @@ class Model(ModelBase, torch.nn.Module):
         return outputs
 
     def compile(self,classes_list,**kwargs):
-        self._classes_list=classes_list
+        pass
 
 
     def fit(self,train_images,train_labels, val_images, val_labels, batch_size,epochs, path_to_model_save, **kwargs):
@@ -103,11 +103,11 @@ class Model(ModelBase, torch.nn.Module):
         train_dataset=BengaliDataset(train_images,labels=train_labels)
         val_dataset=BengaliDataset(val_images,labels=val_labels)
 
-        classes_weights=calc_classes_weights(train_labels,self._classes_list)
+        #classes_weights=calc_classes_weights(train_labels,self._classes_list)
 
         train_sampler = None
 
-        train_dataloader=DataLoader(train_dataset_aug, batch_size=BATCH_SIZE, shuffle=False, sampler=train_sampler,
+        train_dataloader=DataLoader(train_dataset_aug, batch_size=BATCH_SIZE, shuffle=True, sampler=train_sampler,
            batch_sampler=None, num_workers=0, collate_fn=None,
            pin_memory=False, drop_last=False, timeout=0,
            worker_init_fn=None)
@@ -123,7 +123,7 @@ class Model(ModelBase, torch.nn.Module):
            worker_init_fn=None)
 
 
-        loss_fns=[RecallScore(class_weights) for class_weights in classes_weights]
+        loss_fns=[RecallScore(None) for _ in range(3)]
         #optimizer=optim.Adam(self.parameters(),lr=LR)
         optimizer=RAdam(self.parameters(),lr=LR)
         scheduler=torch.optim.lr_scheduler.ReduceLROnPlateau(optimizer, mode='min', factor=0.5, patience=LR_SCHEDULER_PATINCE, verbose=True,

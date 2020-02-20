@@ -50,6 +50,7 @@ if __name__=="__main__":
     classes = [sum(class_map['component_type']==target) for target in TARGETS]
 
     imgs,image_ids,labels = load_parquet(os.path.join(DATA_DIR,RAW_DIR, TRAIN_IMAGE_DATA_PATTERN),train_csv)
+    imgs=np.array([crop_symbol(im) for im in imgs])
 
     skf = sklearn.model_selection.StratifiedKFold(n_splits=5, shuffle=True, random_state=SEED)
     #TODO place for improvements
@@ -65,6 +66,7 @@ if __name__=="__main__":
     dump(os.path.join(DATA_DIR,VAL_DATASET_DIR), imgs_val,labels_val,ids_val, classes)
 
     test_imgs,test_image_ids,test_labels = load_parquet(os.path.join(DATA_DIR, RAW_DIR, TEST_IMAGE_DATA_PATTERN),labels_csv=None)
+    test_imgs=np.array([crop_symbol(im) for im in test_imgs])
     dump(os.path.join(DATA_DIR,TEST_DATASET_DIR), test_imgs,test_labels,test_image_ids, classes)
 
 

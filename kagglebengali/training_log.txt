@@ -1,0 +1,14 @@
+local_train_dir=/home/sergey/1T/Bengali_github/data/train_datset_clear
+local_test_dir=/home/sergey/1T/Bengali_github/data/val_datset
+160672 train images loaded
+40168 val images loaded
+Let's use 1 GPUs!
+epoch 1/100
+local_train_dir=/home/sergey/1T/Bengali_github/data/train_datset_clear
+local_test_dir=/home/sergey/1T/Bengali_github/data/val_datset
+160672 train images loaded
+40168 val images loaded
+Let's use 1 GPUs!
+epoch 1/100
+loss=1.0893242359161377 train_score=0.9970586531852237 val_score=0.9558408778145792
+iter/secs=0.045454545454545456   lr=0.0001

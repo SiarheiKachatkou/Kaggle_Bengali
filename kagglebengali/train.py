@@ -1,16 +1,15 @@
 import os
 import numpy as np
 import argparse
-from ..local_logging import get_logger
+from .local_logging import get_logger
 import subprocess
-import tensorflow as tf
 from .model_pytorch import Model
 from .create_dataset_utils import load
 from .score import calc_score
 from .consts import MODELS_PRETRAINED_DIR, DATA_DIR,MODEL_NAME,BATCH_SIZE,EPOCHS, \
     TRAIN_DATASET_DIR, VAL_DATASET_DIR, MODELS_DIR, METRIC_FILE_PATH,ARTIFACTS_DIR, LOG_FILENAME, LOG_LEVEL
 
-from ..dataset_utils import download_dir_from_gcs, download_file_from_gcs
+from .dataset_utils import download_dir_from_gcs, download_file_from_gcs
 from .save_to_maybe_gs import save
 
 debug_regime=False
@@ -21,7 +20,6 @@ def parse_args():
     parser.add_argument('--train_bin_files_dir',type=str,help=' train binary files in gs or local')
     parser.add_argument('--test_bin_files_dir',type=str,help=' test binary files in gs or local')
     parser.add_argument('--job-dir',type=str,default=ARTIFACTS_DIR,help=' directory for chekpoints and metric saving, is google storage directory for running in cloud')
-    parser.add_argument('--verbosity',choices=['DEBUG', 'ERROR', 'FATAL', 'INFO', 'WARN'],default='INFO')
     args=parser.parse_args()
     return args
 
@@ -33,6 +31,9 @@ def main():
 
     local_train_dir=download_dir_from_gcs(args.train_bin_files_dir,os.path.join(DATA_DIR,TRAIN_DATASET_DIR))
     local_test_dir=download_dir_from_gcs(args.test_bin_files_dir,os.path.join(DATA_DIR,VAL_DATASET_DIR))
+
+    logger.info('local_train_dir={}'.format(local_train_dir))
+    logger.info('local_test_dir={}'.format(local_test_dir))
 
     train_images, train_labels, _, classes = load(local_train_dir)
     val_images, val_labels, _, _  = load(local_test_dir)
@@ -49,7 +50,7 @@ def main():
 
     model_dir=os.path.join(args.job_dir,MODELS_DIR)
     if (not model_dir.startswith('gs')) and (not os.path.exists(model_dir)):
-        os.mkdir(model_dir)
+        os.makedirs(model_dir)
     model_filepath=os.path.join(model_dir,MODEL_NAME)
 
 

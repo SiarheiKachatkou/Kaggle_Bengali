@@ -27,7 +27,11 @@ deps_data="-d data/test_datset -d data/train_datset -d data/val_datset"
 outputs="data/models"
 metric="metric.txt"
 
-dvc run --overwrite-dvcfile $deps_code $deps_data -f $outputs.dvc -o $outputs -M $metric $PY train.py --fine_tune=$fine_tune &&
+train_bin_files_dir=/home/sergey/1T/Bengali_github/data/train_datset
+test_bin_files_dir=/home/sergey/1T/Bengali_github/data/val_datset
+
+
+dvc run --overwrite-dvcfile $deps_code $deps_data -f $outputs.dvc -o $outputs -M $metric $PY run_train.py --train_bin_files_dir=$train_bin_files_dir --test_bin_files_dir=$test_bin_files_dir &&
 dvc push $outputs.dvc &&
 git add $metric &&
 git add $outputs.dvc -f &&

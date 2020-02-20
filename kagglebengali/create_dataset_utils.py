@@ -26,22 +26,25 @@ def crop_symbol(img):
 
     return img
 
-def dump(path_to_dir, imgs,labels, ids, classes, max_img_per_file=10000):
+def dump(path_to_dir, imgs,labels, ids, classes, prefix='',max_img_per_file=10000,mode='clear'):
 
-    if os.path.exists(path_to_dir):
-        shutil.rmtree(path_to_dir)
-    os.mkdir(path_to_dir)
+    if mode=='clear':
+        if os.path.exists(path_to_dir):
+            shutil.rmtree(path_to_dir)
+
+    if not os.path.exists(path_to_dir):
+        os.mkdir(path_to_dir)
 
     idxs=range(0,len(imgs),max_img_per_file)
     for i,idx in enumerate(idxs):
         end_idx=min(idx+max_img_per_file,len(imgs))
 
         the_slice=slice(idx,end_idx)
-        path_to_file=os.path.join(path_to_dir,'{}.pkl'.format(i))
+        path_to_file=os.path.join(path_to_dir,'{}_{}.pkl'.format(prefix,i))
         with open(path_to_file,'wb') as file:
-            imgs_preproc=np.array([crop_symbol(im) for im in imgs[the_slice]])
+            the_imgs=imgs[the_slice]
             the_labels=None if labels is None else labels[the_slice]
-            pickle.dump([imgs_preproc,the_labels,ids[the_slice], classes],file)
+            pickle.dump([the_imgs,the_labels,ids[the_slice], classes],file)
 
 def load(path_to_dir):
 
@@ -53,6 +56,7 @@ def load(path_to_dir):
     for path_to_file in files:
         with open(os.path.join(path_to_dir,path_to_file),'rb') as file:
             imgs,labels,ids, classes = pickle.load(file)
+            imgs=np.array([cv2.resize(img,(IMG_W,IMG_H)) for img in imgs])
             imgs_all.append(imgs)
             labels_all.append(labels)
             ids_all.append(ids)
