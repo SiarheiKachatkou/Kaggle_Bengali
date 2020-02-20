@@ -1,8 +1,9 @@
 import os
 import numpy as np
 import argparse
-from .local_logging import get_logger
+from datetime import datetime
 import subprocess
+from .local_logging import get_logger
 from .model_pytorch import Model
 from .create_dataset_utils import load
 from .score import calc_score
@@ -28,6 +29,7 @@ def main():
 
     args=parse_args()
     logger=get_logger(__name__)
+    logger.info('start training at {}'.format(datetime.now()))
 
     local_train_dir=download_dir_from_gcs(args.train_bin_files_dir,os.path.join(DATA_DIR,TRAIN_DATASET_DIR))
     local_test_dir=download_dir_from_gcs(args.test_bin_files_dir,os.path.join(DATA_DIR,VAL_DATASET_DIR))
@@ -60,6 +62,8 @@ def main():
     if not (args.ckpt_full_path==''):
         model_pretrained_filepath=download_file_from_gcs(args.ckpt_full_path,'starting_ckpt')
         model.load(model_pretrained_filepath, classes)
+        logger.info('model from {} loaded'.format(model_pretrained_filepath))
+
     model.fit(train_images,train_labels, val_images,val_labels,path_to_model_save=model_filepath,batch_size=BATCH_SIZE,epochs=EPOCHS)
 
     model.eval()

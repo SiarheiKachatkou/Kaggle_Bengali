@@ -12,3 +12,177 @@ Let's use 1 GPUs!
 epoch 1/100
 loss=1.0893242359161377 train_score=0.9970586531852237 val_score=0.9558408778145792
 iter/secs=0.045454545454545456   lr=0.0001
+loss=0.7140805125236511 train_score=0.9541973262990322 val_score=0.8963717745926476
+iter/secs=2.366883116883117   lr=0.0001
+loss=0.10008622705936432 train_score=0.9579336452059344 val_score=0.9094543165703467
+iter/secs=2.3516129032258064   lr=0.0001
+loss=0.20842395722866058 train_score=0.972101298043353 val_score=0.9403910180706407
+iter/secs=2.25   lr=0.0001
+epoch 2/100
+loss=0.0518454983830452 train_score=0.9776966564800622 val_score=0.9260706219262209
+iter/secs=0.041666666666666664   lr=0.0001
+loss=0.05221045762300491 train_score=0.9842450018693375 val_score=0.9461553610029861
+iter/secs=2.2569659442724457   lr=5e-05
+loss=0.266957551240921 train_score=0.9721705261100182 val_score=0.9469318583397496
+iter/secs=2.2639751552795033   lr=5e-05
+loss=0.0661831721663475 train_score=0.9784824810470508 val_score=0.9423628090087346
+iter/secs=2.2710280373831777   lr=5e-05
+epoch 3/100
+loss=0.02868267521262169 train_score=0.983533461642999 val_score=0.9427252707832078
+iter/secs=0.041666666666666664   lr=5e-05
+loss=0.07329639047384262 train_score=0.985723611075211 val_score=0.9384851854677279
+iter/secs=2.243076923076923   lr=2.5e-05
+loss=0.04976093769073486 train_score=0.9872654546746014 val_score=0.9403487245734135
+iter/secs=2.292452830188679   lr=2.5e-05
+loss=0.1303642988204956 train_score=0.991026747719773 val_score=0.9323224588905556
+iter/secs=2.236196319018405   lr=2.5e-05
+epoch 4/100
+loss=0.05400405451655388 train_score=0.9751124419159721 val_score=0.9414915552544333
+iter/secs=0.041666666666666664   lr=2.5e-05
+loss=0.04667011648416519 train_score=0.9878748536456681 val_score=0.9362217562649935
+iter/secs=2.236196319018405   lr=1.25e-05
+loss=0.09029771387577057 train_score=0.9769463073372937 val_score=0.9413603110485484
+iter/secs=2.2639751552795033   lr=1.25e-05
+loss=0.08802731335163116 train_score=0.9775021196214708 val_score=0.937234674018611
+iter/secs=2.2569659442724457   lr=1.25e-05
+epoch 5/100
+loss=0.23018771409988403 train_score=0.9812341072601212 val_score=0.9393037605007176
+iter/secs=0.04   lr=1.25e-05
+loss=0.16090044379234314 train_score=0.9822433775153339 val_score=0.9468175298677259
+iter/secs=2.202416918429003   lr=6.25e-06
+loss=0.049120090901851654 train_score=0.9881337253275029 val_score=0.9489701431719056
+iter/secs=2.3901639344262295   lr=6.25e-06
+loss=0.07400808483362198 train_score=0.984022527068478 val_score=0.937593960559902
+iter/secs=2.3823529411764706   lr=6.25e-06
+epoch 6/100
+loss=0.1173245757818222 train_score=0.9811987846876832 val_score=0.9421337057927343
+iter/secs=0.045454545454545456   lr=6.25e-06
+loss=0.1269567459821701 train_score=0.9829846508953911 val_score=0.9400461522185146
+iter/secs=2.3823529411764706   lr=3.125e-06
+start training at 2020-02-20 07:35:32.374270
+local_train_dir=/home/sergey/1T/Bengali_github/data/train_datset_clear
+local_test_dir=/home/sergey/1T/Bengali_github/data/val_datset
+160672 train images loaded
+40168 val images loaded
+start training at 2020-02-20 07:36:31.635936
+local_train_dir=/home/sergey/1T/Bengali_github/data/train_datset
+local_test_dir=/home/sergey/1T/Bengali_github/data/val_datset
+312574 train images loaded
+40168 val images loaded
+Let's use 1 GPUs!
+epoch 1/100
+start training at 2020-02-20 07:37:49.688397
+local_train_dir=/home/sergey/1T/Bengali_github/data/train_datset
+local_test_dir=/home/sergey/1T/Bengali_github/data/val_datset
+312574 train images loaded
+40168 val images loaded
+Let's use 1 GPUs!
+epoch 1/100
+start training at 2020-02-20 07:41:26.224329
+local_train_dir=/home/sergey/1T/Bengali_github/data/train_datset
+local_test_dir=/home/sergey/1T/Bengali_github/data/val_datset
+312574 train images loaded
+40168 val images loaded
+Let's use 1 GPUs!
+epoch 1/100
+start training at 2020-02-20 07:43:31.537906
+local_train_dir=/home/sergey/1T/Bengali_github/data/train_datset
+local_test_dir=/home/sergey/1T/Bengali_github/data/val_datset
+312574 train images loaded
+40168 val images loaded
+Let's use 1 GPUs!
+epoch 1/100
+loss=7.62175989151001 train_score=0.1262470216425179 val_score=0.09422561790459702
+iter/secs=2.3745928338762217   lr=0.0001
+loss=5.721012592315674 train_score=0.20719404717807544 val_score=0.14497660400930218
+iter/secs=2.3440514469453375   lr=0.0001
+loss=4.409542083740234 train_score=0.2526794375396886 val_score=0.17267856193183145
+iter/secs=2.292452830188679   lr=0.0001
+loss=5.088083267211914 train_score=0.3191948046611561 val_score=0.21826132974168222
+iter/secs=2.2745709828393137   lr=0.0001
+loss=4.201366424560547 train_score=0.39995188176462537 val_score=0.2836908789696793
+iter/secs=2.2667910447761193   lr=0.0001
+loss=2.960174560546875 train_score=0.4785376185015476 val_score=0.37399997014735287
+iter/secs=2.2488431876606683   lr=0.0001
+start training at 2020-02-20 08:18:40.747330
+local_train_dir=/home/sergey/1T/Bengali_github/data/train_datset
+local_test_dir=/home/sergey/1T/Bengali_github/data/val_datset
+312574 train images loaded
+40168 val images loaded
+start training at 2020-02-20 08:26:28.811643
+local_train_dir=/home/sergey/1T/Bengali_github/data/train_datset
+local_test_dir=/home/sergey/1T/Bengali_github/data/val_datset
+312574 train images loaded
+40168 val images loaded
+start training at 2020-02-20 08:38:42.456583
+local_train_dir=/home/sergey/1T/Bengali_github/data/train_datset
+local_test_dir=/home/sergey/1T/Bengali_github/data/val_datset
+312574 train images loaded
+40168 val images loaded
+Let's use 1 GPUs!
+epoch 1/100
+loss=7.62175989151001 train_score=0.1262470216425179 val_score=0.09422561790459702
+iter/secs=2.3745928338762217   lr=0.0001
+start training at 2020-02-20 08:46:19.925252
+local_train_dir=/home/sergey/1T/Bengali_github/data/train_datset
+local_test_dir=/home/sergey/1T/Bengali_github/data/val_datset
+312574 train images loaded
+40168 val images loaded
+Let's use 1 GPUs!
+epoch 1/100
+loss=11.210342407226562 train_score=0.06088127261156817 val_score=0.05823310074938995
+iter/secs=0.043478260869565216   lr=0.0001
+loss=8.914107322692871 train_score=0.060198344936717024 val_score=0.059957768958845935
+iter/secs=0.043478260869565216   lr=0.0001
+loss=7.863401412963867 train_score=0.05963903497148819 val_score=0.0603122559212979
+iter/secs=0.043478260869565216   lr=0.0001
+loss=8.36454963684082 train_score=0.06125426720760102 val_score=0.06044113734129339
+iter/secs=0.043478260869565216   lr=0.0001
+loss=7.906926155090332 train_score=0.06070599439643592 val_score=0.06013961668478364
+iter/secs=0.043478260869565216   lr=0.0001
+start training at 2020-02-20 09:00:03.639283
+local_train_dir=/home/sergey/1T/Bengali_github/data/train_datset
+local_test_dir=/home/sergey/1T/Bengali_github/data/val_datset
+312574 train images loaded
+40168 val images loaded
+Let's use 1 GPUs!
+epoch 1/100
+loss=11.210342407226562 train_score=0.06088127261156817 val_score=0.05823310074938995
+iter/secs=0.045454545454545456   lr=0.0001
+new best model saved
+start training at 2020-02-20 09:02:57.604532
+local_train_dir=/home/sergey/1T/Bengali_github/data/train_datset
+local_test_dir=/home/sergey/1T/Bengali_github/data/val_datset
+312574 train images loaded
+40168 val images loaded
+model from /home/sergey/1T/Bengali_github/artifacts/models/starting_ckpt loaded
+Let's use 1 GPUs!
+epoch 1/100
+loss=8.834749221801758 train_score=0.06084612973753245 val_score=0.06041253992183088
+iter/secs=0.043478260869565216   lr=0.0001
+new best model saved
+loss=8.494885444641113 train_score=0.05961934433163821 val_score=0.059587625698350605
+iter/secs=0.043478260869565216   lr=0.0001
+loss=7.89949369430542 train_score=0.061873725264745646 val_score=0.06034650223147622
+iter/secs=0.04411764705882353   lr=0.0001
+loss=8.562917709350586 train_score=0.06050907313019883 val_score=0.06018625091803365
+iter/secs=0.04395604395604396   lr=0.0001
+loss=8.099839210510254 train_score=0.05946237546489056 val_score=0.060656485919643816
+iter/secs=0.043859649122807015   lr=0.0001
+new best model saved
+loss=8.348377227783203 train_score=0.0609582989002658 val_score=0.06124902770349048
+iter/secs=0.043478260869565216   lr=0.0001
+new best model saved
+start training at 2020-02-20 09:08:59.484246
+local_train_dir=/home/sergey/1T/Bengali_github/data/train_datset
+local_test_dir=/home/sergey/1T/Bengali_github/data/val_datset
+312574 train images loaded
+40168 val images loaded
+Let's use 1 GPUs!
+epoch 1/100
+loss=5.118639945983887 train_score=0.2836840251429199 val_score=0.19457161340515483
+iter/secs=2.366883116883117   lr=0.01
+new best model saved
+loss=3.2495415210723877 train_score=0.4921415963154566 val_score=0.36817993767238527
+iter/secs=2.3516129032258064   lr=0.01
+new best model saved

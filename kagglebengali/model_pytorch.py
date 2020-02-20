@@ -14,18 +14,14 @@ from .radam import RAdam
 from .model_base import ModelBase
 from .score import calc_score
 from .dataset_pytorch import BengaliDataset
-from .consts import IMG_W,IMG_H,N_CHANNELS, BATCH_SIZE, LR, EPOCHS, AUGM_PROB,FAST_PROTO_SCALE, \
-    DROPOUT_P, LOSS_WEIGHTS, LR_SCHEDULER_PATINCE,USE_FREQ_SAMPLING,CLASSES_LIST, LOG_FILENAME
+from .consts import IMG_W,IMG_H,N_CHANNELS, BATCH_SIZE, LR, EPOCHS, AUGM_PROB,\
+    DROPOUT_P, LOSS_WEIGHTS, LR_SCHEDULER_PATINCE,CLASSES_LIST, LOG_FILENAME, FEATURES_AREA, EVAL_EVERY_STEPS,EVAL_BATCHES
 from .loss import calc_classes_weights, RecallScore
 from .save_to_maybe_gs import save
 from .local_logging import get_logger
 from .resnet import resnet152
 
 logger=get_logger(__name__)
-
-def k(kernel_size):
-    return kernel_size
-    return max(1,round(kernel_size/FAST_PROTO_SCALE))
 
 
 def get_augmentations():
@@ -46,14 +42,14 @@ class BackBone(nn.Module):
     def __init__(self):
         super().__init__()
         self._backbone=pretrainedmodels.resnet152(pretrained=None)
-        #pretrainedmodels.nasnetalarge(pretrained=None)
-        #resnet152(pretrained=None)
-        in_features=self._backbone.last_linear.in_features
-        self._backbone.last_linear=nn.Linear(in_features=in_features,out_features=np.sum(CLASSES_LIST),bias=True)
+
+        in_features=self._backbone.last_linear.in_features*FEATURES_AREA
+        self.fully_connected=nn.Linear(in_features=in_features,out_features=np.sum(CLASSES_LIST),bias=True)
 
     def forward(self, x):
-
-        x=self._backbone(x)
+        x=self._backbone.features(x)
+        x=x.view(BATCH_SIZE,-1)
+        x=self.fully_connected(x)
         return x
 
 
@@ -69,14 +65,16 @@ class Model(ModelBase, torch.nn.Module):
         ModelBase.__init__(self)
 
         self._device = torch.device("cuda")
-        self._layers=[]
-        self._print_every_iter=(140000//BATCH_SIZE)//3
-        self._eval_batches=100
+        self._print_every_iter=EVAL_EVERY_STEPS
+        self._eval_batches=EVAL_BATCHES
 
         self._classes_list=CLASSES_LIST
 
         self._backbone=BackBone()
         #self._backbone=nn.DataParallel(self._backbone)
+
+        #optimizer=optim.Adam(self.parameters(),lr=LR)
+        self._optimizer=RAdam(self.parameters(),lr=LR)
 
     def forward(self,x):
         x=self._backbone(x)
@@ -95,15 +93,11 @@ class Model(ModelBase, torch.nn.Module):
 
         aug=get_augmentations()
         def aug_fn(img):
-            if FAST_PROTO_SCALE!=1:
-                img=cv2.resize(img,(round(IMG_W/FAST_PROTO_SCALE),round(IMG_H/FAST_PROTO_SCALE)))
             return aug(image=img)['image']
 
         train_dataset_aug=BengaliDataset(train_images,labels=train_labels,transform_fn=aug_fn)
         train_dataset=BengaliDataset(train_images,labels=train_labels)
         val_dataset=BengaliDataset(val_images,labels=val_labels)
-
-        #classes_weights=calc_classes_weights(train_labels,self._classes_list)
 
         train_sampler = None
 
@@ -124,23 +118,26 @@ class Model(ModelBase, torch.nn.Module):
 
 
         loss_fns=[RecallScore(None) for _ in range(3)]
-        #optimizer=optim.Adam(self.parameters(),lr=LR)
-        optimizer=RAdam(self.parameters(),lr=LR)
-        scheduler=torch.optim.lr_scheduler.ReduceLROnPlateau(optimizer, mode='min', factor=0.5, patience=LR_SCHEDULER_PATINCE, verbose=True,
+
+        scheduler=torch.optim.lr_scheduler.ReduceLROnPlateau(self._optimizer, mode='min', factor=0.5, patience=LR_SCHEDULER_PATINCE, verbose=True,
                                                              threshold=0.0001, threshold_mode='abs',
                                                              cooldown=0, min_lr=1e-6, eps=1e-08)
 
+        start_time=datetime.now()
+        global_step=0
+        best_eval_metric=0
         for epoch in tqdm(range(EPOCHS)):
             logger.info('epoch {}/{}'.format(epoch+1,EPOCHS))
-            start_time=datetime.now()
             for i, data in enumerate(train_dataloader):
+
+                global_step+=1
 
                 images,labels=data['image'],data['label']
 
                 images=images.to(self._device,dtype=torch.float)
                 labels=labels.to(self._device)
 
-                optimizer.zero_grad()
+                self._optimizer.zero_grad()
 
                 heads_outputs = self.__call__(images)
 
@@ -151,9 +148,9 @@ class Model(ModelBase, torch.nn.Module):
 
                 loss.backward()
 
-                optimizer.step()
+                self._optimizer.step()
 
-                if i%self._print_every_iter==0:
+                if global_step%self._print_every_iter==0:
 
                     self.eval()
                     with torch.no_grad():
@@ -161,18 +158,22 @@ class Model(ModelBase, torch.nn.Module):
                         val_score=self._eval(val_dataloader)
                         logger.info('loss={} train_score={} val_score={}'.format(loss.item(),train_score,val_score))
                         time=(datetime.now()-start_time).seconds
-                        iters_done= 1 if i==0 else self._print_every_iter
-                        logger.info('iter/secs={}   lr={}'.format(iters_done/time,optimizer.param_groups[0]['lr']))
-                        start_time=datetime.now()
+
+                        logger.info('iter/secs={}   lr={}'.format(global_step/time,self._optimizer.param_groups[0]['lr']))
 
                     self.train()
                     scheduler.step(1-val_score)
 
-            def copy_log_file(dst_path):
-                shutil.copyfile(LOG_FILENAME,dst_path)
+                    def copy_log_file(dst_path):
+                        shutil.copyfile(LOG_FILENAME,dst_path)
 
-            save(copy_log_file, path_to_model_save+'_log.txt')
-            save(self.save,path_to_model_save)
+                    save(copy_log_file, path_to_model_save+'_log.txt')
+
+                    if val_score>best_eval_metric:
+                        best_eval_metric=val_score
+                        save(self.save,path_to_model_save)
+                        logger.info('new best model saved')
+
 
 
 
@@ -196,11 +197,15 @@ class Model(ModelBase, torch.nn.Module):
 
 
     def save(self,path_to_file):
-        torch.save(self.state_dict(), path_to_file)
+        state_dict={'model':self.state_dict(),'optimizer':self._optimizer.state_dict()}
+        torch.save(state_dict, path_to_file)
+
 
     def load(self,path_to_file,classes_list):
         self.compile(classes_list)
-        self.load_state_dict(torch.load(path_to_file))
+        state_dict=torch.load(path_to_file)
+        self.load_state_dict(state_dict['model'])
+        self._optimizer.load_state_dict(state_dict['optimizer'])
         self.to(self._device)
 
     def predict(self, images):

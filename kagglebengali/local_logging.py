@@ -1,8 +1,9 @@
 import logging
+from datetime import datetime
 from .consts import LOG_FILENAME, LOG_LEVEL
 
 def get_logger(name):
-    fh=logging.FileHandler(LOG_FILENAME)
+    fh=logging.FileHandler(LOG_FILENAME, mode='a')
     fh.setLevel(LOG_LEVEL)
 
     sh=logging.StreamHandler()
@@ -12,4 +13,5 @@ def get_logger(name):
     logger.setLevel(LOG_LEVEL)
     logger.addHandler(fh)
     logger.addHandler(sh)
+
     return logger

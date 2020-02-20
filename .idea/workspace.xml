@@ -2,41 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8d7aab7b-5a13-411d-a5a4-10047020d786" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/kagglebengali/setup.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/run_train.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/kagglebengali/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/kagglebengali/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/consts.py" beforeDir="false" afterPath="$PROJECT_DIR$/kagglebengali/consts.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cosine_lr_show.py" beforeDir="false" afterPath="$PROJECT_DIR$/kagglebengali/cosine_lr_show.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cosine_scheduler.py" beforeDir="false" afterPath="$PROJECT_DIR$/kagglebengali/cosine_scheduler.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/create_dataset.py" beforeDir="false" afterPath="$PROJECT_DIR$/kagglebengali/create_dataset.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/create_dataset_mnist.py" beforeDir="false" afterPath="$PROJECT_DIR$/kagglebengali/create_dataset_mnist.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/create_dataset_utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/kagglebengali/create_dataset_utils.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/models.dvc" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dataset_pytorch.py" beforeDir="false" afterPath="$PROJECT_DIR$/kagglebengali/dataset_pytorch.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dvc_train.sh" beforeDir="false" afterPath="$PROJECT_DIR$/dvc_train.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/loss.py" beforeDir="false" afterPath="$PROJECT_DIR$/kagglebengali/loss.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main_create_slices_dataset.py" beforeDir="false" afterPath="$PROJECT_DIR$/kagglebengali/main_create_slices_dataset.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/make_submission.py" beforeDir="false" afterPath="$PROJECT_DIR$/kagglebengali/make_submission.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/merge_other_datasets.py" beforeDir="false" afterPath="$PROJECT_DIR$/merge_other_datasets.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/metric.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/model_base.py" beforeDir="false" afterPath="$PROJECT_DIR$/kagglebengali/model_base.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model_pytorch.py" beforeDir="false" afterPath="$PROJECT_DIR$/kagglebengali/model_pytorch.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/radam/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/kagglebengali/radam/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/radam/radam.py" beforeDir="false" afterPath="$PROJECT_DIR$/kagglebengali/radam/radam.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/kagglebengali/requirements.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resnet.py" beforeDir="false" afterPath="$PROJECT_DIR$/kagglebengali/resnet.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resnet_family.py" beforeDir="false" afterPath="$PROJECT_DIR$/kagglebengali/resnet_family.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/save_to_maybe_gs.py" beforeDir="false" afterPath="$PROJECT_DIR$/kagglebengali/save_to_maybe_gs.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/score.py" beforeDir="false" afterPath="$PROJECT_DIR$/kagglebengali/score.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shake_shake/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/kagglebengali/shake_shake/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shake_shake/shake_resnet.py" beforeDir="false" afterPath="$PROJECT_DIR$/kagglebengali/shake_shake/shake_resnet.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shake_shake/shake_resnext.py" beforeDir="false" afterPath="$PROJECT_DIR$/kagglebengali/shake_shake/shake_resnext.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shake_shake/shakeshake.py" beforeDir="false" afterPath="$PROJECT_DIR$/kagglebengali/shake_shake/shakeshake.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shake_shake_my.py" beforeDir="false" afterPath="$PROJECT_DIR$/kagglebengali/shake_shake_my.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/train.py" beforeDir="false" afterPath="$PROJECT_DIR$/kagglebengali/train.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/transform.py" beforeDir="false" afterPath="$PROJECT_DIR$/kagglebengali/transform.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kagglebengali/consts.py" beforeDir="false" afterPath="$PROJECT_DIR$/kagglebengali/consts.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kagglebengali/local_logging.py" beforeDir="false" afterPath="$PROJECT_DIR$/kagglebengali/local_logging.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kagglebengali/model_pytorch.py" beforeDir="false" afterPath="$PROJECT_DIR$/kagglebengali/model_pytorch.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kagglebengali/train.py" beforeDir="false" afterPath="$PROJECT_DIR$/kagglebengali/train.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kagglebengali/training_log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/kagglebengali/training_log.txt" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -49,8 +19,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/kagglebengali/train.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="390">
-              <caret line="26" column="11" lean-forward="true" selection-start-line="26" selection-start-column="11" selection-end-line="26" selection-end-column="11" />
+            <state relative-caret-position="629">
+              <caret line="65" selection-start-line="65" selection-end-line="65" />
               <folding>
                 <element signature="e#0#9#0" expanded="true" />
               </folding>
@@ -58,23 +28,23 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/kagglebengali/local_logging.py">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/kagglebengali/training_log.txt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="165">
-              <caret line="11" column="30" lean-forward="true" selection-start-line="11" selection-start-column="30" selection-end-line="11" selection-end-column="30" />
-              <folding>
-                <element signature="e#0#14#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="996">
+              <caret line="158" column="17" selection-start-line="158" selection-start-column="17" selection-end-line="158" selection-end-column="17" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/kagglebengali/loss.py">
+        <entry file="file://$PROJECT_DIR$/kagglebengali/local_logging.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="345">
-              <caret line="26" column="31" selection-start-line="26" selection-start-column="31" selection-end-line="26" selection-end-column="31" />
+            <state relative-caret-position="180">
+              <caret line="12" column="30" selection-start-line="12" selection-start-column="30" selection-end-line="12" selection-end-column="30" />
+              <folding>
+                <element signature="e#0#14#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -100,11 +70,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/kagglebengali/consts.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="495">
-              <caret line="33" lean-forward="true" selection-start-line="33" selection-end-line="33" />
+            <state relative-caret-position="690">
+              <caret line="46" column="16" selection-start-line="46" selection-start-column="16" selection-end-line="46" selection-end-column="16" />
               <folding>
                 <element signature="e#0#14#0" expanded="true" />
               </folding>
@@ -116,7 +86,7 @@
         <entry file="file://$PROJECT_DIR$/run_train.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="30">
-              <caret line="2" column="6" selection-start-line="2" selection-start-column="6" selection-end-line="2" selection-end-column="6" />
+              <caret line="2" selection-start-line="2" selection-end-line="2" />
             </state>
           </provider>
         </entry>
@@ -124,29 +94,17 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/kagglebengali/model_pytorch.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="135">
-              <caret line="9" column="27" selection-start-line="9" selection-start-column="27" selection-end-line="9" selection-end-column="27" />
+            <state relative-caret-position="255">
+              <caret line="17" column="122" selection-start-line="17" selection-start-column="122" selection-end-line="17" selection-end-column="122" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/kagglebengali/create_dataset_utils.py">
+        <entry file="file://$PROJECT_DIR$/kagglebengali/save_to_maybe_gs.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="870">
-              <caret line="58" column="74" selection-start-line="58" selection-start-column="74" selection-end-line="58" selection-end-column="74" />
-              <folding>
-                <element signature="e#0#9#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/kagglebengali/dataset_utils.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="360">
-              <caret line="24" column="28" selection-start-line="24" selection-start-column="28" selection-end-line="24" selection-end-column="28" />
+            <state relative-caret-position="30">
+              <caret line="3" column="4" selection-start-line="3" selection-start-column="4" selection-end-line="3" selection-end-column="4" />
             </state>
           </provider>
         </entry>
@@ -213,10 +171,10 @@
         <option value="$PROJECT_DIR$/dvc_train.sh" />
         <option value="$PROJECT_DIR$/kagglebengali/create_dataset_utils.py" />
         <option value="$PROJECT_DIR$/kagglebengali/loss.py" />
-        <option value="$PROJECT_DIR$/kagglebengali/model_pytorch.py" />
-        <option value="$PROJECT_DIR$/kagglebengali/train.py" />
-        <option value="$PROJECT_DIR$/kagglebengali/consts.py" />
         <option value="$PROJECT_DIR$/kagglebengali/local_logging.py" />
+        <option value="$PROJECT_DIR$/kagglebengali/train.py" />
+        <option value="$PROJECT_DIR$/kagglebengali/model_pytorch.py" />
+        <option value="$PROJECT_DIR$/kagglebengali/consts.py" />
       </list>
     </option>
   </component>
@@ -393,7 +351,7 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/run_train.py" />
-      <option name="PARAMETERS" value="--train_bin_files_dir=$PROJECT_DIR$/data/train_datset_clear --test_bin_files_dir=$PROJECT_DIR$/data/val_datset --ckpt_full_path=$PROJECT_DIR$/artifacts/models/starting_ckpt" />
+      <option name="PARAMETERS" value="--train_bin_files_dir=$PROJECT_DIR$/data/train_datset --test_bin_files_dir=$PROJECT_DIR$/data/val_datset --ckpt_full_path=" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
@@ -442,8 +400,8 @@
       <window_info id="Structure" order="1" weight="0.25" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.42857143" />
-      <window_info active="true" anchor="bottom" id="Debug" order="3" visible="true" weight="0.39670658" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.4281437" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.39670658" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -455,7 +413,7 @@
       <window_info anchor="bottom" id="Anonymous Apex" order="12" show_stripe_button="false" weight="0.32937366" />
       <window_info anchor="bottom" id="Python Console" order="13" weight="0.3283433" />
       <window_info anchor="bottom" id="Messages" order="14" />
-      <window_info anchor="bottom" id="Terminal" order="15" weight="0.26796407" />
+      <window_info anchor="bottom" id="Terminal" order="15" weight="0.3767465" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -556,11 +514,6 @@
           <option name="timeStamp" value="47" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/kagglebengali/model_pytorch.py</url>
-          <line>108</line>
-          <option name="timeStamp" value="48" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/merge_other_datasets.py</url>
           <line>60</line>
           <option name="timeStamp" value="51" />
@@ -571,25 +524,24 @@
           <option name="timeStamp" value="52" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/kagglebengali/train.py</url>
-          <line>34</line>
-          <option name="timeStamp" value="53" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/kagglebengali/local_logging.py</url>
-          <line>5</line>
-          <option name="timeStamp" value="54" />
+          <url>file://$PROJECT_DIR$/kagglebengali/model_pytorch.py</url>
+          <line>49</line>
+          <option name="timeStamp" value="56" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/kagglebengali/train.py</url>
-          <line>29</line>
-          <option name="timeStamp" value="55" />
+          <line>61</line>
+          <option name="timeStamp" value="57" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/kagglebengali/model_pytorch.py</url>
+          <line>204</line>
+          <option name="timeStamp" value="58" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/../../anaconda3/envs/pytorch/lib/python3.5/codecs.py" />
     <entry file="file://$PROJECT_DIR$/metric3.txt" />
     <entry file="file://$PROJECT_DIR$/../../anaconda3/envs/pytorch/lib/python3.5/posixpath.py" />
     <entry file="file://$PROJECT_DIR$/kagglebengali/requirements.txt">
@@ -703,13 +655,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../../anaconda3/envs/pytorch/lib/python3.8/site-packages/torch/nn/modules/module.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="6510">
-          <caret line="440" column="16" selection-start-line="440" selection-start-column="16" selection-end-line="440" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/dvc_create_dataset.sh">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="315">
@@ -817,47 +762,65 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/kagglebengali/model_pytorch.py">
+    <entry file="file://$PROJECT_DIR$/kagglebengali/local_logging.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="9" column="27" selection-start-line="9" selection-start-column="27" selection-end-line="9" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/kagglebengali/training_log.txt">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/kagglebengali/consts.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="495">
-          <caret line="33" lean-forward="true" selection-start-line="33" selection-end-line="33" />
+        <state relative-caret-position="180">
+          <caret line="12" column="30" selection-start-line="12" selection-start-column="30" selection-end-line="12" selection-end-column="30" />
           <folding>
             <element signature="e#0#14#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/../../anaconda3/envs/pytorch/lib/python3.8/site-packages/torch/nn/modules/module.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="393">
+          <caret line="828" selection-start-line="828" selection-end-line="828" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/run_train.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="30">
-          <caret line="2" column="6" selection-start-line="2" selection-start-column="6" selection-end-line="2" selection-end-column="6" />
+          <caret line="2" selection-start-line="2" selection-end-line="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/kagglebengali/save_to_maybe_gs.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="3" column="4" selection-start-line="3" selection-start-column="4" selection-end-line="3" selection-end-column="4" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/kagglebengali/train.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="390">
-          <caret line="26" column="11" lean-forward="true" selection-start-line="26" selection-start-column="11" selection-end-line="26" selection-end-column="11" />
+        <state relative-caret-position="629">
+          <caret line="65" selection-start-line="65" selection-end-line="65" />
           <folding>
             <element signature="e#0#9#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/kagglebengali/local_logging.py">
+    <entry file="file://$PROJECT_DIR$/kagglebengali/training_log.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="11" column="30" lean-forward="true" selection-start-line="11" selection-start-column="30" selection-end-line="11" selection-end-column="30" />
+        <state relative-caret-position="996">
+          <caret line="158" column="17" selection-start-line="158" selection-start-column="17" selection-end-line="158" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/kagglebengali/model_pytorch.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="17" column="122" selection-start-line="17" selection-start-column="122" selection-end-line="17" selection-end-column="122" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/kagglebengali/consts.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="690">
+          <caret line="46" column="16" selection-start-line="46" selection-start-column="16" selection-end-line="46" selection-end-column="16" />
           <folding>
             <element signature="e#0#14#0" expanded="true" />
           </folding>
