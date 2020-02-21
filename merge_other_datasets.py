@@ -51,13 +51,17 @@ def load_malayan(begin_label):
 begin_label=168
 classes=[]
 
+print('labels interval {}'.format(begin_label))
 
 images,labels,ids,labels_added=load_kuzushi(begin_label)
 dump(os.path.join(DATA_DIR,TRAIN_DATASET_DIR),images,labels,ids, classes,prefix='kuzushi',mode='append')
 
 begin_label=begin_label+labels_added
+print('labels interval {}'.format(begin_label))
 
 images,labels,ids,labels_added=load_malayan(begin_label)
 dump(os.path.join(DATA_DIR,TRAIN_DATASET_DIR),images,labels,ids, classes,prefix='malayan',mode='append')
+
+print('labels interval {}'.format(begin_label+labels_added))
 
 print('total_labels={}'.format(begin_label+labels_added))
