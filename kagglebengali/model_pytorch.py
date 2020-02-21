@@ -15,7 +15,8 @@ from .model_base import ModelBase
 from .score import calc_score
 from .dataset_pytorch import BengaliDataset
 from .consts import IMG_W,IMG_H,N_CHANNELS, BATCH_SIZE, LR, EPOCHS, AUGM_PROB,\
-    DROPOUT_P, LOSS_WEIGHTS, LR_SCHEDULER_PATINCE,CLASSES_LIST, LOG_FILENAME, FEATURES_AREA, EVAL_EVERY_STEPS,EVAL_BATCHES,CLASSES_LIST_ORIG,TRAIN_ONLY_LAST_FULLY_CONNECTED
+    DROPOUT_P, LOSS_WEIGHTS, LR_SCHEDULER_PATINCE,CLASSES_LIST, LOG_FILENAME, FEATURES_AREA, EVAL_EVERY_STEPS,EVAL_BATCHES,CLASSES_LIST_ORIG,TRAIN_ONLY_LAST_FULLY_CONNECTED,\
+    LABEL_INTERVALS
 from .loss import calc_classes_weights, RecallScore
 from .save_to_maybe_gs import save
 from .local_logging import get_logger
@@ -71,13 +72,19 @@ class Model(ModelBase, torch.nn.Module):
         self._classes_list=CLASSES_LIST
 
         self._backbone=BackBone()
+        self._embeds = nn.Embedding(len(LABEL_INTERVALS), np.sum(CLASSES_LIST))
+
         #self._backbone=nn.DataParallel(self._backbone)
 
         #optimizer=optim.Adam(self.parameters(),lr=LR)
         self._optimizer=RAdam(self.parameters(),lr=LR)
 
-    def forward(self,x):
+    def forward(self,input):
+        x,datasets_ids=input
         x=self._backbone(x)
+
+        weights=self._embeds(datasets_ids)
+        x=x*weights
         outputs=torch.split(x,self._classes_list,dim=1)
         return outputs
 
@@ -139,14 +146,16 @@ class Model(ModelBase, torch.nn.Module):
 
                 global_step+=1
 
-                images,labels=data['image'],data['label']
+                images,labels,dataset_ids=data['image'],data['label'],data['dataset_id']
+
 
                 images=images.to(self._device,dtype=torch.float)
                 labels=labels.to(self._device)
+                dataset_ids=dataset_ids.to(self._device,dtype=torch.long)
 
                 self._optimizer.zero_grad()
 
-                heads_outputs = self.__call__(images)
+                heads_outputs = self.__call__((images,dataset_ids))
 
                 loss=0
                 for idx in range(len(self._classes_list)):
@@ -189,9 +198,9 @@ class Model(ModelBase, torch.nn.Module):
         labels_batches=[]
         pred_batches=[]
         for i,data in enumerate(dataloader):
-            images,labels=data['image'],data['label']
+            images,labels,dataset_ids=data['image'],data['label'],data['dataset_id']
 
-            preds=self._predict_on_tensor(images)
+            preds=self._predict_on_tensor(images,dataset_ids)
             labels_batches.append(labels)
             pred_batches.append(preds)
 
@@ -237,7 +246,7 @@ class Model(ModelBase, torch.nn.Module):
 
         return np.concatenate(predicted_labels,axis=0)
 
-    def _predict_on_tensor(self,inputs):
+    def _predict_on_tensor(self,inputs,dataset_ids):
 
         self.eval()
 
@@ -245,7 +254,9 @@ class Model(ModelBase, torch.nn.Module):
             return tensor.data.cpu().numpy().argmax(axis=1).reshape([-1,1])
 
         inputs=inputs.to(self._device)
-        heads = self.__call__(inputs)
+        dataset_ids=dataset_ids.to(self._device)
+
+        heads = self.__call__((inputs,dataset_ids))
         labels=[_argmax(head) for head in heads]
         labels = np.hstack(labels)
         return labels

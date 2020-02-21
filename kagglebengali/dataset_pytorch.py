@@ -38,7 +38,7 @@ class BengaliDataset(Dataset):
 
         #img=np.concatenate([img,img,img],axis=-1)
 
-        dataset_id=_get_dataset_id(label)
+        dataset_id=self._get_dataset_id(label)
 
         if self._transform_fn:
             img=self._transform_fn(img)

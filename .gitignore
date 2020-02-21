@@ -3,3 +3,4 @@ data/train_2
 data/train_datset_clear
 __pycache__
 artifacts
+data/train_datset_debug/
