@@ -128,8 +128,7 @@ class Model(ModelBase, torch.nn.Module):
             in_features=self._backbone.fully_connected.in_features
             self._backbone.fully_connected=nn.Linear(in_features=in_features,out_features=np.sum(self._classes_list),bias=True)
             self.to(self._device)
-
-        self._optimizer=RAdam(self._backbone.fully_connected.parameters(),lr=LR)
+            self._optimizer=RAdam(self._backbone.fully_connected.parameters(),lr=LR)
 
         loss_fns=[RecallScore(None) for _ in range(3)]
 
