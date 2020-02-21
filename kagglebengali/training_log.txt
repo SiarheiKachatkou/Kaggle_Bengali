@@ -813,3 +813,136 @@ new best model saved
 loss=1.9920328855514526 train_score=0.5844092189836874 val_score=0.49128111767295535
 iter/secs=2.3161239078633837   lr=0.01
 new best model saved
+loss=2.0257363319396973 train_score=0.6128654003898593 val_score=0.5113594152071111
+iter/secs=2.3246173469387754   lr=0.01
+new best model saved
+loss=1.1246455907821655 train_score=0.6772633066611338 val_score=0.5809286545929168
+iter/secs=2.326595744680851   lr=0.01
+new best model saved
+loss=1.212197184562683 train_score=0.7174668214968647 val_score=0.6512089737944186
+iter/secs=2.3269493844049247   lr=0.01
+new best model saved
+loss=0.8332420587539673 train_score=0.7637928118738102 val_score=0.6887464134503143
+iter/secs=2.32814371257485   lr=0.01
+new best model saved
+loss=1.051063060760498 train_score=0.7358967314724183 val_score=0.6938047590755018
+iter/secs=2.328246983676366   lr=0.01
+new best model saved
+loss=1.041773796081543 train_score=0.8100039652623524 val_score=0.7179862431541203
+iter/secs=2.329817833173538   lr=0.01
+new best model saved
+epoch 2/100
+loss=0.9051975011825562 train_score=0.8226968319172473 val_score=0.7481499558999005
+iter/secs=2.330427201394943   lr=0.01
+new best model saved
+loss=0.771044135093689 train_score=0.7987981350913063 val_score=0.7719035599688608
+iter/secs=2.3303143313798613   lr=0.01
+new best model saved
+loss=0.6370346546173096 train_score=0.844599280562804 val_score=0.7775926563958453
+iter/secs=2.3319389763779528   lr=0.01
+new best model saved
+loss=0.4603905975818634 train_score=0.8602467963205633 val_score=0.7880043710804626
+iter/secs=2.3344007319304665   lr=0.01
+new best model saved
+loss=1.0160046815872192 train_score=0.8171651476688303 val_score=0.7682811407989736
+iter/secs=2.3370378285958537   lr=0.01
+loss=0.8343002796173096 train_score=0.8256792321572958 val_score=0.7819700927172601
+iter/secs=2.3402889245585876   lr=0.01
+loss=0.7854650616645813 train_score=0.8878510963855537 val_score=0.8369117732720902
+iter/secs=2.343165059557572   lr=0.01
+new best model saved
+loss=0.5028433799743652 train_score=0.884547415355353 val_score=0.8205665952760954
+iter/secs=2.3444702519206717   lr=0.01
+loss=0.5772709846496582 train_score=0.8929024925927804 val_score=0.8434819542529968
+iter/secs=2.346036585365854   lr=0.01
+new best model saved
+loss=0.8107947111129761 train_score=0.8842322509159892 val_score=0.8207107048751674
+iter/secs=2.3466924191211973   lr=0.01
+epoch 3/100
+loss=0.47101491689682007 train_score=0.8822562163672768 val_score=0.8091367008694542
+iter/secs=2.3480061349693253   lr=0.01
+loss=0.5323978066444397 train_score=0.893205907402091 val_score=0.843860640405007
+iter/secs=2.3492016991357842   lr=0.01
+new best model saved
+loss=0.5998188853263855 train_score=0.9048997364254955 val_score=0.8571302678747574
+iter/secs=2.349635650224215   lr=0.01
+new best model saved
+loss=0.21424220502376556 train_score=0.8920131539373475 val_score=0.8379062787397912
+iter/secs=2.349402443937156   lr=0.01
+loss=0.4006207585334778 train_score=0.9105915184857665 val_score=0.8162568160171255
+iter/secs=2.348582474226804   lr=0.01
+loss=0.5824285745620728 train_score=0.9090313569893365 val_score=0.8429213684879062
+iter/secs=2.3484078800644284   lr=0.01
+loss=0.4463649392127991 train_score=0.9111406104610023 val_score=0.8650027419538004
+iter/secs=2.3488066825775658   lr=0.01
+new best model saved
+loss=0.4662684202194214 train_score=0.8951375204036183 val_score=0.837693655360725
+iter/secs=2.348366313851818   lr=0.01
+loss=0.5440715551376343 train_score=0.9199353459300428 val_score=0.838066963418746
+iter/secs=2.348478115974228   lr=0.01
+loss=0.48343709111213684 train_score=0.9159927910301406 val_score=0.8829298104063243
+iter/secs=2.3503492745835572   lr=0.01
+new best model saved
+loss=0.395709365606308 train_score=0.8628907308146176 val_score=0.8233719597939751
+iter/secs=2.351368223910103   lr=0.01
+epoch 4/100
+loss=0.1673903614282608 train_score=0.9435810781760665 val_score=0.8808698840506919
+iter/secs=2.352087114337568   lr=0.01
+loss=0.4826009273529053 train_score=0.9306751219444854 val_score=0.8671041649351936
+iter/secs=2.3520727414939384   lr=0.01
+start training at 2020-02-21 11:29:09.519347
+local_train_dir=/home/sergey/1T/Bengali_github/data/train_datset
+local_test_dir=/home/sergey/1T/Bengali_github/data/val_datset
+484939 train images loaded
+40168 val images loaded
+Let's use 1 GPUs!
+epoch 1/100
+loss=9.912327766418457 train_score=0.04095291853988911 val_score=0.05844155844155844
+iter/secs=0.043478260869565216   lr=0.01
+new best model saved
+start training at 2020-02-21 11:31:40.489402
+local_train_dir=/home/sergey/1T/Bengali_github/data/train_datset
+local_test_dir=/home/sergey/1T/Bengali_github/data/val_datset
+484939 train images loaded
+40168 val images loaded
+Let's use 1 GPUs!
+epoch 1/100
+loss=9.998246192932129 train_score=0.054558876386760054 val_score=0.05844155844155844
+iter/secs=0.045454545454545456   lr=0.01
+new best model saved
+loss=nan train_score=0.06041006237856632 val_score=0.06143557041760635
+iter/secs=2.1761194029850746   lr=0.01
+new best model saved
+loss=nan train_score=0.06040234275528393 val_score=0.06141774891774891
+iter/secs=2.2534775888717156   lr=0.01
+loss=nan train_score=0.060372060372060374 val_score=0.06141774891774891
+iter/secs=2.280500521376434   lr=0.01
+start training at 2020-02-21 11:51:30.462575
+local_train_dir=/home/sergey/1T/Bengali_github/data/train_datset
+local_test_dir=/home/sergey/1T/Bengali_github/data/val_datset
+484939 train images loaded
+40168 val images loaded
+Let's use 1 GPUs!
+epoch 1/100
+start training at 2020-02-21 11:57:50.532172
+local_train_dir=/home/sergey/1T/Bengali_github/data/train_datset
+local_test_dir=/home/sergey/1T/Bengali_github/data/val_datset
+484939 train images loaded
+40168 val images loaded
+Let's use 1 GPUs!
+epoch 1/100
+loss=11.269269943237305 train_score=0.060387083733387234 val_score=0.05844155844155844
+iter/secs=0.045454545454545456   lr=0.01
+new best model saved
+loss=3.387357234954834 train_score=0.36002620539558616 val_score=0.2320059710466595
+iter/secs=2.169642857142857   lr=0.01
+new best model saved
+loss=2.5557539463043213 train_score=0.4530374426669976 val_score=0.32767920925038607
+iter/secs=2.23963133640553   lr=0.01
+new best model saved
+loss=1.9781913757324219 train_score=0.5662885059976507 val_score=0.434656600002135
+iter/secs=2.259297520661157   lr=0.01
+new best model saved
+loss=1.2084230184555054 train_score=0.6446302461892185 val_score=0.5399171356564014
+iter/secs=2.2727981293842556   lr=0.01
+new best model saved

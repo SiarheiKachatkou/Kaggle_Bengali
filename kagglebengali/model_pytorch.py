@@ -72,7 +72,15 @@ class Model(ModelBase, torch.nn.Module):
         self._classes_list=CLASSES_LIST
 
         self._backbone=BackBone()
-        self._embeds = nn.Embedding(len(LABEL_INTERVALS), np.sum(CLASSES_LIST))
+        embed_dim=1024
+        label_num=np.sum(CLASSES_LIST)
+        self._embeds = nn.Embedding(len(LABEL_INTERVALS), label_num)
+        self._embeds_fc1=nn.Linear(label_num,embed_dim,bias=True)
+        self._embed_r1=nn.ReLU()
+        self._embeds_fc2=nn.Linear(embed_dim,embed_dim//2,bias=True)
+        self._embed_r2=nn.ReLU()
+        self._embeds_fc3=nn.Linear(embed_dim//2,label_num,bias=True)
+
 
         #self._backbone=nn.DataParallel(self._backbone)
 
@@ -84,7 +92,14 @@ class Model(ModelBase, torch.nn.Module):
         x=self._backbone(x)
 
         weights=self._embeds(datasets_ids)
-        x=x*weights
+        weights=weights*x
+        weights=self._embeds_fc1(weights)
+        weights=self._embed_r1(weights)
+        weights=self._embeds_fc2(weights)
+        weights=self._embed_r2(weights)
+        weights=self._embeds_fc3(weights)
+
+        x=x+weights
         outputs=torch.split(x,self._classes_list,dim=1)
         return outputs
 
