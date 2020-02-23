@@ -1,6 +1,7 @@
 import logging
 import os
 import numpy as np
+import random
 from .resnet import Bottleneck
 
 ARTIFACTS_DIR='artifacts'
@@ -33,19 +34,19 @@ MODEL_NAME='model'
 
 IMG_WIDTH = 236
 IMG_HEIGHT = 137
-IMG_W=224
-IMG_H=224
+IMG_W=64
+IMG_H=64
 TOP_CUT=4
 LEFT_CUT=4
 PAD=4
 
 
 N_CHANNELS = 1
-BATCH_SIZE=64
-EPOCHS=100
-LR=0.1
+BATCH_SIZE=256
+EPOCHS=10
+LR=0.001
 LR_SCHEDULER_PATINCE=8
-AUGM_PROB=0.4
+AUGM_PROB=0
 DROPOUT_P=0.5
 
 LOSS_WEIGHTS=[1,1,1]
@@ -72,8 +73,6 @@ try:
 except:
     print('can not import pytorch, gpu use will be undeterministic')
 
-import numpy as np
-np.random.seed(SEED)
 
-import random
+np.random.seed(SEED)
 random.seed(SEED)

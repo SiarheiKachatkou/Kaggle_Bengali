@@ -1,7 +1,7 @@
 #!/bin/bash
 
-BUCKET_NAME=kochetkov_bucket_2
-PROJECT_ID=core-memento-267713
+BUCKET_NAME=bengali_bucket
+PROJECT_ID=turing-audio-146210
 
 DATE=`date '+%Y%m%d_%H%M%S'`
 export JOB_NAME=pytorch_bengali_$DATE
