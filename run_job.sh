@@ -15,7 +15,7 @@ gcloud ai-platform jobs submit training $JOB_NAME \
     --config config.yaml \
     --runtime-version 1.15 \
     --stream-logs \
-    --job-dir=$GCS_JOB_DIR \
+    --job_dir=$GCS_JOB_DIR \
     --package-path=trainer \
     --module-name trainer.task \
     --region $REGION -- \
