@@ -59,7 +59,9 @@ FAST_PROTO_SCALE=1
 CLASSES_LIST=[168,11,7]
 
 
-RESNET_KWARGS={'arch':'small_resnet18', 'block':Bottleneck, 'layers':[2, 2, 2, 2], 'num_classes':np.sum(CLASSES_LIST),'pretrained':False, 'progress':False}
+
+
+RESNET_KWARGS={'arch':'small_resnext', 'groups': 32, 'width_per_group': 8, 'block':Bottleneck, 'layers':[2, 2, 2, 2], 'num_classes':np.sum(CLASSES_LIST),'pretrained':False, 'progress':False}
 
 SEED=0
 
