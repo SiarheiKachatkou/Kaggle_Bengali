@@ -19,7 +19,7 @@ def parse_args():
     parser.add_argument('--ckpt_full_path',type=str,default='',help='if non empty model will be restored from ckpt state and continue training, path maye be in gs')
     parser.add_argument('--train_bin_files_dir',type=str,help=' train binary files in gs or local')
     parser.add_argument('--test_bin_files_dir',type=str,help=' test binary files in gs or local')
-    parser.add_argument('--job_dir',type=str,default=ARTIFACTS_DIR,help=' directory for chekpoints and metric saving, is google storage directory for running in cloud')
+    parser.add_argument('--job-dir',type=str,default=ARTIFACTS_DIR,help=' directory for chekpoints and metric saving, is google storage directory for running in cloud')
     args=parser.parse_args()
     return args
 
