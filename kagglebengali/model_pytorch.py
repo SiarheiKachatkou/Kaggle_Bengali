@@ -74,13 +74,12 @@ class Model(ModelBase, torch.nn.Module):
         self._backbone=BackBone()
         embed_dim=1024
         label_num=np.sum(CLASSES_LIST)
-        self._embeds = nn.Embedding(len(LABEL_INTERVALS), label_num)
-        self._embeds_fc1=nn.Linear(label_num,embed_dim,bias=True)
-        self._embed_r1=nn.ReLU()
-        self._embeds_fc2=nn.Linear(embed_dim,embed_dim//2,bias=True)
-        self._embed_r2=nn.ReLU()
-        self._embeds_fc3=nn.Linear(embed_dim//2,label_num,bias=True)
-
+        embeds=np.zeros((len(LABEL_INTERVALS), label_num),dtype=np.float32)
+        large_negative_shift=-1
+        embeds[0,168:]=large_negative_shift
+        embeds[1,:168]=large_negative_shift
+        embeds[2,:168]=large_negative_shift
+        self._embeds = torch.tensor(embeds,device=self._device)
 
         #self._backbone=nn.DataParallel(self._backbone)
 
@@ -88,18 +87,17 @@ class Model(ModelBase, torch.nn.Module):
         self._optimizer=RAdam(self.parameters(),lr=LR)
 
     def forward(self,input):
-        x,datasets_ids=input
+        if isinstance(input,tuple):
+            x,datasets_ids=input
+            weights=self._embeds[datasets_ids]
+        else:
+            x=input
+            weights=0
+
         x=self._backbone(x)
 
-        weights=self._embeds(datasets_ids)
-        weights=weights*x
-        weights=self._embeds_fc1(weights)
-        weights=self._embed_r1(weights)
-        weights=self._embeds_fc2(weights)
-        weights=self._embed_r2(weights)
-        weights=self._embeds_fc3(weights)
-
         x=x+weights
+
         outputs=torch.split(x,self._classes_list,dim=1)
         return outputs
 
@@ -169,7 +167,7 @@ class Model(ModelBase, torch.nn.Module):
 
                 self._optimizer.zero_grad()
 
-                heads_outputs = self.__call__((images,dataset_ids))
+                heads_outputs = self.__call__((images))
 
                 loss=0
                 for idx in range(len(self._classes_list)):
@@ -271,6 +269,7 @@ class Model(ModelBase, torch.nn.Module):
         dataset_ids=dataset_ids.to(self._device)
 
         heads = self.__call__((inputs,dataset_ids))
+
         labels=[_argmax(head) for head in heads]
         labels = np.hstack(labels)
         return labels
