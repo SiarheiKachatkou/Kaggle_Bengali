@@ -32,10 +32,16 @@ IMAGE_GEN_PKL = 'image_gen.pkl'
 
 MODEL_NAME='model'
 
+alpha=1.2
+beta=1.1
+gama=1.15
+phi=1
+
+
 IMG_WIDTH = 236
 IMG_HEIGHT = 137
-IMG_W=64
-IMG_H=64
+IMG_W=int(64*gama**phi)
+IMG_H=int(64*gama**phi)
 TOP_CUT=4
 LEFT_CUT=4
 PAD=4
@@ -45,7 +51,7 @@ N_CHANNELS = 1
 BATCH_SIZE=256
 EPOCHS=10
 LR=0.001
-LR_SCHEDULER_PATINCE=8
+LR_SCHEDULER_PATINCE=800
 AUGM_PROB=0
 DROPOUT_P=0.5
 
@@ -59,9 +65,14 @@ FAST_PROTO_SCALE=1
 CLASSES_LIST=[168,11,7]
 
 
+_m=alpha**phi
 
+#resnext
+#RESNET_KWARGS={'arch':'small_resnet', 'groups': 32,'width_per_group': int(8*beta**phi), 'block':Bottleneck, 'layers':[int(_m*2), int(_m*2), int(_m*2), int(_m*2)], 'num_classes':np.sum(CLASSES_LIST),'pretrained':False, 'progress':False}
 
-RESNET_KWARGS={'arch':'small_resnext', 'groups': 32, 'width_per_group': 8, 'block':Bottleneck, 'layers':[2, 2, 2, 2], 'num_classes':np.sum(CLASSES_LIST),'pretrained':False, 'progress':False}
+#resnet
+
+RESNET_KWARGS={'arch':'small_resnet', 'width_per_group': int(64*beta**phi), 'block':Bottleneck, 'layers':[int(_m*2), int(_m*2), int(_m*2), int(_m*2)], 'num_classes':np.sum(CLASSES_LIST),'pretrained':False, 'progress':False}
 
 SEED=0
 
