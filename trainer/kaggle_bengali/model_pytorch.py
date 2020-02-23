@@ -15,17 +15,13 @@ from .model_base import ModelBase
 from .score import calc_score
 from .dataset_pytorch import BengaliDataset
 from .consts import IMG_W,IMG_H,N_CHANNELS, BATCH_SIZE, LR, EPOCHS, AUGM_PROB,FAST_PROTO_SCALE, \
-    DROPOUT_P, LOSS_WEIGHTS, LR_SCHEDULER_PATINCE,USE_FREQ_SAMPLING,CLASSES_LIST, LOG_FILENAME
+    DROPOUT_P, LOSS_WEIGHTS, LR_SCHEDULER_PATINCE,CLASSES_LIST, LOG_FILENAME, RESNET_KWARGS
 from .loss import calc_classes_weights, RecallScore
 from .save_to_maybe_gs import save
 from ..local_logging import get_logger
-from .resnet import resnet152
+from .resnet import _resnet
 
 logger=get_logger(__name__)
-
-def k(kernel_size):
-    return kernel_size
-    return max(1,round(kernel_size/FAST_PROTO_SCALE))
 
 
 def get_augmentations():
@@ -45,11 +41,7 @@ def get_augmentations():
 class BackBone(nn.Module):
     def __init__(self):
         super().__init__()
-        self._backbone=pretrainedmodels.resnet152(pretrained=None)
-        #pretrainedmodels.nasnetalarge(pretrained=None)
-        #resnet152(pretrained=None)
-        in_features=self._backbone.last_linear.in_features
-        self._backbone.last_linear=nn.Linear(in_features=in_features,out_features=np.sum(CLASSES_LIST),bias=True)
+        self._backbone=_resnet(**RESNET_KWARGS)
 
     def forward(self, x):
 
@@ -107,19 +99,19 @@ class Model(ModelBase, torch.nn.Module):
 
         train_sampler = None
 
-        train_dataloader=DataLoader(train_dataset_aug, batch_size=BATCH_SIZE, shuffle=False, sampler=train_sampler,
+        train_dataloader=DataLoader(train_dataset_aug, batch_size=BATCH_SIZE, shuffle=True, sampler=train_sampler,
            batch_sampler=None, num_workers=0, collate_fn=None,
-           pin_memory=False, drop_last=False, timeout=0,
+           pin_memory=False, drop_last=True, timeout=0,
            worker_init_fn=None)
 
         train_val_dataloader=DataLoader(train_dataset, batch_size=BATCH_SIZE, shuffle=True, sampler=None,
            batch_sampler=None, num_workers=0, collate_fn=None,
-           pin_memory=False, drop_last=False, timeout=0,
+           pin_memory=False, drop_last=True, timeout=0,
            worker_init_fn=None)
 
         val_dataloader=DataLoader(val_dataset, batch_size=BATCH_SIZE, shuffle=True, sampler=None,
            batch_sampler=None, num_workers=0, collate_fn=None,
-           pin_memory=False, drop_last=False, timeout=0,
+           pin_memory=False, drop_last=True, timeout=0,
            worker_init_fn=None)
 
 

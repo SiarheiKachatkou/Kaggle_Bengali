@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/google_cloud.iml" filepath="$PROJECT_DIR$/.idea/google_cloud.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/Bengali_cloud.iml" filepath="$PROJECT_DIR$/.idea/Bengali_cloud.iml" />
     </modules>
   </component>
 </project>
