@@ -3,7 +3,7 @@ import pickle
 import shutil
 import cv2
 import numpy as np
-from consts import IMG_H, IMG_W,TOP_CUT,LEFT_CUT,PAD
+from .consts import IMG_H, IMG_W,TOP_CUT,LEFT_CUT,PAD
 
 def crop_symbol(img):
 

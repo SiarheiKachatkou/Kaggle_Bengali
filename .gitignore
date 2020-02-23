@@ -1,5 +1,7 @@
-data
-__pycache__
-.idea
-mnist
-DvcStorage
+.idea 
+myenv
+/__pycache__ 
+data 
+trainer/job_dir
+trainer/__pycache__ 
+job_dir 
