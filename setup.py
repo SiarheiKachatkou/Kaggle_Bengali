@@ -25,7 +25,9 @@ REQUIRED_PACKAGES = ['requests==2.19.1',
                      'albumentations',
                      'pretrainedmodels',
                      'pandas',
-                     'tqdm']
+                     'tqdm',
+                     'git+git://github.com/NVIDIA/apex'
+                     ]
 
 setup(name='bengali',
       version='2.0',
