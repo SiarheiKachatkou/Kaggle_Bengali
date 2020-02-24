@@ -17,8 +17,8 @@ from setuptools import find_packages
 from setuptools import setup
 
 REQUIRED_PACKAGES = ['requests==2.19.1',
-                     'torch',
-                     'torchvision==0.4.2',
+                     'torch==1.2.0',
+                     'torchvision==0.4.0',
                      'pytorch-lightning',
                      'pyarrow==0.15.0',
                      'sklearn',
