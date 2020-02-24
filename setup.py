@@ -19,7 +19,7 @@ from setuptools import setup
 REQUIRED_PACKAGES = ['requests==2.19.1',
                      'torch==1.3.1',
                      'torchvision==0.4.2',
-                     'pytorch-lighting',
+                     'pytorch-lightning',
                      'pyarrow==0.15.0',
                      'sklearn',
                      'albumentations',
