@@ -126,7 +126,7 @@ class Model(pl.LightningModule):
 
         heads_outputs = self.forward(images)
 
-        loss=self._clac_loss(heads_outputs,labels)
+        loss=self._calc_loss(heads_outputs,labels)
 
         tensorboard_logs = {'train_loss': loss}
 
@@ -144,9 +144,11 @@ class Model(pl.LightningModule):
         pred_batches=[x['predicted_labels'] for x in outputs]
         labels_batches=[x['true_labels'] for x in outputs]
         logits_batches=[x['predicted_logits'] for x in outputs]
-        loss=[self._calc_loss(logit,label) for logit,label in zip(logits_batches,labels_batches)]
+        loss=[self._calc_loss(logit,label).item() for logit,label in zip(logits_batches,labels_batches)]
         loss=np.mean(loss)
         preds=np.concatenate(pred_batches,axis=0)
+
+        labels_batches=[labels_batch.cpu().numpy() for labels_batch in labels_batches]
         labels=np.concatenate(labels_batches,axis=0)
 
         val_score=calc_score(solution=labels,submission=preds)
@@ -154,7 +156,8 @@ class Model(pl.LightningModule):
 
         logger.info('val_loss={} val_score={}'.format(loss,val_score))
         time=(datetime.now()-self._start_time).seconds
-        logger.info('iter/secs={}   lr={}'.format(self._global_step/time,self.optimizer.param_groups[0]['lr']))
+        eps=1e-3
+        logger.info('iter/secs={}   lr={}'.format(self._global_step/(time+eps),self.optimizer.param_groups[0]['lr']))
 
 
         def copy_log_file(dst_path):

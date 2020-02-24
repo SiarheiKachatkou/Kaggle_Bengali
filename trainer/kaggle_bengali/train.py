@@ -53,7 +53,7 @@ def main():
 
     model=Model(train_images,train_labels, val_images, val_labels,model_filepath)
 
-    trainer=pl.Trainer()
+    trainer=pl.Trainer(gpus=1,use_amp=True,amp_level='O1')
 
     trainer.fit(model)
 
