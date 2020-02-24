@@ -1,5 +1,6 @@
 import os
-if False:
+USE_APEX=True
+if USE_APEX:
     os.system('git clone https://github.com/NVIDIA/apex; cd apex; pip3 install -v --no-cache-dir --global-option="--cpp_ext" --global-option="--cuda_ext" ./')
 
 import numpy as np
@@ -10,7 +11,7 @@ from .model_pytorch import Model
 from .create_dataset_utils import load
 from .score import calc_score
 from .consts import MODELS_PRETRAINED_DIR, DATA_DIR,MODEL_NAME,BATCH_SIZE,EPOCHS, \
-    TRAIN_DATASET_DIR, VAL_DATASET_DIR, MODELS_DIR, METRIC_FILE_PATH,ARTIFACTS_DIR, LOG_FILENAME, LOG_LEVEL, USE_APEX
+    TRAIN_DATASET_DIR, VAL_DATASET_DIR, MODELS_DIR, METRIC_FILE_PATH,ARTIFACTS_DIR, LOG_FILENAME, LOG_LEVEL,
 
 from ..dataset_utils import download_dir_from_gcs, download_file_from_gcs
 from .save_to_maybe_gs import save
