@@ -1,8 +1,8 @@
 import os
 import numpy as np
 import argparse
+import pytorch_lightning as pl
 from ..local_logging import get_logger
-import subprocess
 from .model_pytorch import Model
 from .create_dataset_utils import load
 from .score import calc_score
@@ -51,13 +51,11 @@ def main():
     model_filepath=os.path.join(model_dir,MODEL_NAME)
 
 
-    model=Model()
+    model=Model(train_images,train_labels, val_images, val_labels,model_filepath)
 
-    model.compile(classes_list=classes)
-    if not (args.ckpt_full_path==''):
-        model_pretrained_filepath=download_file_from_gcs(args.ckpt_full_path,'starting_ckpt')
-        model.load(model_pretrained_filepath, classes)
-    model.fit(train_images,train_labels, val_images,val_labels,path_to_model_save=model_filepath,batch_size=BATCH_SIZE,epochs=EPOCHS)
+    trainer=pl.Trainer()
+
+    trainer.fit(model)
 
     model.eval()
     val_preds=model.predict( val_images)

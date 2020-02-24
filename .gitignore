@@ -5,3 +5,4 @@ data
 trainer/job_dir
 trainer/__pycache__ 
 job_dir 
+lightning_logs/
