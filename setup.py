@@ -18,11 +18,6 @@ from setuptools import setup
 import os
 
 
-if True:
-    os.system('pip install torch==1.2.0 torchvision==0.4.0')
-    os.system('git clone https://github.com/NVIDIA/apex; cd apex; pip3 install -v --no-cache-dir --global-option="--cpp_ext" --global-option="--cuda_ext" ./')
-
-
 
 REQUIRED_PACKAGES = ['requests==2.19.1',
                      'torch==1.2.0',

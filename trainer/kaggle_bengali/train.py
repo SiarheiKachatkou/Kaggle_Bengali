@@ -1,4 +1,7 @@
 import os
+if True:
+    os.system('git clone https://github.com/NVIDIA/apex; cd apex; pip3 install -v --no-cache-dir --global-option="--cpp_ext" --global-option="--cuda_ext" ./')
+
 import numpy as np
 import argparse
 import pytorch_lightning as pl
