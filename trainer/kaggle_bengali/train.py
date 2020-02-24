@@ -23,8 +23,6 @@ def parse_args():
     args=parser.parse_args()
     return args
 
-if USE_APEX:
-    os.system('git clone https://github.com/NVIDIA/apex; cd apex; pip3 install -v --no-cache-dir --global-option="--cpp_ext" --global-option="--cuda_ext" ./')
 
 def main():
 
