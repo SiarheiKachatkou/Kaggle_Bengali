@@ -7,7 +7,7 @@ from .model_pytorch import Model
 from .create_dataset_utils import load
 from .score import calc_score
 from .consts import MODELS_PRETRAINED_DIR, DATA_DIR,MODEL_NAME,BATCH_SIZE,EPOCHS, \
-    TRAIN_DATASET_DIR, VAL_DATASET_DIR, MODELS_DIR, METRIC_FILE_PATH,ARTIFACTS_DIR, LOG_FILENAME, LOG_LEVEL
+    TRAIN_DATASET_DIR, VAL_DATASET_DIR, MODELS_DIR, METRIC_FILE_PATH,ARTIFACTS_DIR, LOG_FILENAME, LOG_LEVEL, USE_APEX
 
 from ..dataset_utils import download_dir_from_gcs, download_file_from_gcs
 from .save_to_maybe_gs import save
@@ -23,6 +23,8 @@ def parse_args():
     args=parser.parse_args()
     return args
 
+if USE_APEX:
+    os.system('git clone https://github.com/NVIDIA/apex; cd apex; pip install -v --no-cache-dir --global-option="--cpp_ext" --global-option="--cuda_ext" ./')
 
 def main():
 
@@ -53,7 +55,7 @@ def main():
 
     model=Model(train_images,train_labels, val_images, val_labels,model_filepath)
 
-    trainer=pl.Trainer(gpus=1,use_amp=True,amp_level='O1')
+    trainer=pl.Trainer(gpus=1,use_amp=USE_APEX,amp_level='O1')
 
     trainer.fit(model)
 
