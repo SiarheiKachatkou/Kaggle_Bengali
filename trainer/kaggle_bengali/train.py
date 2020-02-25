@@ -71,7 +71,7 @@ def main():
     logger.info('validation accuracy = {}'.format(acc))
 
     score=calc_score(solution=val_preds,submission=val_labels)
-    logger.info('score={}'.format(score))
+    logger.info('loaded model score={}'.format(score))
 
     def save_fn(path):
         with open(path,'wt') as file:
