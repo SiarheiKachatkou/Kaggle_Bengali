@@ -59,7 +59,7 @@ def main():
 
     model=Model(train_images,train_labels, val_images, val_labels,model_filepath)
 
-    trainer=pl.Trainer(gpus=1,use_amp=USE_AMP,amp_level='O2')
+    trainer=pl.Trainer(gpus=1,max_epochs=EPOCHS,min_epochs=EPOCHS,use_amp=USE_AMP,amp_level='O2')
 
     trainer.fit(model)
 

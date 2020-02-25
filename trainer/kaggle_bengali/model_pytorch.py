@@ -190,8 +190,6 @@ class Model(pl.LightningModule):
 
         assert isinstance(images,np.ndarray), print('images must be np.array in channel last format')
 
-        self.to(self._device)
-
         dataset=BengaliDataset(images,labels=None)
 
         dataloader=DataLoader(dataset, batch_size=BATCH_SIZE, shuffle=False, sampler=None,
