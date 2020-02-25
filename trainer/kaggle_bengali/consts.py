@@ -2,7 +2,7 @@ import logging
 import os
 import numpy as np
 import random
-from .resnet import Bottleneck
+from .resnet import Bottleneck,SEBottleneck
 
 ARTIFACTS_DIR='artifacts'
 DATA_DIR='data'
@@ -35,7 +35,7 @@ MODEL_NAME='model'
 alpha=1.2
 beta=1.1
 gama=1.15
-phi=3
+phi=1
 
 
 IMG_WIDTH = 236
@@ -48,7 +48,7 @@ PAD=4
 
 
 N_CHANNELS = 1
-BATCH_SIZE=512
+BATCH_SIZE=64
 EPOCHS=10
 LR=0.001
 LR_SCHEDULER_PATINCE=800
@@ -58,20 +58,21 @@ DROPOUT_P=0.5
 LOSS_WEIGHTS=[1,1,1]
 BETA=0
 
-USE_FREQ_SAMPLING=False
-
-FAST_PROTO_SCALE=1
-
 CLASSES_LIST=[168,11,7]
 
 
 _m=alpha**phi
 
 #resnext
-RESNET_KWARGS={'arch':'small_resnet', 'groups': 32,'width_per_group': int(8*beta**phi), 'block':Bottleneck, 'layers':[int(_m*2), int(_m*2), int(_m*2), int(_m*2)], 'num_classes':np.sum(CLASSES_LIST),'pretrained':False, 'progress':False}
+#RESNET_KWARGS={'arch':'small_resnet', 'groups': 32,'width_per_group': int(8*beta**phi), 'block':Bottleneck, 'layers':[int(_m*2), int(_m*2), int(_m*2), int(_m*2)], 'num_classes':np.sum(CLASSES_LIST),'pretrained':False, 'progress':False}
 
 #resnet
 #RESNET_KWARGS={'arch':'small_resnet', 'width_per_group': int(64*beta**phi), 'block':Bottleneck, 'layers':[int(_m*2), int(_m*2), int(_m*2), int(_m*2)], 'num_classes':np.sum(CLASSES_LIST),'pretrained':False, 'progress':False}
+
+
+#se-resnet
+RESNET_KWARGS={'arch':'small_resnet', 'width_per_group': int(64*beta**phi), 'block':SEBottleneck, 'layers':[int(_m*2), int(_m*2), int(_m*2), int(_m*2)], 'num_classes':np.sum(CLASSES_LIST),'pretrained':False, 'progress':False}
+
 
 SEED=0
 

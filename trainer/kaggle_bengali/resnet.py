@@ -103,6 +103,52 @@ class Bottleneck(nn.Module):
         return out
 
 
+class SEBottleneck(Bottleneck):
+
+    def __init__(self, inplanes, planes, stride=1, downsample=None, groups=1,
+                 base_width=64, dilation=1, norm_layer=None,reduction=4):
+        super(SEBottleneck, self).__init__(inplanes, planes, stride, downsample, groups,base_width, dilation, norm_layer)
+
+        out_planes=self.bn3.num_features
+        self.se_avg_pool = nn.AdaptiveAvgPool2d(1)
+        self.se_fc1 = nn.Conv2d(inplanes, inplanes // reduction, kernel_size=1,
+                             padding=0)
+        self.se_relu = nn.ReLU(inplace=True)
+        self.se_fc2 = nn.Conv2d(inplanes // reduction, out_planes, kernel_size=1,
+                             padding=0)
+        self.se_sigmoid = nn.Sigmoid()
+
+    def forward(self, x):
+        identity = x
+
+        out = self.conv1(x)
+        out = self.bn1(out)
+        out = self.relu(out)
+
+        out = self.conv2(out)
+        out = self.bn2(out)
+        out = self.relu(out)
+
+        out = self.conv3(out)
+        out = self.bn3(out)
+
+        se=self.se_avg_pool(x)
+        se=self.se_fc1(se)
+        se=self.se_relu(se)
+        se=self.se_fc2(se)
+        se=self.se_sigmoid(se)
+
+        out=out*se
+
+        if self.downsample is not None:
+            identity = self.downsample(x)
+
+        out += identity
+        out = self.relu(out)
+
+        return out
+
+
 class ResNet(nn.Module):
 
     def __init__(self, block, layers, num_classes=1000, zero_init_residual=False,

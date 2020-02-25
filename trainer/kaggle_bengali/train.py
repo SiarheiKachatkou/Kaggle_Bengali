@@ -1,5 +1,6 @@
 import os
-USE_AMP=True
+
+USE_AMP=False
 if USE_AMP:
     os.system('git clone https://github.com/NVIDIA/apex; cd apex; pip3 install -v --no-cache-dir --global-option="--cpp_ext" --global-option="--cuda_ext" ./')
 
@@ -57,11 +58,6 @@ def main():
 
 
     model=Model(train_images,train_labels, val_images, val_labels,model_filepath)
-
-    model.half()  # convert to half precision
-    for layer in model.modules():
-      if isinstance(layer, torch.nn.BatchNorm2d):
-        layer.float()
 
     trainer=pl.Trainer(gpus=1,use_amp=USE_AMP,amp_level='O2')
 

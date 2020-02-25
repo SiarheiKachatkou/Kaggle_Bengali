@@ -38,7 +38,6 @@ class BengaliDataset(Dataset):
         img=_normalize_img(img)
 
         img_channel_first=np.transpose(img,[2,0,1])
-        img_channel_first=torch.tensor(img_channel_first).half()
 
         return {'image':img_channel_first,'label':label}
 

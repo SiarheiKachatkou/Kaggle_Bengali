@@ -11,7 +11,7 @@ import albumentations as A
 from .radam import RAdam
 from .score import calc_score
 from .dataset_pytorch import BengaliDataset
-from .consts import IMG_W,IMG_H,N_CHANNELS, BATCH_SIZE, LR, EPOCHS, AUGM_PROB,FAST_PROTO_SCALE, \
+from .consts import IMG_W,IMG_H,N_CHANNELS, BATCH_SIZE, LR, EPOCHS, AUGM_PROB, \
     DROPOUT_P, LOSS_WEIGHTS, LR_SCHEDULER_PATINCE,CLASSES_LIST, LOG_FILENAME, RESNET_KWARGS
 from .loss import calc_classes_weights, RecallScore
 from .save_to_maybe_gs import save
