@@ -1,4 +1,4 @@
-import numpy as np
+import torch
 from torch.utils.data import Dataset
 import cv2
 import numpy as np
@@ -18,7 +18,7 @@ def _normalize_img(img):
 
 class BengaliDataset(Dataset):
     def __init__(self, images, labels=None, transform_fn=None):
-        self._images=[cv2.resize(im,(IMG_W,IMG_W)) for im in images]
+        self._images=[cv2.resize(im,(IMG_W,IMG_H)) for im in images]
 
         self._labels=labels
         self._transform_fn=transform_fn
@@ -38,6 +38,7 @@ class BengaliDataset(Dataset):
         img=_normalize_img(img)
 
         img_channel_first=np.transpose(img,[2,0,1])
+        img_channel_first=torch.tensor(img_channel_first).half()
 
         return {'image':img_channel_first,'label':label}
 

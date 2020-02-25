@@ -5,6 +5,7 @@ if USE_AMP:
 
 import numpy as np
 import argparse
+import torch
 import pytorch_lightning as pl
 from ..local_logging import get_logger
 from .model_pytorch import Model
@@ -56,6 +57,11 @@ def main():
 
 
     model=Model(train_images,train_labels, val_images, val_labels,model_filepath)
+
+    model.half()  # convert to half precision
+    for layer in model.modules():
+      if isinstance(layer, torch.nn.BatchNorm2d):
+        layer.float()
 
     trainer=pl.Trainer(gpus=1,use_amp=USE_AMP,amp_level='O2')
 
