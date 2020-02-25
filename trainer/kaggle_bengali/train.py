@@ -1,6 +1,6 @@
 import os
-USE_APEX=True
-if USE_APEX:
+PRECISION=16
+if PRECISION==16:
     os.system('git clone https://github.com/NVIDIA/apex; cd apex; pip3 install -v --no-cache-dir --global-option="--cpp_ext" --global-option="--cuda_ext" ./')
 
 import numpy as np
@@ -57,7 +57,7 @@ def main():
 
     model=Model(train_images,train_labels, val_images, val_labels,model_filepath)
 
-    trainer=pl.Trainer(gpus=1,use_amp=USE_APEX,amp_level='O1')
+    trainer=pl.Trainer(gpus=1,precision=PRECISION,amp_level='O1')
 
     trainer.fit(model)
 

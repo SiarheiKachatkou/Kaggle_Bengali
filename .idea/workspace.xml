@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0400dbc6-5425-4163-a796-b6527b031bcf" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/trainer/kaggle_bengali/consts.py" beforeDir="false" afterPath="$PROJECT_DIR$/trainer/kaggle_bengali/consts.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/trainer/kaggle_bengali/train.py" beforeDir="false" afterPath="$PROJECT_DIR$/trainer/kaggle_bengali/train.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -12,16 +12,16 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/trainer/kaggle_bengali/train.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
-              <caret line="18" column="18" lean-forward="true" selection-start-line="18" selection-start-column="18" selection-end-line="18" selection-end-column="18" />
+            <state relative-caret-position="900">
+              <caret line="60" lean-forward="true" selection-start-line="60" selection-end-line="60" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/trainer/kaggle_bengali/consts.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="344">
@@ -36,8 +36,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/trainer/kaggle_bengali/model_pytorch.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="600">
-              <caret line="118" column="19" lean-forward="true" selection-start-line="118" selection-start-column="19" selection-end-line="118" selection-end-column="19" />
+            <state relative-caret-position="-435">
+              <caret line="48" lean-forward="true" selection-start-line="48" selection-end-line="48" />
               <folding>
                 <element signature="e#0#12#0" expanded="true" />
               </folding>
@@ -107,8 +107,8 @@
   <component name="FindInProjectRecents">
     <findStrings>
       <find>get_arg</find>
-      <find>cv2</find>
       <find>job_di</find>
+      <find>cv2</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -130,16 +130,16 @@
         <option value="$PROJECT_DIR$/submit_job.sh" />
         <option value="$PROJECT_DIR$/install_apex.sh" />
         <option value="$PROJECT_DIR$/setup.py" />
-        <option value="$PROJECT_DIR$/trainer/kaggle_bengali/train.py" />
         <option value="$PROJECT_DIR$/trainer/kaggle_bengali/consts.py" />
+        <option value="$PROJECT_DIR$/trainer/kaggle_bengali/train.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="4">
-    <option name="x" value="67" />
-    <option name="y" value="27" />
+    <option name="x" value="1953" />
+    <option name="y" value="25" />
     <option name="width" value="1887" />
-    <option name="height" value="1053" />
+    <option name="height" value="2135" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
@@ -214,10 +214,10 @@
     <configuration />
   </component>
   <component name="ToolWindowManager">
-    <frame x="67" y="27" width="1887" height="1053" extended-state="4" />
+    <frame x="1953" y="25" width="1887" height="2135" extended-state="4" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25" />
       <window_info id="Structure" order="1" weight="0.25" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
@@ -228,7 +228,7 @@
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Version Control" order="7" weight="0.32984033" />
       <window_info anchor="bottom" id="Educational.CheckDetails" order="8" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="9" sideWeight="0.49785408" visible="true" weight="0.2943723" />
+      <window_info anchor="bottom" id="Terminal" order="9" sideWeight="0.49785408" visible="true" weight="0.13559322" />
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.50214595" side_tool="true" weight="0.32984033" />
       <window_info anchor="bottom" id="Python Console" order="11" sideWeight="0.49892703" weight="0.32984033" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -387,16 +387,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/trainer/kaggle_bengali/model_pytorch.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="600">
-          <caret line="118" column="19" lean-forward="true" selection-start-line="118" selection-start-column="19" selection-end-line="118" selection-end-column="19" />
-          <folding>
-            <element signature="e#0#12#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/setup.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="207">
@@ -414,13 +404,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/trainer/kaggle_bengali/train.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="18" column="18" lean-forward="true" selection-start-line="18" selection-start-column="18" selection-end-line="18" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/trainer/kaggle_bengali/consts.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="344">
@@ -428,6 +411,23 @@
           <folding>
             <element signature="e#0#14#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/trainer/kaggle_bengali/model_pytorch.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-435">
+          <caret line="48" lean-forward="true" selection-start-line="48" selection-end-line="48" />
+          <folding>
+            <element signature="e#0#12#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/trainer/kaggle_bengali/train.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="900">
+          <caret line="60" lean-forward="true" selection-start-line="60" selection-end-line="60" />
         </state>
       </provider>
     </entry>
