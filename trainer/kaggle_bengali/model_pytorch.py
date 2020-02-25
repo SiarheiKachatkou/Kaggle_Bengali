@@ -200,6 +200,7 @@ class Model(pl.LightningModule):
         predicted_labels=[]
         for batch in dataloader:
             inputs=batch['image']
+            inputs=inputs.cuda()
             labels,_=self._predict_on_tensor(inputs)
 
             predicted_labels.append(labels)

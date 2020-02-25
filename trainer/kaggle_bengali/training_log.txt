@@ -3408,3 +3408,222 @@ val_loss=9.469573211669921 val_score=0.06893939393939394
 iter/secs=0.0   lr=0.001
 val_loss=1.2763750960952358 val_score=0.7847413434847041
 iter/secs=9.616821391488923   lr=0.001
+val_loss=0.7175278884657262 val_score=0.8855610521354697
+iter/secs=9.691100982430536   lr=0.001
+val_loss=0.5845719874618156 val_score=0.9134804156392531
+iter/secs=9.716116495333555   lr=0.001
+val_loss=0.5562311332357938 val_score=0.9178574223263296
+iter/secs=9.644563261706761   lr=0.001
+val_loss=0.5673075232720166 val_score=0.914186477181451
+iter/secs=9.52922586998795   lr=0.001
+val_loss=0.514071014960797 val_score=0.9330063025561611
+iter/secs=9.543720187756534   lr=0.001
+val_loss=0.5085388746890915 val_score=0.9313430505003646
+iter/secs=9.569711563337929   lr=0.001
+val_loss=0.488118395138015 val_score=0.9367515526448458
+iter/secs=9.58929819040201   lr=0.001
+val_loss=0.5093190781118577 val_score=0.9351455448419078
+iter/secs=9.60050590713731   lr=0.001
+val_loss=0.5042823470380318 val_score=0.939210662816251
+iter/secs=9.598466692746962   lr=0.001
+import logging
+import os
+import numpy as np
+import random
+from .resnet import Bottleneck,SEBottleneck
+
+ARTIFACTS_DIR='artifacts'
+DATA_DIR='data'
+RAW_DIR='raw'
+MODELS_DIR='models'
+MODELS_PRETRAINED_DIR='models_pretrained'
+SUBMISSION_DIR = 'submissions'
+SUBMISSION_CSV = 'submission.csv'
+SAMPLE_SUBMISSION_CSV = 'sample_submission.csv'
+
+LOG_FILENAME=os.path.join(os.path.dirname(__file__),'training_log.txt')
+
+LOG_LEVEL=logging.INFO
+
+METRIC_FILE_PATH='metric.txt'
+
+TRAIN_IMAGE_DATA_PATTERN='train_image_data_*.parquet'
+TEST_IMAGE_DATA_PATTERN='test_image_data_*.parquet'
+TRAIN_CSV='train.csv'
+TEST_CSV='test.csv'
+CLASS_MAP_CSV='class_map.csv'
+
+TRAIN_DATASET_DIR='train_datset'
+VAL_DATASET_DIR='val_datset'
+TEST_DATASET_DIR='test_datset'
+IMAGE_GEN_PKL = 'image_gen.pkl'
+
+MODEL_NAME='model'
+
+alpha=1.2
+beta=1.1
+gama=1.15
+phi=0
+
+
+IMG_WIDTH = 236
+IMG_HEIGHT = 137
+IMG_W=int(64*gama**phi)
+IMG_H=int(64*gama**phi)
+TOP_CUT=4
+LEFT_CUT=4
+PAD=4
+
+
+N_CHANNELS = 1
+BATCH_SIZE=64
+EPOCHS=1
+LR=0.001
+LR_SCHEDULER_PATINCE=800
+AUGM_PROB=0
+DROPOUT_P=0.5
+
+LOSS_WEIGHTS=[1,1,1]
+BETA=0
+
+CLASSES_LIST=[168,11,7]
+
+
+_m=alpha**phi
+
+#resnext
+#RESNET_KWARGS={'arch':'small_resnet', 'groups': 32,'width_per_group': int(8*beta**phi), 'block':Bottleneck, 'layers':[int(_m*2), int(_m*2), int(_m*2), int(_m*2)], 'num_classes':np.sum(CLASSES_LIST),'pretrained':False, 'progress':False}
+
+#resnet
+#RESNET_KWARGS={'arch':'small_resnet', 'width_per_group': int(64*beta**phi), 'block':Bottleneck, 'layers':[int(_m*2), int(_m*2), int(_m*2), int(_m*2)], 'num_classes':np.sum(CLASSES_LIST),'pretrained':False, 'progress':False}
+
+
+#se-resnet
+#RESNET_KWARGS={'arch':'small_resnet', 'width_per_group': int(64*beta**phi), 'block':SEBottleneck, 'layers':[int(_m*2), int(_m*2), int(_m*2), int(_m*2)], 'num_classes':np.sum(CLASSES_LIST),'pretrained':False, 'progress':False}
+
+
+#se-resnext
+RESNET_KWARGS={'arch':'small_resnet', 'groups': 32,'width_per_group': int(8*beta**phi), 'block':SEBottleneck, 'layers':[int(_m*2), int(_m*2), int(_m*2), int(_m*2)], 'num_classes':np.sum(CLASSES_LIST),'pretrained':False, 'progress':False}
+
+
+SEED=0
+
+TARGETS=['grapheme_root','vowel_diacritic','consonant_diacritic']
+
+try:
+    import torch
+    torch.manual_seed(SEED)
+    torch.backends.cudnn.deterministic = True
+    torch.backends.cudnn.benchmark = False
+except:
+    print('can not import pytorch, gpu use will be undeterministic')
+
+
+np.random.seed(SEED)
+random.seed(SEED)
+
+import logging
+import os
+import numpy as np
+import random
+from .resnet import Bottleneck,SEBottleneck
+
+ARTIFACTS_DIR='artifacts'
+DATA_DIR='data'
+RAW_DIR='raw'
+MODELS_DIR='models'
+MODELS_PRETRAINED_DIR='models_pretrained'
+SUBMISSION_DIR = 'submissions'
+SUBMISSION_CSV = 'submission.csv'
+SAMPLE_SUBMISSION_CSV = 'sample_submission.csv'
+
+LOG_FILENAME=os.path.join(os.path.dirname(__file__),'training_log.txt')
+
+LOG_LEVEL=logging.INFO
+
+METRIC_FILE_PATH='metric.txt'
+
+TRAIN_IMAGE_DATA_PATTERN='train_image_data_*.parquet'
+TEST_IMAGE_DATA_PATTERN='test_image_data_*.parquet'
+TRAIN_CSV='train.csv'
+TEST_CSV='test.csv'
+CLASS_MAP_CSV='class_map.csv'
+
+TRAIN_DATASET_DIR='train_datset'
+VAL_DATASET_DIR='val_datset'
+TEST_DATASET_DIR='test_datset'
+IMAGE_GEN_PKL = 'image_gen.pkl'
+
+MODEL_NAME='model'
+
+alpha=1.2
+beta=1.1
+gama=1.15
+phi=0
+
+
+IMG_WIDTH = 236
+IMG_HEIGHT = 137
+IMG_W=int(64*gama**phi)
+IMG_H=int(64*gama**phi)
+TOP_CUT=4
+LEFT_CUT=4
+PAD=4
+
+
+N_CHANNELS = 1
+BATCH_SIZE=64
+EPOCHS=1
+LR=0.001
+LR_SCHEDULER_PATINCE=800
+AUGM_PROB=0
+DROPOUT_P=0.5
+
+LOSS_WEIGHTS=[1,1,1]
+BETA=0
+
+CLASSES_LIST=[168,11,7]
+
+
+_m=alpha**phi
+
+#resnext
+#RESNET_KWARGS={'arch':'small_resnet', 'groups': 32,'width_per_group': int(8*beta**phi), 'block':Bottleneck, 'layers':[int(_m*2), int(_m*2), int(_m*2), int(_m*2)], 'num_classes':np.sum(CLASSES_LIST),'pretrained':False, 'progress':False}
+
+#resnet
+#RESNET_KWARGS={'arch':'small_resnet', 'width_per_group': int(64*beta**phi), 'block':Bottleneck, 'layers':[int(_m*2), int(_m*2), int(_m*2), int(_m*2)], 'num_classes':np.sum(CLASSES_LIST),'pretrained':False, 'progress':False}
+
+
+#se-resnet
+#RESNET_KWARGS={'arch':'small_resnet', 'width_per_group': int(64*beta**phi), 'block':SEBottleneck, 'layers':[int(_m*2), int(_m*2), int(_m*2), int(_m*2)], 'num_classes':np.sum(CLASSES_LIST),'pretrained':False, 'progress':False}
+
+
+#se-resnext
+RESNET_KWARGS={'arch':'small_resnet', 'groups': 32,'width_per_group': int(8*beta**phi), 'block':SEBottleneck, 'layers':[int(_m*2), int(_m*2), int(_m*2), int(_m*2)], 'num_classes':np.sum(CLASSES_LIST),'pretrained':False, 'progress':False}
+
+
+SEED=0
+
+TARGETS=['grapheme_root','vowel_diacritic','consonant_diacritic']
+
+try:
+    import torch
+    torch.manual_seed(SEED)
+    torch.backends.cudnn.deterministic = True
+    torch.backends.cudnn.benchmark = False
+except:
+    print('can not import pytorch, gpu use will be undeterministic')
+
+
+np.random.seed(SEED)
+random.seed(SEED)
+
+160672 train images loaded
+40168 val images loaded
+Let's use 1 GPUs!
+val_loss=9.469573211669921 val_score=0.06893939393939394
+iter/secs=0.0   lr=0.001
+val_loss=1.2763750960952358 val_score=0.7847413434847041
+iter/secs=9.691082273813615   lr=0.001
+validation accuracy = [0.75756824 0.9292223  0.93333   ]
+score=0.8701338849220551
