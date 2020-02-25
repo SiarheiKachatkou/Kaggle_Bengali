@@ -66,17 +66,17 @@ class Model(pl.LightningModule):
         val_dataset=BengaliDataset(val_images,labels=val_labels)
 
         self._train_dataloader=DataLoader(train_dataset_aug, batch_size=BATCH_SIZE, shuffle=True, sampler=None,
-           batch_sampler=None, num_workers=0, collate_fn=None,
+           batch_sampler=None, num_workers=16, collate_fn=None,
            pin_memory=False, drop_last=True, timeout=0,
            worker_init_fn=None)
 
         self._train_val_dataloader=DataLoader(train_dataset, batch_size=BATCH_SIZE, shuffle=True, sampler=None,
-           batch_sampler=None, num_workers=0, collate_fn=None,
+           batch_sampler=None, num_workers=16, collate_fn=None,
            pin_memory=False, drop_last=True, timeout=0,
            worker_init_fn=None)
 
         self._val_dataloader=DataLoader(val_dataset, batch_size=BATCH_SIZE, shuffle=True, sampler=None,
-           batch_sampler=None, num_workers=0, collate_fn=None,
+           batch_sampler=None, num_workers=16, collate_fn=None,
            pin_memory=False, drop_last=True, timeout=0,
            worker_init_fn=None)
 
