@@ -3406,3 +3406,5 @@ random.seed(SEED)
 Let's use 1 GPUs!
 val_loss=9.469573211669921 val_score=0.06893939393939394
 iter/secs=0.0   lr=0.001
+val_loss=1.2763750960952358 val_score=0.7847413434847041
+iter/secs=9.616821391488923   lr=0.001
