@@ -9490,3 +9490,8 @@ except:
 np.random.seed(SEED)
 random.seed(SEED)
 
+160672 train images loaded
+40168 val images loaded
+Let's use 1 GPUs!
+val_loss=9.48543586730957 val_score=0.06275190326914465
+iter/secs=0.0   lr=0.001
