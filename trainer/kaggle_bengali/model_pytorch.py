@@ -12,7 +12,8 @@ from .radam import RAdam
 from .score import calc_score
 from .dataset_pytorch import BengaliDataset
 from .consts import IMG_W,IMG_H,N_CHANNELS, BATCH_SIZE, LR, EPOCHS, AUGM_PROB, \
-    DROPOUT_P, LOSS_WEIGHTS, LR_SCHEDULER_PATINCE,CLASSES_LIST, LOG_FILENAME, RESNET_KWARGS
+    DROPOUT_P, LOSS_WEIGHTS, LR_SCHEDULER_PATINCE,CLASSES_LIST, LOG_FILENAME, \
+    BACKBONE_FN,BACKBONE_KWARGS
 from .loss import calc_classes_weights, RecallScore
 from .save_to_maybe_gs import save
 from ..local_logging import get_logger
@@ -39,7 +40,7 @@ def get_augmentations():
 class BackBone(nn.Module):
     def __init__(self):
         super().__init__()
-        self._backbone=_resnet(**RESNET_KWARGS)
+        self._backbone=BACKBONE_FN(**BACKBONE_KWARGS)
 
     def forward(self, x):
 
