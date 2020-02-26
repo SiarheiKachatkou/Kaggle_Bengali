@@ -140,6 +140,12 @@ class Model(pl.LightningModule):
         predicted_labels, predicted_logits = self._predict_on_tensor(images)
         return {'predicted_labels': predicted_labels,'predicted_logits': predicted_logits,'true_labels':labels}
 
+    def finalize_log(self):
+        def copy_log_file(dst_path):
+                shutil.copyfile(LOG_FILENAME,dst_path)
+
+        save(copy_log_file, self._path_to_model_save+'_log.txt')
+
     def validation_end(self, outputs):
         # OPTIONAL
         pred_batches=[x['predicted_labels'] for x in outputs]
@@ -161,10 +167,7 @@ class Model(pl.LightningModule):
         logger.info('iter/secs={}   lr={}'.format(self._global_step/(time+eps),self.optimizer.param_groups[0]['lr']))
 
 
-        def copy_log_file(dst_path):
-                shutil.copyfile(LOG_FILENAME,dst_path)
-
-        save(copy_log_file, self._path_to_model_save+'_log.txt')
+        self.finalize_log()
         save(self.save,self._path_to_model_save)
 
         return {'val_score': val_score,'val_loss':loss}

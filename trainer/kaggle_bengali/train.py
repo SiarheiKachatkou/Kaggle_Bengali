@@ -73,6 +73,8 @@ def main():
     score=calc_score(solution=val_preds,submission=val_labels)
     logger.info('loaded model score={}'.format(score))
 
+    model.finalize_log()
+
     def save_fn(path):
         with open(path,'wt') as file:
             file.write(str(score))

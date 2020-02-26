@@ -9497,3 +9497,242 @@ val_loss=9.48543586730957 val_score=0.06275190326914465
 iter/secs=0.0   lr=0.001
 val_loss=1.2454724791897922 val_score=0.7968851035418735
 iter/secs=12.741052075877787   lr=0.001
+val_loss=0.840777859067993 val_score=0.8657747172747566
+iter/secs=12.741084413491338   lr=0.001
+val_loss=0.6743526598483182 val_score=0.8984776077946868
+iter/secs=12.762690232728419   lr=0.001
+val_loss=0.5988424630446487 val_score=0.9082767196315219
+iter/secs=12.806106114660569   lr=0.001
+val_loss=0.5528673309078247 val_score=0.9168149190587953
+iter/secs=12.80610938152104   lr=0.001
+val_loss=0.5130754147182431 val_score=0.9251319378687639
+iter/secs=12.817010368501814   lr=0.001
+val_loss=0.5037025536218899 val_score=0.9256499876458609
+iter/secs=12.796786018364154   lr=0.001
+val_loss=0.4683392302889193 val_score=0.9329656303003252
+iter/secs=12.789800770827535   lr=0.001
+val_loss=0.46197631252867183 val_score=0.9344414845068512
+iter/secs=12.784373070530238   lr=0.001
+val_loss=0.47714664536324797 val_score=0.9312943907476792
+iter/secs=12.773530395149926   lr=0.001
+validation accuracy = [0.91577876 0.97231627 0.9717188 ]
+loaded model score=0.9397075774669013
+import logging
+import os
+import numpy as np
+import random
+from .resnet import Bottleneck,SEBottleneck,_resnet
+from .inceptionresnetv2 import InceptionResNetV2
+
+ARTIFACTS_DIR='artifacts'
+DATA_DIR='data'
+RAW_DIR='raw'
+MODELS_DIR='models'
+MODELS_PRETRAINED_DIR='models_pretrained'
+SUBMISSION_DIR = 'submissions'
+SUBMISSION_CSV = 'submission.csv'
+SAMPLE_SUBMISSION_CSV = 'sample_submission.csv'
+
+LOG_FILENAME=os.path.join(os.path.dirname(__file__),'training_log.txt')
+
+LOG_LEVEL=logging.INFO
+
+METRIC_FILE_PATH='metric.txt'
+
+TRAIN_IMAGE_DATA_PATTERN='train_image_data_*.parquet'
+TEST_IMAGE_DATA_PATTERN='test_image_data_*.parquet'
+TRAIN_CSV='train.csv'
+TEST_CSV='test.csv'
+CLASS_MAP_CSV='class_map.csv'
+
+TRAIN_DATASET_DIR='train_datset'
+VAL_DATASET_DIR='val_datset'
+TEST_DATASET_DIR='test_datset'
+IMAGE_GEN_PKL = 'image_gen.pkl'
+
+MODEL_NAME='model'
+
+alpha=1.2
+beta=1.1
+gama=1.15
+phi=1
+
+
+IMG_WIDTH = 236
+IMG_HEIGHT = 137
+IMG_W=int(84*gama**phi)
+IMG_H=int(84*gama**phi)
+TOP_CUT=4
+LEFT_CUT=4
+PAD=4
+
+
+N_CHANNELS = 1
+BATCH_SIZE=64
+EPOCHS=10
+LR=0.001
+LR_SCHEDULER_PATINCE=8000
+AUGM_PROB=0.5
+DROPOUT_P=0.5
+
+LOSS_WEIGHTS=[1,1,1]
+BETA=0
+
+CLASSES_LIST=[168,11,7]
+
+
+_m=alpha**phi
+
+
+RESNEXT_KWARGS={'arch':'small_resnet', 'groups': 32,'width_per_group': int(8*beta**phi), 'block':Bottleneck, 'layers':[int(_m*2), int(_m*2), int(_m*2), int(_m*2)], 'num_classes':np.sum(CLASSES_LIST),'pretrained':False, 'progress':False}
+
+RESNET_KWARGS={'arch':'small_resnet', 'width_per_group': int(64*beta**phi), 'block':Bottleneck, 'layers':[int(_m*2), int(_m*2), int(_m*2), int(_m*2)], 'num_classes':np.sum(CLASSES_LIST),'pretrained':False, 'progress':False}
+
+SERESNET_KWARGS={'arch':'small_resnet', 'width_per_group': int(64*beta**phi), 'block':SEBottleneck, 'layers':[int(_m*2), int(_m*2), int(_m*2), int(_m*2)], 'num_classes':np.sum(CLASSES_LIST),'pretrained':False, 'progress':False}
+
+SERESNEXT_KWARGS={'arch':'small_resnet', 'groups': 32,'width_per_group': int(8*beta**phi), 'block':SEBottleneck, 'layers':[int(_m*2), int(_m*2), int(_m*2), int(_m*2)], 'num_classes':np.sum(CLASSES_LIST),'pretrained':False, 'progress':False}
+
+INCEPTIONRESNETV2_KWARGS={'repeats':(int(_m*3),int(_m*6),int(_m*4)), 'width':0.3*beta**phi, 'num_classes':np.sum(CLASSES_LIST)}
+
+BACKBONE_KWARGS=INCEPTIONRESNETV2_KWARGS
+BACKBONE_FN=InceptionResNetV2
+
+SEED=0
+
+TARGETS=['grapheme_root','vowel_diacritic','consonant_diacritic']
+
+try:
+    import torch
+    torch.manual_seed(SEED)
+    torch.backends.cudnn.deterministic = True
+    torch.backends.cudnn.benchmark = False
+except:
+    print('can not import pytorch, gpu use will be undeterministic')
+
+
+np.random.seed(SEED)
+random.seed(SEED)
+
+import logging
+import os
+import numpy as np
+import random
+from .resnet import Bottleneck,SEBottleneck,_resnet
+from .inceptionresnetv2 import InceptionResNetV2
+
+ARTIFACTS_DIR='artifacts'
+DATA_DIR='data'
+RAW_DIR='raw'
+MODELS_DIR='models'
+MODELS_PRETRAINED_DIR='models_pretrained'
+SUBMISSION_DIR = 'submissions'
+SUBMISSION_CSV = 'submission.csv'
+SAMPLE_SUBMISSION_CSV = 'sample_submission.csv'
+
+LOG_FILENAME=os.path.join(os.path.dirname(__file__),'training_log.txt')
+
+LOG_LEVEL=logging.INFO
+
+METRIC_FILE_PATH='metric.txt'
+
+TRAIN_IMAGE_DATA_PATTERN='train_image_data_*.parquet'
+TEST_IMAGE_DATA_PATTERN='test_image_data_*.parquet'
+TRAIN_CSV='train.csv'
+TEST_CSV='test.csv'
+CLASS_MAP_CSV='class_map.csv'
+
+TRAIN_DATASET_DIR='train_datset'
+VAL_DATASET_DIR='val_datset'
+TEST_DATASET_DIR='test_datset'
+IMAGE_GEN_PKL = 'image_gen.pkl'
+
+MODEL_NAME='model'
+
+alpha=1.2
+beta=1.1
+gama=1.15
+phi=1
+
+
+IMG_WIDTH = 236
+IMG_HEIGHT = 137
+IMG_W=int(84*gama**phi)
+IMG_H=int(84*gama**phi)
+TOP_CUT=4
+LEFT_CUT=4
+PAD=4
+
+
+N_CHANNELS = 1
+BATCH_SIZE=64
+EPOCHS=10
+LR=0.001
+LR_SCHEDULER_PATINCE=8000
+AUGM_PROB=0.5
+DROPOUT_P=0.5
+
+LOSS_WEIGHTS=[1,1,1]
+BETA=0
+
+CLASSES_LIST=[168,11,7]
+
+
+_m=alpha**phi
+
+
+RESNEXT_KWARGS={'arch':'small_resnet', 'groups': 32,'width_per_group': int(8*beta**phi), 'block':Bottleneck, 'layers':[int(_m*2), int(_m*2), int(_m*2), int(_m*2)], 'num_classes':np.sum(CLASSES_LIST),'pretrained':False, 'progress':False}
+
+RESNET_KWARGS={'arch':'small_resnet', 'width_per_group': int(64*beta**phi), 'block':Bottleneck, 'layers':[int(_m*2), int(_m*2), int(_m*2), int(_m*2)], 'num_classes':np.sum(CLASSES_LIST),'pretrained':False, 'progress':False}
+
+SERESNET_KWARGS={'arch':'small_resnet', 'width_per_group': int(64*beta**phi), 'block':SEBottleneck, 'layers':[int(_m*2), int(_m*2), int(_m*2), int(_m*2)], 'num_classes':np.sum(CLASSES_LIST),'pretrained':False, 'progress':False}
+
+SERESNEXT_KWARGS={'arch':'small_resnet', 'groups': 32,'width_per_group': int(8*beta**phi), 'block':SEBottleneck, 'layers':[int(_m*2), int(_m*2), int(_m*2), int(_m*2)], 'num_classes':np.sum(CLASSES_LIST),'pretrained':False, 'progress':False}
+
+INCEPTIONRESNETV2_KWARGS={'repeats':(int(_m*3),int(_m*6),int(_m*4)), 'width':0.3*beta**phi, 'num_classes':np.sum(CLASSES_LIST)}
+
+BACKBONE_KWARGS=INCEPTIONRESNETV2_KWARGS
+BACKBONE_FN=InceptionResNetV2
+
+SEED=0
+
+TARGETS=['grapheme_root','vowel_diacritic','consonant_diacritic']
+
+try:
+    import torch
+    torch.manual_seed(SEED)
+    torch.backends.cudnn.deterministic = True
+    torch.backends.cudnn.benchmark = False
+except:
+    print('can not import pytorch, gpu use will be undeterministic')
+
+
+np.random.seed(SEED)
+random.seed(SEED)
+
+160672 train images loaded
+40168 val images loaded
+Let's use 1 GPUs!
+val_loss=9.454801177978515 val_score=0.06294606294606295
+iter/secs=0.0   lr=0.001
+val_loss=1.2887721230919091 val_score=0.7916138804711162
+iter/secs=11.4090390498225   lr=0.001
+val_loss=0.8153653430976746 val_score=0.8692598978704538
+iter/secs=11.409064979397774   lr=0.001
+val_loss=0.6558098546340705 val_score=0.9000612666487231
+iter/secs=11.409073622615724   lr=0.001
+val_loss=0.621047728844997 val_score=0.913270310441977
+iter/secs=11.422057540321342   lr=0.001
+val_loss=0.5171878289853177 val_score=0.9236241441869377
+iter/secs=11.419461856722606   lr=0.001
+val_loss=0.4857062588563186 val_score=0.926702922462548
+iter/secs=11.41773205630625   lr=0.001
+val_loss=0.47219311737082603 val_score=0.928773767526162
+iter/secs=11.43135235435761   lr=0.001
+val_loss=0.457473273149898 val_score=0.9332274494497517
+iter/secs=11.435073214650789   lr=0.001
+val_loss=0.45448602181064646 val_score=0.9347536896031476
+iter/secs=11.43796889216765   lr=0.001
+val_loss=0.4277201982087306 val_score=0.9381913732655593
+iter/secs=11.42466480443113   lr=0.001
+validation accuracy = [0.9234963 0.9763991 0.9761253]
+loaded model score=0.9467813279225349
