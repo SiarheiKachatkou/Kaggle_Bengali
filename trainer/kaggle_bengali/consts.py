@@ -41,8 +41,8 @@ phi=0
 
 IMG_WIDTH = 236
 IMG_HEIGHT = 137
-IMG_W=int(64*gama**phi)
-IMG_H=int(64*gama**phi)
+IMG_W=int(84*gama**phi)
+IMG_H=int(84*gama**phi)
 TOP_CUT=4
 LEFT_CUT=4
 PAD=4

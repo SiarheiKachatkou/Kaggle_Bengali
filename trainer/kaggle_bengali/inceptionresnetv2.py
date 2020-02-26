@@ -55,7 +55,7 @@ class BasicConv2d(nn.Module):
 
 class Mixed_5b(nn.Module):
 
-    def __init__(self,width):
+    def __init__(self,in_features, width):
         super(Mixed_5b, self).__init__()
 
         self._width=width
@@ -63,22 +63,22 @@ class Mixed_5b(nn.Module):
         def _m(filters):
             return mult_filters(filters,self._width)
 
-        self.branch0 = BasicConv2d(_m(192), _m(96), kernel_size=1, stride=1)
+        self.branch0 = BasicConv2d(in_features, _m(96), kernel_size=1, stride=1)
 
         self.branch1 = nn.Sequential(
-            BasicConv2d(_m(192), _m(48), kernel_size=1, stride=1),
+            BasicConv2d(in_features, _m(48), kernel_size=1, stride=1),
             BasicConv2d(_m(48), _m(64), kernel_size=5, stride=1, padding=2)
         )
 
         self.branch2 = nn.Sequential(
-            BasicConv2d(_m(192), _m(64), kernel_size=1, stride=1),
+            BasicConv2d(in_features, _m(64), kernel_size=1, stride=1),
             BasicConv2d(_m(64), _m(96), kernel_size=3, stride=1, padding=1),
             BasicConv2d(_m(96), _m(96), kernel_size=3, stride=1, padding=1)
         )
 
         self.branch3 = nn.Sequential(
             nn.AvgPool2d(3, stride=1, padding=1, count_include_pad=False),
-            BasicConv2d(_m(192), _m(64), kernel_size=1, stride=1)
+            BasicConv2d(in_features, _m(64), kernel_size=1, stride=1)
         )
 
         self.out_features=_m(96)+_m(64)+_m(96)+_m(64)
@@ -120,6 +120,8 @@ class Block35(nn.Module):
         self.conv2d = nn.Conv2d(_m(32)+_m(32)+_m(64), in_features, kernel_size=1, stride=1)
         self.relu = nn.ReLU(inplace=False)
 
+        self.out_features=in_features
+
     def forward(self, x):
         x0 = self.branch0(x)
         x1 = self.branch1(x)
@@ -133,7 +135,7 @@ class Block35(nn.Module):
 
 class Mixed_6a(nn.Module):
 
-    def __init__(self,width):
+    def __init__(self,in_features,width):
         super(Mixed_6a, self).__init__()
 
         self._width=width
@@ -141,15 +143,17 @@ class Mixed_6a(nn.Module):
         def _m(filters):
             return mult_filters(filters,self._width)
 
-        self.branch0 = BasicConv2d(_m(320), _m(384), kernel_size=3, stride=2)
+        self.branch0 = BasicConv2d(in_features, _m(384), kernel_size=3, stride=2)
 
         self.branch1 = nn.Sequential(
-            BasicConv2d(_m(320), _m(256), kernel_size=1, stride=1),
+            BasicConv2d(in_features, _m(256), kernel_size=1, stride=1),
             BasicConv2d(_m(256), _m(256), kernel_size=3, stride=1, padding=1),
             BasicConv2d(_m(256), _m(384), kernel_size=3, stride=2)
         )
 
         self.branch2 = nn.MaxPool2d(3, stride=2)
+
+        self.out_features=_m(384)+_m(384)+in_features
 
     def forward(self, x):
         x0 = self.branch0(x)
@@ -161,7 +165,7 @@ class Mixed_6a(nn.Module):
 
 class Block17(nn.Module):
 
-    def __init__(self, width, scale=1.0):
+    def __init__(self, in_features, width, scale=1.0):
         super(Block17, self).__init__()
 
         self.scale = scale
@@ -171,16 +175,18 @@ class Block17(nn.Module):
         def _m(filters):
             return mult_filters(filters,self._width)
 
-        self.branch0 = BasicConv2d(_m(1088), _m(192), kernel_size=1, stride=1)
+        self.branch0 = BasicConv2d(in_features, _m(192), kernel_size=1, stride=1)
 
         self.branch1 = nn.Sequential(
-            BasicConv2d(_m(1088), _m(128), kernel_size=1, stride=1),
+            BasicConv2d(in_features, _m(128), kernel_size=1, stride=1),
             BasicConv2d(_m(128), _m(160), kernel_size=(1,7), stride=1, padding=(0,3)),
             BasicConv2d(_m(160), _m(192), kernel_size=(7,1), stride=1, padding=(3,0))
         )
 
-        self.conv2d = nn.Conv2d(_m(384), _m(1088), kernel_size=1, stride=1)
+        self.conv2d = nn.Conv2d(_m(192)+_m(192), in_features, kernel_size=1, stride=1)
         self.relu = nn.ReLU(inplace=False)
+
+        self.out_features=in_features
 
     def forward(self, x):
         x0 = self.branch0(x)
@@ -194,7 +200,7 @@ class Block17(nn.Module):
 
 class Mixed_7a(nn.Module):
 
-    def __init__(self,width):
+    def __init__(self,in_features,width):
         super(Mixed_7a, self).__init__()
 
         self._width=width
@@ -202,22 +208,24 @@ class Mixed_7a(nn.Module):
             return mult_filters(filters,self._width)
 
         self.branch0 = nn.Sequential(
-            BasicConv2d(_m(1088), _m(256), kernel_size=1, stride=1),
+            BasicConv2d(in_features, _m(256), kernel_size=1, stride=1),
             BasicConv2d(_m(256), _m(384), kernel_size=3, stride=2)
         )
 
         self.branch1 = nn.Sequential(
-            BasicConv2d(_m(1088), _m(256), kernel_size=1, stride=1),
+            BasicConv2d(in_features, _m(256), kernel_size=1, stride=1),
             BasicConv2d(_m(256), _m(288), kernel_size=3, stride=2)
         )
 
         self.branch2 = nn.Sequential(
-            BasicConv2d(_m(1088), _m(256), kernel_size=1, stride=1),
+            BasicConv2d(in_features, _m(256), kernel_size=1, stride=1),
             BasicConv2d(_m(256), _m(288), kernel_size=3, stride=1, padding=1),
             BasicConv2d(_m(288), _m(320), kernel_size=3, stride=2)
         )
 
         self.branch3 = nn.MaxPool2d(3, stride=2)
+
+        self.out_features=_m(384)+_m(288)+_m(320)+in_features
 
     def forward(self, x):
         x0 = self.branch0(x)
@@ -230,7 +238,7 @@ class Mixed_7a(nn.Module):
 
 class Block8(nn.Module):
 
-    def __init__(self, width, scale=1.0, noReLU=False):
+    def __init__(self, width, in_features, scale=1.0, noReLU=False):
         super(Block8, self).__init__()
 
         self._width=width
@@ -241,17 +249,19 @@ class Block8(nn.Module):
         self.scale = scale
         self.noReLU = noReLU
 
-        self.branch0 = BasicConv2d(_m(2080), _m(192), kernel_size=1, stride=1)
+        self.branch0 = BasicConv2d(in_features, _m(192), kernel_size=1, stride=1)
 
         self.branch1 = nn.Sequential(
-            BasicConv2d(_m(2080), _m(192), kernel_size=1, stride=1),
+            BasicConv2d(in_features, _m(192), kernel_size=1, stride=1),
             BasicConv2d(_m(192), _m(224), kernel_size=(1,3), stride=1, padding=(0,1)),
             BasicConv2d(_m(224), _m(256), kernel_size=(3,1), stride=1, padding=(1,0))
         )
 
-        self.conv2d = nn.Conv2d(_m(448), _m(2080), kernel_size=1, stride=1)
+        self.conv2d = nn.Conv2d(_m(256)+_m(192), in_features, kernel_size=1, stride=1)
         if not self.noReLU:
             self.relu = nn.ReLU(inplace=False)
+
+        self.out_features=in_features
 
     def forward(self, x):
         x0 = self.branch0(x)
@@ -285,15 +295,15 @@ class InceptionResNetV2(nn.Module):
         self.conv2d_3b = BasicConv2d(_m(64), _m(80), kernel_size=1, stride=1)
         self.conv2d_4a = BasicConv2d(_m(80), _m(192), kernel_size=3, stride=1)
         self.maxpool_5a = nn.MaxPool2d(3, stride=2)
-        self.mixed_5b = Mixed_5b(width)
+        self.mixed_5b = Mixed_5b(width=width,in_features=_m(192))
         self.repeat = nn.Sequential(*[Block35(scale=0.17,width=width,in_features=self.mixed_5b.out_features) for _ in range(repeats[0])])
-        self.mixed_6a = Mixed_6a(width=width)
-        self.repeat_1 = nn.Sequential(*[Block17(scale=0.1,width=width) for _ in range(repeats[1])])
-        self.mixed_7a = Mixed_7a(width=width)
-        self.repeat_2 = nn.Sequential(*[Block8(scale=0.2,width=width) for _ in range(repeats[1])])
-        self.block8 = Block8(noReLU=True,width=width)
-        self.conv2d_7b = BasicConv2d(_m(2080), _m(1536), kernel_size=1, stride=1)
-        self.avgpool_1a = nn.AvgPool2d(8, count_include_pad=False)
+        self.mixed_6a = Mixed_6a(width=width,in_features=self.mixed_5b.out_features)
+        self.repeat_1 = nn.Sequential(*[Block17(scale=0.1,width=width,in_features=self.mixed_6a.out_features) for _ in range(repeats[1])])
+        self.mixed_7a = Mixed_7a(width=width,in_features=self.mixed_6a.out_features)
+        self.repeat_2 = nn.Sequential(*[Block8(scale=0.2,width=width,in_features=self.mixed_7a.out_features) for _ in range(repeats[1])])
+        self.block8 = Block8(noReLU=True,width=width,in_features=self.mixed_7a.out_features)
+        self.conv2d_7b = BasicConv2d(self.block8.out_features, _m(1536), kernel_size=1, stride=1)
+        self.avgpool_1a = nn.AdaptiveAvgPool2d(1)
         self.last_linear = nn.Linear(_m(1536), num_classes)
 
     def features(self, input):
