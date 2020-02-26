@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0400dbc6-5425-4163-a796-b6527b031bcf" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/trainer/kaggle_bengali/consts.py" beforeDir="false" afterPath="$PROJECT_DIR$/trainer/kaggle_bengali/consts.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/submit_job.sh" beforeDir="false" afterPath="$PROJECT_DIR$/submit_job.sh" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/trainer/kaggle_bengali/training_log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/trainer/kaggle_bengali/training_log.txt" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -22,11 +22,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/trainer/kaggle_bengali/consts.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="600">
-              <caret line="40" lean-forward="true" selection-start-line="40" selection-end-line="40" />
+            <state relative-caret-position="570">
+              <caret line="38" column="5" selection-start-line="38" selection-start-column="5" selection-end-line="38" selection-end-column="5" />
               <folding>
                 <element signature="e#0#14#0" expanded="true" />
               </folding>
@@ -97,20 +97,17 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/run_job.sh">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="165">
-              <caret line="11" selection-start-line="11" selection-end-line="11" selection-end-column="37" />
+            <state relative-caret-position="150">
+              <caret line="10" lean-forward="true" selection-start-line="10" selection-end-line="10" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/setup.py">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/submit_job.sh">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="510">
-              <caret line="34" column="20" selection-start-line="34" selection-start-column="20" selection-end-line="34" selection-end-column="20" />
-              <folding>
-                <element signature="e#730#766#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="45">
+              <caret line="3" selection-start-line="3" selection-end-line="3" />
             </state>
           </provider>
         </entry>
@@ -137,7 +134,6 @@
         <option value="$PROJECT_DIR$/trainer/kaggle_bengali/requirements.txt" />
         <option value="$PROJECT_DIR$/requirements.txt" />
         <option value="$PROJECT_DIR$/trainer/kaggle_bengali/loss.py" />
-        <option value="$PROJECT_DIR$/submit_job.sh" />
         <option value="$PROJECT_DIR$/install_apex.sh" />
         <option value="$PROJECT_DIR$/setup.py" />
         <option value="$PROJECT_DIR$/trainer/kaggle_bengali/training_log.txt" />
@@ -147,6 +143,7 @@
         <option value="$PROJECT_DIR$/trainer/kaggle_bengali/model_pytorch.py" />
         <option value="$PROJECT_DIR$/trainer/kaggle_bengali/inceptionresnetv2.py" />
         <option value="$PROJECT_DIR$/trainer/kaggle_bengali/consts.py" />
+        <option value="$PROJECT_DIR$/submit_job.sh" />
       </list>
     </option>
   </component>
@@ -233,7 +230,7 @@
     <frame x="1953" y="25" width="1887" height="2135" extended-state="4" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25" />
       <window_info id="Structure" order="1" weight="0.25" />
       <window_info anchor="bottom" id="Messages" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -245,7 +242,7 @@
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Version Control" order="7" weight="0.32951146" />
       <window_info anchor="bottom" id="Educational.CheckDetails" order="8" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="9" sideWeight="0.49785408" visible="true" weight="0.3464606" />
+      <window_info anchor="bottom" id="Terminal" order="9" sideWeight="0.49785408" visible="true" weight="0.3464606" />
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.50214595" side_tool="true" weight="0.32984033" />
       <window_info anchor="bottom" id="Python Console" order="11" sideWeight="0.49892703" weight="0.32984033" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -352,13 +349,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/submit_job.sh">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="4" column="17" selection-start-line="4" selection-start-column="17" selection-end-line="4" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/commands_draft">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="660">
@@ -414,13 +404,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="120">
           <caret line="8" selection-start-line="8" selection-end-line="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/run_job.sh">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="11" selection-start-line="11" selection-end-line="11" selection-end-column="37" />
         </state>
       </provider>
     </entry>
@@ -488,11 +471,25 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/trainer/kaggle_bengali/consts.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="600">
-          <caret line="40" lean-forward="true" selection-start-line="40" selection-end-line="40" />
+        <state relative-caret-position="570">
+          <caret line="38" column="5" selection-start-line="38" selection-start-column="5" selection-end-line="38" selection-end-column="5" />
           <folding>
             <element signature="e#0#14#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/run_job.sh">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="10" lean-forward="true" selection-start-line="10" selection-end-line="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/submit_job.sh">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="45">
+          <caret line="3" selection-start-line="3" selection-end-line="3" />
         </state>
       </provider>
     </entry>
