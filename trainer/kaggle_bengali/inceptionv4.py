@@ -54,10 +54,11 @@ class BasicConv2d(nn.Module):
 
 class Mixed_3a(nn.Module):
 
-    def __init__(self):
+    def __init__(self,m,in_features):
         super(Mixed_3a, self).__init__()
         self.maxpool = nn.MaxPool2d(3, stride=2)
-        self.conv = BasicConv2d(64, 96, kernel_size=3, stride=2)
+        self.conv = BasicConv2d(in_features, m(96), kernel_size=3, stride=2)
+        self.out_features=in_features+m(96)
 
     def forward(self, x):
         x0 = self.maxpool(x)
@@ -68,20 +69,22 @@ class Mixed_3a(nn.Module):
 
 class Mixed_4a(nn.Module):
 
-    def __init__(self):
+    def __init__(self,m,in_features):
         super(Mixed_4a, self).__init__()
 
         self.branch0 = nn.Sequential(
-            BasicConv2d(160, 64, kernel_size=1, stride=1),
-            BasicConv2d(64, 96, kernel_size=3, stride=1)
+            BasicConv2d(in_features, m(64), kernel_size=1, stride=1),
+            BasicConv2d(m(64), m(96), kernel_size=3, stride=1)
         )
 
         self.branch1 = nn.Sequential(
-            BasicConv2d(160, 64, kernel_size=1, stride=1),
-            BasicConv2d(64, 64, kernel_size=(1,7), stride=1, padding=(0,3)),
-            BasicConv2d(64, 64, kernel_size=(7,1), stride=1, padding=(3,0)),
-            BasicConv2d(64, 96, kernel_size=(3,3), stride=1)
+            BasicConv2d(in_features, m(64), kernel_size=1, stride=1),
+            BasicConv2d(m(64), m(64), kernel_size=(1,7), stride=1, padding=(0,3)),
+            BasicConv2d(m(64), m(64), kernel_size=(7,1), stride=1, padding=(3,0)),
+            BasicConv2d(m(64), m(96), kernel_size=(3,3), stride=1)
         )
+
+        self.out_features=m(96)+m(96)
 
     def forward(self, x):
         x0 = self.branch0(x)
@@ -92,10 +95,11 @@ class Mixed_4a(nn.Module):
 
 class Mixed_5a(nn.Module):
 
-    def __init__(self):
+    def __init__(self,m,in_features):
         super(Mixed_5a, self).__init__()
-        self.conv = BasicConv2d(192, 192, kernel_size=3, stride=2)
+        self.conv = BasicConv2d(in_features, m(192), kernel_size=3, stride=2)
         self.maxpool = nn.MaxPool2d(3, stride=2)
+        self.out_features=m(192)+in_features
 
     def forward(self, x):
         x0 = self.conv(x)
@@ -106,25 +110,27 @@ class Mixed_5a(nn.Module):
 
 class Inception_A(nn.Module):
 
-    def __init__(self):
+    def __init__(self,m,in_features):
         super(Inception_A, self).__init__()
-        self.branch0 = BasicConv2d(384, 96, kernel_size=1, stride=1)
+        self.branch0 = BasicConv2d(in_features, m(96), kernel_size=1, stride=1)
 
         self.branch1 = nn.Sequential(
-            BasicConv2d(384, 64, kernel_size=1, stride=1),
-            BasicConv2d(64, 96, kernel_size=3, stride=1, padding=1)
+            BasicConv2d(in_features,m(64), kernel_size=1, stride=1),
+            BasicConv2d(m(64), m(96), kernel_size=3, stride=1, padding=1)
         )
 
         self.branch2 = nn.Sequential(
-            BasicConv2d(384, 64, kernel_size=1, stride=1),
-            BasicConv2d(64, 96, kernel_size=3, stride=1, padding=1),
-            BasicConv2d(96, 96, kernel_size=3, stride=1, padding=1)
+            BasicConv2d(in_features,m(64), kernel_size=1, stride=1),
+            BasicConv2d(m(64), m(96), kernel_size=3, stride=1, padding=1),
+            BasicConv2d(m(96), m(96), kernel_size=3, stride=1, padding=1)
         )
 
         self.branch3 = nn.Sequential(
             nn.AvgPool2d(3, stride=1, padding=1, count_include_pad=False),
-            BasicConv2d(384, 96, kernel_size=1, stride=1)
+            BasicConv2d(in_features, m(96), kernel_size=1, stride=1)
         )
+
+        self.out_features=m(96)*4
 
     def forward(self, x):
         x0 = self.branch0(x)
@@ -137,17 +143,19 @@ class Inception_A(nn.Module):
 
 class Reduction_A(nn.Module):
 
-    def __init__(self):
+    def __init__(self,m,in_features):
         super(Reduction_A, self).__init__()
-        self.branch0 = BasicConv2d(384, 384, kernel_size=3, stride=2)
+        self.branch0 = BasicConv2d(in_features, m(384), kernel_size=3, stride=2)
 
         self.branch1 = nn.Sequential(
-            BasicConv2d(384, 192, kernel_size=1, stride=1),
-            BasicConv2d(192, 224, kernel_size=3, stride=1, padding=1),
-            BasicConv2d(224, 256, kernel_size=3, stride=2)
+            BasicConv2d(in_features, m(192), kernel_size=1, stride=1),
+            BasicConv2d(m(192), m(224), kernel_size=3, stride=1, padding=1),
+            BasicConv2d(m(224), m(256), kernel_size=3, stride=2)
         )
 
         self.branch2 = nn.MaxPool2d(3, stride=2)
+
+        self.out_features=m(384)+m(256)+in_features
 
     def forward(self, x):
         x0 = self.branch0(x)
@@ -159,28 +167,30 @@ class Reduction_A(nn.Module):
 
 class Inception_B(nn.Module):
 
-    def __init__(self):
+    def __init__(self,m,in_features):
         super(Inception_B, self).__init__()
-        self.branch0 = BasicConv2d(1024, 384, kernel_size=1, stride=1)
+        self.branch0 = BasicConv2d(in_features, m(384), kernel_size=1, stride=1)
 
         self.branch1 = nn.Sequential(
-            BasicConv2d(1024, 192, kernel_size=1, stride=1),
-            BasicConv2d(192, 224, kernel_size=(1,7), stride=1, padding=(0,3)),
-            BasicConv2d(224, 256, kernel_size=(7,1), stride=1, padding=(3,0))
+            BasicConv2d(in_features, m(192), kernel_size=1, stride=1),
+            BasicConv2d(m(192), m(224), kernel_size=(1,7), stride=1, padding=(0,3)),
+            BasicConv2d(m(224), m(256), kernel_size=(7,1), stride=1, padding=(3,0))
         )
 
         self.branch2 = nn.Sequential(
-            BasicConv2d(1024, 192, kernel_size=1, stride=1),
-            BasicConv2d(192, 192, kernel_size=(7,1), stride=1, padding=(3,0)),
-            BasicConv2d(192, 224, kernel_size=(1,7), stride=1, padding=(0,3)),
-            BasicConv2d(224, 224, kernel_size=(7,1), stride=1, padding=(3,0)),
-            BasicConv2d(224, 256, kernel_size=(1,7), stride=1, padding=(0,3))
+            BasicConv2d(in_features, m(192), kernel_size=1, stride=1),
+            BasicConv2d(m(192), m(192), kernel_size=(7,1), stride=1, padding=(3,0)),
+            BasicConv2d(m(192), m(224), kernel_size=(1,7), stride=1, padding=(0,3)),
+            BasicConv2d(m(224), m(224), kernel_size=(7,1), stride=1, padding=(3,0)),
+            BasicConv2d(m(224), m(256), kernel_size=(1,7), stride=1, padding=(0,3))
         )
 
         self.branch3 = nn.Sequential(
             nn.AvgPool2d(3, stride=1, padding=1, count_include_pad=False),
-            BasicConv2d(1024, 128, kernel_size=1, stride=1)
+            BasicConv2d(in_features, m(128), kernel_size=1, stride=1)
         )
+
+        self.out_features=m(384)+m(256)+m(256)+m(128)
 
     def forward(self, x):
         x0 = self.branch0(x)
@@ -193,22 +203,24 @@ class Inception_B(nn.Module):
 
 class Reduction_B(nn.Module):
 
-    def __init__(self):
+    def __init__(self,m,in_features):
         super(Reduction_B, self).__init__()
 
         self.branch0 = nn.Sequential(
-            BasicConv2d(1024, 192, kernel_size=1, stride=1),
-            BasicConv2d(192, 192, kernel_size=3, stride=2)
+            BasicConv2d(in_features, m(192), kernel_size=1, stride=1),
+            BasicConv2d(m(192), m(192), kernel_size=3, stride=2)
         )
 
         self.branch1 = nn.Sequential(
-            BasicConv2d(1024, 256, kernel_size=1, stride=1),
-            BasicConv2d(256, 256, kernel_size=(1,7), stride=1, padding=(0,3)),
-            BasicConv2d(256, 320, kernel_size=(7,1), stride=1, padding=(3,0)),
-            BasicConv2d(320, 320, kernel_size=3, stride=2)
+            BasicConv2d(in_features, m(256), kernel_size=1, stride=1),
+            BasicConv2d(m(256), m(256), kernel_size=(1,7), stride=1, padding=(0,3)),
+            BasicConv2d(m(256), m(320), kernel_size=(7,1), stride=1, padding=(3,0)),
+            BasicConv2d(m(320), m(320), kernel_size=3, stride=2)
         )
 
         self.branch2 = nn.MaxPool2d(3, stride=2)
+
+        self.out_features=m(192)+m(320)+in_features
 
     def forward(self, x):
         x0 = self.branch0(x)
@@ -220,25 +232,27 @@ class Reduction_B(nn.Module):
 
 class Inception_C(nn.Module):
 
-    def __init__(self):
+    def __init__(self,m,in_features):
         super(Inception_C, self).__init__()
 
-        self.branch0 = BasicConv2d(1536, 256, kernel_size=1, stride=1)
+        self.branch0 = BasicConv2d(in_features, m(256), kernel_size=1, stride=1)
 
-        self.branch1_0 = BasicConv2d(1536, 384, kernel_size=1, stride=1)
-        self.branch1_1a = BasicConv2d(384, 256, kernel_size=(1,3), stride=1, padding=(0,1))
-        self.branch1_1b = BasicConv2d(384, 256, kernel_size=(3,1), stride=1, padding=(1,0))
+        self.branch1_0 = BasicConv2d(in_features, m(384), kernel_size=1, stride=1)
+        self.branch1_1a = BasicConv2d(m(384), m(256), kernel_size=(1,3), stride=1, padding=(0,1))
+        self.branch1_1b = BasicConv2d(m(384), m(256), kernel_size=(3,1), stride=1, padding=(1,0))
 
-        self.branch2_0 = BasicConv2d(1536, 384, kernel_size=1, stride=1)
-        self.branch2_1 = BasicConv2d(384, 448, kernel_size=(3,1), stride=1, padding=(1,0))
-        self.branch2_2 = BasicConv2d(448, 512, kernel_size=(1,3), stride=1, padding=(0,1))
-        self.branch2_3a = BasicConv2d(512, 256, kernel_size=(1,3), stride=1, padding=(0,1))
-        self.branch2_3b = BasicConv2d(512, 256, kernel_size=(3,1), stride=1, padding=(1,0))
+        self.branch2_0 = BasicConv2d(in_features, m(384), kernel_size=1, stride=1)
+        self.branch2_1 = BasicConv2d(m(384), m(448), kernel_size=(3,1), stride=1, padding=(1,0))
+        self.branch2_2 = BasicConv2d(m(448), m(512), kernel_size=(1,3), stride=1, padding=(0,1))
+        self.branch2_3a = BasicConv2d(m(512), m(256), kernel_size=(1,3), stride=1, padding=(0,1))
+        self.branch2_3b = BasicConv2d(m(512), m(256), kernel_size=(3,1), stride=1, padding=(1,0))
 
         self.branch3 = nn.Sequential(
             nn.AvgPool2d(3, stride=1, padding=1, count_include_pad=False),
-            BasicConv2d(1536, 256, kernel_size=1, stride=1)
+            BasicConv2d(in_features, m(256), kernel_size=1, stride=1)
         )
+
+        self.out_features=m(256)+m(256)+m(256)+m(256)+m(256)+m(256)
 
     def forward(self, x):
         x0 = self.branch0(x)
@@ -260,42 +274,37 @@ class Inception_C(nn.Module):
         out = torch.cat((x0, x1, x2, x3), 1)
         return out
 
+def mult_filters(filters,width):
+    return max(3,int(filters*width))
 
 class InceptionV4(nn.Module):
 
-    def __init__(self, num_classes=1001):
+    def __init__(self, repeats=(10,20,9), width=1,num_classes=1001):
         super(InceptionV4, self).__init__()
-        # Special attributs
-        self.input_space = None
-        self.input_size = (299, 299, 3)
-        self.mean = None
-        self.std = None
+
+        self._width=width
+        def _m(filters):
+            return mult_filters(filters,self._width)
         # Modules
         self.features = nn.Sequential(
-            BasicConv2d(3, 32, kernel_size=3, stride=2),
-            BasicConv2d(32, 32, kernel_size=3, stride=1),
-            BasicConv2d(32, 64, kernel_size=3, stride=1, padding=1),
-            Mixed_3a(),
-            Mixed_4a(),
-            Mixed_5a(),
-            Inception_A(),
-            Inception_A(),
-            Inception_A(),
-            Inception_A(),
-            Reduction_A(), # Mixed_6a
-            Inception_B(),
-            Inception_B(),
-            Inception_B(),
-            Inception_B(),
-            Inception_B(),
-            Inception_B(),
-            Inception_B(),
-            Reduction_B(), # Mixed_7a
-            Inception_C(),
-            Inception_C(),
-            Inception_C()
-        )
-        self.last_linear = nn.Linear(1536, num_classes)
+            BasicConv2d(3, _m(32), kernel_size=3, stride=2),
+            BasicConv2d(_m(32), _m(32), kernel_size=3, stride=1),
+            BasicConv2d(_m(32), _m(64), kernel_size=3, stride=1, padding=1))
+
+        modules=[Mixed_3a,Mixed_4a,Mixed_5a]
+        modules.extend([Inception_A]*repeats[0])
+        modules.append(Reduction_A)
+        modules.extend([Inception_B]*repeats[1])
+        modules.append(Reduction_B)
+        modules.extend([Inception_C]*repeats[2])
+
+        in_features=_m(64)
+        for m in modules:
+            module=m(_m,in_features)
+            in_features=module.out_features
+            self.features.add_module(str(len(self.features)),module)
+
+        self.last_linear = nn.Linear(in_features, num_classes)
 
     def logits(self, features):
         #Allows image of any size to be processed
@@ -309,50 +318,3 @@ class InceptionV4(nn.Module):
         x = self.features(input)
         x = self.logits(x)
         return x
-
-
-def inceptionv4(num_classes=1000, pretrained='imagenet'):
-    if pretrained:
-        settings = pretrained_settings['inceptionv4'][pretrained]
-        assert num_classes == settings['num_classes'], \
-            "num_classes should be {}, but is {}".format(settings['num_classes'], num_classes)
-
-        # both 'imagenet'&'imagenet+background' are loaded from same parameters
-        model = InceptionV4(num_classes=1001)
-        model.load_state_dict(model_zoo.load_url(settings['url']))
-
-        if pretrained == 'imagenet':
-            new_last_linear = nn.Linear(1536, 1000)
-            new_last_linear.weight.data = model.last_linear.weight.data[1:]
-            new_last_linear.bias.data = model.last_linear.bias.data[1:]
-            model.last_linear = new_last_linear
-
-        model.input_space = settings['input_space']
-        model.input_size = settings['input_size']
-        model.input_range = settings['input_range']
-        model.mean = settings['mean']
-        model.std = settings['std']
-    else:
-        model = InceptionV4(num_classes=num_classes)
-    return model
-
-
-'''
-TEST
-Run this code with:
-```
-cd $HOME/pretrained-models.pytorch
-python -m pretrainedmodels.inceptionv4
-```
-'''
-if __name__ == '__main__':
-
-    assert inceptionv4(num_classes=10, pretrained=None)
-    print('success')
-    assert inceptionv4(num_classes=1000, pretrained='imagenet')
-    print('success')
-    assert inceptionv4(num_classes=1001, pretrained='imagenet+background')
-    print('success')
-
-    # fail
-    assert inceptionv4(num_classes=1001, pretrained='imagenet')

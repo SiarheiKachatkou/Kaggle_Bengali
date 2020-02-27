@@ -4,6 +4,7 @@ import numpy as np
 import random
 from .resnet import Bottleneck,SEBottleneck,_resnet
 from .inceptionresnetv2 import InceptionResNetV2
+from .inceptionv4 import InceptionV4
 
 ARTIFACTS_DIR='artifacts'
 DATA_DIR='data'
@@ -36,7 +37,7 @@ MODEL_NAME='model'
 alpha=1.2
 beta=1.1
 gama=1.15
-phi=1
+phi=0
 
 
 IMG_WIDTH = 236
@@ -75,21 +76,20 @@ SERESNEXT_KWARGS={'arch':'small_resnet', 'groups': 32,'width_per_group': int(8*b
 
 INCEPTIONRESNETV2_KWARGS={'repeats':(int(_m*3),int(_m*6),int(_m*4)), 'width':0.3*beta**phi, 'num_classes':np.sum(CLASSES_LIST)}
 
-BACKBONE_KWARGS=INCEPTIONRESNETV2_KWARGS
-BACKBONE_FN=InceptionResNetV2
+INCEPTIONV4_KWARGS={'repeats':(int(_m*3),int(_m*6),int(_m*4)), 'width':0.3*beta**phi, 'num_classes':np.sum(CLASSES_LIST)}
 
-SEED=0
+BACKBONE_KWARGS=INCEPTIONV4_KWARGS
+BACKBONE_FN=InceptionV4
+
 
 TARGETS=['grapheme_root','vowel_diacritic','consonant_diacritic']
 
-try:
-    import torch
-    torch.manual_seed(SEED)
-    torch.backends.cudnn.deterministic = True
-    torch.backends.cudnn.benchmark = False
-except:
-    print('can not import pytorch, gpu use will be undeterministic')
+SEED=0
 
+import torch
+torch.manual_seed(SEED)
+torch.backends.cudnn.deterministic = True
+torch.backends.cudnn.benchmark = False
 
 np.random.seed(SEED)
 random.seed(SEED)
