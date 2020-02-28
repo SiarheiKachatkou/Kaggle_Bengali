@@ -42,15 +42,15 @@ phi=2
 
 IMG_WIDTH = 236
 IMG_HEIGHT = 137
-IMG_W=int(84*gama**phi)
-IMG_H=int(84*gama**phi)
+IMG_W=int(64*gama**phi)
+IMG_H=int(64*gama**phi)
 TOP_CUT=4
 LEFT_CUT=4
 PAD=4
 
 
 N_CHANNELS = 1
-BATCH_SIZE=32
+BATCH_SIZE=64
 EPOCHS=10
 LR=0.001
 LR_SCHEDULER_PATINCE=8000
@@ -78,8 +78,8 @@ INCEPTIONRESNETV2_KWARGS={'repeats':(int(_m*3),int(_m*6),int(_m*4)), 'width':0.3
 
 INCEPTIONV4_KWARGS={'repeats':(int(_m*2),int(_m*4),int(_m*2)), 'width':0.3*beta**phi, 'num_classes':np.sum(CLASSES_LIST)}
 
-BACKBONE_KWARGS=INCEPTIONV4_KWARGS
-BACKBONE_FN=InceptionV4
+BACKBONE_KWARGS=RESNET_KWARGS
+BACKBONE_FN=_resnet
 
 
 TARGETS=['grapheme_root','vowel_diacritic','consonant_diacritic']
