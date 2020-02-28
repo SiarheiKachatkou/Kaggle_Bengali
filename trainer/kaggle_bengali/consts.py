@@ -37,7 +37,7 @@ MODEL_NAME='model'
 alpha=1.2
 beta=1.1
 gama=1.15
-phi=1
+phi=2
 
 
 IMG_WIDTH = 236
