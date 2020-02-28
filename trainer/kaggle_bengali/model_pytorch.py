@@ -175,7 +175,8 @@ class Model(pl.LightningModule):
 
     def configure_optimizers(self):
         # REQUIRED
-        self.optimizer=RAdam(self.parameters(),lr=LR)
+        #self.optimizer=RAdam(self.parameters(),lr=LR)
+        self.optimizer=torch.optim.Adam(self.parameters(),lr=LR)
         self.scheduler=torch.optim.lr_scheduler.ReduceLROnPlateau(self.optimizer, mode='max', factor=0.5, patience=LR_SCHEDULER_PATINCE, verbose=True,
                                                              threshold=0.0001, threshold_mode='abs',
                                                              cooldown=0, min_lr=1e-6, eps=1e-08)

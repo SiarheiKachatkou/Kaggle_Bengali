@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="0400dbc6-5425-4163-a796-b6527b031bcf" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/trainer/kaggle_bengali/consts.py" beforeDir="false" afterPath="$PROJECT_DIR$/trainer/kaggle_bengali/consts.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/trainer/kaggle_bengali/model_pytorch.py" beforeDir="false" afterPath="$PROJECT_DIR$/trainer/kaggle_bengali/model_pytorch.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/trainer/kaggle_bengali/training_log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/trainer/kaggle_bengali/training_log.txt" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -16,8 +17,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/trainer/kaggle_bengali/inceptionv4.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="746">
-              <caret line="255" selection-start-line="255" selection-end-line="255" />
+            <state relative-caret-position="386">
+              <caret line="231" selection-start-line="231" selection-end-line="231" />
               <folding>
                 <element signature="e#0#64#0" expanded="true" />
               </folding>
@@ -26,10 +27,13 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/../../anaconda3/envs/pytorch/lib/python3.7/site-packages/torch/nn/modules/module.py">
+        <entry file="file://$PROJECT_DIR$/trainer/kaggle_bengali/model_pytorch.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="438">
-              <caret line="584" selection-start-line="584" selection-end-line="584" />
+            <state relative-caret-position="376">
+              <caret line="135" lean-forward="true" selection-start-line="135" selection-end-line="135" />
+              <folding>
+                <element signature="e#0#12#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -49,8 +53,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/trainer/kaggle_bengali/training_log.txt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="627">
-              <caret line="12463" selection-start-line="12463" selection-end-line="12463" />
+            <state relative-caret-position="-1503">
+              <caret line="12759" column="43" selection-start-line="12759" selection-start-column="43" selection-end-line="12759" selection-end-column="43" />
             </state>
           </provider>
         </entry>
@@ -58,8 +62,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/model_log.txt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="243">
-              <caret line="186" column="39" selection-start-line="186" selection-start-column="39" selection-end-line="186" selection-end-column="39" />
+            <state relative-caret-position="318">
+              <caret line="191" selection-start-line="191" selection-end-line="191" />
             </state>
           </provider>
         </entry>
@@ -145,12 +149,12 @@
         <option value="$PROJECT_DIR$/trainer/kaggle_bengali/dataset_pytorch.py" />
         <option value="$PROJECT_DIR$/trainer/kaggle_bengali/resnet.py" />
         <option value="$PROJECT_DIR$/submit_job.sh" />
-        <option value="$PROJECT_DIR$/trainer/kaggle_bengali/model_pytorch.py" />
         <option value="$PROJECT_DIR$/trainer/kaggle_bengali/train.py" />
         <option value="$PROJECT_DIR$/trainer/kaggle_bengali/inceptionresnetv2.py" />
         <option value="$PROJECT_DIR$/trainer/kaggle_bengali/inceptionv4.py" />
         <option value="$PROJECT_DIR$/trainer/kaggle_bengali/focal_loss.py" />
         <option value="$PROJECT_DIR$/trainer/kaggle_bengali/loss.py" />
+        <option value="$PROJECT_DIR$/trainer/kaggle_bengali/model_pytorch.py" />
         <option value="$PROJECT_DIR$/trainer/kaggle_bengali/consts.py" />
       </list>
     </option>
@@ -412,16 +416,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/trainer/kaggle_bengali/model_pytorch.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="798">
-          <caret line="143" column="27" selection-start-line="143" selection-start-column="27" selection-end-line="143" selection-end-column="27" />
-          <folding>
-            <element signature="e#0#12#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/trainer/kaggle_bengali/train.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1140">
@@ -443,23 +437,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="408">
           <caret line="32" selection-start-line="32" selection-end-line="33" selection-end-column="36" />
-          <folding>
-            <element signature="e#0#64#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../../anaconda3/envs/pytorch/lib/python3.7/site-packages/torch/nn/modules/module.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="438">
-          <caret line="584" selection-start-line="584" selection-end-line="584" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/trainer/kaggle_bengali/inceptionv4.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="746">
-          <caret line="255" selection-start-line="255" selection-end-line="255" />
           <folding>
             <element signature="e#0#64#0" expanded="true" />
           </folding>
@@ -502,15 +479,42 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/trainer/kaggle_bengali/training_log.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="627">
-          <caret line="12463" selection-start-line="12463" selection-end-line="12463" />
+        <state relative-caret-position="-1503">
+          <caret line="12759" column="43" selection-start-line="12759" selection-start-column="43" selection-end-line="12759" selection-end-column="43" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/model_log.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="243">
-          <caret line="186" column="39" selection-start-line="186" selection-start-column="39" selection-end-line="186" selection-end-column="39" />
+        <state relative-caret-position="318">
+          <caret line="191" selection-start-line="191" selection-end-line="191" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../anaconda3/envs/pytorch/lib/python3.7/site-packages/torch/nn/modules/module.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="438">
+          <caret line="584" selection-start-line="584" selection-end-line="584" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/trainer/kaggle_bengali/inceptionv4.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="386">
+          <caret line="231" selection-start-line="231" selection-end-line="231" />
+          <folding>
+            <element signature="e#0#64#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/trainer/kaggle_bengali/model_pytorch.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="376">
+          <caret line="135" lean-forward="true" selection-start-line="135" selection-end-line="135" />
+          <folding>
+            <element signature="e#0#12#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
