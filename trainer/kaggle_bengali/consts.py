@@ -37,7 +37,7 @@ MODEL_NAME='model'
 alpha=1.2
 beta=1.1
 gama=1.15
-phi=0
+phi=1
 
 
 IMG_WIDTH = 236
@@ -50,7 +50,7 @@ PAD=4
 
 
 N_CHANNELS = 1
-BATCH_SIZE=64
+BATCH_SIZE=32
 EPOCHS=10
 LR=0.001
 LR_SCHEDULER_PATINCE=8000
@@ -76,7 +76,7 @@ SERESNEXT_KWARGS={'arch':'small_resnet', 'groups': 32,'width_per_group': int(8*b
 
 INCEPTIONRESNETV2_KWARGS={'repeats':(int(_m*3),int(_m*6),int(_m*4)), 'width':0.3*beta**phi, 'num_classes':np.sum(CLASSES_LIST)}
 
-INCEPTIONV4_KWARGS={'repeats':(int(_m*3),int(_m*6),int(_m*4)), 'width':0.3*beta**phi, 'num_classes':np.sum(CLASSES_LIST)}
+INCEPTIONV4_KWARGS={'repeats':(int(_m*2),int(_m*4),int(_m*2)), 'width':0.3*beta**phi, 'num_classes':np.sum(CLASSES_LIST)}
 
 BACKBONE_KWARGS=INCEPTIONV4_KWARGS
 BACKBONE_FN=InceptionV4
