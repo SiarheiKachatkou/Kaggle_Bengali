@@ -5,6 +5,8 @@ import random
 from .resnet import Bottleneck,SEBottleneck,_resnet
 from .inceptionresnetv2 import InceptionResNetV2
 from .inceptionv4 import InceptionV4
+from .efficientnet import EfficientNet
+from .efficientnet_utils import BlockDecoder, GlobalParams
 
 ARTIFACTS_DIR='artifacts'
 DATA_DIR='data'
@@ -35,15 +37,15 @@ IMAGE_GEN_PKL = 'image_gen.pkl'
 MODEL_NAME='model'
 
 alpha=1.2
-beta=1.1
-gama=1.15
-phi=2
+beta=1.32
+gama=1.28
+phi=1 # efficient net b3, phi=4 for b7
 
 
 IMG_WIDTH = 236
 IMG_HEIGHT = 137
-IMG_W=int(64*gama**phi)
-IMG_H=int(64*gama**phi)
+IMG_W=int(224*gama**phi)
+IMG_H=int(224*gama**phi)
 TOP_CUT=4
 LEFT_CUT=4
 PAD=4
@@ -78,8 +80,32 @@ INCEPTIONRESNETV2_KWARGS={'repeats':(int(_m*3),int(_m*6),int(_m*4)), 'width':0.3
 
 INCEPTIONV4_KWARGS={'repeats':(int(_m*2),int(_m*4),int(_m*2)), 'width':0.3*beta**phi, 'num_classes':np.sum(CLASSES_LIST)}
 
-BACKBONE_KWARGS=RESNET_KWARGS
-BACKBONE_FN=_resnet
+blocks_args = [
+        'r1_k3_s11_e1_i32_o16_se0.25', 'r2_k3_s22_e6_i16_o24_se0.25',
+        'r2_k5_s22_e6_i24_o40_se0.25', 'r3_k3_s22_e6_i40_o80_se0.25',
+        'r3_k5_s11_e6_i80_o112_se0.25', 'r4_k5_s22_e6_i112_o192_se0.25',
+        'r1_k3_s11_e6_i192_o320_se0.25',
+    ]
+
+block_args=BlockDecoder.decode(blocks_args)
+
+global_params = GlobalParams(
+        batch_norm_momentum=0.99,
+        batch_norm_epsilon=1e-3,
+        dropout_rate=0.2,
+        drop_connect_rate=0.2,
+        num_classes=N_CHANNELS,
+        width_coefficient=alpha**phi,
+        depth_coefficient=beta**phi,
+        depth_divisor=8,
+        min_depth=None,
+        image_size=IMG_W,
+    )
+
+EFFICIENTNET_KWARGS={'block_args':block_args, 'global_params':global_params}
+
+BACKBONE_KWARGS=EFFICIENTNET_KWARGS
+BACKBONE_FN=EfficientNet
 
 
 TARGETS=['grapheme_root','vowel_diacritic','consonant_diacritic']
