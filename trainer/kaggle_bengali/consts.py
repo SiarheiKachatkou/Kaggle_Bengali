@@ -39,7 +39,7 @@ MODEL_NAME='model'
 alpha=1.2
 beta=1.32
 gama=1.28
-phi=0 # efficient net b3, phi=4 for b7
+phi=0 # phi=1 efficient net b3, phi=4 for b7
 
 
 IMG_WIDTH = 236
@@ -54,10 +54,10 @@ PAD=4
 
 
 N_CHANNELS = 1
-BATCH_SIZE=4
-EPOCHS=10
-LR=0.001
-LR_SCHEDULER_PATINCE=8000
+BATCH_SIZE=256
+EPOCHS=100
+LR=0.05
+LR_SCHEDULER_PATINCE=80
 AUGM_PROB=0
 DROPOUT_P=0.5
 

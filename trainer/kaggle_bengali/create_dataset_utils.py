@@ -58,12 +58,11 @@ def load(path_to_dir):
     for path_to_file in files:
         with open(os.path.join(path_to_dir,path_to_file),'rb') as file:
             imgs,labels,ids, classes = pickle.load(file)
-            imgs_all.append(imgs)
+            imgs_all.extend(imgs)
             labels_all.append(labels)
-            ids_all.append(ids)
+            ids_all.extend(ids)
 
-    imgs_all=np.concatenate(imgs_all,axis=0)
     labels_all=np.concatenate(labels_all,axis=0)
-    ids_all=np.concatenate(ids_all,axis=0)
+    ids_all=np.array(ids_all)
 
     return imgs_all,labels_all,ids_all, classes
