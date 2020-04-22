@@ -3,7 +3,7 @@ import pickle
 import shutil
 import cv2
 import numpy as np
-from .consts import IMG_H, IMG_W,TOP_CUT,LEFT_CUT,PAD
+from .consts import IMG_H, IMG_W,TOP_CUT,LEFT_CUT,PAD, DO_CROP_SYMBOL
 
 def crop_symbol(img):
 
@@ -39,7 +39,12 @@ def dump(path_to_dir, imgs,labels, ids, classes, max_img_per_file=10000):
         the_slice=slice(idx,end_idx)
         path_to_file=os.path.join(path_to_dir,'{}.pkl'.format(i))
         with open(path_to_file,'wb') as file:
-            imgs_preproc=np.array([crop_symbol(im) for im in imgs[the_slice]])
+
+            if DO_CROP_SYMBOL:
+                imgs_preproc=np.array([crop_symbol(im) for im in imgs[the_slice]])
+            else:
+                imgs_preproc=np.array(imgs[the_slice])
+
             the_labels=None if labels is None else labels[the_slice]
             pickle.dump([imgs_preproc,the_labels,ids[the_slice], classes],file)
 

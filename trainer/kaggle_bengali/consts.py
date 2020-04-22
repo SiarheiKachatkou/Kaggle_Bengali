@@ -9,7 +9,7 @@ from .efficientnet import EfficientNet
 from .efficientnet_utils import BlockDecoder, GlobalParams
 
 ARTIFACTS_DIR='artifacts'
-DATA_DIR='data'
+DATA_DIR=os.path.join(os.path.dirname(__file__),'../..','data')
 RAW_DIR='raw'
 MODELS_DIR='models'
 MODELS_PRETRAINED_DIR='models_pretrained'
@@ -39,20 +39,22 @@ MODEL_NAME='model'
 alpha=1.2
 beta=1.32
 gama=1.28
-phi=1 # efficient net b3, phi=4 for b7
+phi=0 # efficient net b3, phi=4 for b7
 
 
 IMG_WIDTH = 236
 IMG_HEIGHT = 137
-IMG_W=int(224*gama**phi)
-IMG_H=int(224*gama**phi)
+IMG_W=int(64*gama**phi)
+IMG_H=int(64*gama**phi)
+
+DO_CROP_SYMBOL=False
 TOP_CUT=4
 LEFT_CUT=4
 PAD=4
 
 
 N_CHANNELS = 1
-BATCH_SIZE=64
+BATCH_SIZE=4
 EPOCHS=10
 LR=0.001
 LR_SCHEDULER_PATINCE=8000
@@ -87,14 +89,14 @@ blocks_args = [
         'r1_k3_s11_e6_i192_o320_se0.25',
     ]
 
-block_args=BlockDecoder.decode(blocks_args)
+blocks_args=BlockDecoder.decode(blocks_args)
 
 global_params = GlobalParams(
         batch_norm_momentum=0.99,
         batch_norm_epsilon=1e-3,
         dropout_rate=0.2,
         drop_connect_rate=0.2,
-        num_classes=N_CHANNELS,
+        num_classes=np.sum(CLASSES_LIST),
         width_coefficient=alpha**phi,
         depth_coefficient=beta**phi,
         depth_divisor=8,
@@ -102,7 +104,7 @@ global_params = GlobalParams(
         image_size=IMG_W,
     )
 
-EFFICIENTNET_KWARGS={'block_args':block_args, 'global_params':global_params}
+EFFICIENTNET_KWARGS={'blocks_args':blocks_args, 'global_params':global_params}
 
 BACKBONE_KWARGS=EFFICIENTNET_KWARGS
 BACKBONE_FN=EfficientNet
