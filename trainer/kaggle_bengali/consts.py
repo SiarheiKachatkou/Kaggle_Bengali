@@ -44,8 +44,8 @@ phi=0 # phi=1 efficient net b3, phi=4 for b7
 
 IMG_WIDTH = 236
 IMG_HEIGHT = 137
-IMG_W=int(64*gama**phi)
-IMG_H=int(64*gama**phi)
+IMG_W=int(224*gama**phi)
+IMG_H=int(224*gama**phi)
 
 DO_CROP_SYMBOL=False
 TOP_CUT=4
@@ -54,7 +54,7 @@ PAD=4
 
 
 N_CHANNELS = 1
-BATCH_SIZE=256
+BATCH_SIZE=64
 EPOCHS=100
 LR=0.05
 LR_SCHEDULER_PATINCE=80

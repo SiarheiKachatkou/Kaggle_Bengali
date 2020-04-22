@@ -20835,3 +20835,1680 @@ val_loss=3.8299385034121 val_score=0.49238481962282105
 iter/secs=7.9816011575655486   lr=0.05
 val_loss=3.4079225002191005 val_score=0.42300693484657365
 iter/secs=7.977089087672916   lr=0.05
+val_loss=5.406788324698423 val_score=0.2553392058598888
+iter/secs=7.973401186819437   lr=0.05
+val_loss=4.154149714188698 val_score=0.43917141566402684
+iter/secs=7.970330539904089   lr=0.05
+val_loss=15.435038511569683 val_score=0.3014379225931509
+iter/secs=7.967734146887442   lr=0.05
+val_loss=1.393483606668619 val_score=0.6920951714973131
+iter/secs=7.965510013148808   lr=0.05
+val_loss=1.7815895340381525 val_score=0.6749839035187185
+iter/secs=7.963583434730369   lr=0.05
+val_loss=1.362946752936412 val_score=0.7189916475132357
+iter/secs=7.968222423969481   lr=0.05
+val_loss=3.3945873364424095 val_score=0.5126252467712724
+iter/secs=7.966361759071929   lr=0.05
+val_loss=1.184680700684205 val_score=0.7284934798072595
+iter/secs=7.964708564072996   lr=0.05
+val_loss=1.038539666778002 val_score=0.7599412527835074
+iter/secs=7.963229971102961   lr=0.05
+val_loss=1.0864177350050364 val_score=0.7696082949408735
+iter/secs=7.966958089607313   lr=0.05
+val_loss=1.2861431191364925 val_score=0.7499864692700575
+iter/secs=7.970334158393367   lr=0.05
+val_loss=1.5109501098975158 val_score=0.6816943564443767
+iter/secs=7.973405795719193   lr=0.05
+val_loss=15.47415820757548 val_score=0.09538634956987993
+iter/secs=7.976212402537388   lr=0.05
+val_loss=12.638938341385279 val_score=0.11606656841503105
+iter/secs=7.983019637655365   lr=0.05
+val_loss=3.449463983376821 val_score=0.36915989831285967
+iter/secs=7.985222625969116   lr=0.05
+val_loss=2.61772592098285 val_score=0.4651481323996068
+iter/secs=7.987257233092977   lr=0.05
+val_loss=2.1960235031751485 val_score=0.5606747245327277
+iter/secs=7.992914073222816   lr=0.05
+val_loss=3.3068741743381205 val_score=0.4613190801674939
+iter/secs=7.99453187862847   lr=0.05
+val_loss=1.312101730933556 val_score=0.6948366456758769
+iter/secs=7.996038700070931   lr=0.05
+val_loss=1.278299765709119 val_score=0.700584208719272
+iter/secs=8.000847298661293   lr=0.05
+val_loss=1.2730531852978926 val_score=0.7239715882769799
+iter/secs=8.002055165889185   lr=0.05
+val_loss=1.5079485391959166 val_score=0.6788482785754805
+iter/secs=8.003187872681343   lr=0.05
+val_loss=21.126152124160374 val_score=0.07391974963175425
+iter/secs=8.007349842356872   lr=0.05
+val_loss=5.929838813268221 val_score=0.18840066467140928
+iter/secs=8.008261454447236   lr=0.05
+val_loss=5.0996485856863165 val_score=0.2658637580414183
+iter/secs=8.009121164554319   lr=0.05
+val_loss=3.7406960741067543 val_score=0.33268865339143144
+iter/secs=8.009933282493511   lr=0.05
+val_loss=3.2200587483552785 val_score=0.4486115031130339
+iter/secs=8.013468734553113   lr=0.05
+val_loss=5.981370507142483 val_score=0.24561165631384835
+iter/secs=8.014124448663152   lr=0.05
+val_loss=3.5167630223127513 val_score=0.37219241841367956
+iter/secs=8.014746635612378   lr=0.05
+val_loss=2.226803542711796 val_score=0.553217044801046
+iter/secs=8.01790025003189   lr=0.05
+val_loss=7913.810559346126 val_score=0.5057871137053779
+iter/secs=8.018400493324862   lr=0.05
+val_loss=2.00488142707409 val_score=0.5968380694536493
+iter/secs=8.018876973545378   lr=0.05
+val_loss=164.16305992007256 val_score=0.5882961178254913
+iter/secs=8.021717339566397   lr=0.05
+val_loss=2.9135815730461707 val_score=0.5298438228896586
+iter/secs=8.02209711483073   lr=0.05
+val_loss=503203985.37302184 val_score=0.20490962631834125
+iter/secs=8.022460044793846   lr=0.05
+val_loss=11.985002444340633 val_score=0.15297068633003547
+iter/secs=8.022807225922886   lr=0.05
+val_loss=2.7916400111638584 val_score=0.6590860077759831
+iter/secs=8.023139661546512   lr=0.05
+val_loss=125021.66149169054 val_score=0.5632773540414658
+iter/secs=8.02559785984057   lr=0.05
+val_loss=2.0677338341871896 val_score=0.5982333854983394
+iter/secs=8.025859972345879   lr=0.05
+val_loss=1.3580072304377189 val_score=0.6900542815106453
+iter/secs=8.026111616458879   lr=0.05
+val_loss=42873071269.71795 val_score=0.595116019950909
+iter/secs=8.026353407039807   lr=0.05
+val_loss=12.22810242497004 val_score=0.7132680677640431
+iter/secs=8.028562416015165   lr=0.05
+val_loss=1.2032890659876359 val_score=0.7421362456659817
+iter/secs=8.028748966236055   lr=0.05
+val_loss=2.2181868820618362 val_score=0.5419239981691728
+iter/secs=8.028928615383302   lr=0.05
+val_loss=2363.499228994816 val_score=0.69174852953104
+iter/secs=8.029101739440806   lr=0.05
+val_loss=1144.0043664154334 val_score=0.694924099616128
+iter/secs=8.029268687567187   lr=0.05
+val_loss=2.1329221778955216 val_score=0.6221719869720156
+iter/secs=8.03123415028446   lr=0.05
+val_loss=1.02028292684983 val_score=0.7640948242086031
+iter/secs=8.03135865031832   lr=0.05
+val_loss=1.7827084714021437 val_score=0.6536837559082018
+iter/secs=8.031478933678043   lr=0.05
+val_loss=1.078241806381788 val_score=0.7456964436090743
+iter/secs=8.031595211017247   lr=0.05
+val_loss=4.3210305617405815 val_score=0.39106447658043864
+iter/secs=8.033394657972137   lr=0.05
+val_loss=1.0001240208362923 val_score=0.7712368175640598
+iter/secs=8.033476331168355   lr=0.05
+val_loss=0.990387200545042 val_score=0.7838698817423994
+iter/secs=8.03355541314716   lr=0.05
+val_loss=1.0820557585893533 val_score=0.780720742609728
+iter/secs=8.033632025298893   lr=0.05
+val_loss=2.263543028097886 val_score=0.5634617622039975
+iter/secs=8.03370628154814   lr=0.05
+val_loss=3492503027.724718 val_score=0.7833868987104066
+iter/secs=8.033778288918988   lr=0.05
+val_loss=0.8108041412555255 val_score=0.8022625976796027
+iter/secs=8.035384844035033   lr=0.05
+val_loss=0.8034826570596451 val_score=0.8100542733499088
+iter/secs=8.035430072478313   lr=0.05
+val_loss=0.7564061692891977 val_score=0.8252917382636463
+iter/secs=8.035473990439451   lr=0.05
+val_loss=0.7974091237172102 val_score=0.8136566941831465
+iter/secs=8.035516654061396   lr=0.05
+val_loss=0.9498618760934243 val_score=0.8191547960237128
+iter/secs=8.03555811632525   lr=0.05
+val_loss=1.0373680324126513 val_score=0.7900954527817599
+iter/secs=8.03559842726977   lr=0.05
+val_loss=0.9908097883065542 val_score=0.8036462980525789
+iter/secs=8.037048632651688   lr=0.05
+val_loss=0.8923643475923783 val_score=0.8274402691399863
+iter/secs=8.037067722662789   lr=0.05
+val_loss=0.9907383066721451 val_score=0.8164803091079886
+iter/secs=8.037086303694018   lr=0.05
+val_loss=40094446.049973555 val_score=0.8164355494512567
+iter/secs=8.037104395833294   lr=0.05
+val_loss=1.0447286944358776 val_score=0.8223805886893971
+iter/secs=8.038460200056576   lr=0.05
+val_loss=1.4243072210214076 val_score=0.788970200816728
+iter/secs=8.038460217215611   lr=0.05
+val_loss=1.045706034088746 val_score=0.8244520950055607
+iter/secs=8.03846023394024   lr=0.05
+val_loss=1.4699354683741546 val_score=0.8062012737688669
+iter/secs=8.038460250246754   lr=0.05
+val_loss=28248882.391492806 val_score=0.8144907305816248
+iter/secs=8.03973277825981   lr=0.05
+val_loss=1.1157783010067084 val_score=0.8220754125002419
+iter/secs=8.03971727291364   lr=0.05
+val_loss=1.034957929299428 val_score=0.8534012185079919
+iter/secs=8.03970214124793   lr=0.05
+val_loss=39722.92449758718 val_score=0.830302600459557
+iter/secs=8.039687369914919   lr=0.05
+val_loss=1.0595458012360792 val_score=0.8541949017660788
+iter/secs=8.03967294619506   lr=0.05
+val_loss=1318624020.8258808 val_score=0.8395368454489895
+iter/secs=8.03965885796051   lr=0.05
+val_loss=1.0614494329843767 val_score=0.8418213253663109
+iter/secs=8.039645093641106   lr=0.05
+val_loss=1.190156184327908 val_score=0.8483879692255811
+iter/secs=8.03963164219268   lr=0.05
+val_loss=59662.420774941646 val_score=0.843834490875283
+iter/secs=8.039618493067499   lr=0.05
+val_loss=1.1146874733460255 val_score=0.8527493427718709
+iter/secs=8.040751205364604   lr=0.05
+val_loss=1.0258525059773371 val_score=0.8582443597964676
+iter/secs=8.040726037101741   lr=0.05
+val_loss=1.2149117099933135 val_score=0.8524835514143669
+iter/secs=8.040701416127485   lr=0.05
+val_loss=1.1677032185670657 val_score=0.8493639625710303
+iter/secs=8.040677324782498   lr=0.05
+val_loss=1.156486982336411 val_score=0.8669844810314498
+iter/secs=8.041750847079976   lr=0.05
+val_loss=1.116890291755016 val_score=0.8598005285707679
+iter/secs=8.041716208759793   lr=0.05
+val_loss=1.3378736797051551 val_score=0.8319654207091397
+iter/secs=8.041682292360415   lr=0.05
+val_loss=1.4482676933209102 val_score=0.8429343860921943
+iter/secs=8.041649075545541   lr=0.05
+val_loss=1.0799041310181985 val_score=0.8801483953150484
+iter/secs=8.041616536890912   lr=0.05
+val_loss=10266962.046043783 val_score=0.8360340839653972
+iter/secs=8.042626581675748   lr=0.05
+val_loss=1.112890015809964 val_score=0.877920969659294
+iter/secs=8.042584909878796   lr=0.05
+import logging
+import os
+import numpy as np
+import random
+from .resnet import Bottleneck,SEBottleneck,_resnet
+from .inceptionresnetv2 import InceptionResNetV2
+from .inceptionv4 import InceptionV4
+from .efficientnet import EfficientNet
+from .efficientnet_utils import BlockDecoder, GlobalParams
+
+ARTIFACTS_DIR='artifacts'
+DATA_DIR=os.path.join(os.path.dirname(__file__),'../..','data')
+RAW_DIR='raw'
+MODELS_DIR='models'
+MODELS_PRETRAINED_DIR='models_pretrained'
+SUBMISSION_DIR = 'submissions'
+SUBMISSION_CSV = 'submission.csv'
+SAMPLE_SUBMISSION_CSV = 'sample_submission.csv'
+
+LOG_FILENAME=os.path.join(os.path.dirname(__file__),'training_log.txt')
+
+LOG_LEVEL=logging.INFO
+
+METRIC_FILE_PATH='metric.txt'
+
+TRAIN_IMAGE_DATA_PATTERN='train_image_data_*.parquet'
+TEST_IMAGE_DATA_PATTERN='test_image_data_*.parquet'
+TRAIN_CSV='train.csv'
+TEST_CSV='test.csv'
+CLASS_MAP_CSV='class_map.csv'
+
+TRAIN_DATASET_DIR='train_datset'
+VAL_DATASET_DIR='val_datset'
+TEST_DATASET_DIR='test_datset'
+IMAGE_GEN_PKL = 'image_gen.pkl'
+
+MODEL_NAME='model'
+
+alpha=1.2
+beta=1.32
+gama=1.28
+phi=0 # phi=1 efficient net b3, phi=4 for b7
+
+
+IMG_WIDTH = 236
+IMG_HEIGHT = 137
+IMG_W=int(64*gama**phi)
+IMG_H=int(64*gama**phi)
+
+DO_CROP_SYMBOL=False
+TOP_CUT=4
+LEFT_CUT=4
+PAD=4
+
+
+N_CHANNELS = 1
+BATCH_SIZE=256
+EPOCHS=100
+LR=0.05
+LR_SCHEDULER_PATINCE=80
+AUGM_PROB=0
+DROPOUT_P=0.5
+
+LOSS_WEIGHTS=[1,1,1]
+BETA=0
+
+CLASSES_LIST=[168,11,7]
+
+
+_m=alpha**phi
+
+
+RESNEXT_KWARGS={'arch':'small_resnet', 'groups': 32,'width_per_group': int(8*beta**phi), 'block':Bottleneck, 'layers':[int(_m*2), int(_m*2), int(_m*2), int(_m*2)], 'num_classes':np.sum(CLASSES_LIST),'pretrained':False, 'progress':False}
+
+RESNET_KWARGS={'arch':'small_resnet', 'width_per_group': int(64*beta**phi), 'block':Bottleneck, 'layers':[int(_m*2), int(_m*2), int(_m*2), int(_m*2)], 'num_classes':np.sum(CLASSES_LIST),'pretrained':False, 'progress':False}
+
+SERESNET_KWARGS={'arch':'small_resnet', 'width_per_group': int(64*beta**phi), 'block':SEBottleneck, 'layers':[int(_m*2), int(_m*2), int(_m*2), int(_m*2)], 'num_classes':np.sum(CLASSES_LIST),'pretrained':False, 'progress':False}
+
+SERESNEXT_KWARGS={'arch':'small_resnet', 'groups': 32,'width_per_group': int(8*beta**phi), 'block':SEBottleneck, 'layers':[int(_m*2), int(_m*2), int(_m*2), int(_m*2)], 'num_classes':np.sum(CLASSES_LIST),'pretrained':False, 'progress':False}
+
+INCEPTIONRESNETV2_KWARGS={'repeats':(int(_m*3),int(_m*6),int(_m*4)), 'width':0.3*beta**phi, 'num_classes':np.sum(CLASSES_LIST)}
+
+INCEPTIONV4_KWARGS={'repeats':(int(_m*2),int(_m*4),int(_m*2)), 'width':0.3*beta**phi, 'num_classes':np.sum(CLASSES_LIST)}
+
+blocks_args = [
+        'r1_k3_s11_e1_i32_o16_se0.25', 'r2_k3_s22_e6_i16_o24_se0.25',
+        'r2_k5_s22_e6_i24_o40_se0.25', 'r3_k3_s22_e6_i40_o80_se0.25',
+        'r3_k5_s11_e6_i80_o112_se0.25', 'r4_k5_s22_e6_i112_o192_se0.25',
+        'r1_k3_s11_e6_i192_o320_se0.25',
+    ]
+
+blocks_args=BlockDecoder.decode(blocks_args)
+
+global_params = GlobalParams(
+        batch_norm_momentum=0.99,
+        batch_norm_epsilon=1e-3,
+        dropout_rate=0.2,
+        drop_connect_rate=0.2,
+        num_classes=np.sum(CLASSES_LIST),
+        width_coefficient=alpha**phi,
+        depth_coefficient=beta**phi,
+        depth_divisor=8,
+        min_depth=None,
+        image_size=IMG_W,
+    )
+
+EFFICIENTNET_KWARGS={'blocks_args':blocks_args, 'global_params':global_params}
+
+BACKBONE_KWARGS=EFFICIENTNET_KWARGS
+BACKBONE_FN=EfficientNet
+
+
+TARGETS=['grapheme_root','vowel_diacritic','consonant_diacritic']
+
+SEED=0
+
+import torch
+torch.manual_seed(SEED)
+torch.backends.cudnn.deterministic = True
+torch.backends.cudnn.benchmark = False
+
+np.random.seed(SEED)
+random.seed(SEED)
+
+import logging
+import os
+import numpy as np
+import random
+from .resnet import Bottleneck,SEBottleneck,_resnet
+from .inceptionresnetv2 import InceptionResNetV2
+from .inceptionv4 import InceptionV4
+from .efficientnet import EfficientNet
+from .efficientnet_utils import BlockDecoder, GlobalParams
+
+ARTIFACTS_DIR='artifacts'
+DATA_DIR=os.path.join(os.path.dirname(__file__),'../..','data')
+RAW_DIR='raw'
+MODELS_DIR='models'
+MODELS_PRETRAINED_DIR='models_pretrained'
+SUBMISSION_DIR = 'submissions'
+SUBMISSION_CSV = 'submission.csv'
+SAMPLE_SUBMISSION_CSV = 'sample_submission.csv'
+
+LOG_FILENAME=os.path.join(os.path.dirname(__file__),'training_log.txt')
+
+LOG_LEVEL=logging.INFO
+
+METRIC_FILE_PATH='metric.txt'
+
+TRAIN_IMAGE_DATA_PATTERN='train_image_data_*.parquet'
+TEST_IMAGE_DATA_PATTERN='test_image_data_*.parquet'
+TRAIN_CSV='train.csv'
+TEST_CSV='test.csv'
+CLASS_MAP_CSV='class_map.csv'
+
+TRAIN_DATASET_DIR='train_datset'
+VAL_DATASET_DIR='val_datset'
+TEST_DATASET_DIR='test_datset'
+IMAGE_GEN_PKL = 'image_gen.pkl'
+
+MODEL_NAME='model'
+
+alpha=1.2
+beta=1.32
+gama=1.28
+phi=0 # phi=1 efficient net b3, phi=4 for b7
+
+
+IMG_WIDTH = 236
+IMG_HEIGHT = 137
+IMG_W=int(64*gama**phi)
+IMG_H=int(64*gama**phi)
+
+DO_CROP_SYMBOL=False
+TOP_CUT=4
+LEFT_CUT=4
+PAD=4
+
+
+N_CHANNELS = 1
+BATCH_SIZE=256
+EPOCHS=100
+LR=0.05
+LR_SCHEDULER_PATINCE=80
+AUGM_PROB=0
+DROPOUT_P=0.5
+
+LOSS_WEIGHTS=[1,1,1]
+BETA=0
+
+CLASSES_LIST=[168,11,7]
+
+
+_m=alpha**phi
+
+
+RESNEXT_KWARGS={'arch':'small_resnet', 'groups': 32,'width_per_group': int(8*beta**phi), 'block':Bottleneck, 'layers':[int(_m*2), int(_m*2), int(_m*2), int(_m*2)], 'num_classes':np.sum(CLASSES_LIST),'pretrained':False, 'progress':False}
+
+RESNET_KWARGS={'arch':'small_resnet', 'width_per_group': int(64*beta**phi), 'block':Bottleneck, 'layers':[int(_m*2), int(_m*2), int(_m*2), int(_m*2)], 'num_classes':np.sum(CLASSES_LIST),'pretrained':False, 'progress':False}
+
+SERESNET_KWARGS={'arch':'small_resnet', 'width_per_group': int(64*beta**phi), 'block':SEBottleneck, 'layers':[int(_m*2), int(_m*2), int(_m*2), int(_m*2)], 'num_classes':np.sum(CLASSES_LIST),'pretrained':False, 'progress':False}
+
+SERESNEXT_KWARGS={'arch':'small_resnet', 'groups': 32,'width_per_group': int(8*beta**phi), 'block':SEBottleneck, 'layers':[int(_m*2), int(_m*2), int(_m*2), int(_m*2)], 'num_classes':np.sum(CLASSES_LIST),'pretrained':False, 'progress':False}
+
+INCEPTIONRESNETV2_KWARGS={'repeats':(int(_m*3),int(_m*6),int(_m*4)), 'width':0.3*beta**phi, 'num_classes':np.sum(CLASSES_LIST)}
+
+INCEPTIONV4_KWARGS={'repeats':(int(_m*2),int(_m*4),int(_m*2)), 'width':0.3*beta**phi, 'num_classes':np.sum(CLASSES_LIST)}
+
+blocks_args = [
+        'r1_k3_s11_e1_i32_o16_se0.25', 'r2_k3_s22_e6_i16_o24_se0.25',
+        'r2_k5_s22_e6_i24_o40_se0.25', 'r3_k3_s22_e6_i40_o80_se0.25',
+        'r3_k5_s11_e6_i80_o112_se0.25', 'r4_k5_s22_e6_i112_o192_se0.25',
+        'r1_k3_s11_e6_i192_o320_se0.25',
+    ]
+
+blocks_args=BlockDecoder.decode(blocks_args)
+
+global_params = GlobalParams(
+        batch_norm_momentum=0.99,
+        batch_norm_epsilon=1e-3,
+        dropout_rate=0.2,
+        drop_connect_rate=0.2,
+        num_classes=np.sum(CLASSES_LIST),
+        width_coefficient=alpha**phi,
+        depth_coefficient=beta**phi,
+        depth_divisor=8,
+        min_depth=None,
+        image_size=IMG_W,
+    )
+
+EFFICIENTNET_KWARGS={'blocks_args':blocks_args, 'global_params':global_params}
+
+BACKBONE_KWARGS=EFFICIENTNET_KWARGS
+BACKBONE_FN=EfficientNet
+
+
+TARGETS=['grapheme_root','vowel_diacritic','consonant_diacritic']
+
+SEED=0
+
+import torch
+torch.manual_seed(SEED)
+torch.backends.cudnn.deterministic = True
+torch.backends.cudnn.benchmark = False
+
+np.random.seed(SEED)
+random.seed(SEED)
+
+import logging
+import os
+import numpy as np
+import random
+from .resnet import Bottleneck,SEBottleneck,_resnet
+from .inceptionresnetv2 import InceptionResNetV2
+from .inceptionv4 import InceptionV4
+from .efficientnet import EfficientNet
+from .efficientnet_utils import BlockDecoder, GlobalParams
+
+ARTIFACTS_DIR='artifacts'
+DATA_DIR=os.path.join(os.path.dirname(__file__),'../..','data')
+RAW_DIR='raw'
+MODELS_DIR='models'
+MODELS_PRETRAINED_DIR='models_pretrained'
+SUBMISSION_DIR = 'submissions'
+SUBMISSION_CSV = 'submission.csv'
+SAMPLE_SUBMISSION_CSV = 'sample_submission.csv'
+
+LOG_FILENAME=os.path.join(os.path.dirname(__file__),'training_log.txt')
+
+LOG_LEVEL=logging.INFO
+
+METRIC_FILE_PATH='metric.txt'
+
+TRAIN_IMAGE_DATA_PATTERN='train_image_data_*.parquet'
+TEST_IMAGE_DATA_PATTERN='test_image_data_*.parquet'
+TRAIN_CSV='train.csv'
+TEST_CSV='test.csv'
+CLASS_MAP_CSV='class_map.csv'
+
+TRAIN_DATASET_DIR='train_datset'
+VAL_DATASET_DIR='val_datset'
+TEST_DATASET_DIR='test_datset'
+IMAGE_GEN_PKL = 'image_gen.pkl'
+
+MODEL_NAME='model'
+
+alpha=1.2
+beta=1.32
+gama=1.28
+phi=0 # phi=1 efficient net b3, phi=4 for b7
+
+
+IMG_WIDTH = 236
+IMG_HEIGHT = 137
+IMG_W=int(64*gama**phi)
+IMG_H=int(64*gama**phi)
+
+DO_CROP_SYMBOL=False
+TOP_CUT=4
+LEFT_CUT=4
+PAD=4
+
+
+N_CHANNELS = 1
+BATCH_SIZE=256
+EPOCHS=100
+LR=0.05
+LR_SCHEDULER_PATINCE=80
+AUGM_PROB=0
+DROPOUT_P=0.5
+
+LOSS_WEIGHTS=[1,1,1]
+BETA=0
+
+CLASSES_LIST=[168,11,7]
+
+
+_m=alpha**phi
+
+
+RESNEXT_KWARGS={'arch':'small_resnet', 'groups': 32,'width_per_group': int(8*beta**phi), 'block':Bottleneck, 'layers':[int(_m*2), int(_m*2), int(_m*2), int(_m*2)], 'num_classes':np.sum(CLASSES_LIST),'pretrained':False, 'progress':False}
+
+RESNET_KWARGS={'arch':'small_resnet', 'width_per_group': int(64*beta**phi), 'block':Bottleneck, 'layers':[int(_m*2), int(_m*2), int(_m*2), int(_m*2)], 'num_classes':np.sum(CLASSES_LIST),'pretrained':False, 'progress':False}
+
+SERESNET_KWARGS={'arch':'small_resnet', 'width_per_group': int(64*beta**phi), 'block':SEBottleneck, 'layers':[int(_m*2), int(_m*2), int(_m*2), int(_m*2)], 'num_classes':np.sum(CLASSES_LIST),'pretrained':False, 'progress':False}
+
+SERESNEXT_KWARGS={'arch':'small_resnet', 'groups': 32,'width_per_group': int(8*beta**phi), 'block':SEBottleneck, 'layers':[int(_m*2), int(_m*2), int(_m*2), int(_m*2)], 'num_classes':np.sum(CLASSES_LIST),'pretrained':False, 'progress':False}
+
+INCEPTIONRESNETV2_KWARGS={'repeats':(int(_m*3),int(_m*6),int(_m*4)), 'width':0.3*beta**phi, 'num_classes':np.sum(CLASSES_LIST)}
+
+INCEPTIONV4_KWARGS={'repeats':(int(_m*2),int(_m*4),int(_m*2)), 'width':0.3*beta**phi, 'num_classes':np.sum(CLASSES_LIST)}
+
+blocks_args = [
+        'r1_k3_s11_e1_i32_o16_se0.25', 'r2_k3_s22_e6_i16_o24_se0.25',
+        'r2_k5_s22_e6_i24_o40_se0.25', 'r3_k3_s22_e6_i40_o80_se0.25',
+        'r3_k5_s11_e6_i80_o112_se0.25', 'r4_k5_s22_e6_i112_o192_se0.25',
+        'r1_k3_s11_e6_i192_o320_se0.25',
+    ]
+
+blocks_args=BlockDecoder.decode(blocks_args)
+
+global_params = GlobalParams(
+        batch_norm_momentum=0.99,
+        batch_norm_epsilon=1e-3,
+        dropout_rate=0.2,
+        drop_connect_rate=0.2,
+        num_classes=np.sum(CLASSES_LIST),
+        width_coefficient=alpha**phi,
+        depth_coefficient=beta**phi,
+        depth_divisor=8,
+        min_depth=None,
+        image_size=IMG_W,
+    )
+
+EFFICIENTNET_KWARGS={'blocks_args':blocks_args, 'global_params':global_params}
+
+BACKBONE_KWARGS=EFFICIENTNET_KWARGS
+BACKBONE_FN=EfficientNet
+
+
+TARGETS=['grapheme_root','vowel_diacritic','consonant_diacritic']
+
+SEED=0
+
+import torch
+torch.manual_seed(SEED)
+torch.backends.cudnn.deterministic = True
+torch.backends.cudnn.benchmark = False
+
+np.random.seed(SEED)
+random.seed(SEED)
+
+import logging
+import os
+import numpy as np
+import random
+from .resnet import Bottleneck,SEBottleneck,_resnet
+from .inceptionresnetv2 import InceptionResNetV2
+from .inceptionv4 import InceptionV4
+from .efficientnet import EfficientNet
+from .efficientnet_utils import BlockDecoder, GlobalParams
+
+ARTIFACTS_DIR='artifacts'
+DATA_DIR=os.path.join(os.path.dirname(__file__),'../..','data')
+RAW_DIR='raw'
+MODELS_DIR='models'
+MODELS_PRETRAINED_DIR='models_pretrained'
+SUBMISSION_DIR = 'submissions'
+SUBMISSION_CSV = 'submission.csv'
+SAMPLE_SUBMISSION_CSV = 'sample_submission.csv'
+
+LOG_FILENAME=os.path.join(os.path.dirname(__file__),'training_log.txt')
+
+LOG_LEVEL=logging.INFO
+
+METRIC_FILE_PATH='metric.txt'
+
+TRAIN_IMAGE_DATA_PATTERN='train_image_data_*.parquet'
+TEST_IMAGE_DATA_PATTERN='test_image_data_*.parquet'
+TRAIN_CSV='train.csv'
+TEST_CSV='test.csv'
+CLASS_MAP_CSV='class_map.csv'
+
+TRAIN_DATASET_DIR='train_datset'
+VAL_DATASET_DIR='val_datset'
+TEST_DATASET_DIR='test_datset'
+IMAGE_GEN_PKL = 'image_gen.pkl'
+
+MODEL_NAME='model'
+
+alpha=1.2
+beta=1.32
+gama=1.28
+phi=0 # phi=1 efficient net b3, phi=4 for b7
+
+
+IMG_WIDTH = 236
+IMG_HEIGHT = 137
+IMG_W=int(64*gama**phi)
+IMG_H=int(64*gama**phi)
+
+DO_CROP_SYMBOL=False
+TOP_CUT=4
+LEFT_CUT=4
+PAD=4
+
+
+N_CHANNELS = 1
+BATCH_SIZE=256
+EPOCHS=100
+LR=0.05
+LR_SCHEDULER_PATINCE=80
+AUGM_PROB=0
+DROPOUT_P=0.5
+
+LOSS_WEIGHTS=[1,1,1]
+BETA=0
+
+CLASSES_LIST=[168,11,7]
+
+
+_m=alpha**phi
+
+
+RESNEXT_KWARGS={'arch':'small_resnet', 'groups': 32,'width_per_group': int(8*beta**phi), 'block':Bottleneck, 'layers':[int(_m*2), int(_m*2), int(_m*2), int(_m*2)], 'num_classes':np.sum(CLASSES_LIST),'pretrained':False, 'progress':False}
+
+RESNET_KWARGS={'arch':'small_resnet', 'width_per_group': int(64*beta**phi), 'block':Bottleneck, 'layers':[int(_m*2), int(_m*2), int(_m*2), int(_m*2)], 'num_classes':np.sum(CLASSES_LIST),'pretrained':False, 'progress':False}
+
+SERESNET_KWARGS={'arch':'small_resnet', 'width_per_group': int(64*beta**phi), 'block':SEBottleneck, 'layers':[int(_m*2), int(_m*2), int(_m*2), int(_m*2)], 'num_classes':np.sum(CLASSES_LIST),'pretrained':False, 'progress':False}
+
+SERESNEXT_KWARGS={'arch':'small_resnet', 'groups': 32,'width_per_group': int(8*beta**phi), 'block':SEBottleneck, 'layers':[int(_m*2), int(_m*2), int(_m*2), int(_m*2)], 'num_classes':np.sum(CLASSES_LIST),'pretrained':False, 'progress':False}
+
+INCEPTIONRESNETV2_KWARGS={'repeats':(int(_m*3),int(_m*6),int(_m*4)), 'width':0.3*beta**phi, 'num_classes':np.sum(CLASSES_LIST)}
+
+INCEPTIONV4_KWARGS={'repeats':(int(_m*2),int(_m*4),int(_m*2)), 'width':0.3*beta**phi, 'num_classes':np.sum(CLASSES_LIST)}
+
+blocks_args = [
+        'r1_k3_s11_e1_i32_o16_se0.25', 'r2_k3_s22_e6_i16_o24_se0.25',
+        'r2_k5_s22_e6_i24_o40_se0.25', 'r3_k3_s22_e6_i40_o80_se0.25',
+        'r3_k5_s11_e6_i80_o112_se0.25', 'r4_k5_s22_e6_i112_o192_se0.25',
+        'r1_k3_s11_e6_i192_o320_se0.25',
+    ]
+
+blocks_args=BlockDecoder.decode(blocks_args)
+
+global_params = GlobalParams(
+        batch_norm_momentum=0.99,
+        batch_norm_epsilon=1e-3,
+        dropout_rate=0.2,
+        drop_connect_rate=0.2,
+        num_classes=np.sum(CLASSES_LIST),
+        width_coefficient=alpha**phi,
+        depth_coefficient=beta**phi,
+        depth_divisor=8,
+        min_depth=None,
+        image_size=IMG_W,
+    )
+
+EFFICIENTNET_KWARGS={'blocks_args':blocks_args, 'global_params':global_params}
+
+BACKBONE_KWARGS=EFFICIENTNET_KWARGS
+BACKBONE_FN=EfficientNet
+
+
+TARGETS=['grapheme_root','vowel_diacritic','consonant_diacritic']
+
+SEED=0
+
+import torch
+torch.manual_seed(SEED)
+torch.backends.cudnn.deterministic = True
+torch.backends.cudnn.benchmark = False
+
+np.random.seed(SEED)
+random.seed(SEED)
+
+import logging
+import os
+import numpy as np
+import random
+from .resnet import Bottleneck,SEBottleneck,_resnet
+from .inceptionresnetv2 import InceptionResNetV2
+from .inceptionv4 import InceptionV4
+from .efficientnet import EfficientNet
+from .efficientnet_utils import BlockDecoder, GlobalParams
+
+ARTIFACTS_DIR='artifacts'
+DATA_DIR=os.path.join(os.path.dirname(__file__),'../..','data')
+RAW_DIR='raw'
+MODELS_DIR='models'
+MODELS_PRETRAINED_DIR='models_pretrained'
+SUBMISSION_DIR = 'submissions'
+SUBMISSION_CSV = 'submission.csv'
+SAMPLE_SUBMISSION_CSV = 'sample_submission.csv'
+
+LOG_FILENAME=os.path.join(os.path.dirname(__file__),'training_log.txt')
+
+LOG_LEVEL=logging.INFO
+
+METRIC_FILE_PATH='metric.txt'
+
+TRAIN_IMAGE_DATA_PATTERN='train_image_data_*.parquet'
+TEST_IMAGE_DATA_PATTERN='test_image_data_*.parquet'
+TRAIN_CSV='train.csv'
+TEST_CSV='test.csv'
+CLASS_MAP_CSV='class_map.csv'
+
+TRAIN_DATASET_DIR='train_datset'
+VAL_DATASET_DIR='val_datset'
+TEST_DATASET_DIR='test_datset'
+IMAGE_GEN_PKL = 'image_gen.pkl'
+
+MODEL_NAME='model'
+
+alpha=1.2
+beta=1.32
+gama=1.28
+phi=0 # phi=1 efficient net b3, phi=4 for b7
+
+
+IMG_WIDTH = 236
+IMG_HEIGHT = 137
+IMG_W=int(64*gama**phi)
+IMG_H=int(64*gama**phi)
+
+DO_CROP_SYMBOL=False
+TOP_CUT=4
+LEFT_CUT=4
+PAD=4
+
+
+N_CHANNELS = 1
+BATCH_SIZE=256
+EPOCHS=100
+LR=0.05
+LR_SCHEDULER_PATINCE=80
+AUGM_PROB=0
+DROPOUT_P=0.5
+
+LOSS_WEIGHTS=[1,1,1]
+BETA=0
+
+CLASSES_LIST=[168,11,7]
+
+
+_m=alpha**phi
+
+
+RESNEXT_KWARGS={'arch':'small_resnet', 'groups': 32,'width_per_group': int(8*beta**phi), 'block':Bottleneck, 'layers':[int(_m*2), int(_m*2), int(_m*2), int(_m*2)], 'num_classes':np.sum(CLASSES_LIST),'pretrained':False, 'progress':False}
+
+RESNET_KWARGS={'arch':'small_resnet', 'width_per_group': int(64*beta**phi), 'block':Bottleneck, 'layers':[int(_m*2), int(_m*2), int(_m*2), int(_m*2)], 'num_classes':np.sum(CLASSES_LIST),'pretrained':False, 'progress':False}
+
+SERESNET_KWARGS={'arch':'small_resnet', 'width_per_group': int(64*beta**phi), 'block':SEBottleneck, 'layers':[int(_m*2), int(_m*2), int(_m*2), int(_m*2)], 'num_classes':np.sum(CLASSES_LIST),'pretrained':False, 'progress':False}
+
+SERESNEXT_KWARGS={'arch':'small_resnet', 'groups': 32,'width_per_group': int(8*beta**phi), 'block':SEBottleneck, 'layers':[int(_m*2), int(_m*2), int(_m*2), int(_m*2)], 'num_classes':np.sum(CLASSES_LIST),'pretrained':False, 'progress':False}
+
+INCEPTIONRESNETV2_KWARGS={'repeats':(int(_m*3),int(_m*6),int(_m*4)), 'width':0.3*beta**phi, 'num_classes':np.sum(CLASSES_LIST)}
+
+INCEPTIONV4_KWARGS={'repeats':(int(_m*2),int(_m*4),int(_m*2)), 'width':0.3*beta**phi, 'num_classes':np.sum(CLASSES_LIST)}
+
+blocks_args = [
+        'r1_k3_s11_e1_i32_o16_se0.25', 'r2_k3_s22_e6_i16_o24_se0.25',
+        'r2_k5_s22_e6_i24_o40_se0.25', 'r3_k3_s22_e6_i40_o80_se0.25',
+        'r3_k5_s11_e6_i80_o112_se0.25', 'r4_k5_s22_e6_i112_o192_se0.25',
+        'r1_k3_s11_e6_i192_o320_se0.25',
+    ]
+
+blocks_args=BlockDecoder.decode(blocks_args)
+
+global_params = GlobalParams(
+        batch_norm_momentum=0.99,
+        batch_norm_epsilon=1e-3,
+        dropout_rate=0.2,
+        drop_connect_rate=0.2,
+        num_classes=np.sum(CLASSES_LIST),
+        width_coefficient=alpha**phi,
+        depth_coefficient=beta**phi,
+        depth_divisor=8,
+        min_depth=None,
+        image_size=IMG_W,
+    )
+
+EFFICIENTNET_KWARGS={'blocks_args':blocks_args, 'global_params':global_params}
+
+BACKBONE_KWARGS=EFFICIENTNET_KWARGS
+BACKBONE_FN=EfficientNet
+
+
+TARGETS=['grapheme_root','vowel_diacritic','consonant_diacritic']
+
+SEED=0
+
+import torch
+torch.manual_seed(SEED)
+torch.backends.cudnn.deterministic = True
+torch.backends.cudnn.benchmark = False
+
+np.random.seed(SEED)
+random.seed(SEED)
+
+import logging
+import os
+import numpy as np
+import random
+from .resnet import Bottleneck,SEBottleneck,_resnet
+from .inceptionresnetv2 import InceptionResNetV2
+from .inceptionv4 import InceptionV4
+from .efficientnet import EfficientNet
+from .efficientnet_utils import BlockDecoder, GlobalParams
+
+ARTIFACTS_DIR='artifacts'
+DATA_DIR=os.path.join(os.path.dirname(__file__),'../..','data')
+RAW_DIR='raw'
+MODELS_DIR='models'
+MODELS_PRETRAINED_DIR='models_pretrained'
+SUBMISSION_DIR = 'submissions'
+SUBMISSION_CSV = 'submission.csv'
+SAMPLE_SUBMISSION_CSV = 'sample_submission.csv'
+
+LOG_FILENAME=os.path.join(os.path.dirname(__file__),'training_log.txt')
+
+LOG_LEVEL=logging.INFO
+
+METRIC_FILE_PATH='metric.txt'
+
+TRAIN_IMAGE_DATA_PATTERN='train_image_data_*.parquet'
+TEST_IMAGE_DATA_PATTERN='test_image_data_*.parquet'
+TRAIN_CSV='train.csv'
+TEST_CSV='test.csv'
+CLASS_MAP_CSV='class_map.csv'
+
+TRAIN_DATASET_DIR='train_datset'
+VAL_DATASET_DIR='val_datset'
+TEST_DATASET_DIR='test_datset'
+IMAGE_GEN_PKL = 'image_gen.pkl'
+
+MODEL_NAME='model'
+
+alpha=1.2
+beta=1.32
+gama=1.28
+phi=0 # phi=1 efficient net b3, phi=4 for b7
+
+
+IMG_WIDTH = 236
+IMG_HEIGHT = 137
+IMG_W=int(64*gama**phi)
+IMG_H=int(64*gama**phi)
+
+DO_CROP_SYMBOL=False
+TOP_CUT=4
+LEFT_CUT=4
+PAD=4
+
+
+N_CHANNELS = 1
+BATCH_SIZE=256
+EPOCHS=100
+LR=0.05
+LR_SCHEDULER_PATINCE=80
+AUGM_PROB=0
+DROPOUT_P=0.5
+
+LOSS_WEIGHTS=[1,1,1]
+BETA=0
+
+CLASSES_LIST=[168,11,7]
+
+
+_m=alpha**phi
+
+
+RESNEXT_KWARGS={'arch':'small_resnet', 'groups': 32,'width_per_group': int(8*beta**phi), 'block':Bottleneck, 'layers':[int(_m*2), int(_m*2), int(_m*2), int(_m*2)], 'num_classes':np.sum(CLASSES_LIST),'pretrained':False, 'progress':False}
+
+RESNET_KWARGS={'arch':'small_resnet', 'width_per_group': int(64*beta**phi), 'block':Bottleneck, 'layers':[int(_m*2), int(_m*2), int(_m*2), int(_m*2)], 'num_classes':np.sum(CLASSES_LIST),'pretrained':False, 'progress':False}
+
+SERESNET_KWARGS={'arch':'small_resnet', 'width_per_group': int(64*beta**phi), 'block':SEBottleneck, 'layers':[int(_m*2), int(_m*2), int(_m*2), int(_m*2)], 'num_classes':np.sum(CLASSES_LIST),'pretrained':False, 'progress':False}
+
+SERESNEXT_KWARGS={'arch':'small_resnet', 'groups': 32,'width_per_group': int(8*beta**phi), 'block':SEBottleneck, 'layers':[int(_m*2), int(_m*2), int(_m*2), int(_m*2)], 'num_classes':np.sum(CLASSES_LIST),'pretrained':False, 'progress':False}
+
+INCEPTIONRESNETV2_KWARGS={'repeats':(int(_m*3),int(_m*6),int(_m*4)), 'width':0.3*beta**phi, 'num_classes':np.sum(CLASSES_LIST)}
+
+INCEPTIONV4_KWARGS={'repeats':(int(_m*2),int(_m*4),int(_m*2)), 'width':0.3*beta**phi, 'num_classes':np.sum(CLASSES_LIST)}
+
+blocks_args = [
+        'r1_k3_s11_e1_i32_o16_se0.25', 'r2_k3_s22_e6_i16_o24_se0.25',
+        'r2_k5_s22_e6_i24_o40_se0.25', 'r3_k3_s22_e6_i40_o80_se0.25',
+        'r3_k5_s11_e6_i80_o112_se0.25', 'r4_k5_s22_e6_i112_o192_se0.25',
+        'r1_k3_s11_e6_i192_o320_se0.25',
+    ]
+
+blocks_args=BlockDecoder.decode(blocks_args)
+
+global_params = GlobalParams(
+        batch_norm_momentum=0.99,
+        batch_norm_epsilon=1e-3,
+        dropout_rate=0.2,
+        drop_connect_rate=0.2,
+        num_classes=np.sum(CLASSES_LIST),
+        width_coefficient=alpha**phi,
+        depth_coefficient=beta**phi,
+        depth_divisor=8,
+        min_depth=None,
+        image_size=IMG_W,
+    )
+
+EFFICIENTNET_KWARGS={'blocks_args':blocks_args, 'global_params':global_params}
+
+BACKBONE_KWARGS=EFFICIENTNET_KWARGS
+BACKBONE_FN=EfficientNet
+
+
+TARGETS=['grapheme_root','vowel_diacritic','consonant_diacritic']
+
+SEED=0
+
+import torch
+torch.manual_seed(SEED)
+torch.backends.cudnn.deterministic = True
+torch.backends.cudnn.benchmark = False
+
+np.random.seed(SEED)
+random.seed(SEED)
+
+import logging
+import os
+import numpy as np
+import random
+from .resnet import Bottleneck,SEBottleneck,_resnet
+from .inceptionresnetv2 import InceptionResNetV2
+from .inceptionv4 import InceptionV4
+from .efficientnet import EfficientNet
+from .efficientnet_utils import BlockDecoder, GlobalParams
+
+ARTIFACTS_DIR='artifacts'
+DATA_DIR=os.path.join(os.path.dirname(__file__),'../..','data')
+RAW_DIR='raw'
+MODELS_DIR='models'
+MODELS_PRETRAINED_DIR='models_pretrained'
+SUBMISSION_DIR = 'submissions'
+SUBMISSION_CSV = 'submission.csv'
+SAMPLE_SUBMISSION_CSV = 'sample_submission.csv'
+
+LOG_FILENAME=os.path.join(os.path.dirname(__file__),'training_log.txt')
+
+LOG_LEVEL=logging.INFO
+
+METRIC_FILE_PATH='metric.txt'
+
+TRAIN_IMAGE_DATA_PATTERN='train_image_data_*.parquet'
+TEST_IMAGE_DATA_PATTERN='test_image_data_*.parquet'
+TRAIN_CSV='train.csv'
+TEST_CSV='test.csv'
+CLASS_MAP_CSV='class_map.csv'
+
+TRAIN_DATASET_DIR='train_datset'
+VAL_DATASET_DIR='val_datset'
+TEST_DATASET_DIR='test_datset'
+IMAGE_GEN_PKL = 'image_gen.pkl'
+
+MODEL_NAME='model'
+
+alpha=1.2
+beta=1.32
+gama=1.28
+phi=0 # phi=1 efficient net b3, phi=4 for b7
+
+
+IMG_WIDTH = 236
+IMG_HEIGHT = 137
+IMG_W=int(64*gama**phi)
+IMG_H=int(64*gama**phi)
+
+DO_CROP_SYMBOL=False
+TOP_CUT=4
+LEFT_CUT=4
+PAD=4
+
+
+N_CHANNELS = 1
+BATCH_SIZE=256
+EPOCHS=100
+LR=0.05
+LR_SCHEDULER_PATINCE=80
+AUGM_PROB=0
+DROPOUT_P=0.5
+
+LOSS_WEIGHTS=[1,1,1]
+BETA=0
+
+CLASSES_LIST=[168,11,7]
+
+
+_m=alpha**phi
+
+
+RESNEXT_KWARGS={'arch':'small_resnet', 'groups': 32,'width_per_group': int(8*beta**phi), 'block':Bottleneck, 'layers':[int(_m*2), int(_m*2), int(_m*2), int(_m*2)], 'num_classes':np.sum(CLASSES_LIST),'pretrained':False, 'progress':False}
+
+RESNET_KWARGS={'arch':'small_resnet', 'width_per_group': int(64*beta**phi), 'block':Bottleneck, 'layers':[int(_m*2), int(_m*2), int(_m*2), int(_m*2)], 'num_classes':np.sum(CLASSES_LIST),'pretrained':False, 'progress':False}
+
+SERESNET_KWARGS={'arch':'small_resnet', 'width_per_group': int(64*beta**phi), 'block':SEBottleneck, 'layers':[int(_m*2), int(_m*2), int(_m*2), int(_m*2)], 'num_classes':np.sum(CLASSES_LIST),'pretrained':False, 'progress':False}
+
+SERESNEXT_KWARGS={'arch':'small_resnet', 'groups': 32,'width_per_group': int(8*beta**phi), 'block':SEBottleneck, 'layers':[int(_m*2), int(_m*2), int(_m*2), int(_m*2)], 'num_classes':np.sum(CLASSES_LIST),'pretrained':False, 'progress':False}
+
+INCEPTIONRESNETV2_KWARGS={'repeats':(int(_m*3),int(_m*6),int(_m*4)), 'width':0.3*beta**phi, 'num_classes':np.sum(CLASSES_LIST)}
+
+INCEPTIONV4_KWARGS={'repeats':(int(_m*2),int(_m*4),int(_m*2)), 'width':0.3*beta**phi, 'num_classes':np.sum(CLASSES_LIST)}
+
+blocks_args = [
+        'r1_k3_s11_e1_i32_o16_se0.25', 'r2_k3_s22_e6_i16_o24_se0.25',
+        'r2_k5_s22_e6_i24_o40_se0.25', 'r3_k3_s22_e6_i40_o80_se0.25',
+        'r3_k5_s11_e6_i80_o112_se0.25', 'r4_k5_s22_e6_i112_o192_se0.25',
+        'r1_k3_s11_e6_i192_o320_se0.25',
+    ]
+
+blocks_args=BlockDecoder.decode(blocks_args)
+
+global_params = GlobalParams(
+        batch_norm_momentum=0.99,
+        batch_norm_epsilon=1e-3,
+        dropout_rate=0.2,
+        drop_connect_rate=0.2,
+        num_classes=np.sum(CLASSES_LIST),
+        width_coefficient=alpha**phi,
+        depth_coefficient=beta**phi,
+        depth_divisor=8,
+        min_depth=None,
+        image_size=IMG_W,
+    )
+
+EFFICIENTNET_KWARGS={'blocks_args':blocks_args, 'global_params':global_params}
+
+BACKBONE_KWARGS=EFFICIENTNET_KWARGS
+BACKBONE_FN=EfficientNet
+
+
+TARGETS=['grapheme_root','vowel_diacritic','consonant_diacritic']
+
+SEED=0
+
+import torch
+torch.manual_seed(SEED)
+torch.backends.cudnn.deterministic = True
+torch.backends.cudnn.benchmark = False
+
+np.random.seed(SEED)
+random.seed(SEED)
+
+import logging
+import os
+import numpy as np
+import random
+from .resnet import Bottleneck,SEBottleneck,_resnet
+from .inceptionresnetv2 import InceptionResNetV2
+from .inceptionv4 import InceptionV4
+from .efficientnet import EfficientNet
+from .efficientnet_utils import BlockDecoder, GlobalParams
+
+ARTIFACTS_DIR='artifacts'
+DATA_DIR=os.path.join(os.path.dirname(__file__),'../..','data')
+RAW_DIR='raw'
+MODELS_DIR='models'
+MODELS_PRETRAINED_DIR='models_pretrained'
+SUBMISSION_DIR = 'submissions'
+SUBMISSION_CSV = 'submission.csv'
+SAMPLE_SUBMISSION_CSV = 'sample_submission.csv'
+
+LOG_FILENAME=os.path.join(os.path.dirname(__file__),'training_log.txt')
+
+LOG_LEVEL=logging.INFO
+
+METRIC_FILE_PATH='metric.txt'
+
+TRAIN_IMAGE_DATA_PATTERN='train_image_data_*.parquet'
+TEST_IMAGE_DATA_PATTERN='test_image_data_*.parquet'
+TRAIN_CSV='train.csv'
+TEST_CSV='test.csv'
+CLASS_MAP_CSV='class_map.csv'
+
+TRAIN_DATASET_DIR='train_datset'
+VAL_DATASET_DIR='val_datset'
+TEST_DATASET_DIR='test_datset'
+IMAGE_GEN_PKL = 'image_gen.pkl'
+
+MODEL_NAME='model'
+
+alpha=1.2
+beta=1.32
+gama=1.28
+phi=0 # phi=1 efficient net b3, phi=4 for b7
+
+
+IMG_WIDTH = 236
+IMG_HEIGHT = 137
+IMG_W=int(64*gama**phi)
+IMG_H=int(64*gama**phi)
+
+DO_CROP_SYMBOL=False
+TOP_CUT=4
+LEFT_CUT=4
+PAD=4
+
+
+N_CHANNELS = 1
+BATCH_SIZE=256
+EPOCHS=100
+LR=0.05
+LR_SCHEDULER_PATINCE=80
+AUGM_PROB=0
+DROPOUT_P=0.5
+
+LOSS_WEIGHTS=[1,1,1]
+BETA=0
+
+CLASSES_LIST=[168,11,7]
+
+
+_m=alpha**phi
+
+
+RESNEXT_KWARGS={'arch':'small_resnet', 'groups': 32,'width_per_group': int(8*beta**phi), 'block':Bottleneck, 'layers':[int(_m*2), int(_m*2), int(_m*2), int(_m*2)], 'num_classes':np.sum(CLASSES_LIST),'pretrained':False, 'progress':False}
+
+RESNET_KWARGS={'arch':'small_resnet', 'width_per_group': int(64*beta**phi), 'block':Bottleneck, 'layers':[int(_m*2), int(_m*2), int(_m*2), int(_m*2)], 'num_classes':np.sum(CLASSES_LIST),'pretrained':False, 'progress':False}
+
+SERESNET_KWARGS={'arch':'small_resnet', 'width_per_group': int(64*beta**phi), 'block':SEBottleneck, 'layers':[int(_m*2), int(_m*2), int(_m*2), int(_m*2)], 'num_classes':np.sum(CLASSES_LIST),'pretrained':False, 'progress':False}
+
+SERESNEXT_KWARGS={'arch':'small_resnet', 'groups': 32,'width_per_group': int(8*beta**phi), 'block':SEBottleneck, 'layers':[int(_m*2), int(_m*2), int(_m*2), int(_m*2)], 'num_classes':np.sum(CLASSES_LIST),'pretrained':False, 'progress':False}
+
+INCEPTIONRESNETV2_KWARGS={'repeats':(int(_m*3),int(_m*6),int(_m*4)), 'width':0.3*beta**phi, 'num_classes':np.sum(CLASSES_LIST)}
+
+INCEPTIONV4_KWARGS={'repeats':(int(_m*2),int(_m*4),int(_m*2)), 'width':0.3*beta**phi, 'num_classes':np.sum(CLASSES_LIST)}
+
+blocks_args = [
+        'r1_k3_s11_e1_i32_o16_se0.25', 'r2_k3_s22_e6_i16_o24_se0.25',
+        'r2_k5_s22_e6_i24_o40_se0.25', 'r3_k3_s22_e6_i40_o80_se0.25',
+        'r3_k5_s11_e6_i80_o112_se0.25', 'r4_k5_s22_e6_i112_o192_se0.25',
+        'r1_k3_s11_e6_i192_o320_se0.25',
+    ]
+
+blocks_args=BlockDecoder.decode(blocks_args)
+
+global_params = GlobalParams(
+        batch_norm_momentum=0.99,
+        batch_norm_epsilon=1e-3,
+        dropout_rate=0.2,
+        drop_connect_rate=0.2,
+        num_classes=np.sum(CLASSES_LIST),
+        width_coefficient=alpha**phi,
+        depth_coefficient=beta**phi,
+        depth_divisor=8,
+        min_depth=None,
+        image_size=IMG_W,
+    )
+
+EFFICIENTNET_KWARGS={'blocks_args':blocks_args, 'global_params':global_params}
+
+BACKBONE_KWARGS=EFFICIENTNET_KWARGS
+BACKBONE_FN=EfficientNet
+
+
+TARGETS=['grapheme_root','vowel_diacritic','consonant_diacritic']
+
+SEED=0
+
+import torch
+torch.manual_seed(SEED)
+torch.backends.cudnn.deterministic = True
+torch.backends.cudnn.benchmark = False
+
+np.random.seed(SEED)
+random.seed(SEED)
+
+Let's use 2 GPUs!
+val_loss=9.477354812622071 val_score=0.061566558441558436
+iter/secs=0.0   lr=0.05
+import logging
+import os
+import numpy as np
+import random
+from .resnet import Bottleneck,SEBottleneck,_resnet
+from .inceptionresnetv2 import InceptionResNetV2
+from .inceptionv4 import InceptionV4
+from .efficientnet import EfficientNet
+from .efficientnet_utils import BlockDecoder, GlobalParams
+
+ARTIFACTS_DIR='artifacts'
+DATA_DIR=os.path.join(os.path.dirname(__file__),'../..','data')
+RAW_DIR='raw'
+MODELS_DIR='models'
+MODELS_PRETRAINED_DIR='models_pretrained'
+SUBMISSION_DIR = 'submissions'
+SUBMISSION_CSV = 'submission.csv'
+SAMPLE_SUBMISSION_CSV = 'sample_submission.csv'
+
+LOG_FILENAME=os.path.join(os.path.dirname(__file__),'training_log.txt')
+
+LOG_LEVEL=logging.INFO
+
+METRIC_FILE_PATH='metric.txt'
+
+TRAIN_IMAGE_DATA_PATTERN='train_image_data_*.parquet'
+TEST_IMAGE_DATA_PATTERN='test_image_data_*.parquet'
+TRAIN_CSV='train.csv'
+TEST_CSV='test.csv'
+CLASS_MAP_CSV='class_map.csv'
+
+TRAIN_DATASET_DIR='train_datset'
+VAL_DATASET_DIR='val_datset'
+TEST_DATASET_DIR='test_datset'
+IMAGE_GEN_PKL = 'image_gen.pkl'
+
+MODEL_NAME='model'
+
+alpha=1.2
+beta=1.32
+gama=1.28
+phi=0 # phi=1 efficient net b3, phi=4 for b7
+
+
+IMG_WIDTH = 236
+IMG_HEIGHT = 137
+IMG_W=int(224*gama**phi)
+IMG_H=int(224*gama**phi)
+
+DO_CROP_SYMBOL=False
+TOP_CUT=4
+LEFT_CUT=4
+PAD=4
+
+
+N_CHANNELS = 1
+BATCH_SIZE=256
+EPOCHS=100
+LR=0.05
+LR_SCHEDULER_PATINCE=80
+AUGM_PROB=0
+DROPOUT_P=0.5
+
+LOSS_WEIGHTS=[1,1,1]
+BETA=0
+
+CLASSES_LIST=[168,11,7]
+
+
+_m=alpha**phi
+
+
+RESNEXT_KWARGS={'arch':'small_resnet', 'groups': 32,'width_per_group': int(8*beta**phi), 'block':Bottleneck, 'layers':[int(_m*2), int(_m*2), int(_m*2), int(_m*2)], 'num_classes':np.sum(CLASSES_LIST),'pretrained':False, 'progress':False}
+
+RESNET_KWARGS={'arch':'small_resnet', 'width_per_group': int(64*beta**phi), 'block':Bottleneck, 'layers':[int(_m*2), int(_m*2), int(_m*2), int(_m*2)], 'num_classes':np.sum(CLASSES_LIST),'pretrained':False, 'progress':False}
+
+SERESNET_KWARGS={'arch':'small_resnet', 'width_per_group': int(64*beta**phi), 'block':SEBottleneck, 'layers':[int(_m*2), int(_m*2), int(_m*2), int(_m*2)], 'num_classes':np.sum(CLASSES_LIST),'pretrained':False, 'progress':False}
+
+SERESNEXT_KWARGS={'arch':'small_resnet', 'groups': 32,'width_per_group': int(8*beta**phi), 'block':SEBottleneck, 'layers':[int(_m*2), int(_m*2), int(_m*2), int(_m*2)], 'num_classes':np.sum(CLASSES_LIST),'pretrained':False, 'progress':False}
+
+INCEPTIONRESNETV2_KWARGS={'repeats':(int(_m*3),int(_m*6),int(_m*4)), 'width':0.3*beta**phi, 'num_classes':np.sum(CLASSES_LIST)}
+
+INCEPTIONV4_KWARGS={'repeats':(int(_m*2),int(_m*4),int(_m*2)), 'width':0.3*beta**phi, 'num_classes':np.sum(CLASSES_LIST)}
+
+blocks_args = [
+        'r1_k3_s11_e1_i32_o16_se0.25', 'r2_k3_s22_e6_i16_o24_se0.25',
+        'r2_k5_s22_e6_i24_o40_se0.25', 'r3_k3_s22_e6_i40_o80_se0.25',
+        'r3_k5_s11_e6_i80_o112_se0.25', 'r4_k5_s22_e6_i112_o192_se0.25',
+        'r1_k3_s11_e6_i192_o320_se0.25',
+    ]
+
+blocks_args=BlockDecoder.decode(blocks_args)
+
+global_params = GlobalParams(
+        batch_norm_momentum=0.99,
+        batch_norm_epsilon=1e-3,
+        dropout_rate=0.2,
+        drop_connect_rate=0.2,
+        num_classes=np.sum(CLASSES_LIST),
+        width_coefficient=alpha**phi,
+        depth_coefficient=beta**phi,
+        depth_divisor=8,
+        min_depth=None,
+        image_size=IMG_W,
+    )
+
+EFFICIENTNET_KWARGS={'blocks_args':blocks_args, 'global_params':global_params}
+
+BACKBONE_KWARGS=EFFICIENTNET_KWARGS
+BACKBONE_FN=EfficientNet
+
+
+TARGETS=['grapheme_root','vowel_diacritic','consonant_diacritic']
+
+SEED=0
+
+import torch
+torch.manual_seed(SEED)
+torch.backends.cudnn.deterministic = True
+torch.backends.cudnn.benchmark = False
+
+np.random.seed(SEED)
+random.seed(SEED)
+
+import logging
+import os
+import numpy as np
+import random
+from .resnet import Bottleneck,SEBottleneck,_resnet
+from .inceptionresnetv2 import InceptionResNetV2
+from .inceptionv4 import InceptionV4
+from .efficientnet import EfficientNet
+from .efficientnet_utils import BlockDecoder, GlobalParams
+
+ARTIFACTS_DIR='artifacts'
+DATA_DIR=os.path.join(os.path.dirname(__file__),'../..','data')
+RAW_DIR='raw'
+MODELS_DIR='models'
+MODELS_PRETRAINED_DIR='models_pretrained'
+SUBMISSION_DIR = 'submissions'
+SUBMISSION_CSV = 'submission.csv'
+SAMPLE_SUBMISSION_CSV = 'sample_submission.csv'
+
+LOG_FILENAME=os.path.join(os.path.dirname(__file__),'training_log.txt')
+
+LOG_LEVEL=logging.INFO
+
+METRIC_FILE_PATH='metric.txt'
+
+TRAIN_IMAGE_DATA_PATTERN='train_image_data_*.parquet'
+TEST_IMAGE_DATA_PATTERN='test_image_data_*.parquet'
+TRAIN_CSV='train.csv'
+TEST_CSV='test.csv'
+CLASS_MAP_CSV='class_map.csv'
+
+TRAIN_DATASET_DIR='train_datset'
+VAL_DATASET_DIR='val_datset'
+TEST_DATASET_DIR='test_datset'
+IMAGE_GEN_PKL = 'image_gen.pkl'
+
+MODEL_NAME='model'
+
+alpha=1.2
+beta=1.32
+gama=1.28
+phi=0 # phi=1 efficient net b3, phi=4 for b7
+
+
+IMG_WIDTH = 236
+IMG_HEIGHT = 137
+IMG_W=int(224*gama**phi)
+IMG_H=int(224*gama**phi)
+
+DO_CROP_SYMBOL=False
+TOP_CUT=4
+LEFT_CUT=4
+PAD=4
+
+
+N_CHANNELS = 1
+BATCH_SIZE=256
+EPOCHS=100
+LR=0.05
+LR_SCHEDULER_PATINCE=80
+AUGM_PROB=0
+DROPOUT_P=0.5
+
+LOSS_WEIGHTS=[1,1,1]
+BETA=0
+
+CLASSES_LIST=[168,11,7]
+
+
+_m=alpha**phi
+
+
+RESNEXT_KWARGS={'arch':'small_resnet', 'groups': 32,'width_per_group': int(8*beta**phi), 'block':Bottleneck, 'layers':[int(_m*2), int(_m*2), int(_m*2), int(_m*2)], 'num_classes':np.sum(CLASSES_LIST),'pretrained':False, 'progress':False}
+
+RESNET_KWARGS={'arch':'small_resnet', 'width_per_group': int(64*beta**phi), 'block':Bottleneck, 'layers':[int(_m*2), int(_m*2), int(_m*2), int(_m*2)], 'num_classes':np.sum(CLASSES_LIST),'pretrained':False, 'progress':False}
+
+SERESNET_KWARGS={'arch':'small_resnet', 'width_per_group': int(64*beta**phi), 'block':SEBottleneck, 'layers':[int(_m*2), int(_m*2), int(_m*2), int(_m*2)], 'num_classes':np.sum(CLASSES_LIST),'pretrained':False, 'progress':False}
+
+SERESNEXT_KWARGS={'arch':'small_resnet', 'groups': 32,'width_per_group': int(8*beta**phi), 'block':SEBottleneck, 'layers':[int(_m*2), int(_m*2), int(_m*2), int(_m*2)], 'num_classes':np.sum(CLASSES_LIST),'pretrained':False, 'progress':False}
+
+INCEPTIONRESNETV2_KWARGS={'repeats':(int(_m*3),int(_m*6),int(_m*4)), 'width':0.3*beta**phi, 'num_classes':np.sum(CLASSES_LIST)}
+
+INCEPTIONV4_KWARGS={'repeats':(int(_m*2),int(_m*4),int(_m*2)), 'width':0.3*beta**phi, 'num_classes':np.sum(CLASSES_LIST)}
+
+blocks_args = [
+        'r1_k3_s11_e1_i32_o16_se0.25', 'r2_k3_s22_e6_i16_o24_se0.25',
+        'r2_k5_s22_e6_i24_o40_se0.25', 'r3_k3_s22_e6_i40_o80_se0.25',
+        'r3_k5_s11_e6_i80_o112_se0.25', 'r4_k5_s22_e6_i112_o192_se0.25',
+        'r1_k3_s11_e6_i192_o320_se0.25',
+    ]
+
+blocks_args=BlockDecoder.decode(blocks_args)
+
+global_params = GlobalParams(
+        batch_norm_momentum=0.99,
+        batch_norm_epsilon=1e-3,
+        dropout_rate=0.2,
+        drop_connect_rate=0.2,
+        num_classes=np.sum(CLASSES_LIST),
+        width_coefficient=alpha**phi,
+        depth_coefficient=beta**phi,
+        depth_divisor=8,
+        min_depth=None,
+        image_size=IMG_W,
+    )
+
+EFFICIENTNET_KWARGS={'blocks_args':blocks_args, 'global_params':global_params}
+
+BACKBONE_KWARGS=EFFICIENTNET_KWARGS
+BACKBONE_FN=EfficientNet
+
+
+TARGETS=['grapheme_root','vowel_diacritic','consonant_diacritic']
+
+SEED=0
+
+import torch
+torch.manual_seed(SEED)
+torch.backends.cudnn.deterministic = True
+torch.backends.cudnn.benchmark = False
+
+np.random.seed(SEED)
+random.seed(SEED)
+
+Let's use 2 GPUs!
+val_loss=9.477354812622071 val_score=0.061566558441558436
+iter/secs=0.0   lr=0.05
+import logging
+import os
+import numpy as np
+import random
+from .resnet import Bottleneck,SEBottleneck,_resnet
+from .inceptionresnetv2 import InceptionResNetV2
+from .inceptionv4 import InceptionV4
+from .efficientnet import EfficientNet
+from .efficientnet_utils import BlockDecoder, GlobalParams
+
+ARTIFACTS_DIR='artifacts'
+DATA_DIR=os.path.join(os.path.dirname(__file__),'../..','data')
+RAW_DIR='raw'
+MODELS_DIR='models'
+MODELS_PRETRAINED_DIR='models_pretrained'
+SUBMISSION_DIR = 'submissions'
+SUBMISSION_CSV = 'submission.csv'
+SAMPLE_SUBMISSION_CSV = 'sample_submission.csv'
+
+LOG_FILENAME=os.path.join(os.path.dirname(__file__),'training_log.txt')
+
+LOG_LEVEL=logging.INFO
+
+METRIC_FILE_PATH='metric.txt'
+
+TRAIN_IMAGE_DATA_PATTERN='train_image_data_*.parquet'
+TEST_IMAGE_DATA_PATTERN='test_image_data_*.parquet'
+TRAIN_CSV='train.csv'
+TEST_CSV='test.csv'
+CLASS_MAP_CSV='class_map.csv'
+
+TRAIN_DATASET_DIR='train_datset'
+VAL_DATASET_DIR='val_datset'
+TEST_DATASET_DIR='test_datset'
+IMAGE_GEN_PKL = 'image_gen.pkl'
+
+MODEL_NAME='model'
+
+alpha=1.2
+beta=1.32
+gama=1.28
+phi=0 # phi=1 efficient net b3, phi=4 for b7
+
+
+IMG_WIDTH = 236
+IMG_HEIGHT = 137
+IMG_W=int(224*gama**phi)
+IMG_H=int(224*gama**phi)
+
+DO_CROP_SYMBOL=False
+TOP_CUT=4
+LEFT_CUT=4
+PAD=4
+
+
+N_CHANNELS = 1
+BATCH_SIZE=64
+EPOCHS=100
+LR=0.05
+LR_SCHEDULER_PATINCE=80
+AUGM_PROB=0
+DROPOUT_P=0.5
+
+LOSS_WEIGHTS=[1,1,1]
+BETA=0
+
+CLASSES_LIST=[168,11,7]
+
+
+_m=alpha**phi
+
+
+RESNEXT_KWARGS={'arch':'small_resnet', 'groups': 32,'width_per_group': int(8*beta**phi), 'block':Bottleneck, 'layers':[int(_m*2), int(_m*2), int(_m*2), int(_m*2)], 'num_classes':np.sum(CLASSES_LIST),'pretrained':False, 'progress':False}
+
+RESNET_KWARGS={'arch':'small_resnet', 'width_per_group': int(64*beta**phi), 'block':Bottleneck, 'layers':[int(_m*2), int(_m*2), int(_m*2), int(_m*2)], 'num_classes':np.sum(CLASSES_LIST),'pretrained':False, 'progress':False}
+
+SERESNET_KWARGS={'arch':'small_resnet', 'width_per_group': int(64*beta**phi), 'block':SEBottleneck, 'layers':[int(_m*2), int(_m*2), int(_m*2), int(_m*2)], 'num_classes':np.sum(CLASSES_LIST),'pretrained':False, 'progress':False}
+
+SERESNEXT_KWARGS={'arch':'small_resnet', 'groups': 32,'width_per_group': int(8*beta**phi), 'block':SEBottleneck, 'layers':[int(_m*2), int(_m*2), int(_m*2), int(_m*2)], 'num_classes':np.sum(CLASSES_LIST),'pretrained':False, 'progress':False}
+
+INCEPTIONRESNETV2_KWARGS={'repeats':(int(_m*3),int(_m*6),int(_m*4)), 'width':0.3*beta**phi, 'num_classes':np.sum(CLASSES_LIST)}
+
+INCEPTIONV4_KWARGS={'repeats':(int(_m*2),int(_m*4),int(_m*2)), 'width':0.3*beta**phi, 'num_classes':np.sum(CLASSES_LIST)}
+
+blocks_args = [
+        'r1_k3_s11_e1_i32_o16_se0.25', 'r2_k3_s22_e6_i16_o24_se0.25',
+        'r2_k5_s22_e6_i24_o40_se0.25', 'r3_k3_s22_e6_i40_o80_se0.25',
+        'r3_k5_s11_e6_i80_o112_se0.25', 'r4_k5_s22_e6_i112_o192_se0.25',
+        'r1_k3_s11_e6_i192_o320_se0.25',
+    ]
+
+blocks_args=BlockDecoder.decode(blocks_args)
+
+global_params = GlobalParams(
+        batch_norm_momentum=0.99,
+        batch_norm_epsilon=1e-3,
+        dropout_rate=0.2,
+        drop_connect_rate=0.2,
+        num_classes=np.sum(CLASSES_LIST),
+        width_coefficient=alpha**phi,
+        depth_coefficient=beta**phi,
+        depth_divisor=8,
+        min_depth=None,
+        image_size=IMG_W,
+    )
+
+EFFICIENTNET_KWARGS={'blocks_args':blocks_args, 'global_params':global_params}
+
+BACKBONE_KWARGS=EFFICIENTNET_KWARGS
+BACKBONE_FN=EfficientNet
+
+
+TARGETS=['grapheme_root','vowel_diacritic','consonant_diacritic']
+
+SEED=0
+
+import torch
+torch.manual_seed(SEED)
+torch.backends.cudnn.deterministic = True
+torch.backends.cudnn.benchmark = False
+
+np.random.seed(SEED)
+random.seed(SEED)
+
+import logging
+import os
+import numpy as np
+import random
+from .resnet import Bottleneck,SEBottleneck,_resnet
+from .inceptionresnetv2 import InceptionResNetV2
+from .inceptionv4 import InceptionV4
+from .efficientnet import EfficientNet
+from .efficientnet_utils import BlockDecoder, GlobalParams
+
+ARTIFACTS_DIR='artifacts'
+DATA_DIR=os.path.join(os.path.dirname(__file__),'../..','data')
+RAW_DIR='raw'
+MODELS_DIR='models'
+MODELS_PRETRAINED_DIR='models_pretrained'
+SUBMISSION_DIR = 'submissions'
+SUBMISSION_CSV = 'submission.csv'
+SAMPLE_SUBMISSION_CSV = 'sample_submission.csv'
+
+LOG_FILENAME=os.path.join(os.path.dirname(__file__),'training_log.txt')
+
+LOG_LEVEL=logging.INFO
+
+METRIC_FILE_PATH='metric.txt'
+
+TRAIN_IMAGE_DATA_PATTERN='train_image_data_*.parquet'
+TEST_IMAGE_DATA_PATTERN='test_image_data_*.parquet'
+TRAIN_CSV='train.csv'
+TEST_CSV='test.csv'
+CLASS_MAP_CSV='class_map.csv'
+
+TRAIN_DATASET_DIR='train_datset'
+VAL_DATASET_DIR='val_datset'
+TEST_DATASET_DIR='test_datset'
+IMAGE_GEN_PKL = 'image_gen.pkl'
+
+MODEL_NAME='model'
+
+alpha=1.2
+beta=1.32
+gama=1.28
+phi=0 # phi=1 efficient net b3, phi=4 for b7
+
+
+IMG_WIDTH = 236
+IMG_HEIGHT = 137
+IMG_W=int(224*gama**phi)
+IMG_H=int(224*gama**phi)
+
+DO_CROP_SYMBOL=False
+TOP_CUT=4
+LEFT_CUT=4
+PAD=4
+
+
+N_CHANNELS = 1
+BATCH_SIZE=64
+EPOCHS=100
+LR=0.05
+LR_SCHEDULER_PATINCE=80
+AUGM_PROB=0
+DROPOUT_P=0.5
+
+LOSS_WEIGHTS=[1,1,1]
+BETA=0
+
+CLASSES_LIST=[168,11,7]
+
+
+_m=alpha**phi
+
+
+RESNEXT_KWARGS={'arch':'small_resnet', 'groups': 32,'width_per_group': int(8*beta**phi), 'block':Bottleneck, 'layers':[int(_m*2), int(_m*2), int(_m*2), int(_m*2)], 'num_classes':np.sum(CLASSES_LIST),'pretrained':False, 'progress':False}
+
+RESNET_KWARGS={'arch':'small_resnet', 'width_per_group': int(64*beta**phi), 'block':Bottleneck, 'layers':[int(_m*2), int(_m*2), int(_m*2), int(_m*2)], 'num_classes':np.sum(CLASSES_LIST),'pretrained':False, 'progress':False}
+
+SERESNET_KWARGS={'arch':'small_resnet', 'width_per_group': int(64*beta**phi), 'block':SEBottleneck, 'layers':[int(_m*2), int(_m*2), int(_m*2), int(_m*2)], 'num_classes':np.sum(CLASSES_LIST),'pretrained':False, 'progress':False}
+
+SERESNEXT_KWARGS={'arch':'small_resnet', 'groups': 32,'width_per_group': int(8*beta**phi), 'block':SEBottleneck, 'layers':[int(_m*2), int(_m*2), int(_m*2), int(_m*2)], 'num_classes':np.sum(CLASSES_LIST),'pretrained':False, 'progress':False}
+
+INCEPTIONRESNETV2_KWARGS={'repeats':(int(_m*3),int(_m*6),int(_m*4)), 'width':0.3*beta**phi, 'num_classes':np.sum(CLASSES_LIST)}
+
+INCEPTIONV4_KWARGS={'repeats':(int(_m*2),int(_m*4),int(_m*2)), 'width':0.3*beta**phi, 'num_classes':np.sum(CLASSES_LIST)}
+
+blocks_args = [
+        'r1_k3_s11_e1_i32_o16_se0.25', 'r2_k3_s22_e6_i16_o24_se0.25',
+        'r2_k5_s22_e6_i24_o40_se0.25', 'r3_k3_s22_e6_i40_o80_se0.25',
+        'r3_k5_s11_e6_i80_o112_se0.25', 'r4_k5_s22_e6_i112_o192_se0.25',
+        'r1_k3_s11_e6_i192_o320_se0.25',
+    ]
+
+blocks_args=BlockDecoder.decode(blocks_args)
+
+global_params = GlobalParams(
+        batch_norm_momentum=0.99,
+        batch_norm_epsilon=1e-3,
+        dropout_rate=0.2,
+        drop_connect_rate=0.2,
+        num_classes=np.sum(CLASSES_LIST),
+        width_coefficient=alpha**phi,
+        depth_coefficient=beta**phi,
+        depth_divisor=8,
+        min_depth=None,
+        image_size=IMG_W,
+    )
+
+EFFICIENTNET_KWARGS={'blocks_args':blocks_args, 'global_params':global_params}
+
+BACKBONE_KWARGS=EFFICIENTNET_KWARGS
+BACKBONE_FN=EfficientNet
+
+
+TARGETS=['grapheme_root','vowel_diacritic','consonant_diacritic']
+
+SEED=0
+
+import torch
+torch.manual_seed(SEED)
+torch.backends.cudnn.deterministic = True
+torch.backends.cudnn.benchmark = False
+
+np.random.seed(SEED)
+random.seed(SEED)
+
+Let's use 2 GPUs!
+val_loss=9.478091430664062 val_score=0.06881871815500135
+iter/secs=0.0   lr=0.05

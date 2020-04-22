@@ -38,32 +38,22 @@ def main():
     local_train_dir=download_dir_from_gcs(args.train_bin_files_dir,os.path.join(DATA_DIR,TRAIN_DATASET_DIR))
     local_test_dir=download_dir_from_gcs(args.test_bin_files_dir,os.path.join(DATA_DIR,VAL_DATASET_DIR))
 
-    train_images, train_labels, _, classes = load(local_train_dir)
-    val_images, val_labels, _, _  = load(local_test_dir)
-
-    if debug_regime:
-        max_samples=100
-        train_images=train_images[:max_samples]
-        train_labels=train_labels[:max_samples]
-        val_images=val_images[:max_samples]
-        val_labels=val_labels[:max_samples]
-
-    logger.info('{} train images loaded'.format(len(train_images)))
-    logger.info('{} val images loaded'.format(len(val_images)))
-
     model_dir=os.path.join(args.job_dir,MODELS_DIR)
     if (not model_dir.startswith('gs')) and (not os.path.exists(model_dir)):
         os.makedirs(model_dir)
     model_filepath=os.path.join(model_dir,MODEL_NAME)
 
 
-    model=Model(train_images,train_labels, val_images, val_labels,model_filepath)
+    model=Model(local_train_dir,local_test_dir,model_filepath)
 
     trainer=pl.Trainer(gpus=1,max_epochs=EPOCHS,min_epochs=EPOCHS,use_amp=USE_AMP,amp_level='O2')
 
     trainer.fit(model)
 
     model.eval()
+
+    val_images, val_labels, _, _  = load(local_test_dir)
+
     val_preds=model.predict( val_images)
     acc=[np.equal(val_pred,val_label) for val_pred,val_label in zip(val_preds,val_labels)]
     acc=np.array(acc,dtype=np.float32)

@@ -10,7 +10,7 @@ import torch.nn as nn
 import albumentations as A
 from .radam import RAdam
 from .score import calc_score
-from .dataset_pytorch import BengaliDataset
+from .dataset_pytorch import BengaliDataset, BengaliDatasetOpt
 from .consts import IMG_W,IMG_H,N_CHANNELS, BATCH_SIZE, LR, EPOCHS, AUGM_PROB, \
     DROPOUT_P, LOSS_WEIGHTS, LR_SCHEDULER_PATINCE,CLASSES_LIST, LOG_FILENAME, \
     BACKBONE_FN,BACKBONE_KWARGS
@@ -52,7 +52,7 @@ class BackBone(nn.Module):
 
 class Model(pl.LightningModule):
 
-    def __init__(self,train_images,train_labels, val_images, val_labels,path_to_model_save):
+    def __init__(self,local_train_dir,local_test_dir,path_to_model_save):
         super(Model,self).__init__()
 
         self._path_to_model_save=path_to_model_save
@@ -62,27 +62,22 @@ class Model(pl.LightningModule):
 
         self._aug=get_augmentations()
 
-        train_dataset_aug=BengaliDataset(train_images,labels=train_labels,transform_fn=self._aug_fn)
-        train_dataset=BengaliDataset(train_images,labels=train_labels)
-        val_dataset=BengaliDataset(val_images,labels=val_labels)
+        train_dataset_aug=BengaliDatasetOpt(local_train_dir,transform_fn=self._aug_fn)
+        val_dataset=BengaliDatasetOpt(local_test_dir)
 
         self._train_dataloader=DataLoader(train_dataset_aug, batch_size=BATCH_SIZE, shuffle=True, sampler=None,
            batch_sampler=None, num_workers=16, collate_fn=None,
            pin_memory=False, drop_last=True, timeout=0,
            worker_init_fn=None)
 
-        self._train_val_dataloader=DataLoader(train_dataset, batch_size=BATCH_SIZE, shuffle=True, sampler=None,
-           batch_sampler=None, num_workers=16, collate_fn=None,
-           pin_memory=False, drop_last=True, timeout=0,
-           worker_init_fn=None)
 
         self._val_dataloader=DataLoader(val_dataset, batch_size=BATCH_SIZE, shuffle=True, sampler=None,
            batch_sampler=None, num_workers=16, collate_fn=None,
            pin_memory=False, drop_last=True, timeout=0,
            worker_init_fn=None)
 
-        classes_weights=calc_classes_weights(train_labels,self._classes_list)
-        self._loss_fns=[RecallScore(class_weights) for class_weights in classes_weights]
+        classes_weights=[1,1,1]
+        self._loss_fns=[RecallScore() for class_weights in classes_weights]
 
         logger.info("Let's use {} GPUs!".format(torch.cuda.device_count()))
 
