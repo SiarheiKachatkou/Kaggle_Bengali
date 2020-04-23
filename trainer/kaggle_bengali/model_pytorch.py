@@ -13,7 +13,7 @@ from .score import calc_score
 from .dataset_pytorch import BengaliDataset, BengaliDatasetOpt
 from .consts import IMG_W,IMG_H,N_CHANNELS, BATCH_SIZE, LR, EPOCHS, AUGM_PROB, \
     DROPOUT_P, LOSS_WEIGHTS, LR_SCHEDULER_PATINCE,CLASSES_LIST, LOG_FILENAME, \
-    BACKBONE_FN,BACKBONE_KWARGS
+    BACKBONE_FN,BACKBONE_KWARGS, TRAIN_STEPS, WARM_UP_STEPS
 from .loss import calc_classes_weights, RecallScore
 from .save_to_maybe_gs import save
 from ..local_logging import get_logger
@@ -172,10 +172,18 @@ class Model(pl.LightningModule):
         # REQUIRED
         self.optimizer=RAdam(self.parameters(),lr=LR)
         #self.optimizer=torch.optim.Adam(self.parameters(),lr=LR)
-        self.scheduler=torch.optim.lr_scheduler.ReduceLROnPlateau(self.optimizer, mode='max', factor=0.5, patience=LR_SCHEDULER_PATINCE, verbose=True,
+
+        '''self.scheduler=torch.optim.lr_scheduler.ReduceLROnPlateau(self.optimizer, mode='max', factor=0.5, patience=LR_SCHEDULER_PATINCE, verbose=True,
                                                              threshold=0.0001, threshold_mode='abs',
                                                              cooldown=0, min_lr=1e-6, eps=1e-08)
-        return self.optimizer
+        '''
+        def warmup_linear_decay(step):
+            if step < WARM_UP_STEPS:
+                return step/WARM_UP_STEPS
+            else:
+                return (TRAIN_STEPS-step)/(TRAIN_STEPS-WARM_UP_STEPS)
+        self.scheduler = torch.optim.lr_scheduler.LambdaLR(self.optimizer, warmup_linear_decay)
+        return [self.optimizer],[self.scheduler]
 
 
     def save(self,path_to_file):
