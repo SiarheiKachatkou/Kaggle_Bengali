@@ -4,7 +4,6 @@
     <list default="true" id="0400dbc6-5425-4163-a796-b6527b031bcf" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/trainer/kaggle_bengali/consts.py" beforeDir="false" afterPath="$PROJECT_DIR$/trainer/kaggle_bengali/consts.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/trainer/kaggle_bengali/model_pytorch.py" beforeDir="false" afterPath="$PROJECT_DIR$/trainer/kaggle_bengali/model_pytorch.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/trainer/kaggle_bengali/training_log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/trainer/kaggle_bengali/training_log.txt" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -18,8 +17,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/trainer/kaggle_bengali/consts.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="120">
-              <caret line="53" selection-start-line="53" selection-end-line="53" />
+            <state relative-caret-position="316">
+              <caret line="110" column="129" selection-start-line="110" selection-start-column="129" selection-end-line="110" selection-end-column="129" />
               <folding>
                 <element signature="e#0#14#0" expanded="true" />
               </folding>
@@ -28,10 +27,34 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/trainer/kaggle_bengali/efficientnet.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="540">
+              <caret line="226" column="39" selection-start-line="226" selection-start-column="25" selection-end-line="226" selection-end-column="39" />
+              <folding>
+                <element signature="e#0#12#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/trainer/kaggle_bengali/efficientnet_utils.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1885">
+              <caret line="322" column="31" selection-start-line="322" selection-start-column="31" selection-end-line="322" selection-end-column="31" />
+              <folding>
+                <element signature="e#194#203#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/trainer/kaggle_bengali/model_pytorch.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="465">
-              <caret line="181" column="37" selection-start-line="181" selection-start-column="37" selection-end-line="181" selection-end-column="37" />
+            <state relative-caret-position="195">
+              <caret line="172" column="51" selection-start-line="172" selection-start-column="51" selection-end-line="172" selection-end-column="51" />
               <folding>
                 <element signature="e#0#12#0" expanded="true" />
               </folding>
@@ -89,15 +112,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="45">
               <caret line="3" selection-start-line="3" selection-end-line="3" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/../../anaconda3/envs/pytorch/lib/python3.7/site-packages/torch/nn/modules/conv.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="5280">
-              <caret line="359" column="67" selection-start-line="359" selection-start-column="67" selection-end-line="359" selection-end-column="67" />
             </state>
           </provider>
         </entry>
@@ -382,30 +396,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/trainer/kaggle_bengali/efficientnet_utils.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1083">
-          <caret line="269" column="35" lean-forward="true" selection-start-line="269" selection-start-column="35" selection-end-line="269" selection-end-column="35" />
-          <folding>
-            <element signature="e#194#203#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/requirements.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="150">
           <caret line="10" selection-start-line="10" selection-end-line="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/trainer/kaggle_bengali/efficientnet.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2190">
-          <caret line="160" column="72" selection-start-line="160" selection-start-column="72" selection-end-line="160" selection-end-column="72" />
-          <folding>
-            <element signature="e#0#12#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -520,8 +514,28 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/trainer/kaggle_bengali/model_pytorch.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="465">
-          <caret line="181" column="37" selection-start-line="181" selection-start-column="37" selection-end-line="181" selection-end-column="37" />
+        <state relative-caret-position="195">
+          <caret line="172" column="51" selection-start-line="172" selection-start-column="51" selection-end-line="172" selection-end-column="51" />
+          <folding>
+            <element signature="e#0#12#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/trainer/kaggle_bengali/efficientnet_utils.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1885">
+          <caret line="322" column="31" selection-start-line="322" selection-start-column="31" selection-end-line="322" selection-end-column="31" />
+          <folding>
+            <element signature="e#194#203#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/trainer/kaggle_bengali/efficientnet.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="540">
+          <caret line="226" column="39" selection-start-line="226" selection-start-column="25" selection-end-line="226" selection-end-column="39" />
           <folding>
             <element signature="e#0#12#0" expanded="true" />
           </folding>
@@ -530,8 +544,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/trainer/kaggle_bengali/consts.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="53" selection-start-line="53" selection-end-line="53" />
+        <state relative-caret-position="316">
+          <caret line="110" column="129" selection-start-line="110" selection-start-column="129" selection-end-line="110" selection-end-column="129" />
           <folding>
             <element signature="e#0#14#0" expanded="true" />
           </folding>

@@ -60,7 +60,7 @@ TRAIN_STEPS=EPOCHS
 WARM_UP_STEPS=5
 LR=0.001
 LR_SCHEDULER_PATINCE=80
-AUGM_PROB=0
+AUGM_PROB=0.3
 DROPOUT_P=0.5
 
 LOSS_WEIGHTS=[1,1,1]
@@ -108,8 +108,10 @@ global_params = GlobalParams(
 
 EFFICIENTNET_KWARGS={'blocks_args':blocks_args, 'global_params':global_params}
 
-BACKBONE_KWARGS=EFFICIENTNET_KWARGS
-BACKBONE_FN=EfficientNet
+PRETRAINED_EFFICIENTNET_KWARGS={"num_classes":sum(CLASSES_LIST), "model_name":"efficientnet-b0", "advprop":False, "in_channels":3}
+
+BACKBONE_KWARGS=PRETRAINED_EFFICIENTNET_KWARGS
+BACKBONE_FN=EfficientNet.from_pretrained
 
 
 TARGETS=['grapheme_root','vowel_diacritic','consonant_diacritic']
