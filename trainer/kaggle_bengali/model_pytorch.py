@@ -18,12 +18,15 @@ from .loss import calc_classes_weights, RecallScore
 from .save_to_maybe_gs import save
 from ..local_logging import get_logger
 from .resnet import _resnet
+from .autoaugment import SVHNPolicy
 
 
 logger=get_logger(__name__)
 
 
 def get_augmentations():
+    return SVHNPolicy
+    '''
     return A.OneOf([
                       A.RandomContrast(limit=(0.8,1.2),p=0.2),
                       A.MotionBlur(blur_limit=15,p=0.2),
@@ -35,6 +38,7 @@ def get_augmentations():
                       A.ElasticTransform(alpha=30,sigma=5,alpha_affine=10,border_mode=cv2.BORDER_CONSTANT,value=255,p=1.0),
                       A.ElasticTransform(alpha=60,sigma=15,alpha_affine=20,border_mode=cv2.BORDER_CONSTANT,value=255,p=1.0),
                       ],p=AUGM_PROB)
+    '''
 
 
 class BackBone(nn.Module):
