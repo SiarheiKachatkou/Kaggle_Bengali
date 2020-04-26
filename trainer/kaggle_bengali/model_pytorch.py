@@ -173,17 +173,20 @@ class Model(pl.LightningModule):
         self.optimizer=RAdam(self.parameters(),lr=LR)
         #self.optimizer=torch.optim.Adam(self.parameters(),lr=LR)
 
-        '''self.scheduler=torch.optim.lr_scheduler.ReduceLROnPlateau(self.optimizer, mode='max', factor=0.5, patience=LR_SCHEDULER_PATINCE, verbose=True,
+        self.scheduler=torch.optim.lr_scheduler.ReduceLROnPlateau(self.optimizer, mode='max', factor=0.5, patience=LR_SCHEDULER_PATINCE, verbose=True,
                                                              threshold=0.0001, threshold_mode='abs',
                                                              cooldown=0, min_lr=1e-6, eps=1e-08)
         '''
         def warmup_linear_decay(step):
+            print('scheduler called with step={}'.format(step))
             if step < WARM_UP_STEPS:
-                return step/WARM_UP_STEPS
+                return (step+1)/WARM_UP_STEPS
             else:
-                return (TRAIN_STEPS-step)/(TRAIN_STEPS-WARM_UP_STEPS)
+                return (TRAIN_STEPS-step-1)/(TRAIN_STEPS-WARM_UP_STEPS)
         self.scheduler = torch.optim.lr_scheduler.LambdaLR(self.optimizer, warmup_linear_decay)
-        return [self.optimizer],[self.scheduler]
+        '''
+
+        return self.optimizer#,[self.scheduler]
 
 
     def save(self,path_to_file):

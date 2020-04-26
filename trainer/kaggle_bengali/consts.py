@@ -39,13 +39,13 @@ MODEL_NAME='model'
 alpha=1.2
 beta=1.32
 gama=1.28
-phi=0 # phi=1 efficient net b3, phi=4 for b7
+phi=1 # phi=1 efficient net b3, phi=4 for b7
 
 
 IMG_WIDTH = 236
 IMG_HEIGHT = 137
-IMG_W=int(224*gama**phi)
-IMG_H=int(224*gama**phi)
+IMG_W=int(224)#*gama**phi)
+IMG_H=int(224)#*gama**phi)
 
 DO_CROP_SYMBOL=False
 TOP_CUT=4
@@ -54,12 +54,13 @@ PAD=4
 
 
 N_CHANNELS = 1
-BATCH_SIZE=86
+BATCH_SIZE=10
+ACCUM_BATCHES=6
 EPOCHS=100
 TRAIN_STEPS=EPOCHS
 WARM_UP_STEPS=5
 LR=0.001
-LR_SCHEDULER_PATINCE=80
+LR_SCHEDULER_PATINCE=1
 AUGM_PROB=0.3
 DROPOUT_P=0.5
 
@@ -108,10 +109,10 @@ global_params = GlobalParams(
 
 EFFICIENTNET_KWARGS={'blocks_args':blocks_args, 'global_params':global_params}
 
-PRETRAINED_EFFICIENTNET_KWARGS={"num_classes":sum(CLASSES_LIST), "model_name":"efficientnet-b0", "advprop":False, "in_channels":3}
+PRETRAINED_EFFICIENTNET_KWARGS={"num_classes":sum(CLASSES_LIST), "model_name":"efficientnet-b7", "advprop":False, "in_channels":3}
 
 BACKBONE_KWARGS=PRETRAINED_EFFICIENTNET_KWARGS
-BACKBONE_FN=EfficientNet.from_pretrained
+BACKBONE_FN= EfficientNet.from_pretrained
 
 
 TARGETS=['grapheme_root','vowel_diacritic','consonant_diacritic']
