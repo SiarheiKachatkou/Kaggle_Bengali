@@ -126,7 +126,7 @@ class SVHNPolicy(object):
         >>>     SVHNPolicy(),
         >>>     transforms.ToTensor()])
     """
-    def __init__(self, fillcolor=(128, 128, 128)):
+    def __init__(self, fillcolor='#FFFFFF'):
         self.policies = [
             SubPolicy(0.9, "shearX", 4, 0.2, "invert", 3, fillcolor),
             SubPolicy(0.9, "shearY", 8, 0.7, "invert", 5, fillcolor),

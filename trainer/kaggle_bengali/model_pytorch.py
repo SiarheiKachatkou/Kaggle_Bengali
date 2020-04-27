@@ -9,11 +9,12 @@ from torch.utils.data import DataLoader
 import torch.nn as nn
 import albumentations as A
 from .radam import RAdam
+from PIL import Image
 from .score import calc_score
 from .dataset_pytorch import BengaliDataset, BengaliDatasetOpt
 from .consts import IMG_W,IMG_H,N_CHANNELS, BATCH_SIZE, LR, EPOCHS, AUGM_PROB, \
     DROPOUT_P, LOSS_WEIGHTS, LR_SCHEDULER_PATINCE,CLASSES_LIST, LOG_FILENAME, \
-    BACKBONE_FN,BACKBONE_KWARGS
+    BACKBONE_FN,BACKBONE_KWARGS, TRAIN_STEPS, WARM_UP_STEPS
 from .loss import calc_classes_weights, RecallScore
 from .save_to_maybe_gs import save
 from ..local_logging import get_logger
@@ -25,7 +26,12 @@ logger=get_logger(__name__)
 
 
 def get_augmentations():
-    return SVHNPolicy
+    policy=SVHNPolicy()
+    def aug_fn(image):
+        pil_image=Image.fromarray(image)
+        out_image=np.array(policy(pil_image))
+        return {'image':out_image}
+    return aug_fn
     '''
     return A.OneOf([
                       A.RandomContrast(limit=(0.8,1.2),p=0.2),
@@ -75,7 +81,7 @@ class Model(pl.LightningModule):
            worker_init_fn=None)
 
 
-        self._val_dataloader=DataLoader(val_dataset, batch_size=BATCH_SIZE, shuffle=True, sampler=None,
+        self._val_dataloader=DataLoader(val_dataset, batch_size=BATCH_SIZE, shuffle=False, sampler=None,
            batch_sampler=None, num_workers=16, collate_fn=None,
            pin_memory=False, drop_last=True, timeout=0,
            worker_init_fn=None)
@@ -106,10 +112,6 @@ class Model(pl.LightningModule):
         # OPTIONAL
         return self._val_dataloader
 
-    @pl.data_loader
-    def test_dataloader(self):
-        # OPTIONAL
-        return self._val_dataloader
 
     def _calc_loss(self,heads_outputs,labels):
         loss=0
@@ -176,10 +178,21 @@ class Model(pl.LightningModule):
         # REQUIRED
         self.optimizer=RAdam(self.parameters(),lr=LR)
         #self.optimizer=torch.optim.Adam(self.parameters(),lr=LR)
+
         self.scheduler=torch.optim.lr_scheduler.ReduceLROnPlateau(self.optimizer, mode='max', factor=0.5, patience=LR_SCHEDULER_PATINCE, verbose=True,
                                                              threshold=0.0001, threshold_mode='abs',
                                                              cooldown=0, min_lr=1e-6, eps=1e-08)
-        return self.optimizer
+        '''
+        def warmup_linear_decay(step):
+            print('scheduler called with step={}'.format(step))
+            if step < WARM_UP_STEPS:
+                return (step+1)/WARM_UP_STEPS
+            else:
+                return (TRAIN_STEPS-step-1)/(TRAIN_STEPS-WARM_UP_STEPS)
+        self.scheduler = torch.optim.lr_scheduler.LambdaLR(self.optimizer, warmup_linear_decay)
+        '''
+
+        return self.optimizer#,[self.scheduler]
 
 
     def save(self,path_to_file):

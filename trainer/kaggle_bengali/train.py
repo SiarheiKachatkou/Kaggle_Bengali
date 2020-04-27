@@ -13,7 +13,7 @@ from .model_pytorch import Model
 from .create_dataset_utils import load
 from .score import calc_score
 from .consts import MODELS_PRETRAINED_DIR, DATA_DIR,MODEL_NAME,BATCH_SIZE,EPOCHS, \
-    TRAIN_DATASET_DIR, VAL_DATASET_DIR, MODELS_DIR, METRIC_FILE_PATH,ARTIFACTS_DIR
+    TRAIN_DATASET_DIR, VAL_DATASET_DIR, MODELS_DIR, METRIC_FILE_PATH,ARTIFACTS_DIR, ACCUM_BATCHES
 
 from ..dataset_utils import download_dir_from_gcs, download_file_from_gcs
 from .save_to_maybe_gs import save
@@ -46,7 +46,7 @@ def main():
 
     model=Model(local_train_dir,local_test_dir,model_filepath)
 
-    trainer=pl.Trainer(gpus=1,max_epochs=EPOCHS,min_epochs=EPOCHS,use_amp=USE_AMP,amp_level='O2')
+    trainer=pl.Trainer(gpus=1,max_epochs=EPOCHS,min_epochs=EPOCHS,accumulate_grad_batches=ACCUM_BATCHES,use_amp=USE_AMP,amp_level='O2')
 
     trainer.fit(model)
 

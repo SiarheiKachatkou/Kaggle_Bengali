@@ -1,11 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="BRANCH:1st_seen_class_model" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </select>
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="0400dbc6-5425-4163-a796-b6527b031bcf" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/Bengali_cloud.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Bengali_cloud.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/runConfigurations/main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/runConfigurations/main.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/trainer/kaggle_bengali/autoaugment.py" beforeDir="false" afterPath="$PROJECT_DIR$/trainer/kaggle_bengali/autoaugment.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/trainer/kaggle_bengali/consts.py" beforeDir="false" afterPath="$PROJECT_DIR$/trainer/kaggle_bengali/consts.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/trainer/kaggle_bengali/model_pytorch.py" beforeDir="false" afterPath="$PROJECT_DIR$/trainer/kaggle_bengali/model_pytorch.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/trainer/kaggle_bengali/train.py" beforeDir="false" afterPath="$PROJECT_DIR$/trainer/kaggle_bengali/train.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/trainer/kaggle_bengali/training_log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/trainer/kaggle_bengali/training_log.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,11 +51,12 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="65" />
-    <option name="y" value="-4" />
-    <option name="width" value="1855" />
-    <option name="height" value="1204" />
+  <component name="GithubPullRequestsUISettings">
+    <option name="hiddenUrls">
+      <set>
+        <option value="https://github.com/SiarheiKachatkou/Kaggle_Bengali" />
+      </set>
+    </option>
   </component>
   <component name="ProjectId" id="1b5jaDOl5UgaAneUoYmXbZzN68j" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -45,8 +66,8 @@
   </component>
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../Kaggle_Bengali_aa" />
+    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -72,16 +93,79 @@
     </task>
     <servers />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="1st_seen_class_model" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="VcsManagerConfiguration">
     <ignored-roots>
       <path value="$PROJECT_DIR$/apex" />
     </ignored-roots>
   </component>
   <component name="WindowStateProjectService">
-    <state x="67" y="33" key="SettingsEditor" timestamp="1587928946961">
+    <state x="67" y="55" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1587929552864">
       <screen x="67" y="27" width="957" height="741" />
     </state>
-    <state x="67" y="33" key="SettingsEditor/67.27.957.741@67.27.957.741" timestamp="1587928946961" />
+    <state x="67" y="55" key="#com.intellij.execution.impl.EditConfigurationsDialog/67.27.957.741@67.27.957.741" timestamp="1587929552864" />
+    <state x="323" y="156" width="424" height="484" key="FileChooserDialogImpl" timestamp="1587929520851">
+      <screen x="67" y="27" width="957" height="741" />
+    </state>
+    <state x="323" y="156" width="424" height="484" key="FileChooserDialogImpl/67.27.957.741@67.27.957.741" timestamp="1587929520851" />
+    <state width="934" height="141" key="GridCell.Tab.0.bottom" timestamp="1587969077716">
+      <screen x="67" y="27" width="957" height="741" />
+    </state>
+    <state width="934" height="141" key="GridCell.Tab.0.bottom/67.27.957.741@67.27.957.741" timestamp="1587969077716" />
+    <state width="934" height="141" key="GridCell.Tab.0.center" timestamp="1587969077716">
+      <screen x="67" y="27" width="957" height="741" />
+    </state>
+    <state width="934" height="141" key="GridCell.Tab.0.center/67.27.957.741@67.27.957.741" timestamp="1587969077716" />
+    <state width="934" height="141" key="GridCell.Tab.0.left" timestamp="1587969077716">
+      <screen x="67" y="27" width="957" height="741" />
+    </state>
+    <state width="934" height="141" key="GridCell.Tab.0.left/67.27.957.741@67.27.957.741" timestamp="1587969077716" />
+    <state width="934" height="141" key="GridCell.Tab.0.right" timestamp="1587969077716">
+      <screen x="67" y="27" width="957" height="741" />
+    </state>
+    <state width="934" height="141" key="GridCell.Tab.0.right/67.27.957.741@67.27.957.741" timestamp="1587969077716" />
+    <state width="934" height="218" key="GridCell.Tab.1.bottom" timestamp="1587968716298">
+      <screen x="67" y="27" width="957" height="741" />
+    </state>
+    <state width="934" height="218" key="GridCell.Tab.1.bottom/67.27.957.741@67.27.957.741" timestamp="1587968716298" />
+    <state width="934" height="218" key="GridCell.Tab.1.center" timestamp="1587968716298">
+      <screen x="67" y="27" width="957" height="741" />
+    </state>
+    <state width="934" height="218" key="GridCell.Tab.1.center/67.27.957.741@67.27.957.741" timestamp="1587968716298" />
+    <state width="934" height="218" key="GridCell.Tab.1.left" timestamp="1587968716297">
+      <screen x="67" y="27" width="957" height="741" />
+    </state>
+    <state width="934" height="218" key="GridCell.Tab.1.left/67.27.957.741@67.27.957.741" timestamp="1587968716297" />
+    <state width="934" height="218" key="GridCell.Tab.1.right" timestamp="1587968716298">
+      <screen x="67" y="27" width="957" height="741" />
+    </state>
+    <state width="934" height="218" key="GridCell.Tab.1.right/67.27.957.741@67.27.957.741" timestamp="1587968716298" />
+    <state x="67" y="33" key="SettingsEditor" timestamp="1587968588904">
+      <screen x="67" y="27" width="957" height="741" />
+    </state>
+    <state x="67" y="33" key="SettingsEditor/67.27.957.741@67.27.957.741" timestamp="1587968588904" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -100,11 +184,6 @@
           <url>file://$PROJECT_DIR$/trainer/kaggle_bengali/resnet.py</url>
           <line>112</line>
           <option name="timeStamp" value="13" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/trainer/kaggle_bengali/dataset_pytorch.py</url>
-          <line>56</line>
-          <option name="timeStamp" value="14" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
